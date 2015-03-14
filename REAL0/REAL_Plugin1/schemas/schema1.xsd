@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="savedWorkspace" type="savedWorkspace"/>
+
+  <xs:complexType name="colorPersist">
+    <xs:sequence>
+      <xs:element name="red" type="xs:int" minOccurs="0"/>
+      <xs:element name="blue" type="xs:int" minOccurs="0"/>
+      <xs:element name="green" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="fontPersist">
+    <xs:sequence>
+      <xs:element name="fontName" type="xs:string" minOccurs="0"/>
+      <xs:element name="fontSize" type="xs:int" minOccurs="0"/>
+      <xs:element name="fontStyle" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="globalOOIPersist">
+    <xs:sequence>
+      <xs:element name="text" type="xs:string" minOccurs="0"/>
+      <xs:element name="style" type="textStylePersist" minOccurs="0"/>
+      <xs:element name="stringKeys" nillable="true" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="stringKeys" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="textStylePersist">
+    <xs:sequence>
+      <xs:element name="font" type="fontPersist" minOccurs="0"/>
+      <xs:element name="foreground" type="colorPersist" minOccurs="0"/>
+      <xs:element name="background" type="colorPersist" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="namedBookmarkPersist">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="startPos" type="xs:int" minOccurs="0"/>
+      <xs:element name="endPos" type="xs:int" minOccurs="0"/>
+      <xs:element name="stringKeys" nillable="true" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="stringKeys" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ooiPersist">
+    <xs:sequence>
+      <xs:element name="text" type="xs:string" minOccurs="0"/>
+      <xs:element name="style" type="textStylePersist" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="persistUtil">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="replaceParamKeyPersist">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="replaceParamPersist">
+    <xs:sequence>
+      <xs:element name="valueType" type="replaceParamValueTypePersist" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="replaceNames" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="value" type="xs:anyType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="savedWorkspace">
+    <xs:sequence>
+      <xs:element name="savedTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="srPartStackInfo" type="searchResultPartStackInfo" minOccurs="0"/>
+      <xs:element name="globalOOIList" type="globalOOIPersist" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="searchResultPartStackInfo">
+    <xs:sequence>
+      <xs:element name="partsInfo" type="searchResultPartInfo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="searchResultPartInfo">
+    <xs:sequence>
+      <xs:element name="searchID" type="xs:string" minOccurs="0"/>
+      <xs:element name="searchTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="searchObjectName" type="xs:string" minOccurs="0"/>
+      <xs:element name="searchObjectGroup" type="searchObjectGroupPersist" minOccurs="0"/>
+      <xs:element name="partLabel" type="xs:string" minOccurs="0"/>
+      <xs:element name="partIconURI" type="xs:string" minOccurs="0"/>
+      <xs:element name="caretPos" type="xs:int" minOccurs="0"/>
+      <xs:element name="selectedIndex" type="xs:int" minOccurs="0"/>
+      <xs:element nillable="true" name="searchObjectTags">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element nillable="true" name="customReplaceTable">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="replaceParamKeyPersist"/>
+                  <xs:element name="value" minOccurs="0" type="replaceParamPersist"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="currentSearchInfos" nillable="true" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="currentSearchInfos" type="searchResultCurrentInfo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="localOOI" nillable="true" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="localOOI" type="ooiPersist" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="localBookmarks" nillable="true" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="localBookmarks" type="namedBookmarkPersist" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="searchObjectGroupPersist">
+    <xs:sequence>
+      <xs:element name="pathElements" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="searchResultCurrentInfo">
+    <xs:sequence>
+      <xs:element name="searchID" type="xs:string" minOccurs="0"/>
+      <xs:element name="searchTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="searchObjectName" type="xs:string" minOccurs="0"/>
+      <xs:element name="searchObjectGroup" type="searchObjectGroupPersist" minOccurs="0"/>
+      <xs:element name="tabTitle" type="xs:string" minOccurs="0"/>
+      <xs:element name="selectedIndex" type="xs:int" minOccurs="0"/>
+      <xs:element nillable="true" name="searchObjectTags">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element nillable="true" name="customReplaceTable">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="replaceParamKeyPersist"/>
+                  <xs:element name="value" minOccurs="0" type="replaceParamPersist"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="replaceParamValueTypePersist">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INTEGER"/>
+      <xs:enumeration value="DATE"/>
+      <xs:enumeration value="STRING"/>
+      <xs:enumeration value="BOOLEAN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

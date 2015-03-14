@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" strict="true" name="REALLog">
+	<Properties>
+		<Property name="filename">Test.log</Property>
+	</Properties>
+
+	<Appenders>
+		<Appender type="Console" name="STDOUT">
+			<Layout type="PatternLayout" pattern="%d{ISO8601} [%t] %-5p %C - %m%n" />
+		</Appender>
+		<RollingFile name="RollingFile" fileName="logs/Test.log"
+				filePattern="logs/Test-%d{yyyy-MM-dd}-%i.log.zip" ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern>%d{ISO8601} [%t] %-5p %C - %m%n</Pattern>
+			</PatternLayout>
+			<SizeBasedTriggeringPolicy size="30 MB" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="org.eclipselabs.real.core.util.KeyedObjectRepositoryImpl" level="warn"
+			additivity="false">
+			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+
+		<Logger name="org.eclipselabs.real.core.searchobject.SearchObjectRepositoryImpl" level="warn"
+			additivity="false">
+			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+		<Logger name="org.eclipselabs.real" level="debug"
+			additivity="false">
+			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+
+		<Root level="error">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+
+</Configuration>

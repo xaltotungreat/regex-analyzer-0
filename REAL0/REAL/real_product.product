@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="REAL" id="REAL_Plugin1.REAL1" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="0.7" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-clearPersistedState
+      </programArgs>
+      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Dlog4j.configurationFile=config/log4j2.xml -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=2 -XX:+UseG1GC
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="/REAL_Plugin1/icons/16x16/system-search-4.png" i32="/REAL_Plugin1/icons/32x32/system-search-4.png" i48="/REAL_Plugin1/icons/48x48/system-search-4.png" i64="/REAL_Plugin1/icons/64x64/system-search-4.png" i128="/REAL_Plugin1/icons/128x128/system-search-4.png"/>
+
+   <launcher name="REAL">
+      <solaris/>
+      <win useIco="false">
+         <bmp
+            winSmallHigh="/REAL_Plugin1/icons/16x16/system-search-4.bmp"
+            winMediumHigh="/REAL_Plugin1/icons/32x32/system-search-4.bmp"
+            winLargeHigh="/REAL_Plugin1/icons/48x48/system-search-4.bmp"/>
+      </win>
+   </launcher>
+
+   <vm>
+      <linux include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</linux>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="REAL_Feature" version="1.0.0.qualifier"/>
+   </features>
+
+
+</product>

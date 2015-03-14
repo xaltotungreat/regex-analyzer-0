@@ -1,0 +1,2426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui_config>
+	<search_object_tree>
+		<template name="global" expanded="true">
+			<selector name="global Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal\Z</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex>
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+						<sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Date_Time</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+						<sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Regex</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CCMM_EmailManager" expanded="true">
+			<selector name="CCMM_EmailManager Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_EmailManager(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CCMM_EmailManager Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_EmailManager(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CCMM_MCMClient" expanded="true">
+			<selector name="CCMM_MCMClient Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_MCMClient(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CCMM_MCMClient Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_MCMClient(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CCMM_StarterService" expanded="true">
+			<selector name="CCMM_StarterService Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_StarterService(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CCMM_StarterService Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_StarterService(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CCMM_OAMClient" expanded="true">
+			<selector name="CCMM_OAMClient Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_OAMClient(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CCMM_OAMClient Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_OAMClient(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_SipSp" expanded="true">
+			<selector name="SGM_SipSp Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipSp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="SGM_SipSp Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipSp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_AmlSp" expanded="true">
+			<selector name="SGM_AmlSp Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_AmlSp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="AmlSp Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_AmlSp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_SipMessages" expanded="true">
+			<selector name="SGM_SipMessages Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipMessages(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="SGM_SipMessages Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipMessages(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_TapidMessages" expanded="true">
+			<selector name="SGM_TapidMessages Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_TapidMessages(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="SGM_TapidMessages Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_TapidMessages(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_XMPP_Service" expanded="true">
+			<selector name="SGM_XMPP_Service Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_XMPP_Service(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="SGM_XMPP_Service Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_XMPP_Service(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_XMPPMessages" expanded="true">
+			<selector name="SGM_XMPPMessages Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_XMPPMessages(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="SGM_XMPPMessages Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_XMPPMessages(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CMF_OAM/SP" expanded="true">
+			<selector name="CMF_OAM/SP Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CMF_OAM(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CMF_OAM Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CMF_OAM(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">ALL</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CMF_OAM32" expanded="true">
+			<selector name="CMF_OAM32 Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CMF_OAM32(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CMF_OAM32 Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CMF_OAM32(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="ASM" expanded="true">
+			<selector name="ASM Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.ASM(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="ASM Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.ASM(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CCT_SERVER" expanded="true">
+			<selector name="CCT_SERVER Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCT_SERVER(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CCT_SERVER Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCT_SERVER(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="AML" expanded="true">
+			<selector name="AML Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.AML(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="AML Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.AML(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_SipSpCpp" expanded="true">
+			<selector name="SGM_SipSpCpp Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipSpCpp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="SGM_SipSpCpp Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipSpCpp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="EB" expanded="true">
+			<selector name="EB Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.EB(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="EB Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.EB(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+						<sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Date_Time</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+						<sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Regex</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="SGM_SipRvCpp" expanded="true">
+			<selector name="SGM_SipRvCpp Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipRvCpp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="SGM_SipRvCpp Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.SGM_SipRvCpp(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CMF_OI" expanded="true">
+			<selector name="CMF_OI Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CMF_OI(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CMF_OI Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CMF_OI(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CC_CacheResiliency" expanded="true">
+			<selector name="CC_CacheResiliency Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CC_CacheResiliency(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CC_CacheResiliency Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CC_CacheResiliency(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="INTERVAL">
+					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				</iconSet>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+	</search_object_tree>
+	<gui_properties>
+		<gui_property name="TextReadOnly">true</gui_property>
+	</gui_properties>
+</gui_config>

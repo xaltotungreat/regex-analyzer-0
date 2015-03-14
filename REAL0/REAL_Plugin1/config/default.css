@@ -1,0 +1,55 @@
+.MPartStack {
+  swt-tab-renderer: null;
+  swt-selected-tabs-background: #FFFFFF #e1ddcf 100%;
+  swt-unselected-tabs-color: #FFFFFF #90a0aa 100%;
+  swt-simple: false;
+  swt-mru-visible: true;
+}
+
+.MPart:selected { font-weight: bold; }
+
+.CTabFolderLoadWS {
+  swt-tab-renderer: null;
+  swt-selected-tabs-background: #FFFFFF #e1ddcf 100%;
+  swt-unselected-tabs-color: #FFFFFF #90a0aa 100%;
+  swt-simple: false;
+  swt-mru-visible: true;
+  font-size: 11;
+  font-family: "Segoe UI";
+}
+
+.CTabItemLoadWS {
+  font-size: 11;
+  font-family: "Segoe UI";
+}
+
+.CheckBoxWhite {
+  background-color: white;
+}
+
+Composite {
+  background-color: white;
+}
+CTabFolder {
+  swt-selected-tabs-background: #FFFFFF #deddd9 100%;
+  swt-unselected-tabs-color: #deddd9 #acaca9 100%;
+  swt-simple: true;
+  swt-mru-visible: true;
+}
+
+CTabItem:selected { font-weight: bold; }
+
+
+
+
+Button:active { font-weight: bold; }
+
+.SRStyledText {
+  font-size: 11;
+  font-family: "Courier New";
+}
+
+.SRStyledTable {
+  font-size: 11;
+  font-family: "Courier New";
+}

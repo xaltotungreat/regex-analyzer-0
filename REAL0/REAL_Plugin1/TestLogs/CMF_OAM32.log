@@ -1,0 +1,1849 @@
+2013-07-16 23:42:19,987 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - init():
+	 null null version[null]
+	 workingDir[C:\Windows\system32]
+	 propertyFile[D:\Avaya\CONTAC~1\COMMON~1\CMF/OAM32Logging.properties]
+	 Date[2013-07-16 23:42:19,986 MSK], Timestamp[1374003739986]
+2013-07-16 23:42:19,987 [main] INFO  OamBridge - Starting in SIP AVAYA Mode
+2013-07-16 23:42:19,989 [main] INFO  OamBridge - Setting CMF HighAvailabilityState to Active
+2013-07-16 23:42:19,996 [main] INFO  cmf.sp.PeerFactory - getPeer():peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl]
+2013-07-16 23:42:20,034 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - init():
+	 null null version[null]
+	 workingDir[C:\Windows\system32]
+	 propertyFile[D:\Avaya\CONTAC~1\COMMON~1\CMF/OAM32Logging.properties]
+	 Date[2013-07-16 23:42:20,33 MSK], Timestamp[1374003740033]
+2013-07-16 23:42:20,034 [main] INFO  com.nortelnetworks.portal.cmf.core.PeerFactory - getPeer(peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl], 
+	 hostname[null].
+2013-07-16 23:42:20,291 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init Gigapace Properties...
+2013-07-16 23:42:20,291 [main] INFO  cmf.core.util.SpaceUtil - com.gs.cluster.config-url  = D:\Avaya\CONTAC~1\COMMON~1\CMF\config\cluster-config.xml
+2013-07-16 23:42:20,291 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : com.gs.jini_lus.locators = null
+2013-07-16 23:42:20,291 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : java.rmi.server.hostname = null
+2013-07-16 23:42:20,292 [main] INFO  cmf.core.util.SpaceUtil - getCLanHostIPAddress()
+2013-07-16 23:42:20,292 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): reg cmd = reg query "HKLM\SOFTWARE\Wow6432Node\Nortel\Cache" /v LocalClan
+2013-07-16 23:42:20,385 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): 
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Nortel\Cache
+    LocalClan    REG_SZ    192.168.115.196
+
+
+2013-07-16 23:42:20,386 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): value = 192.168.115.196
+2013-07-16 23:42:20,388 [main] INFO  cmf.core.util.SpaceUtil - InetAddress.getLocalHost().getHostAddress() returning 192.168.115.196
+2013-07-16 23:42:20,388 [main] INFO  cmf.core.util.SpaceUtil - AFTER : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:42:20,388 [main] INFO  cmf.core.util.SpaceUtil - AFTER : java.rmi.server.hostname = null
+2013-07-16 23:42:20,388 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():com.nortel.app[oam]
+2013-07-16 23:42:20,389 [main] ERROR cmf.core.util.SpaceUtil - SPACEUTIL : MyInit()
+2013-07-16 23:42:20,578 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init CmfLogger...
+2013-07-16 23:42:20,589 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - init():
+	 null null version[null]
+	 workingDir[C:\Windows\system32]
+	 propertyFile[D:\Avaya\CONTAC~1\COMMON~1\CMF/OAM32Logging.properties]
+	 Date[2013-07-16 23:42:20,588 MSK], Timestamp[1374003740588]
+2013-07-16 23:42:20,589 [main] INFO  cmf.core.util.SpaceUtil - java.util.logging.config.file =null
+2013-07-16 23:42:20,591 [main] INFO  cmf.core.util.SpaceUtil - Spaceutil() _pingMechUrlMAP != null
+2013-07-16 23:42:20,591 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():Memory Counter is not Turned On
+2013-07-16 23:42:20,628 [main] INFO  cmf.core.util.SpaceUtil - Crtpto initialized
+2013-07-16 23:42:22,038 [main] INFO  cmf.core.util.SpaceUtil -  SpaceUtil():Initialised Started for NodeName[CCMS], Url[null].
+2013-07-16 23:42:22,050 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - 
+	 CmfProperties.init
+	 CCMS Hostname                = 192.168.115.196
+	 CCT Hostname                 = SGM-MBTCORES7
+	 ccmsAppName                  = CCMS
+	 ccmsAppPort                  = 8100
+	 highAvailabilityRole         = DEFAULT
+	 ccmIdInitialValue            = 1000000000
+	 requestTimeoutLease            = 0
+	 ccmsAppContactTTL            = 30000
+	 ccmsLandingPadTimeoutLease   = 20000
+	 maintainIntrinsicStoreLease   = 300000
+	 ccmsAgentFailAfterRouteTime  = 360000
+	 ccmsAgentFailAfterAnsTime    = 7500000
+	 ccmsMemoryCounter	      = No
+	 ccmsMemoryThreshold	      = 50
+	 ccmsLoggingPropertyFile      = OAMLogging.properties
+	 oambridgeLoggingPropertyFile = OAM32Logging.properties
+	 clientAppName                = CCT
+	 clientAppPort                = 8099
+	 clientAppLoggingPropertyFile = CtiLogging.properties
+	 spAppName                    = TAPI
+	 spAppPort                    = 8098
+	 spLoggingPropertyFile        = SpLogging.properties
+	 smmcAppLoggingPropertyFile   = D:/Avaya/Contact Center/Manager Server/CCSMMC/SystemController/config/log4j.properties
+2013-07-16 23:42:22,051 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - 
+	otalNumberOfOqApps          = 2
+2013-07-16 23:42:22,051 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - Open Queue App 1 : Name                  = CCMM
+	                   Logging Property File = OAMLogging.properties
+2013-07-16 23:42:22,051 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - Open Queue App 2 : Name                  = SAP
+	                   Logging Property File = OAMLogging.properties
+2013-07-16 23:42:22,051 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil()::startSpace[oam].
+2013-07-16 23:42:22,051 [main] INFO  cmf.core.util.SpaceUtil - com.gs.cluster.config-url  = D:\Avaya\CONTAC~1\COMMON~1\CMF\config\cluster-config.xml
+2013-07-16 23:42:22,051 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:42:22,051 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : java.rmi.server.hostname = null
+2013-07-16 23:42:22,051 [main] INFO  cmf.core.util.SpaceUtil - getCLanHostIPAddress()
+2013-07-16 23:42:22,051 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): reg cmd = reg query "HKLM\SOFTWARE\Wow6432Node\Nortel\Cache" /v LocalClan
+2013-07-16 23:42:22,092 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): 
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Nortel\Cache
+    LocalClan    REG_SZ    192.168.115.196
+
+
+2013-07-16 23:42:22,092 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): value = 192.168.115.196
+2013-07-16 23:42:22,094 [main] INFO  cmf.core.util.SpaceUtil - InetAddress.getLocalHost().getHostAddress() returning 192.168.115.196
+2013-07-16 23:42:22,094 [main] INFO  cmf.core.util.SpaceUtil - AFTER : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:42:22,094 [main] INFO  cmf.core.util.SpaceUtil - AFTER : java.rmi.server.hostname = null
+2013-07-16 23:42:22,105 [main] INFO  cmf.core.util.SpaceUtil - initSpaceUtil _pingMechUrlMAP != null
+2013-07-16 23:42:22,105 [main] INFO  cmf.core.util.SpaceUtil - initSpaceUtil apptype oam
+2013-07-16 23:42:22,108 [main] INFO  cmf.core.util.SpaceUtil - getRmiConfigProperty(): connection type[rmi], isRmi[true], discoveryTimout[36000000], rmiApp[true], appName[36000000], getConnectionType[null]
+2013-07-16 23:42:22,108 [main] INFO  cmf.core.util.SpaceUtil - createUrl(property[com.nortelnetworks.portal.cmf.core.util.CmfNodeConfigProperty@7cbde6], clusterNode[OAM])url[rmi://192.168.115.196:8100/OAMContainer/oam], HA Role[DEFAULT], rmiApp[true], currentTime[1374003742108]ms)
+2013-07-16 23:43:08,182 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfSpaceAdmin - waitForSpace(spaceUrl[rmi://192.168.115.196:8100/OAMContainer/oam, timeout[36000000])Found Space at URL [rmi://192.168.115.196:8100/OAMContainer/oam] in [46067]ms
+2013-07-16 23:43:08,182 [main] INFO  cmf.core.util.SpaceUtil - initSpaceUtil(appName[oam],userName[!cramU1+gate], password[****]):: space alive for spacename[oam], hostname[192.168.115.196
+2013-07-16 23:43:08,182 [main] INFO  cmf.core.util.SpaceUtil - url rmi://192.168.115.196:8100/OAMContainer/oam for node name CCMS
+2013-07-16 23:43:08,182 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():: An RMI connection to an existing space is being started.
+2013-07-16 23:43:08,182 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil()::spaceConfig.space()rmi://192.168.115.196:8100/OAMContainer/oam
+2013-07-16 23:43:08,261 [main] INFO  cmf.core.util.SpaceUtil - -----------GIGASPACE PROPERTIES-----------
+2013-07-16 23:43:08,261 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.nortel.cmf.config") = D:\Avaya\CONTAC~1\COMMON~1\CMF
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("java.util.logging.config.file") = null
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.security.enabled") = true
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.security.properties") = null
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.cluster.cluster_enabled") = true
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.cluster.config-url") = D:\Avaya\CONTAC~1\COMMON~1\CMF\config\cluster-config.xml
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.transport_protocol.lrmi.max-threads") = null
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.multicast.enabled") = null
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.jini_lus.locators") = 192.168.115.196
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - ------------------------------------------
+2013-07-16 23:43:08,262 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[null], getCcmIdStatus()[false], getListenersAddedStatus()[false], appType[oam]
+2013-07-16 23:43:08,420 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():ccmIdEntry already exists, replicatedCcmIdEntry[1000000000]
+2013-07-16 23:43:08,421 [main] INFO  cmf.core.util.SpaceUtil - JVM BIT property = x86
+2013-07-16 23:43:08,421 [main] WARN  cmf.core.util.SpaceUtil - setAccessDetails(): 32Bit JVM as part of a 64 bit set-up not adding listeners
+2013-07-16 23:43:08,428 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CMFMXBeanManager - register() : Registering com.nortelnetworks.portal.cmf.core.util:type=CMFManager MXBean
+2013-07-16 23:43:08,513 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CMFMXBeanManager - register() : Registering com.nortelnetworks.portal.cmf.core.util:type=SystemManager MXBean
+2013-07-16 23:43:08,515 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CMFMXBeanManager - register() : Registering com.nortelnetworks.portal.cmf.core.util:type=ListenerManager MXBean
+2013-07-16 23:43:08,525 [main] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:43:08,525 [main] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:43:08,526 [main] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:43:08,526 [main] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:08,526 [main] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:43:08,527 [main] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:43:08,527 [main] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:43:08,527 [main] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:43:08,527 [main] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:43:08,527 [main] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:43:08,527 [main] INFO  cmf.sp.PeerImpl - CMF version 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:08,532 [main] INFO  cmf.core.PeerBaseImpl - Creating a new Peer...
+2013-07-16 23:43:08,678 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[e4eb0895-e5ca-431a-939d-0c0ab5ffba6b]  className[com.nortelnetworks.portal.cmf.core.entry.HighAvailabilityStateEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:08,678 [main] WARN  cmf.core.util.SpaceUtil - setHighAvailabilityState(): set to Active
+2013-07-16 23:43:08,678 [main] INFO  OamBridge - Starting in Non HA active Mode
+2013-07-16 23:43:08,714 [main] INFO  OamBridge - Features
+
+2013-07-16 23:43:08,715 [main] INFO  OamBridge - --------
+
+2013-07-16 23:43:08,715 [main] INFO  OamBridge - OI OpenQ          : Enabled
+
+2013-07-16 23:43:08,715 [main] INFO  OamBridge - OI OpenNetworking : Enabled
+
+2013-07-16 23:43:08,715 [main] INFO  OamBridge - 
+
+2013-07-16 23:43:08,715 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init Gigapace Properties...
+2013-07-16 23:43:08,715 [main] INFO  cmf.core.util.SpaceUtil - com.gs.cluster.config-url  = D:\Avaya\CONTAC~1\COMMON~1\CMF\config\cluster-config.xml
+2013-07-16 23:43:08,715 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:43:08,715 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : java.rmi.server.hostname = null
+2013-07-16 23:43:08,715 [main] INFO  cmf.core.util.SpaceUtil - getCLanHostIPAddress()
+2013-07-16 23:43:08,715 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): reg cmd = reg query "HKLM\SOFTWARE\Wow6432Node\Nortel\Cache" /v LocalClan
+2013-07-16 23:43:08,774 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): 
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Nortel\Cache
+    LocalClan    REG_SZ    192.168.115.196
+
+
+2013-07-16 23:43:08,774 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): value = 192.168.115.196
+2013-07-16 23:43:08,775 [main] INFO  cmf.core.util.SpaceUtil - InetAddress.getLocalHost().getHostAddress() returning 192.168.115.196
+2013-07-16 23:43:08,775 [main] INFO  cmf.core.util.SpaceUtil - AFTER : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:43:08,775 [main] INFO  cmf.core.util.SpaceUtil - AFTER : java.rmi.server.hostname = null
+2013-07-16 23:43:08,775 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():com.nortel.app[oam]
+2013-07-16 23:43:08,775 [main] ERROR cmf.core.util.SpaceUtil - SPACEUTIL : MyInit()
+2013-07-16 23:43:08,775 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init CmfLogger...
+2013-07-16 23:43:08,796 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - init():
+	 null null version[null]
+	 workingDir[C:\Windows\system32]
+	 propertyFile[D:\Avaya\CONTAC~1\COMMON~1\CMF/OAM32Logging.properties]
+	 Date[2013-07-16 23:43:08,796 MSK], Timestamp[1374003788796]
+2013-07-16 23:43:08,797 [main] INFO  cmf.core.util.SpaceUtil - java.util.logging.config.file =null
+2013-07-16 23:43:08,797 [main] INFO  cmf.core.util.SpaceUtil - Spaceutil() _pingMechUrlMAP != null
+2013-07-16 23:43:08,797 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():Memory Counter is not Turned On
+2013-07-16 23:43:09,069 [main] INFO  com.nortel.soa.oi.ccms.CXFRunner - CXFRunner.run() : Trying to run CXF server(2.2.5)
+2013-07-16 23:43:09,078 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getCmfInstallDir : 
+2013-07-16 23:43:09,078 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getCmfInstallDir : attempting to get CCMS cmf directory
+2013-07-16 23:43:09,078 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getCCMSCmfLocation() : 
+2013-07-16 23:43:09,078 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getKeyValue() : 
+2013-07-16 23:43:09,078 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getKeyValue() : reg query "HKLM\Software\Nortel\Cmf\CCMS" /v CMF_Path
+2013-07-16 23:43:09,361 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getKeyValue() : 
+HKEY_LOCAL_MACHINE\Software\Nortel\Cmf\CCMS
+    CMF_Path    REG_SZ    D:\Avaya\CONTAC~1\COMMON~1\CMF\
+
+
+2013-07-16 23:43:09,361 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getKeyValue() : D:\Avaya\CONTAC~1\COMMON~1\CMF\
+2013-07-16 23:43:09,361 [main] INFO  com.nortel.soa.oi.cct.util.SoaConfigurationManager - getCmfInstallDir : setting cmfInstallDir to :D:\Avaya\CONTAC~1\COMMON~1\CMF\
+2013-07-16 23:43:09,361 [main] INFO  com.nortel.soa.oi.cct.util.SoaProperties - SoaProperties() : 
+2013-07-16 23:43:09,378 [main] INFO  com.nortel.soa.oi.cct.util.SoaProperties - endElement(String namespaceURL, String localName, String qname) : Call Recording user = , Domain = null
+2013-07-16 23:43:09,379 [main] INFO  com.nortel.soa.oi.cct.util.SoaProperties - SoaProperties() : propsFile = D:\Avaya\CONTAC~1\COMMON~1\CMF\config\SoaProperties.xml
+2013-07-16 23:43:09,379 [main] ERROR com.nortel.soa.oi.ccms.CXFRunner - CXFRunner.run() : Configuration Error - Soa Services not enabled : 
+2013-07-16 23:43:09,381 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init Gigapace Properties...
+2013-07-16 23:43:09,381 [main] INFO  cmf.core.util.SpaceUtil - com.gs.cluster.config-url  = D:\Avaya\CONTAC~1\COMMON~1\CMF\config\cluster-config.xml
+2013-07-16 23:43:09,381 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:43:09,381 [main] INFO  cmf.core.util.SpaceUtil - BEFORE : java.rmi.server.hostname = null
+2013-07-16 23:43:09,381 [main] INFO  cmf.core.util.SpaceUtil - getCLanHostIPAddress()
+2013-07-16 23:43:09,381 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): reg cmd = reg query "HKLM\SOFTWARE\Wow6432Node\Nortel\Cache" /v LocalClan
+2013-07-16 23:43:09,490 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): 
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Nortel\Cache
+    LocalClan    REG_SZ    192.168.115.196
+
+
+2013-07-16 23:43:09,490 [main] INFO  cmf.core.util.SpaceUtil - getKeyValue(): value = 192.168.115.196
+2013-07-16 23:43:09,501 [main] INFO  cmf.core.util.SpaceUtil - InetAddress.getLocalHost().getHostAddress() returning 192.168.115.196
+2013-07-16 23:43:09,501 [main] INFO  cmf.core.util.SpaceUtil - AFTER : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:43:09,501 [main] INFO  cmf.core.util.SpaceUtil - AFTER : java.rmi.server.hostname = null
+2013-07-16 23:43:09,502 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():com.nortel.app[oam]
+2013-07-16 23:43:09,502 [main] ERROR cmf.core.util.SpaceUtil - SPACEUTIL : MyInit()
+2013-07-16 23:43:09,502 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init CmfLogger...
+2013-07-16 23:43:09,506 [main] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - init():
+	 null null version[null]
+	 workingDir[C:\Windows\system32]
+	 propertyFile[D:\Avaya\CONTAC~1\COMMON~1\CMF/OAM32Logging.properties]
+	 Date[2013-07-16 23:43:09,506 MSK], Timestamp[1374003789506]
+2013-07-16 23:43:09,506 [main] INFO  cmf.core.util.SpaceUtil - java.util.logging.config.file =null
+2013-07-16 23:43:09,507 [main] INFO  cmf.core.util.SpaceUtil - Spaceutil() _pingMechUrlMAP != null
+2013-07-16 23:43:09,507 [main] INFO  cmf.core.util.SpaceUtil - SpaceUtil():Memory Counter is not Turned On
+2013-07-16 23:43:09,507 [main] INFO  cmf.sp.PeerFactory - getPeer():peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl]
+2013-07-16 23:43:09,507 [main] INFO  com.nortelnetworks.portal.cmf.core.PeerFactory - getPeer(peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl], 
+	 hostname[null].
+2013-07-16 23:43:09,507 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[null], getCcmIdStatus()[true], getListenersAddedStatus()[true], appType[oam]
+2013-07-16 23:43:09,536 [main] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:43:09,536 [main] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:43:09,536 [main] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:43:09,536 [main] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:09,537 [main] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:43:09,537 [main] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:43:09,537 [main] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:43:09,537 [main] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:43:09,537 [main] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:43:09,537 [main] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:43:09,537 [main] INFO  cmf.sp.PeerImpl - CMF version 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:09,537 [main] INFO  cmf.core.PeerBaseImpl - Creating a new Peer...
+2013-07-16 23:43:09,537 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[localhost], getCcmIdStatus()[true], getListenersAddedStatus()[true], appType[oam]
+2013-07-16 23:43:09,655 [main] WARN  cmf.core.util.SpaceUtil - setAccessDeatils() adding space proxy for host name localhost for url rmi://localhost:8100/OAMContainer/oam
+2013-07-16 23:43:09,804 [main] WARN  cmf.core.util.SpaceUtil - No Provider details to update
+2013-07-16 23:43:09,923 [main] WARN  cmf.core.util.SpaceUtil - No Provider details to update
+2013-07-16 23:43:10,272 [main] ERROR cmf.core.util.SpaceUtil - cleanout(providerId[null], providerName[ContactManager], txn[null]) 
+	 cmfEntryNameCount[1], 
+	 cmfEntryIdNameCount[1]
+	 baseEntryIdCount[0]
+	 semaphoreIdCount[0]
+	 Called on Date[2013-07-16 23:43:10,41 MSK], Timestamp[1374003790041].
+2013-07-16 23:43:10,334 [main] ERROR cmf.core.util.SpaceUtil - cleanout(providerId[null], providerName[ContactManager], txn[null]) 
+	 cmfEntryNameCount[0], 
+	 cmfEntryIdNameCount[0]
+	 baseEntryIdCount[0]
+	 semaphoreIdCount[0]
+	 Completed on Date[2013-07-16 23:43:10,41 MSK], Timestamp[1374003790041].
+2013-07-16 23:43:10,334 [main] INFO  CProviderProxy - cleanEntireSpace(): Must also clean out the SIP passive provider if one already exists
+2013-07-16 23:43:10,474 [main] WARN  cmf.core.util.SpaceUtil - No Provider details to update
+2013-07-16 23:43:10,474 [main] ERROR cmf.sp.PeerImpl - ERROR: No such Provider [Passive].
+2013-07-16 23:43:10,475 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[localhost], getCcmIdStatus()[false], getListenersAddedStatus()[true], appType[oam]
+2013-07-16 23:43:10,476 [main] INFO  cmf.sp.PeerFactory - getPeer():peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl]
+2013-07-16 23:43:10,476 [main] INFO  com.nortelnetworks.portal.cmf.core.PeerFactory - getPeer(peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl], 
+	 hostname[null].
+2013-07-16 23:43:10,476 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[null], getCcmIdStatus()[false], getListenersAddedStatus()[true], appType[oam]
+2013-07-16 23:43:10,507 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[72c9f61a-f180-4684-90c8-6fdf07c6e380]  className[com.nortelnetworks.portal.cmf.core.entry.CcmIdEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:10,507 [main] INFO  cmf.core.util.SpaceUtil - writeCcmId() writing new CcmIdEntry with id 72c9f61a-f180-4684-90c8-6fdf07c6e380 and value + 1000000000
+2013-07-16 23:43:10,507 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():Wrote a new  ccmIdEntry.
+2013-07-16 23:43:10,509 [main] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:43:10,510 [main] INFO  cmf.sp.PeerImpl - CMF version 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:10,510 [main] INFO  cmf.core.PeerBaseImpl - Creating a new Peer...
+2013-07-16 23:43:10,512 [main] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:43:10,512 [main] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:43:10,512 [main] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:43:10,512 [main] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:10,512 [main] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:43:10,512 [main] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:43:10,512 [main] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:43:10,513 [main] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:43:10,513 [main] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:43:10,513 [main] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:43:10,513 [main] INFO  CProviderProxy - Create Passive provider in Passive mode
+2013-07-16 23:43:10,513 [main] INFO  cmf.sp.PeerImpl - 
+	 createProvider.
+	 Provider Name       = Passive;
+	 Provider Mode         = Passive
+2013-07-16 23:43:10,627 [main] WARN  cmf.core.util.SpaceUtil - No Provider details to update
+2013-07-16 23:43:10,921 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[c891fab1-ae70-451a-9b21-de9190e36047]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:11,068 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[35e6e486-9f8a-47c1-bbee-83a848f01036]  className[com.nortelnetworks.portal.cmf.core.entry.AddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:11,071 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[05cae5b6-180d-4108-8bb7-acb5141e79c5]  className[com.nortelnetworks.portal.cmf.core.entry.AddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:11,183 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[91fae9ec-1476-4d28-8f6f-ea64b0d577a9]  className[com.nortelnetworks.portal.cmf.core.entry.TerminalCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:11,340 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[d290196d-29d7-4caf-8dd6-38edb550c41f]  className[com.nortelnetworks.portal.cmf.core.entry.ContactCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:11,489 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[6f5f8422-bc2c-4797-8364-87ebba9f378c]  className[com.nortelnetworks.portal.cmf.core.entry.ConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:11,643 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[f4683bf6-9449-422e-ab22-842a8bbe7215]  className[com.nortelnetworks.portal.cmf.core.entry.TerminalConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:11,922 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[1f3da8b7-8a7d-4dc4-8074-1e63a4405ed5]  className[com.nortelnetworks.portal.cmf.core.entry.AgentTerminalCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:12,044 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[48c1e0bb-b8fb-40c6-a9dc-1b8dd486a1a0]  className[com.nortelnetworks.portal.cmf.core.entry.AgentTerminalConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:12,278 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[c51ac02b-7172-4ba9-a742-6c6f2cb80a89]  className[com.nortelnetworks.portal.cmf.core.entry.RoutePointConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:12,605 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[a2c12770-74f7-416c-a5cf-f068ad6abc1d]  className[com.nortelnetworks.portal.cmf.core.entry.RoutePointAddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:12,887 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[8ce323d1-1252-4ad4-bdaa-bb521a1db47d]  className[com.nortelnetworks.portal.cmf.core.entry.LandingPadAddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:12,923 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:12,937 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]  className[com.nortelnetworks.portal.cmf.core.entry.SemaphoreEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:12,941 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[OOPdbe4ac48-410e-42ff-8535-a8cdec4e3adc]  className[com.nortelnetworks.portal.cmf.core.entry.SemaphoreEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:13,065 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[b97c6fd3-d7da-4bc3-b39e-6854ae572a91]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderSentryEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:13,066 [main] INFO  cmf.sp.PeerImpl - [Ignore]Created Sentry for providerName[Passive], providerId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc], token[null], type [This provider put In Service for first time] - typically indicates a startup or restart.
+2013-07-16 23:43:13,166 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[443d63f4-af95-449b-9fc7-8b7fa13c56e9]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderListenerPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:13,167 [main] INFO  cmf.sp.PeerImpl - 
+	 ProviderCreated
+	 ProviderName       = Passive
+	 ProviderId         = dbe4ac48-410e-42ff-8535-a8cdec4e3adc
+2013-07-16 23:43:13,167 [main] INFO  cmf.sp.ProviderImpl - 
+	sp.Provider.setProtocol(). Setting protocol to [SIP] for provider [Passive], id [dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+2013-07-16 23:43:13,179 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:13,386 [main] INFO  CProviderProxy - Setting Passive Provider Default DN value=DefaultDN@avaya.com)
+2013-07-16 23:43:13,491 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderEntry]
+	 lease[9223372036854775807]
+	 container[OAMContainer]
+2013-07-16 23:43:13,707 [main] INFO  cmf.sp.PeerFactory - getPeer():peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl]
+2013-07-16 23:43:13,707 [main] INFO  com.nortelnetworks.portal.cmf.core.PeerFactory - getPeer(peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl], 
+	 hostname[null].
+2013-07-16 23:43:13,707 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[null], getCcmIdStatus()[true], getListenersAddedStatus()[true], appType[oam]
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:43:14,027 [main] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:43:14,028 [main] INFO  cmf.sp.PeerImpl - CMF version 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:14,028 [main] INFO  cmf.core.PeerBaseImpl - Creating a new Peer...
+2013-07-16 23:43:14,028 [main] INFO  CProviderProxy - Create CCMM provider in Active mode
+2013-07-16 23:43:14,028 [main] INFO  cmf.sp.PeerImpl - 
+	 createProvider.
+	 Provider Name       = CCMM;
+	 Provider Mode         = Active
+2013-07-16 23:43:14,208 [main] WARN  cmf.core.util.SpaceUtil - No Provider details to update
+2013-07-16 23:43:14,212 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[50b36e05-3225-45d0-a897-b67713e84426]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,218 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[7ee4bbf1-162f-413f-a3fa-1e95daba4c92]  className[com.nortelnetworks.portal.cmf.core.entry.AddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,221 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[db93b140-165e-40f5-b417-83500d468b06]  className[com.nortelnetworks.portal.cmf.core.entry.AddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,245 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[5b4f6a4e-1eb2-4248-896b-75be7e702a5b]  className[com.nortelnetworks.portal.cmf.core.entry.TerminalCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,248 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[3dbba2e7-699b-4213-9250-9dd2fdf17d1b]  className[com.nortelnetworks.portal.cmf.core.entry.ContactCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,252 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[2389710a-7c9d-46d2-a4a1-e65dc57b9663]  className[com.nortelnetworks.portal.cmf.core.entry.ConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,255 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[713e7991-6571-4a8c-95e8-0c478a0db7a3]  className[com.nortelnetworks.portal.cmf.core.entry.TerminalConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,259 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[9f2e7bf5-b8c7-4d71-97bf-32e78bbc3733]  className[com.nortelnetworks.portal.cmf.core.entry.AgentTerminalCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,267 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[3fde8de5-ebb5-4dae-9899-1edf05f39fc0]  className[com.nortelnetworks.portal.cmf.core.entry.AgentTerminalConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,271 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[c672600f-034e-472c-a9cd-e1cd01c982bd]  className[com.nortelnetworks.portal.cmf.core.entry.RoutePointConnectionCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,274 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[baf750ac-f8f0-4a90-849a-85e6ef66da1c]  className[com.nortelnetworks.portal.cmf.core.entry.RoutePointAddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,283 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[f90e9d3c-bfc0-492c-831d-b2b36ccfded7]  className[com.nortelnetworks.portal.cmf.core.entry.LandingPadAddressCapabilitiesStaticEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,287 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[6e10d451-37c7-4484-9667-951c835d615e]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,297 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[6e10d451-37c7-4484-9667-951c835d615e]  className[com.nortelnetworks.portal.cmf.core.entry.SemaphoreEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,300 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[OOP6e10d451-37c7-4484-9667-951c835d615e]  className[com.nortelnetworks.portal.cmf.core.entry.SemaphoreEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,303 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[7623efaa-1401-414f-9c73-6597fbb440c5]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderSentryEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,303 [main] INFO  cmf.sp.PeerImpl - [Ignore]Created Sentry for providerName[CCMM], providerId[6e10d451-37c7-4484-9667-951c835d615e], token[null], type [This provider put In Service for first time] - typically indicates a startup or restart.
+2013-07-16 23:43:14,305 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[1cccc914-f831-42c3-82a7-7fae71e120f5]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderListenerPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,306 [main] INFO  cmf.sp.PeerImpl - 
+	 ProviderCreated
+	 ProviderName       = CCMM
+	 ProviderId         = 6e10d451-37c7-4484-9667-951c835d615e
+2013-07-16 23:43:14,314 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type EMail to provider CCMM
+2013-07-16 23:43:14,815 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:14,860 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:14,865 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Outbound to provider CCMM
+2013-07-16 23:43:14,878 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:14,886 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Text_Chat to provider CCMM
+2013-07-16 23:43:14,975 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:15,558 [main] WARN  cmf.core.ProviderBaseImpl - getLatestProviderVersion() for provider CCMM took 583 milliseconds to execute
+2013-07-16 23:43:15,558 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Web_Communications to provider CCMM
+2013-07-16 23:43:15,590 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:15,771 [main] WARN  cmf.core.ProviderBaseImpl - getLatestProviderVersion() for provider CCMM took 181 milliseconds to execute
+2013-07-16 23:43:15,771 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type OpenQ to provider CCMM
+2013-07-16 23:43:15,833 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:15,865 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Predictive_Outbound to provider CCMM
+2013-07-16 23:43:15,874 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:15,876 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Fax to provider CCMM
+2013-07-16 23:43:15,898 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:15,917 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Voice_Mail to provider CCMM
+2013-07-16 23:43:16,070 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:16,072 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type SMS to provider CCMM
+2013-07-16 23:43:16,081 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:16,083 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Scanned_Document to provider CCMM
+2013-07-16 23:43:16,088 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e3ffd88a-f1be-4cd3-abcc-3c0045266d97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:16,091 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Voice to provider Passive
+2013-07-16 23:43:16,094 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[72109dc8-ff67-4866-be87-957f40d1d669]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:16,096 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[72109dc8-ff67-4866-be87-957f40d1d669]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:16,099 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type Video to provider Passive
+2013-07-16 23:43:16,103 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[72109dc8-ff67-4866-be87-957f40d1d669]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:16,106 [main] INFO  cmf.core.ProviderBaseImpl - Adding contact type IM to provider Passive
+2013-07-16 23:43:16,112 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[72109dc8-ff67-4866-be87-957f40d1d669]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderContactTypePropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:16,112 [main] INFO  OamBridge - Passive provider found successfully.
+2013-07-16 23:43:16,112 [main] INFO  OamBridge - CCMM provider found successfully.
+2013-07-16 23:43:16,112 [main] INFO  OamBridge - Providers created succesfully sleeping for 5 seconds
+2013-07-16 23:43:21,116 [main] INFO  cmf.sp.PeerFactory - getPeer():peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl]
+2013-07-16 23:43:21,116 [main] INFO  com.nortelnetworks.portal.cmf.core.PeerFactory - getPeer(peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl], 
+	 hostname[null].
+2013-07-16 23:43:21,116 [main] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[null], getCcmIdStatus()[true], getListenersAddedStatus()[true], appType[oam]
+2013-07-16 23:43:21,185 [main] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:43:21,185 [main] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:43:21,185 [main] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:43:21,185 [main] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:21,185 [main] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:43:21,186 [main] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:43:21,186 [main] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:43:21,186 [main] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:43:21,186 [main] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:43:21,186 [main] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:43:21,186 [main] INFO  cmf.sp.PeerImpl - CMF version 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:21,186 [main] INFO  cmf.core.PeerBaseImpl - Creating a new Peer...
+2013-07-16 23:43:21,190 [main] INFO  cmf.core.PeerBaseImpl - 
+	 Adding ServiceProviderStatusListener to peer.
+	 PeerName                   = com.nortelnetworks.portal.cmf.core.PeerBaseImpl
+	 ListenerId                 = 3cfa125d-eb41-4f99-9d60-f77510a5c076
+	 Listener Class             = com.nortelnetworks.portal.cmf.core.listener.ServiceProviderStatusListenerNoAbstract
+2013-07-16 23:43:21,190 [main] INFO  cmf.core.PeerBaseImpl - Provider String = CCMM
+2013-07-16 23:43:21,191 [main] INFO  cmf.core.PeerBaseImpl - VoicePeer:parseProviderString; Found Service Name = CCMM
+2013-07-16 23:43:21,399 [main] INFO  com.nortelnetworks.portal.cmf.core.ProviderListenerControllerImpl - 
+	 Adding listener to provider.
+	 ListenerId               = 8d4b0034-bf96-4caf-a236-29e19d846acf
+	 Listener Class           = com.nortelnetworks.portal.cmf.core.listener.TerminalStateChangeListenerNoAbstract
+	 ProviderId               = dbe4ac48-410e-42ff-8535-a8cdec4e3adc
+2013-07-16 23:43:21,445 [main] INFO  com.nortelnetworks.portal.cmf.core.listener.TerminalStateChangeListener - registerNotification():TerminalStateChange
+	 notifiedTerminalId[null]
+2013-07-16 23:43:21,449 [main] INFO  cmf.sp.ProviderImpl - 
+	 addListener(StateChangeListener):added
+	 providerName[Passive]
+	 providerId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 listenerId[8d4b0034-bf96-4caf-a236-29e19d846acf]
+	 listenerClass[com.nortelnetworks.portal.cmf.core.listener.TerminalStateChangeListenerNoAbstract]
+2013-07-16 23:43:21,450 [main] INFO  AgentData - Reading OAM Agent Data
+2013-07-16 23:43:21,450 [Thread-30] INFO  OamBridge - poolingThreadProc() started
+2013-07-16 23:43:22,456 [Thread-30] INFO  cmf.sp.PeerFactory - getPeer():peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl]
+2013-07-16 23:43:22,456 [Thread-30] INFO  com.nortelnetworks.portal.cmf.core.PeerFactory - getPeer(peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl], 
+	 hostname[null].
+2013-07-16 23:43:22,457 [Thread-30] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[null], getCcmIdStatus()[true], getListenersAddedStatus()[true], appType[oam]
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:43:22,529 [Thread-30] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:43:22,530 [Thread-30] INFO  cmf.sp.PeerImpl - CMF version 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:43:22,530 [Thread-30] INFO  cmf.core.PeerBaseImpl - Creating a new Peer...
+2013-07-16 23:43:22,786 [Thread-30] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[dbf0792d-5ad4-4a61-aa75-033a16c1c2f4]  className[com.nortelnetworks.portal.cmf.core.entry.ContactManagerEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:22,794 [Thread-30] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[447e741d-23ff-4da4-9c88-0aeb55967d82]  className[com.nortelnetworks.portal.cmf.core.entry.ProviderSentryEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:22,796 [Thread-30] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[dbf0792d-5ad4-4a61-aa75-033a16c1c2f4]  className[com.nortelnetworks.portal.cmf.core.entry.SemaphoreEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:22,797 [Thread-30] INFO  cmf.core.util.SpaceUtil - [Ignore]Created Sentry for providerName[ContactManager], providerId[dbf0792d-5ad4-4a61-aa75-033a16c1c2f4], token[null], type [This provider put In Service for first time] - typically indicates a startup or restart.
+2013-07-16 23:43:22,846 [Thread-30] INFO  cmf.core.ProviderBaseImpl - setMasterStatus(): writing new sentry entry [22604787-4c31-46e3-98d5-b8694ef845e5] for provider [ContactManager]. Status [This provider put In Service for first time] - indicates a restart.
+2013-07-16 23:43:22,951 [Thread-30] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[54f495f3-57db-471b-b86e-a2cb1beebea3]  className[com.nortelnetworks.portal.cmf.core.entry.ListenerPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:23,058 [main] INFO  AgentData - Got back 6 Agents from Oam.
+2013-07-16 23:43:23,058 [main] INFO  AgentData - ::setGlobalAgentGreetingSettings(): start reading Global Agent Greeting Settings from OAM
+2013-07-16 23:43:23,139 [main] INFO  AgentData - ::setGlobalAgentGreetingSettings(): finish reading Global Agent Greeting Settings from OAM
+2013-07-16 23:43:23,139 [main] INFO  AgentData - ::setGlobalAgentGreetingSettings(): start adding Global Agent Greeting Settings to CMF
+2013-07-16 23:43:23,139 [main] INFO  AgentData - ::setGlobalAgentGreetingSettings() - Enabling Agent Greeting feature
+2013-07-16 23:43:23,201 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[a7399a2c-f254-4dfd-8bda-1db8f5ebc8bf]  className[com.nortelnetworks.portal.cmf.core.entry.AgentGreetingGlobalEnabledPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:23,202 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - setAgentGreetingGlobalEnabled - Added AgentGreeting global enabled property setting [true].
+2013-07-16 23:43:23,204 [main] INFO  AgentData - ::setGlobalAgentGreetingSettings() - Enabling MuteAgent during AgentGreetingPlayback feature
+2013-07-16 23:43:23,433 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[47ba4f18-c4e7-406a-825d-9a66b3ac1a46]  className[com.nortelnetworks.portal.cmf.core.entry.AgentGreetingGlobalMutePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:23,434 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - setAgentGreetingGlobalMute - Added Mute Agent during AgentGreeting playback global property setting [true].
+2013-07-16 23:43:23,436 [main] INFO  cmf.sp.ContactManager - setAgentGreetingGlobalSettings():
+	 agentNoGreetingWarningTone[false]
+	 agentTUIPromptLanguage[200]
+	 canInterruptAgentGreeting[false]
+	 mediaServerUsedForAgentGreeting[Mas]
+	 maxAllowedGreetingLength[30]
+	 TODGreetingsEnabled[false]
+	 TOD24HrMorningStartTime[0]
+	 TOD24HrAfternoonStartTime[0]
+	 TOD24HrEveningStartTime[0]
+	 AgentGreetingPlaybackPos[BEFORE_MAIN_GREETING]
+2013-07-16 23:43:23,535 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[0ac4da89-1ce9-44b5-b75a-349aff1fecef]  className[com.nortelnetworks.portal.cmf.core.entry.AgentGreetingGlobalSettingsPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:23,535 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - setAgentGreetingGlobalSettingsProperty - Added AgentGreeting global settings property
+2013-07-16 23:43:23,542 [main] INFO  AgentData - ::setGlobalAgentGreetingSettings() - Finish: adding Global Agent Greeting Settings to CMF
+2013-07-16 23:43:23,542 [main] INFO  AgentData - start: Adding individual agents
+2013-07-16 23:43:23,542 [main] INFO  AgentData - Have 6 Agents to add
+2013-07-16 23:43:23,542 [main] INFO  AgentData - Adding agent numbere 1
+2013-07-16 23:43:23,611 [main] INFO  NIOAMB_clAgentInformation - ::setSipURIs() - Number of uris: 1
+2013-07-16 23:43:23,612 [main] INFO  AgentData - Adding agent number 1 of 6, with id: 0-0-0-1
+2013-07-16 23:43:23,612 [main] INFO  AgentData - addMultiple() - Pure Supervisor
+	 Agent details: 
+	 type                : Pure Supervisor
+	 id                  : 9999
+	 supervisor Login Id : 0
+	 firstName           : Default
+	 last_name           : Supervisor
+	 comment             : Default Supervisor for SOA
+	 template ID         : 1
+	 diplayTemplateId    : 1
+	 phoneSertLoginId    : 0
+	 hasSkillsets        : FALSE
+	 isSupervisor        : TRUE
+	 position_id         : 0
+	 cti enabled         : false
+2013-07-16 23:43:23,672 [main] INFO  AgentData - ::addAgentTemplate()
+	 Template details: 
+	 Template Id                  : 1
+	 Template Name                : Call_Centre_Administrator
+	 union_break_timer            : 0
+	 call_force_option            : FALSE
+	 call_force_delay_timer       : 0
+	 return_to_queue_on_no_answer : TRUE
+	 return_to_queue_wait_interval: 18
+	 return_to_queue_mode         : 2
+	 alternate_call_answer        : TRUE
+	 telset_show_reserve          : TRUE
+	 emergency_on_screen          : FALSE
+	 emergency_audible            : FALSE
+2013-07-16 23:43:23,685 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[e9b546e3-a26d-4519-9f01-e77cda6904ea]  className[com.nortelnetworks.portal.cmf.core.entry.AgentTemplateEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:23,687 [main] INFO  cmf.sp.ContactManager - addAgentTemplate():]
+	 agentTemplate[e9b546e3-a26d-4519-9f01-e77cda6904ea]
+	 alternateCallAnswer[true]
+	 callForceDelayTimer[0]
+	 callForceOption[false]
+	 emergencyAudible[false]
+	 emergencyOnScreen[false]
+	 returnToQueueMode[2]
+	 returnToQueueOnNoAnswer[true]
+	 returnToQueueWaitInterval[18000]
+	 telsetShowReserve[true]
+	 templateId[1]
+	 templateName[Call_Centre_Administrator]
+2013-07-16 23:43:23,687 [main] INFO  AgentData - Adding supervisor with id: 0-0-0-1
+2013-07-16 23:43:23,687 [main] INFO  AgentData - Adding Pure Supervisor in space
+2013-07-16 23:43:23,773 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - addAgent() - Added Agent Information [AgentInformationImpl:_adminUserId=0-0-0-1_adminLocalUserId=9999_templateId=1_positionId=null,_tnNamenull,_changeId=null,_sortKey=null_displayTemplate=null_hasSkillsets=null,_hasPrimariesnull,_hasSecondaries=null,_referedByTf=null,_referedByTfv=null,_viewScope=null,_personalDn=null,_secondaryDn=null,_state=null,_primeId=null,_offsiteAllowed=null,_offSiteMode=null,_offSitePhone1=null,_offSitePhone2=null,_offsiteAlternatePhoneAllowed=null].
+2013-07-16 23:43:23,897 [main] INFO  cmf.sp.ContactManager - addSupervisor():]
+	 agentId[fe5b468f-6cf4-4487-a0d8-f91c346206a7]
+	 firstName[Default]
+	 lastName[Supervisor]
+	 adminUserId[0-0-0-1]
+	 localAdminUserId[9999]
+	 phoneSetLoginId[0]
+	 sipImUri[null]
+	 sipVoiceUri[sip:9999999999@defaultsupervisor.com]
+	 sipCtiUri[null]
+	 sipCtiEnabled[0]
+	 templateId[1]
+2013-07-16 23:43:23,897 [main] INFO  AgentData - Adding Supervisor
+	 details: 
+	 First Name              : Default
+	 last Name              : Default
+	 UserID            : 0-0-0-1
+	 local user id     : 9999
+	 phone set login id : 0
+2013-07-16 23:43:23,942 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[d453bf2d-6a4b-4e92-be8d-82bb6e057b97]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentInformationAgentPropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:23,975 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[fe5b468f-6cf4-4487-a0d8-f91c346206a7]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentEntry]
+	 lease[9223372036854775807]
+	 container[OAMContainer]
+2013-07-16 23:43:24,040 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[fcf390df-b696-42bd-98fc-67d99ab13636]  className[com.nortelnetworks.portal.cmf.core.entry.AgentUpdateAgentPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,041 [main] INFO  AgentData - Adding agent numbere 2
+2013-07-16 23:43:24,117 [main] INFO  NIOAMB_clAgentInformation - ::setSipURIs() - Number of uris: 1
+2013-07-16 23:43:24,118 [main] INFO  AgentData - Adding agent number 2 of 6, with id: 0-0-0-2
+2013-07-16 23:43:24,118 [main] INFO  AgentData - addMultiple() - Agent
+	 Agent details: 
+	 type                : Agent
+	 id                  : 9998
+	 supervisor Login Id : 9999
+	 firstName           : Default
+	 last_name           : Agent
+	 comment             : Default Agent for MM
+	 template ID         : 1
+	 diplayTemplateId    : 1
+	 phoneSertLoginId    : 9999999999999999
+	 hasSkillsets        : TRUE
+	 isSupervisor        : FALSE
+	 position_id         : 0
+	 cti enabled         : false
+2013-07-16 23:43:24,128 [main] INFO  AgentData - Adding agent with id: 0-0-0-2
+2013-07-16 23:43:24,128 [main] INFO  AgentData - ::addAgent() - Adding Agent in space
+2013-07-16 23:43:24,147 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - addAgent() - Added Agent Information [AgentInformationImpl:_adminUserId=0-0-0-2_adminLocalUserId=9998_templateId=1_positionId=null,_tnNamenull,_changeId=null,_sortKey=null_displayTemplate=null_hasSkillsets=null,_hasPrimariesnull,_hasSecondaries=null,_referedByTf=null,_referedByTfv=null,_viewScope=null,_personalDn=null,_secondaryDn=null,_state=null,_primeId=null,_offsiteAllowed=false,_offSiteMode=ON_DEMAND,_offSitePhone1=,_offSitePhone2=,_offsiteAlternatePhoneAllowed=false].
+2013-07-16 23:43:24,161 [main] INFO  cmf.sp.ContactManager - addAgent():]
+	 agentId[eb53b92d-1f53-4305-8131-a077a9177984]
+	 firstName[Default]
+	 lastName[Agent]
+	 adminUserId[0-0-0-2]
+	 localAdminUserId[9998]
+	 phoneSetLoginId[9999999999999999]
+	 sipImUri[null]
+	 sipVoiceUri[sip:9999999998@defaultagent.com]
+	 sipCtiUri[null]
+	 sipCtiEnabledValue[0]
+	 supervisorLocalId[9999]
+	 templateId[1]
+	 agentGreetingEnabled[false]
+	 agentGreetingPassword[]
+	 agentGreetingRecorded[false]
+	 offsiteAllowed[false]
+	 offSiteMode[ON_DEMAND]
+	 offSitePhone1[]
+	 offSitePhone2[]
+	 offsiteAlternatePhoneAllowed[false]
+2013-07-16 23:43:24,162 [main] INFO  AgentData - Adding Agent
+	 details: 
+	 First Name              : Default
+	 last Name              : Default
+	 UserID            : 0-0-0-2
+	 local user id     : 9998
+	 phone set login id : 9999999999999999
+2013-07-16 23:43:24,175 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[062482f8-b1a9-4499-9c73-ed039b10b160]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentInformationAgentPropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:24,177 [main] INFO  cmf.sp.AgentImpl - setSipTerminalName() : Agent id[eb53b92d-1f53-4305-8131-a077a9177984] sipTerminalName = 
+2013-07-16 23:43:24,186 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[eb53b92d-1f53-4305-8131-a077a9177984]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentEntry]
+	 lease[9223372036854775807]
+	 container[OAMContainer]
+2013-07-16 23:43:24,190 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[a991f41d-cc88-4cd9-ab84-969c1f5141c1]  className[com.nortelnetworks.portal.cmf.core.entry.AgentUpdateAgentPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,244 [main] INFO  AgentData - ::getContactTypes() - Number of contact types: 1
+2013-07-16 23:43:24,250 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : Voice
+	 Description    : Default voice contact type
+	 ContactId      : 10000
+	 ProviderId     : 1
+	 SkillsetId     : 10000
+	 SkillsetPrefix :  
+2013-07-16 23:43:24,254 [main] INFO  cmf.sp.AgentImpl - addContactTypes() : Agent id[eb53b92d-1f53-4305-8131-a077a9177984] contact type [Voice
+2013-07-16 23:43:24,306 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[9a07b2f2-8889-4d37-b654-a30c4c3fe57a]  className[com.nortelnetworks.portal.cmf.core.entry.ContactTypePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,308 [main] INFO  AgentData - ::addAgent() - Adding contactTypes to Agent - Success
+2013-07-16 23:43:24,308 [main] INFO  AgentData - Adding agent numbere 3
+2013-07-16 23:43:24,315 [main] INFO  NIOAMB_clAgentInformation - ::setSipURIs() - Number of uris: 1
+2013-07-16 23:43:24,315 [main] INFO  AgentData - Adding agent number 3 of 6, with id: 23228B88-C326AD47-AD813B08-94931ABC
+2013-07-16 23:43:24,315 [main] INFO  AgentData - addMultiple() - Agent
+	 Agent details: 
+	 type                : Agent
+	 id                  : 10000
+	 supervisor Login Id : 10003
+	 firstName           : 57060
+	 last_name           : 57060
+	 comment             : 
+	 template ID         : 1
+	 diplayTemplateId    : 1
+	 phoneSertLoginId    : 57060
+	 hasSkillsets        : TRUE
+	 isSupervisor        : FALSE
+	 position_id         : 0
+	 cti enabled       : true
+2013-07-16 23:43:24,324 [main] INFO  AgentData - Adding agent with id: 23228B88-C326AD47-AD813B08-94931ABC
+2013-07-16 23:43:24,325 [main] INFO  AgentData - ::addAgent() - Adding Agent in space
+2013-07-16 23:43:24,331 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - addAgent() - Added Agent Information [AgentInformationImpl:_adminUserId=23228B88-C326AD47-AD813B08-94931ABC_adminLocalUserId=10000_templateId=1_positionId=null,_tnNamenull,_changeId=null,_sortKey=null_displayTemplate=null_hasSkillsets=null,_hasPrimariesnull,_hasSecondaries=null,_referedByTf=null,_referedByTfv=null,_viewScope=null,_personalDn=null,_secondaryDn=null,_state=null,_primeId=null,_offsiteAllowed=false,_offSiteMode=ON_DEMAND,_offSitePhone1=,_offSitePhone2=,_offsiteAlternatePhoneAllowed=false].
+2013-07-16 23:43:24,336 [main] INFO  cmf.sp.ContactManager - addAgent():]
+	 agentId[557a75e0-d7a5-4818-a244-40a8638cead4]
+	 firstName[57060]
+	 lastName[57060]
+	 adminUserId[23228B88-C326AD47-AD813B08-94931ABC]
+	 localAdminUserId[10000]
+	 phoneSetLoginId[57060]
+	 sipImUri[null]
+	 sipVoiceUri[sip:57060@sip.aura.com]
+	 sipCtiUri[null]
+	 sipCtiEnabledValue[1]
+	 supervisorLocalId[10003]
+	 templateId[1]
+	 agentGreetingEnabled[true]
+	 agentGreetingPassword[57060]
+	 agentGreetingRecorded[true]
+	 offsiteAllowed[false]
+	 offSiteMode[ON_DEMAND]
+	 offSitePhone1[]
+	 offSitePhone2[]
+	 offsiteAlternatePhoneAllowed[false]
+2013-07-16 23:43:24,336 [main] INFO  AgentData - Adding Agent
+	 details: 
+	 First Name              : 57060
+	 last Name              : 57060
+	 UserID            : 23228B88-C326AD47-AD813B08-94931ABC
+	 local user id     : 10000
+	 phone set login id : 57060
+2013-07-16 23:43:24,346 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[dc80da1c-82d2-434e-9908-0bb044b955ff]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentInformationAgentPropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:24,349 [main] INFO  cmf.sp.AgentImpl - setSipTerminalName() : Agent id[557a75e0-d7a5-4818-a244-40a8638cead4] sipTerminalName = 
+2013-07-16 23:43:24,355 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[557a75e0-d7a5-4818-a244-40a8638cead4]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentEntry]
+	 lease[9223372036854775807]
+	 container[OAMContainer]
+2013-07-16 23:43:24,359 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[3c6faa40-aac4-430a-a2bb-9dba090aba53]  className[com.nortelnetworks.portal.cmf.core.entry.AgentUpdateAgentPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,370 [main] INFO  AgentData - ::getContactTypes() - Number of contact types: 3
+2013-07-16 23:43:24,375 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : Voice
+	 Description    : Default voice contact type
+	 ContactId      : 10000
+	 ProviderId     : 1
+	 SkillsetId     : 10000
+	 SkillsetPrefix :  
+2013-07-16 23:43:24,382 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : EMail
+	 Description    : Default CCMM email contact type
+	 ContactId      : 10001
+	 ProviderId     : 2
+	 SkillsetId     : 9999
+	 SkillsetPrefix : EM_
+2013-07-16 23:43:24,395 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : Web_Communications
+	 Description    : Default CCMM web collaboration contact type
+	 ContactId      : 10002
+	 ProviderId     : 2
+	 SkillsetId     : 9998
+	 SkillsetPrefix : WC_
+2013-07-16 23:43:24,400 [main] INFO  cmf.sp.AgentImpl - addContactTypes() : Agent id[557a75e0-d7a5-4818-a244-40a8638cead4] contact type [Voice] contact type [EMail] contact type [Web_Communications
+2013-07-16 23:43:24,421 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[07b99071-b939-42a9-8c71-1e5b11976159]  className[com.nortelnetworks.portal.cmf.core.entry.ContactTypePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,423 [main] INFO  AgentData - ::addAgent() - Adding contactTypes to Agent - Success
+2013-07-16 23:43:24,423 [main] INFO  AgentData - Adding agent numbere 4
+2013-07-16 23:43:24,431 [main] INFO  NIOAMB_clAgentInformation - ::setSipURIs() - Number of uris: 1
+2013-07-16 23:43:24,431 [main] INFO  AgentData - Adding agent number 4 of 6, with id: 564831FC-F450394D-951AB474-147CEECC
+2013-07-16 23:43:24,431 [main] INFO  AgentData - addMultiple() - Agent Supervisor
+	 Agent details: 
+	 type                : AgentSupervisor
+	 id                  : 10003
+	 supervisor Login Id : 9999
+	 firstName           : 57063
+	 last_name           : 57063
+	 comment             : 
+	 template ID         : 1
+	 diplayTemplateId    : 1
+	 phoneSertLoginId    : 57063
+	 hasSkillsets        : TRUE
+	 isSupervisor        : TRUE
+	 position_id         : 0
+	 cti enabled       : true
+2013-07-16 23:43:24,445 [main] INFO  AgentData - Adding Agent supervisor with id: 564831FC-F450394D-951AB474-147CEECC
+2013-07-16 23:43:24,465 [main] INFO  AgentData - ::getContactTypes() - Number of contact types: 1
+2013-07-16 23:43:24,480 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : Voice
+	 Description    : Default voice contact type
+	 ContactId      : 10000
+	 ProviderId     : 1
+	 SkillsetId     : 10000
+	 SkillsetPrefix :  
+2013-07-16 23:43:24,483 [main] INFO  AgentData - Adding Agent Supervisor in space
+2013-07-16 23:43:24,493 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - addAgent() - Added Agent Information [AgentInformationImpl:_adminUserId=564831FC-F450394D-951AB474-147CEECC_adminLocalUserId=10003_templateId=1_positionId=null,_tnNamenull,_changeId=null,_sortKey=null_displayTemplate=null_hasSkillsets=null,_hasPrimariesnull,_hasSecondaries=null,_referedByTf=null,_referedByTfv=null,_viewScope=null,_personalDn=null,_secondaryDn=null,_state=null,_primeId=null,_offsiteAllowed=false,_offSiteMode=ON_DEMAND,_offSitePhone1=,_offSitePhone2=,_offsiteAlternatePhoneAllowed=false].
+2013-07-16 23:43:24,502 [main] INFO  cmf.sp.ContactManager - addAgentSupervisor():]
+	 agentId[2d64ae07-fa25-4660-ade3-b4c63bd4059a]
+	 firstName[57063]
+	 lastName[57063]
+	 adminUserId[564831FC-F450394D-951AB474-147CEECC]
+	 localAdminUserId[10003]
+	 phoneSetLoginId[57063]
+	 sipImUri[null]
+	 sipVoiceUri[sip:57063@sip.aura.com]
+	 sipCtiUri[null]
+	 sipCtiEnabledValue[1]
+	 supervisorAdminUserId[9999]
+	 templateId[1]
+	 agentGreetingEnabled[false]
+	 agentGreetingPassword[]
+	 agentGreetingRecorded[false]
+	 agentGreetingLicensed[false]
+	 offsiteAllowed[false]
+	 offSiteMode[ON_DEMAND]
+	 offSitePhone1[]
+	 offSitePhone2[]
+	 offsiteAlternatePhoneAllowed[false]
+2013-07-16 23:43:24,502 [main] INFO  AgentData - Adding Agent Supervisor
+	 details: 
+	 First Name              : 57063
+	 last Name              : 57063
+	 UserID            : 564831FC-F450394D-951AB474-147CEECC
+	 local user id     : 10003
+	 phone set login id : 57063
+2013-07-16 23:43:24,521 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[a0705110-91ee-4a7c-8666-67a363d9cd20]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentInformationAgentPropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:24,538 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[2d64ae07-fa25-4660-ade3-b4c63bd4059a]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentEntry]
+	 lease[9223372036854775807]
+	 container[OAMContainer]
+2013-07-16 23:43:24,544 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[f49dc2ce-5e5e-4a15-8dd7-901c9b19de56]  className[com.nortelnetworks.portal.cmf.core.entry.AgentUpdateAgentPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,550 [main] INFO  cmf.sp.AgentImpl - addContactTypes() : Agent id[2d64ae07-fa25-4660-ade3-b4c63bd4059a] contact type [Voice
+2013-07-16 23:43:24,564 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[14c1d4a1-73a3-4247-a8be-e75ae015981c]  className[com.nortelnetworks.portal.cmf.core.entry.ContactTypePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,566 [main] INFO  AgentData - ::addAgentSupervisor() - Adding contact type to Agent Supervisor. Success 
+2013-07-16 23:43:24,566 [main] INFO  AgentData - Adding agent numbere 5
+2013-07-16 23:43:24,582 [main] INFO  NIOAMB_clAgentInformation - ::setSipURIs() - Number of uris: 1
+2013-07-16 23:43:24,583 [main] INFO  AgentData - Adding agent number 5 of 6, with id: 94AFC0F9-C3F1414A-944BC370-19A66158
+2013-07-16 23:43:24,583 [main] INFO  AgentData - addMultiple() - Agent
+	 Agent details: 
+	 type                : Agent
+	 id                  : 10001
+	 supervisor Login Id : 10003
+	 firstName           : 57061
+	 last_name           : 57061
+	 comment             : 
+	 template ID         : 1
+	 diplayTemplateId    : 1
+	 phoneSertLoginId    : 57061
+	 hasSkillsets        : TRUE
+	 isSupervisor        : FALSE
+	 position_id         : 0
+	 cti enabled       : true
+2013-07-16 23:43:24,613 [main] INFO  AgentData - Adding agent with id: 94AFC0F9-C3F1414A-944BC370-19A66158
+2013-07-16 23:43:24,613 [main] INFO  AgentData - ::addAgent() - Adding Agent in space
+2013-07-16 23:43:24,621 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - addAgent() - Added Agent Information [AgentInformationImpl:_adminUserId=94AFC0F9-C3F1414A-944BC370-19A66158_adminLocalUserId=10001_templateId=1_positionId=null,_tnNamenull,_changeId=null,_sortKey=null_displayTemplate=null_hasSkillsets=null,_hasPrimariesnull,_hasSecondaries=null,_referedByTf=null,_referedByTfv=null,_viewScope=null,_personalDn=null,_secondaryDn=null,_state=null,_primeId=null,_offsiteAllowed=false,_offSiteMode=ON_DEMAND,_offSitePhone1=,_offSitePhone2=,_offsiteAlternatePhoneAllowed=false].
+2013-07-16 23:43:24,625 [main] INFO  cmf.sp.ContactManager - addAgent():]
+	 agentId[e0f67880-98af-48f8-a529-671d791c5f22]
+	 firstName[57061]
+	 lastName[57061]
+	 adminUserId[94AFC0F9-C3F1414A-944BC370-19A66158]
+	 localAdminUserId[10001]
+	 phoneSetLoginId[57061]
+	 sipImUri[null]
+	 sipVoiceUri[sip:57061@sip.aura.com]
+	 sipCtiUri[null]
+	 sipCtiEnabledValue[1]
+	 supervisorLocalId[10003]
+	 templateId[1]
+	 agentGreetingEnabled[true]
+	 agentGreetingPassword[57061]
+	 agentGreetingRecorded[false]
+	 offsiteAllowed[false]
+	 offSiteMode[ON_DEMAND]
+	 offSitePhone1[]
+	 offSitePhone2[]
+	 offsiteAlternatePhoneAllowed[false]
+2013-07-16 23:43:24,625 [main] INFO  AgentData - Adding Agent
+	 details: 
+	 First Name              : 57061
+	 last Name              : 57061
+	 UserID            : 94AFC0F9-C3F1414A-944BC370-19A66158
+	 local user id     : 10001
+	 phone set login id : 57061
+2013-07-16 23:43:24,639 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[3371024c-a0de-47b0-9849-c8000ed1e604]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentInformationAgentPropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:24,640 [main] INFO  cmf.sp.AgentImpl - setSipTerminalName() : Agent id[e0f67880-98af-48f8-a529-671d791c5f22] sipTerminalName = 
+2013-07-16 23:43:24,650 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[e0f67880-98af-48f8-a529-671d791c5f22]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentEntry]
+	 lease[9223372036854775807]
+	 container[OAMContainer]
+2013-07-16 23:43:24,655 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[b819d93b-2722-4808-a799-c4e87499b039]  className[com.nortelnetworks.portal.cmf.core.entry.AgentUpdateAgentPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,667 [main] INFO  AgentData - ::getContactTypes() - Number of contact types: 3
+2013-07-16 23:43:24,674 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : Voice
+	 Description    : Default voice contact type
+	 ContactId      : 10000
+	 ProviderId     : 1
+	 SkillsetId     : 10000
+	 SkillsetPrefix :  
+2013-07-16 23:43:24,683 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : EMail
+	 Description    : Default CCMM email contact type
+	 ContactId      : 10001
+	 ProviderId     : 2
+	 SkillsetId     : 9999
+	 SkillsetPrefix : EM_
+2013-07-16 23:43:24,696 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : Web_Communications
+	 Description    : Default CCMM web collaboration contact type
+	 ContactId      : 10002
+	 ProviderId     : 2
+	 SkillsetId     : 9998
+	 SkillsetPrefix : WC_
+2013-07-16 23:43:24,702 [main] INFO  cmf.sp.AgentImpl - addContactTypes() : Agent id[e0f67880-98af-48f8-a529-671d791c5f22] contact type [Voice] contact type [EMail] contact type [Web_Communications
+2013-07-16 23:43:24,728 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[a3f8e589-991e-42ae-81f3-6ecdb0f225de]  className[com.nortelnetworks.portal.cmf.core.entry.ContactTypePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,729 [main] INFO  AgentData - ::addAgent() - Adding contactTypes to Agent - Success
+2013-07-16 23:43:24,730 [main] INFO  AgentData - Adding agent numbere 6
+2013-07-16 23:43:24,740 [main] INFO  NIOAMB_clAgentInformation - ::setSipURIs() - Number of uris: 1
+2013-07-16 23:43:24,740 [main] INFO  AgentData - Adding agent number 6 of 6, with id: DF06797C-1AAF4049-B415644B-632358D5
+2013-07-16 23:43:24,740 [main] INFO  AgentData - addMultiple() - Agent
+	 Agent details: 
+	 type                : Agent
+	 id                  : 10002
+	 supervisor Login Id : 10003
+	 firstName           : 57062
+	 last_name           : 57062
+	 comment             : 
+	 template ID         : 1
+	 diplayTemplateId    : 1
+	 phoneSertLoginId    : 57062
+	 hasSkillsets        : TRUE
+	 isSupervisor        : FALSE
+	 position_id         : 0
+	 cti enabled       : true
+2013-07-16 23:43:24,750 [main] INFO  AgentData - Adding agent with id: DF06797C-1AAF4049-B415644B-632358D5
+2013-07-16 23:43:24,750 [main] INFO  AgentData - ::addAgent() - Adding Agent in space
+2013-07-16 23:43:24,759 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - addAgent() - Added Agent Information [AgentInformationImpl:_adminUserId=DF06797C-1AAF4049-B415644B-632358D5_adminLocalUserId=10002_templateId=1_positionId=null,_tnNamenull,_changeId=null,_sortKey=null_displayTemplate=null_hasSkillsets=null,_hasPrimariesnull,_hasSecondaries=null,_referedByTf=null,_referedByTfv=null,_viewScope=null,_personalDn=null,_secondaryDn=null,_state=null,_primeId=null,_offsiteAllowed=false,_offSiteMode=ON_DEMAND,_offSitePhone1=,_offSitePhone2=,_offsiteAlternatePhoneAllowed=false].
+2013-07-16 23:43:24,764 [main] INFO  cmf.sp.ContactManager - addAgent():]
+	 agentId[fb3deaed-07ad-439b-b8a9-275a40b9b9d0]
+	 firstName[57062]
+	 lastName[57062]
+	 adminUserId[DF06797C-1AAF4049-B415644B-632358D5]
+	 localAdminUserId[10002]
+	 phoneSetLoginId[57062]
+	 sipImUri[null]
+	 sipVoiceUri[sip:57062@sip.aura.com]
+	 sipCtiUri[null]
+	 sipCtiEnabledValue[1]
+	 supervisorLocalId[10003]
+	 templateId[1]
+	 agentGreetingEnabled[true]
+	 agentGreetingPassword[57062]
+	 agentGreetingRecorded[false]
+	 offsiteAllowed[false]
+	 offSiteMode[ON_DEMAND]
+	 offSitePhone1[]
+	 offSitePhone2[]
+	 offsiteAlternatePhoneAllowed[false]
+2013-07-16 23:43:24,764 [main] INFO  AgentData - Adding Agent
+	 details: 
+	 First Name              : 57062
+	 last Name              : 57062
+	 UserID            : DF06797C-1AAF4049-B415644B-632358D5
+	 local user id     : 10002
+	 phone set login id : 57062
+2013-07-16 23:43:24,780 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[0db09b92-332e-493b-8851-a11425500a08]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentInformationAgentPropertyEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:24,782 [main] INFO  cmf.sp.AgentImpl - setSipTerminalName() : Agent id[fb3deaed-07ad-439b-b8a9-275a40b9b9d0] sipTerminalName = 
+2013-07-16 23:43:24,791 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[fb3deaed-07ad-439b-b8a9-275a40b9b9d0]
+	 className[com.nortelnetworks.portal.cmf.core.entry.AgentEntry]
+	 lease[9223372036854775807]
+	 container[OAMContainer]
+2013-07-16 23:43:24,795 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[697e6684-8977-42b2-a88b-dfd164339e1d]  className[com.nortelnetworks.portal.cmf.core.entry.AgentUpdateAgentPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,806 [main] INFO  AgentData - ::getContactTypes() - Number of contact types: 3
+2013-07-16 23:43:24,811 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : Voice
+	 Description    : Default voice contact type
+	 ContactId      : 10000
+	 ProviderId     : 1
+	 SkillsetId     : 10000
+	 SkillsetPrefix :  
+2013-07-16 23:43:24,819 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : EMail
+	 Description    : Default CCMM email contact type
+	 ContactId      : 10001
+	 ProviderId     : 2
+	 SkillsetId     : 9999
+	 SkillsetPrefix : EM_
+2013-07-16 23:43:24,830 [main] INFO  AgentData - ::getContactTypes()
+	 ContactType details: 
+	 Name           : IM
+	 Description    : Default IM Contact Type
+	 ContactId      : 10006
+	 ProviderId     : 2
+	 SkillsetId     : 9994
+	 SkillsetPrefix : IM_
+2013-07-16 23:43:24,833 [main] INFO  cmf.sp.AgentImpl - addContactTypes() : Agent id[fb3deaed-07ad-439b-b8a9-275a40b9b9d0] contact type [Voice] contact type [EMail] contact type [IM
+2013-07-16 23:43:24,858 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[1dfa801d-8875-4656-b50c-35ff1cbd4f0b]  className[com.nortelnetworks.portal.cmf.core.entry.ContactTypePropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:24,860 [main] INFO  AgentData - ::addAgent() - Adding contactTypes to Agent - Success
+2013-07-16 23:43:24,860 [main] INFO  AgentData - finish: Adding individual agents
+2013-07-16 23:43:24,929 [main] INFO  CDNData - Putting 3 CDNs from space into CMF.
+2013-07-16 23:43:24,936 [main] INFO  CDNData - ::Putting CDN 27060 from space into CMF.
+2013-07-16 23:43:24,936 [main] INFO  CDNData - Local type CDN
+2013-07-16 23:43:24,936 [main] INFO  CDNData -  Sip server  adding the cdn on passive provider
+2013-07-16 23:43:25,122 [main] INFO  cmf.sp.ProviderImpl - addRoutePointAddress():
+	 addressId[66c12c57-7db5-435c-95ae-8a8fcf173823]
+	 addressName[27060]
+	 addressAdminAlias[CDN_27060]
+	 addressUri[sip:27060@sip.aura.com]
+	 addressState[AddressStateEnable]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.RoutePointAddressSpecificCapabilitiesImpl@1eaefc5]
+	 acquiredFlag[true]
+	 acquistionStatus[2]
+	 errorCode[0]
+	 providerName[Passive]
+2013-07-16 23:43:25,122 [main] INFO  CDNData - Adding CDN of type NIOAM_eLocal on Passive Provider - RoutePointAddress
+	 CDN (RoutePointAddress) details: 
+	 Name              : CDN_27060
+	 Number            : 27060
+	 Acquired flag     : TRUE
+	 AcquisitionStatus : 2
+	 ErrorCode         : 0
+	 CdnType           : 15
+2013-07-16 23:43:25,123 [main] INFO  CDNData - ::Putting CDN 27061 from space into CMF.
+2013-07-16 23:43:25,123 [main] INFO  CDNData - Local type CDN
+2013-07-16 23:43:25,123 [main] INFO  CDNData -  Sip server  adding the cdn on passive provider
+2013-07-16 23:43:25,132 [main] INFO  cmf.sp.ProviderImpl - addRoutePointAddress():
+	 addressId[d7c2cc6d-338c-4905-9859-90c03dc142d6]
+	 addressName[27061]
+	 addressAdminAlias[CDN_27061]
+	 addressUri[sip:27061@sip.aura.com]
+	 addressState[AddressStateEnable]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.RoutePointAddressSpecificCapabilitiesImpl@1eaefc5]
+	 acquiredFlag[true]
+	 acquistionStatus[2]
+	 errorCode[0]
+	 providerName[Passive]
+2013-07-16 23:43:25,132 [main] INFO  CDNData - Adding CDN of type NIOAM_eLocal on Passive Provider - RoutePointAddress
+	 CDN (RoutePointAddress) details: 
+	 Name              : CDN_27061
+	 Number            : 27061
+	 Acquired flag     : TRUE
+	 AcquisitionStatus : 2
+	 ErrorCode         : 0
+	 CdnType           : 15
+2013-07-16 23:43:25,132 [main] INFO  CDNData - ::Putting CDN OpenQRoutePointAddress from space into CMF.
+2013-07-16 23:43:25,132 [main] INFO  CDNData - Open type CDN adding on CCMM Provider
+2013-07-16 23:43:25,142 [main] INFO  cmf.sp.ProviderImpl - addRoutePointAddress():
+	 addressId[f0bb7369-3520-417f-9cff-2a7b0bbbf121]
+	 addressName[OpenQRoutePointAddress]
+	 addressAdminAlias[OpenQRoutePointAddress]
+	 addressUri[]
+	 addressState[AddressStateEnable]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.RoutePointAddressSpecificCapabilitiesImpl@1eaefc5]
+	 acquiredFlag[true]
+	 acquistionStatus[2]
+	 errorCode[0]
+	 providerName[CCMM]
+2013-07-16 23:43:25,142 [main] INFO  CDNData - Adding CDN of type NIOAM_eLocalOpenQ on CCMM provider - RoutePointAddress
+	 CDN (RoutePointAddress) details: 
+	 Name              : OpenQRoutePointAddress
+	 Number            : OpenQRoutePointAddress
+	 Acquired flag     : TRUE
+	 AcquisitionStatus : 2
+	 ErrorCode         : 0
+	 CdnType           : 50
+2013-07-16 23:43:25,158 [main] INFO  RouteData -  PutRouteData - Add annoucement 
+	 Route details: 
+	 name                : moh1
+	 number              : 10
+	 acquireFlag         : FALSE
+	 acquisitionStatus   : 5
+	 errorCode           : 2
+	 thresholdTemplateId : 6
+2013-07-16 23:43:25,209 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[452893df-4187-4293-a033-a455da0eaf7b]  className[com.nortelnetworks.portal.cmf.core.entry.SemaphoreEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:25,212 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[452893df-4187-4293-a033-a455da0eaf7b]  className[com.nortelnetworks.portal.cmf.core.entry.AnnouncementEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:25,216 [main] INFO  cmf.sp.ProviderImpl - addAnnouncement():
+	 announcementId[452893df-4187-4293-a033-a455da0eaf7b]
+	 announcementName[moh1]
+	 announcementNumber[10]
+	 acquireFlag[false]
+	 acquisitionStatus[5]
+	 errorCode[2]
+	 thshldTemplateID[6]
+	 providerName[Passive]
+2013-07-16 23:43:25,216 [main] INFO  RouteData -  PutRouteData - Add annoucement 
+	 Route details: 
+	 name                : Default_Route
+	 number              : 999
+	 acquireFlag         : FALSE
+	 acquisitionStatus   : 5
+	 errorCode           : 2
+	 thresholdTemplateId : 6
+2013-07-16 23:43:25,226 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[a976330d-395a-4dbc-a688-8ee2652aa170]  className[com.nortelnetworks.portal.cmf.core.entry.SemaphoreEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:25,232 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[a976330d-395a-4dbc-a688-8ee2652aa170]  className[com.nortelnetworks.portal.cmf.core.entry.AnnouncementEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:25,233 [main] INFO  cmf.sp.ProviderImpl - addAnnouncement():
+	 announcementId[a976330d-395a-4dbc-a688-8ee2652aa170]
+	 announcementName[Default_Route]
+	 announcementNumber[999]
+	 acquireFlag[false]
+	 acquisitionStatus[5]
+	 errorCode[2]
+	 thshldTemplateID[6]
+	 providerName[Passive]
+2013-07-16 23:43:25,316 [main] INFO  NIOAMB_clMediaServer - ::addMediaServer - addTreatmentTerminal to Passive provider
+	 name            : AMSLocal
+	 IPAddress       : 192.168.115.196
+	 portNumber      : 5070
+	 transportType   : 1
+	 serverType      : 0
+	 status          : 0
+	 enableFlag      : FALSE
+2013-07-16 23:43:25,583 [main] INFO  cmf.sp.ProviderImpl - addTreatmentTerminal():
+	 terminalId[9034b3d7-c442-4724-b93c-9a1e487d1a33]
+	 terminalName[192.168.115.196]
+	 terminalAdminAlias[AMSLocal]
+	 terminalState[TerminalStateDisable]
+	 contactTypes[3]
+	 terminalType[nortel]
+	 transportType[tcp]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.TreatmentTerminalSpecificCapabilitiesImpl@126965a]
+	 providerName[Passive]
+2013-07-16 23:43:25,600 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[9034b3d7-c442-4724-b93c-9a1e487d1a33]
+	 className[com.nortelnetworks.portal.cmf.core.entry.TreatmentTerminalEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:25,672 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[f8ae7f3c-3b4f-4f97-8993-f21e79782ada]  className[com.nortelnetworks.portal.cmf.core.entry.TerminalPortPropertyEntry] lease[20000]container[OAMContainer]
+2013-07-16 23:43:25,678 [main] INFO  NIOAMB_clMediaServer - ::addMediaServer - addTreatmentTerminal to Passive provider
+	 name            : AMS_115_205
+	 IPAddress       : 192.168.115.205
+	 portNumber      : 5060
+	 transportType   : 1
+	 serverType      : 0
+	 status          : 0
+	 enableFlag      : FALSE
+2013-07-16 23:43:25,702 [main] INFO  cmf.sp.ProviderImpl - addTreatmentTerminal():
+	 terminalId[f0c4ecc9-5947-433b-af95-ff0c948342c9]
+	 terminalName[192.168.115.205]
+	 terminalAdminAlias[AMS_115_205]
+	 terminalState[TerminalStateDisable]
+	 contactTypes[3]
+	 terminalType[nortel]
+	 transportType[tcp]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.TreatmentTerminalSpecificCapabilitiesImpl@d591a6]
+	 providerName[Passive]
+2013-07-16 23:43:25,715 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[f0c4ecc9-5947-433b-af95-ff0c948342c9]
+	 className[com.nortelnetworks.portal.cmf.core.entry.TreatmentTerminalEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:25,728 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[07a376c1-b565-4fb3-ac44-3b7d73d21b02]  className[com.nortelnetworks.portal.cmf.core.entry.TerminalPortPropertyEntry] lease[20000]container[OAMContainer]
+2013-07-16 23:43:25,842 [main] INFO  NIOAMB_clMediaService - ::putCmfData - addTreatmentAddress to Passive provider
+	 name                : AG
+	 TreatmentAddress    : sip:__sip-ag@sip.aura.com
+	 isDefault           : 1
+	 serviceType         : 3
+2013-07-16 23:43:25,975 [main] INFO  cmf.sp.ProviderImpl - addTreatmentAddress():
+	 addressId[88f3a7c0-7c14-416c-8d19-93d5b1c843bd]
+	 addressName[AG]
+	 addressAdminAlias[AG]
+	 addressUri[sip:__sip-ag@sip.aura.com]
+	 addressState[AddressStateEnable]
+	 serviceType[null]
+	 defaultFlag[true]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.TreatmentAddressSpecificCapabilitiesImpl@1283826]
+	 providerName[Passive]
+2013-07-16 23:43:26,064 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[bcda7244-2191-4229-8238-65635d3bb4eb]  className[com.nortelnetworks.portal.cmf.core.entry.UseProxyTreatmentAddressPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,065 [main] INFO  NIOAMB_clMediaService - ::putCmfData - addTreatmentAddress to Passive provider
+	 name                : ANNC
+	 TreatmentAddress    : sip:__sip-annc@sip.aura.com
+	 isDefault           : 1
+	 serviceType         : 0
+2013-07-16 23:43:26,086 [main] INFO  cmf.sp.ProviderImpl - addTreatmentAddress():
+	 addressId[b66fa76f-a6a3-4377-9a95-ddedd7f3a732]
+	 addressName[ANNC]
+	 addressAdminAlias[ANNC]
+	 addressUri[sip:__sip-annc@sip.aura.com]
+	 addressState[AddressStateEnable]
+	 serviceType[announcement]
+	 defaultFlag[true]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.TreatmentAddressSpecificCapabilitiesImpl@181e7fe]
+	 providerName[Passive]
+2013-07-16 23:43:26,100 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[5d9c0329-5970-4db0-9c60-cd22b15a8024]  className[com.nortelnetworks.portal.cmf.core.entry.UseProxyTreatmentAddressPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,100 [main] INFO  NIOAMB_clMediaService - ::putCmfData - addTreatmentAddress to Passive provider
+	 name                : CONF
+	 TreatmentAddress    : sip:__sip-conf@sip.aura.com
+	 isDefault           : 1
+	 serviceType         : 2
+2013-07-16 23:43:26,116 [main] INFO  cmf.sp.ProviderImpl - addTreatmentAddress():
+	 addressId[8f632083-3061-452f-9ed7-e0b5f2be98b6]
+	 addressName[CONF]
+	 addressAdminAlias[CONF]
+	 addressUri[sip:__sip-conf@sip.aura.com]
+	 addressState[AddressStateEnable]
+	 serviceType[null]
+	 defaultFlag[true]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.TreatmentAddressSpecificCapabilitiesImpl@13ada]
+	 providerName[Passive]
+2013-07-16 23:43:26,128 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[a5a96ace-2a89-443a-a176-5c7d6e7782cb]  className[com.nortelnetworks.portal.cmf.core.entry.UseProxyTreatmentAddressPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,128 [main] INFO  NIOAMB_clMediaService - ::putCmfData - addTreatmentAddress to Passive provider
+	 name                : DIALOG
+	 TreatmentAddress    : sip:__sip-dialog@sip.aura.com
+	 isDefault           : 1
+	 serviceType         : 1
+2013-07-16 23:43:26,144 [main] INFO  cmf.sp.ProviderImpl - addTreatmentAddress():
+	 addressId[11812a49-e3f2-4ab3-b5b4-a761e1065c4a]
+	 addressName[DIALOG]
+	 addressAdminAlias[DIALOG]
+	 addressUri[sip:__sip-dialog@sip.aura.com]
+	 addressState[AddressStateEnable]
+	 serviceType[dialog]
+	 defaultFlag[true]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.TreatmentAddressSpecificCapabilitiesImpl@f4fb44]
+	 providerName[Passive]
+2013-07-16 23:43:26,167 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[966ac95d-7fc6-495a-a2a0-f473b7ea5f2e]  className[com.nortelnetworks.portal.cmf.core.entry.UseProxyTreatmentAddressPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,168 [main] INFO  NIOAMB_clMediaService - ::putCmfData - addTreatmentAddress to Passive provider
+	 name                : XDIALOG
+	 TreatmentAddress    : sip:__sip-xdialog@domain.com
+	 isDefault           : 1
+	 serviceType         : 1
+2013-07-16 23:43:26,189 [main] INFO  cmf.sp.ProviderImpl - addTreatmentAddress():
+	 addressId[94ba4167-ffbf-4cb1-8343-8ee64a2cf0bd]
+	 addressName[XDIALOG]
+	 addressAdminAlias[XDIALOG]
+	 addressUri[sip:__sip-xdialog@domain.com]
+	 addressState[AddressStateEnable]
+	 serviceType[dialog]
+	 defaultFlag[true]
+	 specificCapabilities[com.nortelnetworks.portal.cmf.core.capability.TreatmentAddressSpecificCapabilitiesImpl@1559ba8]
+	 providerName[Passive]
+2013-07-16 23:43:26,205 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[cd849801-cdc2-409c-9f5c-a429da8ff469]  className[com.nortelnetworks.portal.cmf.core.entry.UseProxyTreatmentAddressPropertyEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,297 [main] INFO  NIOAMB_clMediaServiceRoute - ::addNewMediaServiceRoute() - Adding mediaServiceRoute for serverName AMSLocal and serviceName AG
+2013-07-16 23:43:26,483 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[88f3a7c0-7c14-416c-8d19-93d5b1c843bd]
+	 className[com.nortelnetworks.portal.cmf.core.entry.TreatmentAddressEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:26,500 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[745564d3-1045-4c50-ae70-551ea8d11c1f]  className[com.nortelnetworks.portal.cmf.core.entry.AddressTerminalAssociationEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,506 [main] INFO  cmf.sp.AddressImpl - addTerminal()
+	 addressId[88f3a7c0-7c14-416c-8d19-93d5b1c843bd]
+	 addressName[AG]
+	 Provider id[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 terminal id[9034b3d7-c442-4724-b93c-9a1e487d1a33
+2013-07-16 23:43:26,515 [main] INFO  NIOAMB_clMediaServiceRoute - ::addNewMediaServiceRoute() - Adding mediaServiceRoute for serverName AMSLocal and serviceName ANNC
+2013-07-16 23:43:26,541 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[b66fa76f-a6a3-4377-9a95-ddedd7f3a732]
+	 className[com.nortelnetworks.portal.cmf.core.entry.TreatmentAddressEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:26,553 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[88f2b5a0-91d5-4e65-a665-2b024f588dfc]  className[com.nortelnetworks.portal.cmf.core.entry.AddressTerminalAssociationEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,558 [main] INFO  cmf.sp.AddressImpl - addTerminal()
+	 addressId[b66fa76f-a6a3-4377-9a95-ddedd7f3a732]
+	 addressName[ANNC]
+	 Provider id[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 terminal id[9034b3d7-c442-4724-b93c-9a1e487d1a33
+2013-07-16 23:43:26,566 [main] INFO  NIOAMB_clMediaServiceRoute - ::addNewMediaServiceRoute() - Adding mediaServiceRoute for serverName AMSLocal and serviceName CONF
+2013-07-16 23:43:26,610 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[8f632083-3061-452f-9ed7-e0b5f2be98b6]
+	 className[com.nortelnetworks.portal.cmf.core.entry.TreatmentAddressEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:26,633 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[399948e9-a9ae-4612-9ff4-1c68f0774973]  className[com.nortelnetworks.portal.cmf.core.entry.AddressTerminalAssociationEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,641 [main] INFO  cmf.sp.AddressImpl - addTerminal()
+	 addressId[8f632083-3061-452f-9ed7-e0b5f2be98b6]
+	 addressName[CONF]
+	 Provider id[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 terminal id[9034b3d7-c442-4724-b93c-9a1e487d1a33
+2013-07-16 23:43:26,651 [main] INFO  NIOAMB_clMediaServiceRoute - ::addNewMediaServiceRoute() - Adding mediaServiceRoute for serverName AMSLocal and serviceName DIALOG
+2013-07-16 23:43:26,683 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[11812a49-e3f2-4ab3-b5b4-a761e1065c4a]
+	 className[com.nortelnetworks.portal.cmf.core.entry.TreatmentAddressEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:26,705 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[4a25d969-22db-4107-84a7-eeee15e9daa9]  className[com.nortelnetworks.portal.cmf.core.entry.AddressTerminalAssociationEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,710 [main] INFO  cmf.sp.AddressImpl - addTerminal()
+	 addressId[11812a49-e3f2-4ab3-b5b4-a761e1065c4a]
+	 addressName[DIALOG]
+	 Provider id[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 terminal id[9034b3d7-c442-4724-b93c-9a1e487d1a33
+2013-07-16 23:43:26,719 [main] INFO  NIOAMB_clMediaServiceRoute - ::addNewMediaServiceRoute() - Adding mediaServiceRoute for serverName AMSLocal and serviceName XDIALOG
+2013-07-16 23:43:26,791 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[94ba4167-ffbf-4cb1-8343-8ee64a2cf0bd]
+	 className[com.nortelnetworks.portal.cmf.core.entry.TreatmentAddressEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:26,838 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[cfebac8f-6fac-46a9-82a5-9ab00958cb8c]  className[com.nortelnetworks.portal.cmf.core.entry.AddressTerminalAssociationEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:26,844 [main] INFO  cmf.sp.AddressImpl - addTerminal()
+	 addressId[94ba4167-ffbf-4cb1-8343-8ee64a2cf0bd]
+	 addressName[XDIALOG]
+	 Provider id[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 terminal id[9034b3d7-c442-4724-b93c-9a1e487d1a33
+2013-07-16 23:43:26,962 [main] INFO  ActivityCodeData - Putting 5 Activity Codes from space into CMF.
+2013-07-16 23:43:26,963 [main] INFO  ActivityCodeData - Adding Activity Code name System_Default_Activity_Code with number 0 to contact manager.
+2013-07-16 23:43:27,137 [main] INFO  cmf.core.util.SpaceUtil - The activity code found in CMF matching Activity Code - number 0 : name System_Default_Activity_Code
+2013-07-16 23:43:27,144 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[d2397c0f-b5f3-476c-bf6f-ae492385a668]  className[com.nortelnetworks.portal.cmf.core.entry.ActivityCodeEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:27,144 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - Successfully added Activity Code - number 0 : name System_Default_Activity_Code to CMF
+2013-07-16 23:43:27,144 [main] INFO  ActivityCodeData - Completeed adding activityCode to Contact manager
+2013-07-16 23:43:27,144 [main] INFO  ActivityCodeData - Adding Activity Code
+	 Activity Code details: 
+	 Name              : System_Default_Activity_Code
+	 Number            : 0
+2013-07-16 23:43:27,145 [main] INFO  ActivityCodeData - Adding Activity Code name Skillset_Default_Activity_Code with number 00 to contact manager.
+2013-07-16 23:43:27,255 [main] INFO  cmf.core.util.SpaceUtil - The activity code found in CMF matching Activity Code - number 00 : name Skillset_Default_Activity_Code
+2013-07-16 23:43:27,259 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[9e901285-05b8-42c5-9ba9-d00ca4d5b7d3]  className[com.nortelnetworks.portal.cmf.core.entry.ActivityCodeEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:27,260 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - Successfully added Activity Code - number 00 : name Skillset_Default_Activity_Code to CMF
+2013-07-16 23:43:27,260 [main] INFO  ActivityCodeData - Completeed adding activityCode to Contact manager
+2013-07-16 23:43:27,260 [main] INFO  ActivityCodeData - Adding Activity Code
+	 Activity Code details: 
+	 Name              : Skillset_Default_Activity_Code
+	 Number            : 00
+2013-07-16 23:43:27,260 [main] INFO  ActivityCodeData - Adding Activity Code name Not_Ready_Default_Reason_Code with number 000 to contact manager.
+2013-07-16 23:43:27,375 [main] INFO  cmf.core.util.SpaceUtil - The activity code found in CMF matching Activity Code - number 000 : name Not_Ready_Default_Reason_Code
+2013-07-16 23:43:27,378 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[7f1b641c-fe80-4425-8178-bbcdc03cd32c]  className[com.nortelnetworks.portal.cmf.core.entry.ActivityCodeEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:27,378 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - Successfully added Activity Code - number 000 : name Not_Ready_Default_Reason_Code to CMF
+2013-07-16 23:43:27,379 [main] INFO  ActivityCodeData - Completeed adding activityCode to Contact manager
+2013-07-16 23:43:27,379 [main] INFO  ActivityCodeData - Adding Activity Code
+	 Activity Code details: 
+	 Name              : Not_Ready_Default_Reason_Code
+	 Number            : 000
+2013-07-16 23:43:27,379 [main] INFO  ActivityCodeData - Adding Activity Code name NotRdy_Pull_Mode_Default_Code with number 0000 to contact manager.
+2013-07-16 23:43:27,484 [main] INFO  cmf.core.util.SpaceUtil - The activity code found in CMF matching Activity Code - number 0000 : name NotRdy_Pull_Mode_Default_Code
+2013-07-16 23:43:27,488 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[354f6a5f-1c60-4c4b-bf46-dcebd7a653e4]  className[com.nortelnetworks.portal.cmf.core.entry.ActivityCodeEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:27,488 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - Successfully added Activity Code - number 0000 : name NotRdy_Pull_Mode_Default_Code to CMF
+2013-07-16 23:43:27,488 [main] INFO  ActivityCodeData - Completeed adding activityCode to Contact manager
+2013-07-16 23:43:27,488 [main] INFO  ActivityCodeData - Adding Activity Code
+	 Activity Code details: 
+	 Name              : NotRdy_Pull_Mode_Default_Code
+	 Number            : 0000
+2013-07-16 23:43:27,488 [main] INFO  ActivityCodeData - Adding Activity Code name Default_ACW with number 00000 to contact manager.
+2013-07-16 23:43:27,595 [main] INFO  cmf.core.util.SpaceUtil - The activity code found in CMF matching Activity Code - number 00000 : name Default_ACW
+2013-07-16 23:43:27,600 [main] INFO  cmf.core.util.SpaceUtil - [Write] 
+	 entryId[35b389d4-b588-4997-a220-c7585ee0cb71]  className[com.nortelnetworks.portal.cmf.core.entry.ActivityCodeEntry] lease[9223372036854775807]container[OAMContainer]
+2013-07-16 23:43:27,601 [main] INFO  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - Successfully added Activity Code - number 00000 : name Default_ACW to CMF
+2013-07-16 23:43:27,601 [main] INFO  ActivityCodeData - Completeed adding activityCode to Contact manager
+2013-07-16 23:43:27,601 [main] INFO  ActivityCodeData - Adding Activity Code
+	 Activity Code details: 
+	 Name              : Default_ACW
+	 Number            : 00000
+2013-07-16 23:43:27,606 [main] INFO  cmf.sp.ProviderImpl - 
+	 setState():
+	 providerId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 providerName[Passive]
+	 currentState[com.nortelnetworks.portal.cmf.core.state.ProviderStateOutOfService@4f12c2]
+	 newState[ProviderStateProvisioned]
+	 reasonCode[Default]
+2013-07-16 23:43:27,619 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[dbe4ac48-410e-42ff-8535-a8cdec4e3adc]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:27,625 [main] INFO  cmf.sp.ProviderImpl - 
+	 setState():
+	 providerId[6e10d451-37c7-4484-9667-951c835d615e]
+	 providerName[CCMM]
+	 currentState[com.nortelnetworks.portal.cmf.core.state.ProviderStateOutOfService@4f12c2]
+	 newState[ProviderStateProvisioned]
+	 reasonCode[Default]
+2013-07-16 23:43:27,633 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[6e10d451-37c7-4484-9667-951c835d615e]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:27,637 [main] INFO  cmf.sp.ProviderImpl - 
+	 setState():
+	 providerId[6e10d451-37c7-4484-9667-951c835d615e]
+	 providerName[CCMM]
+	 currentState[com.nortelnetworks.portal.cmf.core.state.ProviderStateProvisioned@167f4bf]
+	 newState[ProviderStateInService]
+	 reasonCode[Default]
+2013-07-16 23:43:27,649 [main] INFO  cmf.core.util.SpaceUtil - [Update] 
+	 entryId[6e10d451-37c7-4484-9667-951c835d615e]
+	 className[com.nortelnetworks.portal.cmf.core.entry.ProviderEntry]
+	 lease[0]
+	 container[OAMContainer]
+2013-07-16 23:43:27,649 [main] INFO  OamBridge - createListeners():Starting
+2013-07-16 23:43:27,649 [main] INFO  OamBridge - createListeners(): get reg instance
+2013-07-16 23:43:27,649 [main] INFO  OamBridge - createListeners():open reg conenction
+2013-07-16 23:43:27,650 [main] INFO  OamBridge - createListeners():get reg contents
+2013-07-16 23:43:27,650 [main] INFO  OamBridge - createListeners():close reg connection
+2013-07-16 23:43:27,650 [main] INFO  OamBridge - createListeners():setting OAM Listener
+2013-07-16 23:43:27,657 [main] INFO  OamBridge - createListeners():registering Listeners
+2013-07-16 23:43:27,657 [main] INFO  OamBridge - registerListeners():registering Listeners
+2013-07-16 23:43:27,657 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:27,657 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:27,657 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:27,664 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:27,777 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:27,780 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:27,780 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:27,781 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:27,786 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:27,896 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:27,897 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:27,897 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:27,897 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:27,901 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,011 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,011 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,012 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,012 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:28,015 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,125 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,126 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,126 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,126 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:28,131 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,132 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,133 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,133 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,133 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:28,138 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,138 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,140 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,140 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,140 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,144 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,254 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,255 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,255 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,256 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,260 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,261 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,261 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,261 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,261 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,265 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,267 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,267 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,267 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,267 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,271 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,381 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,382 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,382 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,382 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,386 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,497 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,498 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,498 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,498 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,502 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,503 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,504 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,504 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,504 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:28,509 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,625 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,625 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,625 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,625 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:28,632 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,745 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,745 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,745 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,745 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:28,787 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,789 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,791 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,791 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,791 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,802 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:28,927 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:28,927 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:28,927 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:28,928 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:28,964 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,094 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,094 [main] INFO  OAMListener - m_pMsgUserItemUpdate
+2013-07-16 23:43:29,095 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,095 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,097 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:29,124 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,238 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,248 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,261 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,269 [main] INFO  OAMListener - Connecting poxy for SDM address event
+2013-07-16 23:43:29,286 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,403 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,404 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,404 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,404 [main] INFO  OAMListener - Connecting poxy for SDM address event
+2013-07-16 23:43:29,412 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,413 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,416 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,416 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,416 [main] INFO  OAMListener - Connecting poxy for SDM address event
+2013-07-16 23:43:29,421 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,533 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,534 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,535 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,535 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:29,540 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,651 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,652 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,652 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,652 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:29,657 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,767 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,768 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,768 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,768 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:29,772 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,773 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,774 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,774 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,774 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:29,778 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,888 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,888 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,889 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,889 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:29,893 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:29,893 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:29,894 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:29,894 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:29,894 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:29,897 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:30,007 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:30,007 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:30,008 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:30,008 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:30,012 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:30,123 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:30,123 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:30,124 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:30,124 [main] INFO  OAMListener - Connecting poxy for TFE address event
+2013-07-16 23:43:30,126 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:30,127 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:30,127 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:30,128 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:30,128 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:30,132 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:30,243 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:30,244 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:30,244 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:30,246 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:30,272 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:30,274 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:30,274 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:30,275 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:30,275 [main] INFO  OAMListener - Connecting poxy for ASM address event
+2013-07-16 23:43:30,279 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:30,389 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:30,390 [main] INFO  OAMListener - Setting MyRegMsg using CLAN IP [192.168.115.196]
+2013-07-16 23:43:30,390 [main] INFO  OAMListener - Connecting proxy in Server mode
+2013-07-16 23:43:30,390 [main] INFO  OAMListener - Connecting poxy for MISC address event
+2013-07-16 23:43:30,394 [main] INFO  OAMListener - Calling comProxy.send(MyRegMsg )
+2013-07-16 23:43:30,505 [main] INFO  OAMListener - Registration successful..........::OAMListener:RegisterMsgToServer 
+
+2013-07-16 23:43:30,505 [main] INFO  OamBridge - registerListeners():Start the oam listener
+2013-07-16 23:43:30,505 [main] INFO  OAMListener - OAM Listener Thread Started... .......... 
+
+2013-07-16 23:43:30,506 [main] INFO  OamBridge - startOamListenerRecoveryThread() - Starting Oam listeners recovery thread 
+2013-07-16 23:43:30,507 [main] INFO  OamBridge - startOamListenerRecoveryThread() - Added Oam listeners recovery thread - successful
+2013-07-16 23:43:30,508 [Thread-31] INFO  OamBridge - oamListenerHeartbeatMonitorThread() started
+2013-07-16 23:43:30,508 [Thread-32] INFO  OamBridge - oamListenerRecoveryThread() - started
+2013-07-16 23:43:45,688 [LRMI Connection-pool-1-thread-2] INFO  com.nortelnetworks.portal.cmf.core.listener.ServiceProviderStatusListener - Provider [CCMM] status change for status type : Service Provider Startup. New provider set in service
+2013-07-16 23:43:45,689 [LRMI Connection-pool-1-thread-2] INFO  com.nortelnetworks.portal.cmf.core.listener.ServiceProviderStatusListenerNoAbstract - ::process() - ServiceProviderStatusListenerNoAbstract triggered 
+2013-07-16 23:44:32,359 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - init():
+	 null null version[null]
+	 workingDir[C:\Windows\system32]
+	 propertyFile[D:\Avaya\CONTAC~1\COMMON~1\CMF\\/OAM32Logging.properties]
+	 Date[2013-07-16 23:44:32,359 MSK], Timestamp[1374003872359]
+2013-07-16 23:44:32,360 [Manager] INFO  com.nortelnetworks.portal.cmf.core.PeerFactory - getPeer(peerName[com.nortelnetworks.portal.cmf.sp.PeerImpl], 
+	 hostname[null].
+2013-07-16 23:44:32,500 [Manager] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init Gigapace Properties...
+2013-07-16 23:44:32,500 [Manager] INFO  cmf.core.util.SpaceUtil - com.gs.cluster.config-url  = D:\Avaya\CONTAC~1\COMMON~1\CMF\\\config\cluster-config.xml
+2013-07-16 23:44:32,500 [Manager] INFO  cmf.core.util.SpaceUtil - BEFORE : com.gs.jini_lus.locators = null
+2013-07-16 23:44:32,500 [Manager] INFO  cmf.core.util.SpaceUtil - BEFORE : java.rmi.server.hostname = null
+2013-07-16 23:44:32,500 [Manager] INFO  cmf.core.util.SpaceUtil - getCLanHostIPAddress()
+2013-07-16 23:44:32,500 [Manager] INFO  cmf.core.util.SpaceUtil - getKeyValue(): reg cmd = reg query "HKLM\SOFTWARE\Wow6432Node\Nortel\Cache" /v LocalClan
+2013-07-16 23:44:32,661 [Manager] INFO  cmf.core.util.SpaceUtil - getKeyValue(): 
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Nortel\Cache
+    LocalClan    REG_SZ    192.168.115.196
+
+
+2013-07-16 23:44:32,661 [Manager] INFO  cmf.core.util.SpaceUtil - getKeyValue(): value = 192.168.115.196
+2013-07-16 23:44:32,664 [Manager] INFO  cmf.core.util.SpaceUtil - InetAddress.getLocalHost().getHostAddress() returning 192.168.115.196
+2013-07-16 23:44:32,664 [Manager] INFO  cmf.core.util.SpaceUtil - AFTER : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:44:32,664 [Manager] INFO  cmf.core.util.SpaceUtil - AFTER : java.rmi.server.hostname = null
+2013-07-16 23:44:32,664 [Manager] INFO  cmf.core.util.SpaceUtil - SpaceUtil():com.nortel.app[openq]
+2013-07-16 23:44:32,664 [Manager] ERROR cmf.core.util.SpaceUtil - SPACEUTIL : MyInit()
+2013-07-16 23:44:32,752 [Manager] INFO  cmf.core.util.SpaceUtil - SpaceUtil():init CmfLogger...
+2013-07-16 23:44:32,773 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - init():
+	 null null version[null]
+	 workingDir[C:\Windows\system32]
+	 propertyFile[D:\Avaya\CONTAC~1\COMMON~1\CMF\\/OAM32Logging.properties]
+	 Date[2013-07-16 23:44:32,773 MSK], Timestamp[1374003872773]
+2013-07-16 23:44:32,774 [Manager] INFO  cmf.core.util.SpaceUtil - java.util.logging.config.file =D:\Avaya\CONTAC~1\COMMON~1\CMF\\config\gs_logging_cti.properties
+2013-07-16 23:44:32,776 [Manager] INFO  cmf.core.util.SpaceUtil - Spaceutil() _pingMechUrlMAP != null
+2013-07-16 23:44:32,777 [Manager] INFO  cmf.core.util.SpaceUtil - SpaceUtil():Memory Counter is not Turned On
+2013-07-16 23:44:32,812 [Manager] INFO  cmf.core.util.SpaceUtil - Crtpto initialized
+2013-07-16 23:44:33,708 [Manager] INFO  cmf.core.util.SpaceUtil -  SpaceUtil():Initialised Started for NodeName[CCMS], Url[null].
+2013-07-16 23:44:33,721 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - 
+	 CmfProperties.init
+	 CCMS Hostname                = 192.168.115.196
+	 CCT Hostname                 = SGM-MBTCORES7
+	 ccmsAppName                  = CCMS
+	 ccmsAppPort                  = 8100
+	 highAvailabilityRole         = DEFAULT
+	 ccmIdInitialValue            = 1000000000
+	 requestTimeoutLease            = 0
+	 ccmsAppContactTTL            = 30000
+	 ccmsLandingPadTimeoutLease   = 20000
+	 maintainIntrinsicStoreLease   = 300000
+	 ccmsAgentFailAfterRouteTime  = 360000
+	 ccmsAgentFailAfterAnsTime    = 7500000
+	 ccmsMemoryCounter	      = No
+	 ccmsMemoryThreshold	      = 50
+	 ccmsLoggingPropertyFile      = OAMLogging.properties
+	 oambridgeLoggingPropertyFile = OAM32Logging.properties
+	 clientAppName                = CCT
+	 clientAppPort                = 8099
+	 clientAppLoggingPropertyFile = CtiLogging.properties
+	 spAppName                    = TAPI
+	 spAppPort                    = 8098
+	 spLoggingPropertyFile        = SpLogging.properties
+	 smmcAppLoggingPropertyFile   = D:/Avaya/Contact Center/Manager Server/CCSMMC/SystemController/config/log4j.properties
+2013-07-16 23:44:33,721 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - 
+	otalNumberOfOqApps          = 2
+2013-07-16 23:44:33,721 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - Open Queue App 1 : Name                  = CCMM
+	                   Logging Property File = OAMLogging.properties
+2013-07-16 23:44:33,721 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CmfProperties - Open Queue App 2 : Name                  = SAP
+	                   Logging Property File = OAMLogging.properties
+2013-07-16 23:44:33,721 [Manager] INFO  cmf.core.util.SpaceUtil - SpaceUtil()::startSpace[openq].
+2013-07-16 23:44:33,721 [Manager] INFO  cmf.core.util.SpaceUtil - com.gs.cluster.config-url  = D:\Avaya\CONTAC~1\COMMON~1\CMF\\\config\cluster-config.xml
+2013-07-16 23:44:33,721 [Manager] INFO  cmf.core.util.SpaceUtil - BEFORE : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:44:33,721 [Manager] INFO  cmf.core.util.SpaceUtil - BEFORE : java.rmi.server.hostname = null
+2013-07-16 23:44:33,721 [Manager] INFO  cmf.core.util.SpaceUtil - getCLanHostIPAddress()
+2013-07-16 23:44:33,721 [Manager] INFO  cmf.core.util.SpaceUtil - getKeyValue(): reg cmd = reg query "HKLM\SOFTWARE\Wow6432Node\Nortel\Cache" /v LocalClan
+2013-07-16 23:44:33,818 [Manager] INFO  cmf.core.util.SpaceUtil - getKeyValue(): 
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Nortel\Cache
+    LocalClan    REG_SZ    192.168.115.196
+
+
+2013-07-16 23:44:33,818 [Manager] INFO  cmf.core.util.SpaceUtil - getKeyValue(): value = 192.168.115.196
+2013-07-16 23:44:33,820 [Manager] INFO  cmf.core.util.SpaceUtil - InetAddress.getLocalHost().getHostAddress() returning 192.168.115.196
+2013-07-16 23:44:33,820 [Manager] INFO  cmf.core.util.SpaceUtil - AFTER : com.gs.jini_lus.locators = 192.168.115.196
+2013-07-16 23:44:33,820 [Manager] INFO  cmf.core.util.SpaceUtil - AFTER : java.rmi.server.hostname = null
+2013-07-16 23:44:33,829 [Manager] INFO  cmf.core.util.SpaceUtil - initSpaceUtil _pingMechUrlMAP != null
+2013-07-16 23:44:33,829 [Manager] INFO  cmf.core.util.SpaceUtil - initSpaceUtil apptype openq
+2013-07-16 23:44:33,831 [Manager] INFO  cmf.core.util.SpaceUtil - getRmiConfigProperty(): connection type[rmi], isRmi[true], discoveryTimout[-1], rmiApp[false], appName[-1], getConnectionType[null]
+2013-07-16 23:44:33,831 [Manager] INFO  cmf.core.util.SpaceUtil - createUrl(property[com.nortelnetworks.portal.cmf.core.util.CmfNodeConfigProperty@17aece8], clusterNode[OAM])url[rmi://192.168.115.196:8100/OAMContainer/oam], HA Role[DEFAULT], rmiApp[null], currentTime[1374003873831]ms)
+2013-07-16 23:44:33,831 [Manager] INFO  cmf.core.util.SpaceUtil - ::initSpaceUtil():RMI appName[openq], isBackup[null], _highAvailabilityRole[DEFAULT], creating space[rmi://192.168.115.196:8100/OAMContainer/oam]
+2013-07-16 23:44:33,831 [Manager] INFO  cmf.core.util.SpaceUtil - url = rmi://192.168.115.196:8100/OAMContainer/oam
+2013-07-16 23:44:33,832 [Manager] INFO  cmf.core.util.SpaceUtil - url rmi://192.168.115.196:8100/OAMContainer/oam for node name CCMS
+2013-07-16 23:44:33,832 [Manager] INFO  cmf.core.util.SpaceUtil - SpaceUtil():: An RMI connection to an existing space is being started.
+2013-07-16 23:44:33,880 [Manager] INFO  cmf.core.util.SpaceUtil - SpaceUtil()::spaceConfig.space()rmi://192.168.115.196:8100/OAMContainer/oam
+2013-07-16 23:44:37,028 [Manager] INFO  cmf.core.util.SpaceUtil - -----------GIGASPACE PROPERTIES-----------
+2013-07-16 23:44:37,029 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.nortel.cmf.config") = D:\Avaya\CONTAC~1\COMMON~1\CMF\\
+2013-07-16 23:44:37,029 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("java.util.logging.config.file") = D:\Avaya\CONTAC~1\COMMON~1\CMF\\config\gs_logging_cti.properties
+2013-07-16 23:44:37,029 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.security.enabled") = true
+2013-07-16 23:44:37,029 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.security.properties") = null
+2013-07-16 23:44:37,029 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.cluster.cluster_enabled") = true
+2013-07-16 23:44:37,029 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.cluster.config-url") = D:\Avaya\CONTAC~1\COMMON~1\CMF\\\config\cluster-config.xml
+2013-07-16 23:44:37,030 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.transport_protocol.lrmi.max-threads") = null
+2013-07-16 23:44:37,030 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.multicast.enabled") = null
+2013-07-16 23:44:37,030 [Manager] INFO  cmf.core.util.SpaceUtil - System.getProperty("com.gs.jini_lus.locators") = 192.168.115.196
+2013-07-16 23:44:37,030 [Manager] INFO  cmf.core.util.SpaceUtil - ------------------------------------------
+2013-07-16 23:44:37,030 [Manager] INFO  cmf.core.util.SpaceUtil - setAccessDetails():hostname[null], getCcmIdStatus()[false], getListenersAddedStatus()[false], appType[openq]
+2013-07-16 23:44:37,224 [Manager] INFO  cmf.core.util.SpaceUtil - setAccessDetails():ccmIdEntry already exists, replicatedCcmIdEntry[1000000000]
+2013-07-16 23:44:37,236 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CMFMXBeanManager - register() : Registering com.nortelnetworks.portal.cmf.core.util:type=CMFManager MXBean
+2013-07-16 23:44:37,326 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CMFMXBeanManager - register() : Registering com.nortelnetworks.portal.cmf.core.util:type=SystemManager MXBean
+2013-07-16 23:44:37,332 [Manager] INFO  com.nortelnetworks.portal.cmf.core.util.CMFMXBeanManager - register() : Registering com.nortelnetworks.portal.cmf.core.util:type=ListenerManager MXBean
+2013-07-16 23:44:37,369 [Manager] INFO  cmf.sp.PeerImpl - Implementation-Vendor	 Avaya
+2013-07-16 23:44:37,370 [Manager] INFO  cmf.sp.PeerImpl - Ant-Version	 Apache Ant 1.7.0
+2013-07-16 23:44:37,370 [Manager] INFO  cmf.sp.PeerImpl - Implementation-Title	 common
+2013-07-16 23:44:37,370 [Manager] INFO  cmf.sp.PeerImpl - Implementation-Version	 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:44:37,370 [Manager] INFO  cmf.sp.PeerImpl - Class-Path	 ./lib/ace/types-1.1.0.jar ./lib/client/spring-aop.jar ./lib/client/swing-layout-1.0.jar ./lib/cometd/cometd-api-0.9.20080221.jar ./lib/cometd/cometd-bayeux-6.1.10.jar ./lib/cometd/json.jar ./lib/commons-logging-api.jar ./lib/commons-logging.jar ./lib/core-3.1.1.jar ./lib/cxf/FastInfoset-1.2.7.jar ./lib/cxf/XmlSchema-1.4.5.jar ./lib/cxf/abdera-core-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-json-0.4.0-incubating.jar ./lib/cxf/abdera-extensions-main-0.4.0-incubating.jar ./lib/cxf/abdera-i18n-0.4.0-incubating.jar ./lib/cxf/abdera-parser-0.4.0-incubating.jar ./lib/cxf/ant-1.6.5.jar ./lib/cxf/antlr-2.7.7.jar ./lib/cxf/aopalliance-1.0.jar ./lib/cxf/asm-2.2.3.jar ./lib/cxf/axiom-api-1.2.7.jar ./lib/cxf/axiom-impl-1.2.7.jar ./lib/cxf/bcprov-jdk15-1.43.jar ./lib/cxf/commons-codec-1.3.jar ./lib/cxf/commons-collections-3.2.1.jar ./lib/cxf/commons-lang-2.4.jar ./lib/cxf/commons-logging-1.1.1.jar ./lib/cxf/commons-pool-1.5.2.jar ./lib/cxf/cxf-2.2.5.jar ./lib/cxf/cxf-manifest.jar ./lib/cxf/geronimo-activation_1.1_spec-1.0.2.jar ./lib/cxf/geronimo-annotation_1.0_spec-1.1.1.jar ./lib/cxf/geronimo-javamail_1.4_spec-1.6.jar ./lib/cxf/geronimo-jaxws_2.1_spec-1.0.jar ./lib/cxf/geronimo-jms_1.1_spec-1.1.1.jar ./lib/cxf/geronimo-servlet_2.5_spec-1.2.jar ./lib/cxf/geronimo-stax-api_1.0_spec-1.0.1.jar ./lib/cxf/geronimo-ws-metadata_2.0_spec-1.1.2.jar ./lib/cxf/jaxb-api-2.1.jar ./lib/cxf/jaxb-impl-2.1.12.jar ./lib/cxf/jaxb-xjc-2.1.12.jar ./lib/cxf/jaxen-1.1.jar ./lib/cxf/jettison-1.1.jar ./lib/cxf/jetty-6.1.21.jar ./lib/cxf/jetty-util-6.1.21.jar ./lib/cxf/jra-1.0-alpha-4.jar ./lib/cxf/js-1.7R1.jar ./lib/cxf/jsr311-api-1.0.jar ./lib/cxf/neethi-2.0.4.jar ./lib/cxf/oro-2.0.8.jar ./lib/cxf/saaj-api-1.3.jar ./lib/cxf/saaj-impl-1.3.2.jar ./lib/cxf/serializer-2.7.1.jar ./lib/cxf/slf4j-api-1.5.8.jar ./lib/cxf/slf4j-jdk14-1.5.8.jar ./lib/cxf/spring-beans-2.5.5.jar ./lib/cxf/spring-context-2.5.5.jar ./lib/cxf/spring-context-support-2.5.5.jar ./lib/cxf/spring-core-2.5.5.jar ./lib/cxf/spring-jms-2.5.5.jar ./lib/cxf/spring-tx-2.5.5.jar ./lib/cxf/spring-web-2.5.5.jar ./lib/cxf/velocity-1.6.2.jar ./lib/cxf/wsdl4j-1.6.2.jar ./lib/cxf/wss4j-1.5.8.jar ./lib/cxf/wstx-asl-3.2.9.jar ./lib/cxf/xalan-2.7.1.jar ./lib/cxf/xml-resolver-1.2.jar ./lib/cxf/xmlbeans-2.4.0.jar ./lib/cxf/xmlsec-1.4.3.jar ./lib/gigaspaces/com.springsource.org.aopalliance-1.0.0.jar ./lib/gigaspaces/commons-logging.jar ./lib/gigaspaces/gs-openspaces.jar ./lib/gigaspaces/gs-runtime.jar ./lib/gigaspaces/org.springframework.aop-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.asm-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.aspects-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.beans-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.context.support-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.core-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.expression-3.0.1.RELEASE-A.jar ./lib/gigaspaces/org.springframework.transaction-3.0.1.RELEASE-A.jar ./lib/jsp-2.1.jar ./lib/jsp-api-2.1.jar ./lib/junit.jar ./lib/junitour-1.3.jar ./lib/log4j.jar ./lib/mina-core-1.1.7.jar ./lib/nmc-6-stubs/axiom-api-1.2.5.jar ./lib/nmc-6-stubs/axiom-dom-1.2.5.jar ./lib/nmc-6-stubs/axiom-impl-1.2.5.jar ./lib/nmc-6-stubs/axis2-kernel-1.3.jar ./lib/nmc-6-stubs/commons-codec-1.3.jar ./lib/nmc-6-stubs/commons-httpclient-3.0.1.jar ./lib/nmc-6-stubs/mas_stubs.jar ./lib/nmc-6-stubs/maswsapp-1.0_wk41.jar ./lib/nwj-oam/NWJoam.jar ./lib/nwj-oam/mysql-connector-java-bin.jar ./lib/open-jpa/CacheDB.jar ./lib/open-jpa/commons-collections-3.2.jar ./lib/open-jpa/commons-lang-2.1.jar ./lib/open-jpa/commons-pool-1.3.jar ./lib/open-jpa/derby-10.2.2.0.jar ./lib/open-jpa/geronimo-jpa_3.0_spec-1.0.jar ./lib/open-jpa/geronimo-jta_1.1_spec-1.1.jar ./lib/open-jpa/openjpa-1.2.1.jar ./lib/open-jpa/serp-1.13.1.jar ./lib/slf4j-api-1.5.8.jar ./lib/slf4j-simple-1.5.8.jar ./lib/xerces.jar ./lib/xml/jdom.jar .\config\ 
+2013-07-16 23:44:37,372 [Manager] INFO  cmf.sp.PeerImpl - Specification-Vendor	 Avaya
+2013-07-16 23:44:37,373 [Manager] INFO  cmf.sp.PeerImpl - Manifest-Version	 1.0
+2013-07-16 23:44:37,373 [Manager] INFO  cmf.sp.PeerImpl - Specification-Title	 
+2013-07-16 23:44:37,373 [Manager] INFO  cmf.sp.PeerImpl - Created-By	 20.12-b01 (Sun Microsystems Inc.)
+2013-07-16 23:44:37,373 [Manager] INFO  cmf.sp.PeerImpl - Specification-Version	 8.3.19.126
+2013-07-16 23:44:37,374 [Manager] INFO  cmf.sp.PeerImpl - CMF version 8.3.19.126 4-March-2013 BL_CMF_R8.3.19.126
+2013-07-16 23:44:37,377 [Manager] INFO  cmf.core.PeerBaseImpl - Creating a new Peer...
+2013-07-16 23:44:37,610 [Manager] INFO  cmf.sp.PeerImpl - 
+	 Returning existing Provider.
+	 ProviderName       = CCMM
+	 ProviderId         = 6e10d451-37c7-4484-9667-951c835d615e
+2013-07-16 23:44:38,344 [Manager] INFO  cmf.sp.ProviderImpl - addOutOfProviderAddress():
+	 addressId[fce06c75-664a-460b-a093-ea10100f3c32]
+	 addressName[$GenericMmOutOfProviderAddress]
+	 providerName[CCMM]
+2013-07-16 23:44:38,373 [Manager] INFO  com.nortelnetworks.portal.cmf.core.ProviderListenerControllerImpl - 
+	 Adding listener to provider.
+	 ListenerId               = 6e09f78a-db93-46ed-9240-3af56e7b327b
+	 Listener Class           = com.nortel.applications.ccmm.mcmc.Listener.DefaultTreatmentListener
+	 ProviderId               = 6e10d451-37c7-4484-9667-951c835d615e
+2013-07-16 23:44:38,501 [Manager] INFO  cmf.sp.ProviderImpl - 
+	 addListener(StateChangeListener):added
+	 providerName[CCMM]
+	 providerId[6e10d451-37c7-4484-9667-951c835d615e]
+	 listenerId[6e09f78a-db93-46ed-9240-3af56e7b327b]
+	 listenerClass[com.nortel.applications.ccmm.mcmc.Listener.DefaultTreatmentListener]
+2013-07-16 23:44:38,503 [Manager] INFO  com.nortelnetworks.portal.cmf.core.ProviderListenerControllerImpl - 
+	 Adding listener to provider.
+	 ListenerId               = 244e3637-08dd-43b7-a1a0-492dd960da0f
+	 Listener Class           = com.nortel.applications.ccmm.mcmc.Listener.ForceDisconnectListener
+	 ProviderId               = 6e10d451-37c7-4484-9667-951c835d615e
+2013-07-16 23:44:38,515 [Manager] INFO  cmf.sp.ProviderImpl - 
+	 addListener(StateChangeListener):added
+	 providerName[CCMM]
+	 providerId[6e10d451-37c7-4484-9667-951c835d615e]
+	 listenerId[244e3637-08dd-43b7-a1a0-492dd960da0f]
+	 listenerClass[com.nortel.applications.ccmm.mcmc.Listener.ForceDisconnectListener]
+2013-07-16 23:44:38,515 [Manager] INFO  cmf.core.PeerBaseImpl - 
+	 Adding ServiceProviderStatusListener to peer.
+	 PeerName                   = com.nortelnetworks.portal.cmf.core.PeerBaseImpl
+	 ListenerId                 = 4f8e7f03-2b61-4a34-a0cb-a3f74a4392b7
+	 Listener Class             = com.nortel.applications.ccmm.mcmc.Listener.CCMMServiceProviderStatusListener
+2013-07-16 23:44:38,515 [Manager] INFO  cmf.core.PeerBaseImpl - Provider String = CCMM
+2013-07-16 23:44:38,516 [Manager] INFO  cmf.core.PeerBaseImpl - VoicePeer:parseProviderString; Found Service Name = CCMM
+2013-07-16 23:45:59,316 [Thread-30] WARN  cmf.core.ProviderBaseImpl - setMasterStatus() for provider ContactManager with update Enabled took 726 milliseconds to execute
+2013-07-16 23:45:59,316 [Thread-30] WARN  com.nortelnetworks.portal.cmf.core.ContactManagerBaseImpl - setMasterStatus() for CM ContactManager with update Enabled took 726 milliseconds to execute

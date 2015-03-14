@@ -1,0 +1,220 @@
+package org.eclipselabs.real.core.searchobject;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.regex.IMatcherWrapper;
+import org.eclipselabs.real.core.regex.IRealRegex;
+import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
+import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
+import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchresult.ISRComplexRegex;
+import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
+import org.eclipselabs.real.core.searchresult.SRComplexRegexImpl;
+import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegex;
+import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
+import org.eclipselabs.real.core.searchresult.resultobject.SROComplexRegexImpl;
+import org.eclipselabs.real.core.util.FindTextResult;
+import org.eclipselabs.real.core.util.PerformanceUtils;
+import org.eclipselabs.real.core.util.RealPredicate;
+
+public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexRegex, ISROComplexRegex,
+        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> implements ISOComplexRegex {
+    private static final Logger log = LogManager.getLogger(SOComplexRegexImpl.class);
+
+    protected volatile List<IRealRegex> mainRegexList = Collections.synchronizedList(new ArrayList<IRealRegex>());
+
+    public SOComplexRegexImpl(String aName) {
+        super(SearchObjectType.COMPLEX_REGEX, aName);
+    }
+
+    @Override
+    public ISRComplexRegex performSearch(PerformSearchRequest request) {
+        log.info("performSearch " + this);
+        log.info("performSearch request " + request);
+        if ((request == null) || (request.getProgressMonitor() == null)) {
+            log.error("performSearch cannot proceed with request " + request);
+            return null;
+        }
+        Integer finalRegexFlags = regexFlags;
+        if (request.getCustomRegexFlags() != null) {
+            finalRegexFlags = request.getCustomRegexFlags();
+        }
+        request.getProgressMonitor().setCurrentSOName(getSearchObjectName());
+        // init the search result
+        Map<String,String> cachedReplaceTable = getFinalReplaceTable(request.getStaticReplaceParams(), request.getDynamicReplaceParams());
+        Map<ReplaceParamKey, IReplaceParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
+        ISRComplexRegex result = new SRComplexRegexImpl(getSearchObjectName(), getCloneSortRequestList(),
+                cachedReplaceTable, request.getStaticReplaceParams(), allReplaceParams, getSearchObjectGroup(), getSearchObjectTags());
+        result.setViewOrder(viewOrder);
+        if (request.getCustomRegexFlags() != null) {
+            result.setRegexFlags(request.getCustomRegexFlags());
+        }
+        if (getDateInfo() != null) {
+            try {
+                result.setDateInfo(getDateInfo().clone());
+            } catch (CloneNotSupportedException e) {
+                log.error("performSearch",e);
+            }
+        }
+        // clone all stages after SEARCH (not containing search)
+        List<IAcceptanceCriterion> mergeAC = getCloneAcceptanceList(new RealPredicate<IAcceptanceCriterion>() {
+
+            @Override
+            public boolean test(IAcceptanceCriterion t) {
+                return (((t.getStages().size() == 1) && (t.getStages().contains(AcceptanceCriterionStage.MERGE)))
+                        || ((t.getStages().contains(AcceptanceCriterionStage.MERGE)) && (!t.isAccumulating())));
+            }
+        });
+        if (mergeAC != null) {
+            result.getAcceptanceList().addAll(mergeAC);
+        }
+        /* make a list of acceptance clones for the SEARCH stage because the acceptance objects
+         * may be changed during the search (some criteria may accumulate results to perform certain functions)
+         */
+        List<IAcceptanceCriterion> searchAC = getCloneAcceptanceList(new RealPredicate<IAcceptanceCriterion>() {
+
+            @Override
+            public boolean test(IAcceptanceCriterion t) {
+                return t.getStages().contains(AcceptanceCriterionStage.SEARCH);
+            }
+        });
+        /* add to the result acceptances as well to save the accumulated information
+         * (some acceptances may accumulate information) while accepting
+         * for example storing distinct values for example.
+         */
+        if (searchAC != null) {
+            for (IAcceptanceCriterion ac : searchAC) {
+                if ((ac.getStages().contains(AcceptanceCriterionStage.MERGE)) && (ac.isAccumulating())) {
+                    result.getAcceptanceList().add(ac);
+                }
+            }
+        }
+        // the default GC max count if 1000
+        int gcMaxCount = PerformanceUtils.getIntProperty(ISearchObjectConstants.PERF_CONST_MAX_GC_COUNT, 1000);
+        if (SearchObjectUtil.isSearchProceed(request.getText(), searchAC, result)) {
+            String lastFound = null;
+            int gcCount = 0;
+            // according to Java documentation for the synchronized list it is
+            // "imperative that the user manually synchronize on the returned list
+            // when iterating over it". But in this case the synchronization has been removed to make
+            // searches faster
+            //synchronized(mainRegexList) {
+            for (IRealRegex currRegex : mainRegexList) {
+                try {
+                    IMatcherWrapper mtw = currRegex.getMatcherWrapper(request.getText(), cachedReplaceTable, finalRegexFlags);
+                    while (mtw.find()) {
+                        FindTextResult foundStr = mtw.getResult();
+                        ISROComplexRegex newSR = new SROComplexRegexImpl(foundStr.getStrResult(),
+                                foundStr.getStartPos(), foundStr.getEndPos(), SearchObjectUtil.parseDate(getDateInfo(),
+                                        foundStr.getStrResult(), cachedReplaceTable, finalRegexFlags));
+                        if (newSR.getDate() != null) {
+                            result.getFoundYears().add(newSR.getDate().get(Calendar.YEAR));
+                        }
+                        for (ISOComplexRegexView currView : viewMap.values()) {
+                            newSR.addView(currView.getSearchObjectName(),
+                                    currView.performSearch(new PerformSearchRequest(newSR.getText(), cachedReplaceTable, null)));
+                        }
+                        boolean acceptancePassed = SearchObjectUtil.accept(newSR, searchAC, result);
+                        if (acceptancePassed) {
+                            result.addSRObject(newSR);
+                            request.getProgressMonitor().incrementObjectsFound();
+                        }
+                        lastFound = foundStr.getStrResult();
+                        // manual GC is necessary to keep the heap size minimal
+                        // during search the garbage collector is not fast enough therefore
+                        // the heap may grow too large
+                        if (gcCount > gcMaxCount) {
+                            System.gc();
+                            gcCount = 0;
+                        }
+                        gcCount++;
+                    }
+                } catch (Throwable e) {
+                    log.error("Caught exception last statement found " + lastFound
+                            + " regex searched " + currRegex.getPatternString(cachedReplaceTable), e);
+                    throw e;
+                }
+            }
+        }
+        if (result.getSRObjects().isEmpty()) {
+            result = null;
+        }
+        request.getProgressMonitor().incrementCompletedWork();
+        return result;
+    }
+
+    @Override
+    public List<IRealRegex> getMainRegexList() {
+        return mainRegexList;
+    }
+
+    @Override
+    public void setMainRegexList(List<IRealRegex> mrList) {
+        mainRegexList = mrList;
+    }
+
+    @Override
+    public ISearchObject<ISRComplexRegex, ISROComplexRegex> clone() throws CloneNotSupportedException {
+        SOComplexRegexImpl cloneObj = (SOComplexRegexImpl)super.clone();
+        if (viewMap != null) {
+            Map<String, ISOComplexRegexView> newViewMap = new ConcurrentHashMap<>();
+            for (Map.Entry<String, ISOComplexRegexView> currView : viewMap.entrySet()) {
+                newViewMap.put(currView.getKey(), (ISOComplexRegexView)currView.getValue().clone());
+            }
+            cloneObj.viewMap = newViewMap;
+        }
+        if (viewOrder != null) {
+            List<String> newViewOrder = Collections.synchronizedList(new ArrayList<String>());
+            newViewOrder.addAll(viewOrder);
+            cloneObj.viewOrder = newViewOrder;
+        }
+        if (mainRegexList != null) {
+            List<IRealRegex> newMainRegexes = Collections.synchronizedList(new ArrayList<IRealRegex>());
+            // according to Java documentation for the synchronized list it is
+            // "imperative that the user manually synchronize on the returned list
+            // when iterating over it"
+            synchronized(mainRegexList) {
+                for (IRealRegex currRegex : mainRegexList) {
+                    newMainRegexes.add(currRegex.clone());
+                }
+            }
+            cloneObj.setMainRegexList(newMainRegexes);
+        }
+        return cloneObj;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nSOComplexRegexImpl name=" + getSearchObjectName() + " group=" + getSearchObjectGroup() + " tags=" + getSearchObjectTags());
+        sb.append("\nReplaceParams ");
+        if (getCloneParamList() != null) {
+            for (IReplaceParam<?> currParam : getCloneParamList()) {
+                sb.append("\n").append(currParam);
+            }
+        }
+        sb.append("\nDate info ").append(getDateInfo());
+        sb.append("\nMain regexes:");
+        for (IRealRegex currReg : mainRegexList) {
+            sb.append("\n\t").append(currReg);
+        }
+        sb.append("\nAcceptance:");
+        for (IAcceptanceCriterion currCrit : acceptanceList) {
+            sb.append("\n\t").append(currCrit);
+        }
+        sb.append("\nViews:");
+        for (ISOComplexRegexView currView : viewMap.values()) {
+            sb.append("\n\t").append(currView);
+        }
+        return sb.toString();
+    }
+
+}

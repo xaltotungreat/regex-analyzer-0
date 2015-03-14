@@ -1,0 +1,82 @@
+BBUA Connection Create
+<<constructor>> \[BbuaConn:.*
+\d\d/\d\d 17:[1][3-5].*?<<constructor>> \[BbuaConn:.*
+setState\(\) \[BbuaConn:\d+
+(<<constructor>> \[BbuaConn:.*)|(setState\(\) \[BbuaConn:)
+
+Create/SetState 6.3
+=======================
+\d\d/\d\d 12:1[012]:.*?((<<constructor>> \[BbuaConn:\d+.*)|(setState\(\) \[BbuaConn:\d+))
+
+Create/SetState 6.4
+=======================
+\d\d/\d\d 12:1[012]:.*?((BbuaConnection - <init1>\(\)  \[BbuaConn:.*)|(BbuaConnection - setState\(\)  \[BbuaConn))
+
+Create/SetState Passive
+=======================
+(create(Terminal)?ConnectionWithoutUpdate\(\):.*\n(.*\n){3,5}\t contactId\[.*\])|((Terminal)?ConnectionImpl - ((setState)|(executeSetState))\(\)(.*\n){4,7}\t (([Cc]ontactId\[.*\])|(ContactId\s+=\s.*)))
+
+Create/SetState Active
+======================
+(create(Terminal)?ConnectionWithoutUpdate\(\):.*\n(.*\n){3,5}\t contactId\[.*\])|(active\..*?ConnectionImpl.*Connection(.*\n){4,6}\t contactId\[.*\])
+
+
+Create/SetState Passive+Active
+==============================
+(create(Terminal)?ConnectionWithoutUpdate\(\):.*\n(.*\n){3,5}\t contactId\[.*\])?((Terminal)?ConnectionImpl - ((setState)|(executeSetState))\(\)(.*\n){4,7}\t (([Cc]ontactId\[.*\])|(ContactId\s+=\s.*)))?(active\..*?ConnectionImpl.*Connection(.*\n){4,6}\t contactId\[.*\])?
+
+Dropped Contact
+ConnectionBaseImpl - setState\(\):Dropped Contact.\n(.*\n){3}\t contactId\[.*\]
+
+Media
+setMasTransactionId() [BbuaConn:.*
+BbuaMediaConnection - disconnect\(\)  \[BbuaConn:.*?with reason:.*
+\d\d/\d\d 17:[1][3-5].*?BbuaMediaConnection - disconnect\(\)  \[BbuaConn:.*?with reason:.*
+
+Update an entry through SpaceUtil
+SpaceUtil.*\[Update\].*([\r\n].*){1,2}.*AddressEntry
+
+Write an entry through SpaceUtil
+SpaceUtil.*\[Write\].*([\r\n].*){1,2}.*AddressEntry
+
+Specific log level
+\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d,\d\d\d \[.*\] ERROR
+
+Any Record
+\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d,\d\d\d \[.*?\] \w{1,5}\s+(\w+\.)*\w+.*([\n].*)*
+
+CreateConnection Agent/Terminal
+create(Terminal)?ConnectionWithoutUpdate\(\):.*\n(.*\n){3,5}\t contactId\[.*\]
+
+Connection setState()
+ConnectionImpl - setState\(\) : (.*\n){4}\t contactId\[.*\]
+
+Terminal Connection setState()
+TerminalConnectionImpl - setState\(\)(.*\n){7}\t ContactId\s+=\s.*
+
+Connection/TerminalConnection setState()
+(Terminal)?ConnectionImpl - setState\(\)(.*\n){4,7}\t (([Cc]ontactId\[.*\])|(ContactId\s+=\s.*))
+active\..*?ConnectionImpl.*Connection(.*\n){4,6}\t contactId\[.*\]
+
+Find the address by id in DropContact
+2012-12-0[56].*\n.*?\[DefaultNode_CCMM_(.*\r?\n){1,3}.*?[Aa]ddress[Ii][Dd]\[.*\]
+
+GetAttachedData pair (from OI till the ending entry)
+getAttachedData\(SsoToken ssoToken, Contact contact\)\nInput param \[ 0 \] = \nSsoToken :\n\ttoken = 6d182db2-b3c0-4f1f-9007-3ca594419c94\n(\r?\n(?:(?!getAttachedData)).*)+
+
+IPv4
+^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$
+
+Email
+^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$
+
+Log Statement
+\w*log\w*\.\w+?\((.*?[\r\n]*)+\);
+
+Statement Within (pos lookbehind has to be exact length no .* or .+ etc)
+(?<=(value=")).*?(?=")
+<arg value="/c"/>
+Result = /c
+
+
+\[DefaultNode_CCMM_(.*\r?\n)+.*?\[cC]ontact[Ii][Dd]\[.*]

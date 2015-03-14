@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log_types>
+	<log_type name="AML">		<filename_patterns>
+			<filename_pattern>CCMS_AML(\.\d+)*\.log</filename_pattern>
+			<filename_pattern>CCMS_AML(_\d)?\.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="ASM">		<filename_patterns>
+			<filename_pattern>CCMS_ASM(_\d)?\.log</filename_pattern>
+			<filename_pattern>CCMS-CCMS_ASM(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>ASM_\d+_\d+.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CCMM_EmailManager">
+		<filename_patterns>
+			<filename_pattern>CCMM_EmailManager_\d\.log</filename_pattern>
+			<filename_pattern>CCMM-CCMM_EmailManager(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>EmailManager_\d+_\d+.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CCMM_MCMClient">
+		<filename_patterns>
+			<filename_pattern>CCMM_MCMClient_\d\.log</filename_pattern>
+			<filename_pattern>CCMM-CCMM_MCMClient(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>MCMClient_\d+_\d+.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CCMM_OAMClient">
+		<filename_patterns>
+			<filename_pattern>CCMM_OAMClient_\d\.log</filename_pattern>
+			<filename_pattern>CCMM-CCMM_OAMClient(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>OAMClient_\d+_\d+.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CCMM_StarterService">
+		<filename_patterns>
+			<filename_pattern>CCMM_StarterService_\d\.log</filename_pattern>
+			<filename_pattern>CCMM-CCMM_StarterService(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>StarterService_\d+_\d+.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="EB">		<filename_patterns>
+			<filename_pattern>CCMS_EB(_\d)?\.log</filename_pattern>
+			<filename_pattern>CCMS-CCMS_EB(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_SipSp">		<filename_patterns>
+			<filename_pattern>CCMS_SGM_SipSp.log(\.\d+)?</filename_pattern>
+			<filename_pattern>CCMS-CCMS_SGM_SipSp.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_AmlSp">		<filename_patterns>
+			<filename_pattern>CCMS_SGM_AmlSp.log(\.\d+)?</filename_pattern>
+			<filename_pattern>CCMS-CCMS_SGM_AmlSp.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_SipSpCpp">		<filename_patterns>
+			<filename_pattern>CCMS_SGM_SipSpCpp\d?.log</filename_pattern>
+			<filename_pattern>CCMS-CCMS_SGM_SipSpCpp\d-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_SipRvCpp">		<filename_patterns>
+			<filename_pattern>CCMS_SGM_SipRvCpp\d?\.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_XMPP_Service">
+		<filename_patterns>
+			<filename_pattern>CCMS_SGM_XMPP_Service.log(\.\d+)?</filename_pattern>
+			<filename_pattern>CCMS-CCMS_SGM_XMPP_Service.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_XMPPMessages">
+		<filename_patterns>
+			<filename_pattern>CCMS_SGM_XMPPMessages.log(\.\d+)?</filename_pattern>
+			<filename_pattern>CCMS-CCMS_SGM_XMPPMessages.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CMF_OAM">		<filename_patterns>
+			<filename_pattern>CMF_OAM(_\d+)?\.log</filename_pattern>
+			<filename_pattern>CMF_OAM.log(\.\d+)?</filename_pattern>
+			<filename_pattern>CCMS-CMF_OAM(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>CMF_\d+_\d+\.log</filename_pattern>
+			<filename_pattern>CMF_SP(_\d+)?\.log</filename_pattern>
+			<filename_pattern>CCT-CMF_SP(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CMF_OAM32">		<filename_patterns>
+			<filename_pattern>CMF_OAM32(_\d+)?\.log</filename_pattern>
+			<filename_pattern>CCMS-CMF_OAM32(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CMF_OI">		<filename_patterns>
+			<filename_pattern>CMF_OI(_\d+)?\.log</filename_pattern>
+			<filename_pattern>CCT-CMF_OI(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_SipMessages">		<filename_patterns>
+			<filename_pattern>CCMS_SGM_SipMessages\d?\.log</filename_pattern>
+			<filename_pattern>CCMS-CCMS_SGM_SipMessages(\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>SipMsg_\d+_\d+\.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="SGM_TapidMessages">
+		<filename_patterns>
+			<filename_pattern>CCMS_SGM_TapidMessages.log(\.\d+)?</filename_pattern>
+			<filename_pattern>CCMS-CCMS_SGM_TapidMessages.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CCT_SERVER">		<filename_patterns>
+			<filename_pattern>CCT_SERVER_\d\.log</filename_pattern>
+			<filename_pattern>CCT-CCT_SERVER(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+			<filename_pattern>CCT_\d+_\d+\.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
+	<log_type name="CC_CacheResiliency">
+		<filename_patterns>
+			<filename_pattern>CC_CacheResiliency(_\d)?\.log</filename_pattern>
+			<filename_pattern>Common-CC_CacheResiliency(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
+</log_types>

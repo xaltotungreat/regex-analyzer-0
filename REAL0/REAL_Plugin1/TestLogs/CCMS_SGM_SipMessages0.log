@@ -1,0 +1,2334 @@
+16/07/2013-23:43:42.440 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f0cd0-c473a8c0-13c4-55013-a47b-43ffc56e-a47b
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000754F6460-00000000709F0CD0
+CSeq: 71018329 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a47b-282815b-2405d328-6eef1810
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:43:42.507 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.18 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f0f88-c473a8c0-13c4-55013-a47b-2f65243f-a47b
+To: <sip:192.168.115.18>
+Call-ID: UAC-00000000754F6640-00000000709F0F88
+CSeq: 1145891534 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a47b-282819e-27b8e025-6eef1a68
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:43:42.512 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a47b-282819e-27b8e025-6eef1a68
+To: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000299532~1464989375~1
+From: <sip:192.168.115.196>;tag=709f0f88-c473a8c0-13c4-55013-a47b-2f65243f-a47b
+Call-ID: UAC-00000000754F6640-00000000709F0F88
+CSeq: 1145891534 OPTIONS
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Server: AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:43:42.575 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.196 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f1240-c473a8c0-13c4-55013-a47b-56d36488-a47b
+To: <sip:192.168.115.196>
+Call-ID: UAC-00000000754F6640-00000000709F1240
+CSeq: 1519405723 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a47b-28281e2-4ab67d3a-6eef1cc0
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:43:42.591 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:192.168.115.196>;tag=709f1240-c473a8c0-13c4-55013-a47b-56d36488-a47b
+To: <sip:192.168.115.196>;tag=2ac690e8-c473a8c0-13ce-6006-a47b-3022fe25-a47b
+Call-ID: UAC-00000000754F6640-00000000709F1240
+CSeq: 1519405723 OPTIONS
+User-Agent: Avaya MAS 7.5.0.837
+Supported: replaces,sdp-anat
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a47b-28281e2-4ab67d3a-6eef1cc0
+Content-Type: application/sdp
+Content-Length: 412
+
+v=0
+o=MAS 1 1 IN IP4 0.0.0.0
+s=-
+e=unknown@invalid.net
+c=IN IP4 0.0.0.0
+t=0 0
+m=audio 0 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 0.0.0.0
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=inactive
+m=video 0 RTP/AVP 34
+c=IN IP4 0.0.0.0
+a=inactive
+
+$$end_record
+
+16/07/2013-23:43:59.947 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f14f8-c473a8c0-13c4-55013-a48c-12a4ba89-a48c
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000754F6460-00000000709F14F8
+CSeq: 852698112 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a48c-282c5be-50d269a7-6eef1f18
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:44:21.993 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f17b0-c473a8c0-13c4-55013-a4a2-2157b882-a4a2
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000755006E0-00000000709F17B0
+CSeq: 1434839613 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4a2-2831bda-44006aac-6eef2170
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:44:27.665 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.196 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f1a68-c473a8c0-13c4-55013-a4a8-3ebc5eb3-a4a8
+To: <sip:192.168.115.196>
+Call-ID: UAC-00000000755006E0-00000000709F1A68
+CSeq: 2050193042 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4a8-2833203-6d641b89-6eef23c8
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:44:27.667 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:192.168.115.196>;tag=709f1a68-c473a8c0-13c4-55013-a4a8-3ebc5eb3-a4a8
+To: <sip:192.168.115.196>;tag=2ac692a8-c473a8c0-13ce-6006-a4a8-4b7b0913-a4a8
+Call-ID: UAC-00000000755006E0-00000000709F1A68
+CSeq: 2050193042 OPTIONS
+User-Agent: Avaya MAS 7.5.0.837
+Supported: replaces,sdp-anat
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4a8-2833203-6d641b89-6eef23c8
+Content-Type: application/sdp
+Content-Length: 412
+
+v=0
+o=MAS 1 1 IN IP4 0.0.0.0
+s=-
+e=unknown@invalid.net
+c=IN IP4 0.0.0.0
+t=0 0
+m=audio 0 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 0.0.0.0
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=inactive
+m=video 0 RTP/AVP 34
+c=IN IP4 0.0.0.0
+a=inactive
+
+$$end_record
+
+16/07/2013-23:44:38.118 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f1d20-c473a8c0-13c4-55013-a4b2-3f38ab5c-a4b2
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000755076A0-00000000709F1D20
+CSeq: 1237178431 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4b2-2835ad9-35623d7e-6eef2620
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:44:51.668 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.18 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f1fd8-c473a8c0-13c4-55013-a4c0-2268aabd-a4c0
+To: <sip:192.168.115.18>
+Call-ID: UAC-00000000755076A0-00000000709F1FD8
+CSeq: 909419652 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4c0-2838fc6-36a787cb-6eef2878
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:44:51.671 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4c0-2838fc6-36a787cb-6eef2878
+To: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000368694~1464989607~1
+From: <sip:192.168.115.196>;tag=709f1fd8-c473a8c0-13c4-55013-a4c0-2268aabd-a4c0
+Call-ID: UAC-00000000755076A0-00000000709F1FD8
+CSeq: 909419652 OPTIONS
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Server: AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:44:54.731 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f2290-c473a8c0-13c4-55013-a4c3-563e0716-a4c3
+To: <sip:192.168.115.15>
+Call-ID: UAC-000000007550D3A0-00000000709F2290
+CSeq: 2138621601 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4c3-2839bbe-5078f7b0-6eef2ad0
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:12.444 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f2548-c473a8c0-13c4-55013-a4d5-7aa318a7-a4d5
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000755076A0-00000000709F2548
+CSeq: 574738390 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4d5-283e0ef-201a06d-6eef2d28
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:20.670 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.196 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f2800-c473a8c0-13c4-55013-a4dd-558575b0-a4dd
+To: <sip:192.168.115.196>
+Call-ID: UAC-00000000755076A0-00000000709F2800
+CSeq: 1652082531 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4dd-2840112-6ab1fb42-6eef2f80
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:20.706 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:192.168.115.196>;tag=709f2800-c473a8c0-13c4-55013-a4dd-558575b0-a4dd
+To: <sip:192.168.115.196>;tag=2ac69468-c473a8c0-13ce-6006-a4dd-3977711f-a4dd
+Call-ID: UAC-00000000755076A0-00000000709F2800
+CSeq: 1652082531 OPTIONS
+User-Agent: Avaya MAS 7.5.0.837
+Supported: replaces,sdp-anat
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4dd-2840112-6ab1fb42-6eef2f80
+Content-Type: application/sdp
+Content-Length: 412
+
+v=0
+o=MAS 1 1 IN IP4 0.0.0.0
+s=-
+e=unknown@invalid.net
+c=IN IP4 0.0.0.0
+t=0 0
+m=audio 0 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 0.0.0.0
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=inactive
+m=video 0 RTP/AVP 34
+c=IN IP4 0.0.0.0
+a=inactive
+
+$$end_record
+
+16/07/2013-23:45:30.398 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f2ab8-c473a8c0-13c4-55013-a4e7-80c0271-a4e7
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000755076A0-00000000709F2AB8
+CSeq: 2050783880 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4e7-2842711-4b24b76f-6eef31d8
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:47.535 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.18 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f2d70-c473a8c0-13c4-55013-a4f8-6f9c812a-a4f8
+To: <sip:192.168.115.18>
+Call-ID: UAC-00000000755076A0-00000000709F2D70
+CSeq: 205737093 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4f8-2846a00-665d0a34-6eef3430
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:47.539 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a4f8-2846a00-665d0a34-6eef3430
+To: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000424562~1464989793~1
+From: <sip:192.168.115.196>;tag=709f2d70-c473a8c0-13c4-55013-a4f8-6f9c812a-a4f8
+Call-ID: UAC-00000000755076A0-00000000709F2D70
+CSeq: 205737093 OPTIONS
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Server: AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:51.383 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: INVITE sip:57061@sip.aura.com SIP/2.0
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 1 INVITE
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-28478fe-4927ed1-6eef3688
+Content-Disposition: signal;handling=required
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Session-Expires: 12000;refresher=uac
+Min-SE: 100
+Content-Type: application/csta+xml
+Content-Length: 824
+
+<?xml version="1.0" encoding="UTF-8"?>
+<RequestSystemStatus xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3">
+  <extensions>
+    <privateData>
+      <private>
+        <AACC:line xmlns:lcs="http://schemas.microsoft.com/Lcs/2005/04/RCCExtension">tel:57061;phone-context=sip.aura.com</AACC:line>
+        <RequestSystemStatusPrivateData xmlns="http://www.avaya.com/csta"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RequestSystemStatusPrivateData">
+          <requestedProtocolVersions>
+            <protocolVersion>http://www.ecma-international.org/standards/ecma-323/csta/ed3/priv6</protocolVersion>
+          </requestedProtocolVersions>
+          <getTlinkStatus/>
+        </RequestSystemStatusPrivateData>
+      </private>
+     </privateData>
+   </extensions>
+</RequestSystemStatus>
+$$end_record
+
+16/07/2013-23:45:51.393 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 1 INVITE
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-28478fe-4927ed1-6eef3688;rport=5061
+Content-Type: application/csta+xml
+Contact: "tr87" <sip:57061@sip.aura.com:4723;transport=tls>
+Session-Expires: 7200;refresher=uac
+Require: timer
+Supported: timer
+Allow: INVITE, BYE, ACK, INFO, UPDATE
+Content-Length: 203
+
+<?xml version="1.0" encoding="UTF-8"?>
+<RequestSystemStatusResponse xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"><systemStatus>normal</systemStatus></RequestSystemStatusResponse>
+$$end_record
+
+16/07/2013-23:45:51.400 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: ACK sip:57061@sip.aura.com:4723;transport=tls SIP/2.0
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 1 ACK
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-2847919-7d701386-6eef3688
+Max-Forwards: 70
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:51.411 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f32e0-c473a8c0-13c4-55013-a4fc-2f1e4686-a4fc
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000755148F0-00000000709F32E0
+CSeq: 1501205380 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-2847926-1ccb4197-6eef38e0
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:45:51.416 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:57061@sip.aura.com:4723;transport=tls SIP/2.0
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 2 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-284792b-cc911a5-6eef3b38
+Content-Disposition: signal;handling=required
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Type: application/csta+xml
+Content-Length: 246
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MonitorStart xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3">
+  <monitorObject>
+    <deviceObject>tel:57061;phone-context=sip.aura.com</deviceObject>
+  </monitorObject>
+</MonitorStart>
+$$end_record
+
+16/07/2013-23:45:51.480 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 2 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-284792b-cc911a5-6eef3b38;rport=5061
+Content-Type: application/csta+xml
+Content-Length: 2172
+
+<?xml version="1.0" encoding="UTF-8"?>
+<MonitorStartResponse xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"><monitorCrossRefID>140</monitorCrossRefID><actualMonitorFilter><physicalDeviceFeature><buttonInformation>true</buttonInformation><buttonPress>true</buttonPress><displayUpdated>true</displayUpdated><hookswitch>true</hookswitch><lampMode>true</lampMode><messageWaiting>true</messageWaiting><microphoneGain>true</microphoneGain><microphoneMute>true</microphoneMute><ringerStatus>true</ringerStatus><speakerMute>true</speakerMute><speakerVolume>true</speakerVolume></physicalDeviceFeature><voice><play>true</play><record>true</record><review>true</review><stop>true</stop><suspendPlay>true</suspendPlay><suspendRecord>true</suspendRecord><voiceAttributesChanged>true</voiceAttributesChanged></voice></actualMonitorFilter><extensions><privateData><private><ns1:AvayaEvents xmlns:ns1="http://www.avaya.com/csta" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns1:AvayaEvents"><ns1:invertFilter>false</ns1:invertFilter><ns1:terminal><ns1:registered>true</ns1:registered><ns1:unregistered>true</ns1:unregistered><ns1:registerFailed>true</ns1:registerFailed></ns1:terminal><ns1:toneDetection><ns1:toneDetected>true</ns1:toneDetected></ns1:toneDetection><ns1:toneCollection><ns1:tonesRetrieved>true</ns1:tonesRetrieved></ns1:toneCollection><ns1:mediaControl><ns1:mediaStarted>true</ns1:mediaStarted><ns1:mediaStopped>true</ns1:mediaStopped><ns1:esig>true</ns1:esig></ns1:mediaControl><ns1:callInformation><ns1:linkDown>true</ns1:linkDown><ns1:linkUp>true</ns1:linkUp></ns1:callInformation><ns1:sIPHeader><ns1:sipHeaderNotify>true</ns1:sipHeaderNotify></ns1:sIPHeader><ns1:deviceServices><ns1:getDeviceIdList>true</ns1:getDeviceIdList><ns1:getMonitorList>true</ns1:getMonitorList><ns1:transferMonitorObjects>true</ns1:transferMonitorObjects></ns1:deviceServices><ns1:physicalDeviceFeaturesPrivateEvents><ns1:e911CallBlocked>true</ns1:e911CallBlocked><ns1:serviceLinkStatusChanged>true</ns1:serviceLinkStatusChanged></ns1:physicalDeviceFeaturesPrivateEvents></ns1:AvayaEvents></private></privateData></extensions></MonitorStartResponse>
+$$end_record
+
+16/07/2013-23:45:51.487 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:57061@sip.aura.com:4723;transport=tls SIP/2.0
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 3 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-2847972-4b2ed493-6eef3d90
+Content-Disposition: signal;handling=required
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Type: application/csta+xml
+Content-Length: 610
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SnapshotDevice xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <snapshotObject>tel:57061;phone-context=sip.aura.com</snapshotObject>
+  <extensions>
+  <privateData>
+    <private>
+      <SnapshotDevicePrivateData xmlns:ns1="http://www.avaya.com/csta" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SnapshotDevicePrivateData">
+        <getStationStatus>true</getStationStatus>
+      </SnapshotDevicePrivateData>
+    </private>
+  </privateData>
+  </extensions>
+</SnapshotDevice>
+$$end_record
+
+16/07/2013-23:45:51.530 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 3 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a4fc-2847972-4b2ed493-6eef3d90;rport=5061
+Content-Type: application/csta+xml
+Content-Length: 226
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SnapshotDeviceResponse xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"><crossRefIDorSnapshotData><snapshotData/></crossRefIDorSnapshotData></SnapshotDeviceResponse>
+$$end_record
+
+16/07/2013-23:46:10.243 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f3b08-c473a8c0-13c4-55013-a50f-340aee9f-a50f
+To: <sip:192.168.115.15>
+Call-ID: UAC-00000000755148F0-00000000709F3B08
+CSeq: 1094244449 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a50f-284c2b4-2d1c723c-6eef3fe8
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:22.011 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.196 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f3dc0-c473a8c0-13c4-55013-a51a-284a07e4-a51a
+To: <sip:192.168.115.196>
+Call-ID: UAC-00000000755148F0-00000000709F3DC0
+CSeq: 1932339098 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a51a-284f0ad-760b3a9d-6eef4240
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:22.022 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:192.168.115.196>;tag=709f3dc0-c473a8c0-13c4-55013-a51a-284a07e4-a51a
+To: <sip:192.168.115.196>;tag=2ac69628-c473a8c0-13ce-6006-a51a-63fff135-a51a
+Call-ID: UAC-00000000755148F0-00000000709F3DC0
+CSeq: 1932339098 OPTIONS
+User-Agent: Avaya MAS 7.5.0.837
+Supported: replaces,sdp-anat
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a51a-284f0ad-760b3a9d-6eef4240
+Content-Type: application/sdp
+Content-Length: 412
+
+v=0
+o=MAS 1 1 IN IP4 0.0.0.0
+s=-
+e=unknown@invalid.net
+c=IN IP4 0.0.0.0
+t=0 0
+m=audio 0 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 0.0.0.0
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=inactive
+m=video 0 RTP/AVP 34
+c=IN IP4 0.0.0.0
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:32.416 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f4078-c473a8c0-13c4-55013-a525-418c0f01-a525
+To: <sip:192.168.115.15>
+Call-ID: UAC-0000000075514BF0-00000000709F4078
+CSeq: 548836619 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a525-2851952-32c117f6-6eef4498
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:47.447 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:49638):$$begin_record
+Direction: incoming
+Start-Line: INVITE sip:27060@sip.aura.com SIP/2.0
+Record-Route: <sip:43b372c4@192.168.115.18;transport=tcp;lr>
+Record-Route: <sip:192.168.115.17:15060;lr;sap=837926302*1*016asm-callprocessing.sar292726720~1374000484464~1464989987~1;transport=tcp>
+From: "sgm8-ext2" <sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075208-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075208
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175206
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175205
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK06ad198ef7e212e1a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK06ad198ef7e212e1a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK06ad198ef7e212e1a51f6901700
+Supported: 100rel, histinfo, join, replaces, sdp-anat, timer
+Allow: INVITE, ACK, OPTIONS, BYE, CANCEL, SUBSCRIBE, NOTIFY, REFER, INFO, PRACK, PUBLISH, UPDATE
+User-Agent:  Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Contact: "sgm8-ext2" <sip:+57071@192.168.115.13:5061;transport=tls>
+Alert-Info: <cid:internal@sip.aura.com>;avaya-cm-alert-type=internal
+History-Info: <sip:27060@sip.aura.com>;index=1
+History-Info: "27060" <sip:27060@sip.aura.com>;index=1.1
+Min-SE: 1200
+P-Asserted-Identity: "sgm8-ext2" <sip:+57071@sip.aura.com>
+Record-Route: <sip:43b372c4@192.168.115.18;transport=tls;lr>
+Record-Route: <sip:192.168.115.13:5061;transport=tls;lr>
+Session-Expires: 1200;refresher=uac
+P-Charging-Vector: icid-value="AAS:5946-98d16a001e2f70ef6511a2b1790"
+Content-Type: application/sdp
+Content-Length: 309
+Route: <sip:192.168.115.196;transport=tcp;lr;phase=terminating>
+P-Location: SM;origlocname="Aura";origsiglocname="Aura";termlocname="Aura";termsiglocname="Aura"
+Max-Forwards: 67
+
+v=0
+o=- 1374000484 1 IN IP4 192.168.115.13
+s=-
+c=IN IP4 192.168.115.10
+b=AS:64
+t=0 0
+a=avf:avc=n prio=n
+a=csup:avf-v0
+m=audio 2070 RTP/AVP 0 18 4 127
+a=rtpmap:0 PCMU/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=no
+a=rtpmap:4 G723/8000
+a=fmtp:4 bitrate=G723BOTH
+a=rtpmap:127 telephone-event/8000
+
+$$end_record
+
+16/07/2013-23:46:47.499 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:49638):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 100 Trying
+From: "sgm8-ext2"<sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075208-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075208
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175206
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175205
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK06ad198ef7e212e1a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK06ad198ef7e212e1a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK06ad198ef7e212e1a51f6901700
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@sip.aura.com>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:48.000 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f45e8-c473a8c0-13c4-55013-a534-61059195-a534
+To: <sip:192.168.115.15>
+Call-ID: UAC-0000000075507A80-00000000709F45E8
+CSeq: 337379260 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a534-2855628-10dba1c3-6eef4948
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:48.108 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: INVITE sip:__sip-conf@sip.aura.com;token=37365520 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a534-285569d-7b1981e8-6eef4ba0
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,REFER,NOTIFY,SUBSCRIBE
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Session-Expires: 12000
+Content-Type: application/sdp
+Content-Length: 309
+
+v=0
+o=- 1374000484 1 IN IP4 192.168.115.13
+s=-
+c=IN IP4 192.168.115.10
+b=AS:64
+t=0 0
+a=avf:avc=n prio=n
+a=csup:avf-v0
+m=audio 2070 RTP/AVP 0 18 4 127
+a=rtpmap:0 PCMU/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=no
+a=rtpmap:4 G723/8000
+a=fmtp:4 bitrate=G723BOTH
+a=rtpmap:127 telephone-event/8000
+
+$$end_record
+
+16/07/2013-23:46:48.286 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 100 Trying
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a534-285569d-7b1981e8-6eef4ba0
+Supported: replaces,sdp-anat
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;token=37365520>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:48.716 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a534-285569d-7b1981e8-6eef4ba0
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/sdp
+Content-Length: 254
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31100 RTP/AVP 0 127
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:127 telephone-event/8000
+a=fmtp:127 0-15
+a=ptime:20
+a=sendrecv
+
+$$end_record
+
+16/07/2013-23:46:48.721 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:49638):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 200 OK
+From: "sgm8-ext2"<sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 1 INVITE
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER,SUBSCRIBE
+Supported: timer,replaces
+Require: timer
+User-Agent: Avaya Aura Contact Center 6.x
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075208-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075208
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175206
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175205
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK06ad198ef7e212e1a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK06ad198ef7e212e1a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK06ad198ef7e212e1a51f6901700
+Record-Route: <sip:43b372c4@192.168.115.18;transport=tcp;lr>
+Record-Route: <sip:192.168.115.17:15060;transport=tcp;lr;sap=837926302*1*016asm-callprocessing.sar292726720~1374000484464~1464989987~1>
+Record-Route: <sip:43b372c4@192.168.115.18;transport=tls;lr>
+Record-Route: <sip:192.168.115.13:5061;transport=tls;lr>
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Session-Expires: 1200;refresher=uac
+Content-Type: application/sdp
+Content-Length: 254
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31100 RTP/AVP 0 127
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:127 telephone-event/8000
+a=fmtp:127 0-15
+a=ptime:20
+a=sendrecv
+
+$$end_record
+
+16/07/2013-23:46:48.730 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:49638):$$begin_record
+Direction: incoming
+Start-Line: ACK sip:27060@192.168.115.196:5060;transport=tcp SIP/2.0
+From: "sgm8-ext2" <sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 1 ACK
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075212-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075212
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175211
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK806ad198ef7e212f1a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK806ad198ef7e212f1a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK806ad198ef7e212f1a51f6901700
+User-Agent:  Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+P-Location: SM;origlocname="Aura";origsiglocname="Aura";termlocname="Aura";termsiglocname="Aura"
+Max-Forwards: 67
+
+
+$$end_record
+
+16/07/2013-23:46:48.732 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: ACK sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 1 ACK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a535-2855910-6fc7dcf-6eef4ba0
+Max-Forwards: 70
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:48.934 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:49638):$$begin_record
+Direction: incoming
+Start-Line: INVITE sip:27060@192.168.115.196:5060;transport=tcp SIP/2.0
+From: "sgm8-ext2" <sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 2 INVITE
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075215-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075215
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175213
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK806ad198ef7e21301a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK806ad198ef7e21301a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK806ad198ef7e21301a51f6901700
+Supported: 100rel,histinfo,join,replaces,sdp-anat,timer
+Allow: INVITE,ACK,OPTIONS,BYE,CANCEL,SUBSCRIBE,NOTIFY,REFER,INFO,PRACK,PUBLISH,UPDATE
+User-Agent:  Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Contact: "sgm8-ext2" <sip:+57071@192.168.115.13:5061;transport=tls>
+Min-SE: 1200
+P-Asserted-Identity: "sgm8-ext2" <sip:+57071@sip.aura.com>
+Session-Expires: 1200;refresher=uac
+P-Charging-Vector: icid-value="AAS:5946-98d16a001e2f70ef6511a2b1790"
+Content-Length: 0
+P-Location: SM;origlocname="Aura";origsiglocname="Aura";termlocname="Aura";termsiglocname="Aura"
+Max-Forwards: 67
+
+
+$$end_record
+
+16/07/2013-23:46:48.947 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:49638):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 100 Trying
+From: "sgm8-ext2"<sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 2 INVITE
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075215-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075215
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175213
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK806ad198ef7e21301a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK806ad198ef7e21301a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK806ad198ef7e21301a51f6901700
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:48.996 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 2 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a535-2855a16-1b1f968d-6eef5050
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Type: application/x-mas-control
+Content-Length: 145
+
+type=request
+service=annc
+play=ringback
+mediatype=treatment
+early=no
+repeat=infinite
+locale=en_ca
+x-nt-gslid=dbbb8c0d-d2fe-444e-a909-b1bb73d3feb5
+$$end_record
+
+16/07/2013-23:46:49.000 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: INVITE sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 3 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a535-2855a1a-784cbffb-6eef52a8
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,REFER,NOTIFY,SUBSCRIBE
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Session-Expires: 12000;refresher=uac
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:49.075 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 2 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a535-2855a16-1b1f968d-6eef5050
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/x-mas-control
+Content-Length: 7
+
+tid=1
+
+$$end_record
+
+16/07/2013-23:46:49.083 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 3 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a535-2855a1a-784cbffb-6eef52a8
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/sdp
+Content-Length: 451
+
+v=0
+o=MAS 33 4 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31100 RTP/AVP 0 8 18 9 13 127 96
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:127 telephone-event/8000
+a=rtpmap:96 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:49.088 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:49638):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 200 OK
+From: "sgm8-ext2"<sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 2 INVITE
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER,SUBSCRIBE
+Supported: timer,replaces
+Require: timer
+User-Agent: Avaya Aura Contact Center 6.x
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075215-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075215
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175213
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK806ad198ef7e21301a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK806ad198ef7e21301a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK806ad198ef7e21301a51f6901700
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Session-Expires: 1200;refresher=uac
+Content-Type: application/sdp
+Content-Length: 451
+
+v=0
+o=MAS 33 4 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31100 RTP/AVP 0 8 18 9 13 127 96
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:127 telephone-event/8000
+a=rtpmap:96 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:49.096 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:49638):$$begin_record
+Direction: incoming
+Start-Line: ACK sip:27060@192.168.115.196:5060;transport=tcp SIP/2.0
+From: "sgm8-ext2" <sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 2 ACK
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075217-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075217
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175216
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK06ad198ef7e21311a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK06ad198ef7e21311a51f6901700
+Via: SIP/2.0/TCP 192.168.106.253;branch=z9hG4bK06ad198ef7e21311a51f6901700
+User-Agent:  Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Content-Type: application/sdp
+Content-Length: 237
+P-Location: SM;origlocname="Aura";origsiglocname="Aura";termlocname="Aura";termsiglocname="Aura"
+Max-Forwards: 67
+
+v=0
+o=- 1374000484 2 IN IP4 192.168.115.13
+s=-
+c=IN IP4 192.168.106.253
+b=AS:2048
+t=0 0
+m=audio 2048 RTP/AVP 9 127
+a=rtpmap:9 G722/8000
+a=rtpmap:127 telephone-event/8000
+m=video 0 RTP/AVP 34
+a=inactive
+a=rtpmap:34 H263/90000
+
+$$end_record
+
+16/07/2013-23:46:49.099 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: ACK sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 3 ACK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a535-2855a7e-73317731-6eef52a8
+Max-Forwards: 70
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Type: application/sdp
+Content-Length: 237
+
+v=0
+o=- 1374000484 2 IN IP4 192.168.115.13
+s=-
+c=IN IP4 192.168.106.253
+b=AS:2048
+t=0 0
+m=audio 2048 RTP/AVP 9 127
+a=rtpmap:9 G722/8000
+a=rtpmap:127 telephone-event/8000
+m=video 0 RTP/AVP 34
+a=inactive
+a=rtpmap:34 H263/90000
+
+$$end_record
+
+16/07/2013-23:46:49.957 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.18 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f5380-c473a8c0-13c4-55013-a536-3f96c264-a536
+To: <sip:192.168.115.18>
+Call-ID: UAC-0000000075507E40-00000000709F5380
+CSeq: 1657357927 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a536-2855dd7-60a67be6-6eef5500
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:49.961 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a536-2855dd7-60a67be6-6eef5500
+To: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000486985~1464990003~1
+From: <sip:192.168.115.196>;tag=709f5380-c473a8c0-13c4-55013-a536-3f96c264-a536
+Call-ID: UAC-0000000075507E40-00000000709F5380
+CSeq: 1657357927 OPTIONS
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Server: AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:50.862 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 4 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a537-2856160-1722616c-6eef5758
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Type: application/x-mas-control
+Content-Length: 37
+
+type=request
+service=terminate
+tid=1
+
+$$end_record
+
+16/07/2013-23:46:50.908 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 4 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a537-2856160-1722616c-6eef5758
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/x-mas-control
+Content-Length: 7
+
+tid=1
+
+$$end_record
+
+16/07/2013-23:46:50.984 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 5 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a537-28561db-215e1952-6eef59b0
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Type: application/x-mas-control
+Content-Length: 145
+
+type=request
+service=annc
+play=ringback
+mediatype=treatment
+early=no
+repeat=infinite
+locale=en_ca
+x-nt-gslid=dbbb8c0d-d2fe-444e-a909-b1bb73d3feb5
+$$end_record
+
+16/07/2013-23:46:51.007 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 5 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a537-28561db-215e1952-6eef59b0
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/x-mas-control
+Content-Length: 7
+
+tid=2
+
+$$end_record
+
+16/07/2013-23:46:51.226 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: INVITE sip:__sip-conf@sip.aura.com;token=37365520;party=agent;ss=Default_Skillset;ziptone=false;cpc=Call_Centre_Administrator SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28562cd-7c8564ff-6eef5c08
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,REFER,NOTIFY,SUBSCRIBE
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Session-Expires: 12000
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:51.253 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 100 Trying
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28562cd-7c8564ff-6eef5c08
+Supported: replaces,sdp-anat
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;token=37365520;party=agent;ss=Default_Skillset;ziptone=false;cpc=Call_Centre_Administrator>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:51.444 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28562cd-7c8564ff-6eef5c08
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/sdp
+Content-Length: 449
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31102 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:51.465 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: INVITE sip:57061@sip.aura.com SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f5e60-c473a8c0-13c4-55013-a538-3c065c7a-a538
+To: <sip:57061@sip.aura.com>
+Call-ID: 72fb1980-75509240-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28563ba-2021cb44-6eef5e60
+User-to-User: 00C81044656661756c745f536b696c6c736574;encoding=hex
+References: 06ad198ef7e212d1a51f6901700;rel=chain
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,REFER,NOTIFY,SUBSCRIBE
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Session-Expires: 12000
+Content-Type: application/sdp
+Content-Length: 449
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31102 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:51.468 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 100 Trying
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28563ba-2021cb44-6eef5e60
+To: <sip:57061@sip.aura.com>
+From: <sip:27060@sip.aura.com>;tag=709f5e60-c473a8c0-13c4-55013-a538-3c065c7a-a538
+Call-ID: 72fb1980-75509240-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Server: AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:51.488 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: INFO sip:57061@192.168.115.196:5061;transport=tls SIP/2.0
+Via: SIP/2.0/TLS 192.168.115.15:4723;branch=z9hG4bK82167a59e47bf2ce30b01db221ca1751
+CSeq: 1 INFO
+From: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+Max-Forwards: 70
+To: <sip:57061@sip.aura.com>;epid;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+Content-Type: application/csta+xml
+Content-Length: 2160
+
+<?xml version="1.0" encoding="UTF-8"?>
+<DeliveredEvent xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"><monitorCrossRefID>140</monitorCrossRefID><connection><callID>5947</callID><deviceID typeOfNumber="other" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceID></connection><alertingDevice><deviceIdentifier typeOfNumber="explicitPrivate:localNumber" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceIdentifier></alertingDevice><callingDevice><deviceIdentifier typeOfNumber="explicitPrivate:unknown" mediaClass="notKnown" bitRate="constant">tel:27060;phone-context=dialstring</deviceIdentifier></callingDevice><calledDevice><deviceIdentifier typeOfNumber="explicitPrivate:localNumber" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceIdentifier></calledDevice><lastRedirectionDevice><notKnown/></lastRedirectionDevice><localConnectionInfo>alerting</localConnectionInfo><userData><string>EFBFBD1044656661756C745F536B696C6C736574</string></userData><cause>newCall</cause><networkCallingDevice><notKnown/></networkCallingDevice><networkCalledDevice><notKnown/></networkCalledDevice><callCharacteristics/><callLinkageData><globalCallData><globalCallLinkageID><globallyUniqueCallLinkageID>00000000000000000000</globallyUniqueCallLinkageID></globalCallLinkageID></globalCallData></callLinkageData><extensions><privateData><private><ns1:DeliveredEventPrivateData xmlns:ns1="http://www.avaya.com/csta" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns1:DeliveredEventPrivateData"><ns1:trunkGroup>3</ns1:trunkGroup><ns1:trunkMember>187</ns1:trunkMember><ns1:distributingDevice><notKnown/></ns1:distributingDevice><ns1:distributingVDN><notKnown/></ns1:distributingVDN><ns1:originalCallInfo><ns1:reason>0</ns1:reason><ns1:callLinkageData><globalCallData><globalCallLinkageID><globallyUniqueCallLinkageID>00000000000000000000</globallyUniqueCallLinkageID></globalCallLinkageID></globalCallData></ns1:callLinkageData></ns1:originalCallInfo></ns1:DeliveredEventPrivateData></private></privateData></extensions></DeliveredEvent>
+$$end_record
+
+16/07/2013-23:46:51.493 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=1374000428411-140
+To: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc;epid
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 1 INFO
+Via: SIP/2.0/TLS 192.168.115.15:4723;branch=z9hG4bK82167a59e47bf2ce30b01db221ca1751
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:51.756 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 180 Ringing
+From: <sip:27060@sip.aura.com>;tag=709f5e60-c473a8c0-13c4-55013-a538-3c065c7a-a538
+To: <sip:57061@sip.aura.com>;tag=0c4339bef7e21321a51f6901700
+Call-ID: 72fb1980-75509240-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28563ba-2021cb44-6eef5e60
+Supported: histinfo, join, replaces, sdp-anat, timer
+Allow: INVITE, ACK, OPTIONS, BYE, CANCEL, SUBSCRIBE, NOTIFY, REFER, INFO, PRACK, PUBLISH, UPDATE
+Contact: "sgm7-ext2" <sip:57061@192.168.115.13:5061;transport=tls>
+P-Asserted-Identity: "sgm7-ext2" <sip:57061@sip.aura.com>
+Record-Route: <sip:192.168.115.13:5061;transport=tls;lr>
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TLS>
+Record-Route: <sip:192.168.115.17:15060;transport=tcp;lr;sap=837926302*1*016asm-callprocessing.sar292726720~1374000488493~1464990007~1>
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Server: Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+P-Location: SM;origlocname="Aura";origsiglocname="Aura";termlocname="Aura";termsiglocname="Aura"
+
+
+$$end_record
+
+16/07/2013-23:46:51.959 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28562cd-7c8564ff-6eef5c08
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/sdp
+Content-Length: 449
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31102 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:52.970 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28562cd-7c8564ff-6eef5c08
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/sdp
+Content-Length: 449
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31102 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:54.992 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28562cd-7c8564ff-6eef5c08
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/sdp
+Content-Length: 449
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31102 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:58.995 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28562cd-7c8564ff-6eef5c08
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/sdp
+Content-Length: 449
+
+v=0
+o=MAS 33 2 IN IP4 192.168.115.196
+s=-
+e=unknown@invalid.net
+c=IN IP4 192.168.115.196
+t=0 0
+m=audio 31102 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 192.168.115.196
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=sendrecv
+m=video 0 RTP/AVP 34
+c=IN IP4 192.168.115.196
+a=inactive
+
+$$end_record
+
+16/07/2013-23:46:59.454 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:57061@sip.aura.com:4723;transport=tls SIP/2.0
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 4 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a540-28582ed-113008d6-6eef6310
+Content-Disposition: signal;handling=required
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Type: application/csta+xml
+Content-Length: 260
+
+<?xml version="1.0" encoding="UTF-8"?>
+<AnswerCall xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3">
+ <callToBeAnswered>
+  <callID>5947</callID>
+  <deviceID>tel:57061;phone-context=sip.aura.com</deviceID>
+ </callToBeAnswered>
+</AnswerCall>
+$$end_record
+
+16/07/2013-23:46:59.525 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f5e60-c473a8c0-13c4-55013-a538-3c065c7a-a538
+To: <sip:57061@sip.aura.com>;tag=0c4339bef7e21321a51f6901700
+Call-ID: 72fb1980-75509240-51e5a32b@192.168.115.196
+CSeq: 1 INVITE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a538-28563ba-2021cb44-6eef5e60
+Supported: histinfo,join,replaces,sdp-anat,timer
+Allow: INVITE,ACK,OPTIONS,BYE,CANCEL,SUBSCRIBE,NOTIFY,REFER,INFO,PRACK,PUBLISH,UPDATE
+Contact: "sgm7-ext2" <sip:57061@192.168.115.13:5061;transport=tls>
+P-Asserted-Identity: "sgm7-ext2" <sip:57061@sip.aura.com>
+Record-Route: <sip:192.168.115.13:5061;transport=tls;lr>
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TLS>
+Record-Route: <sip:192.168.115.17:15060;transport=tcp;lr;sap=837926302*1*016asm-callprocessing.sar292726720~1374000488493~1464990007~1>
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Require: timer
+Server: Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Session-Expires: 12000;refresher=uas
+Content-Type: application/sdp
+Content-Length: 233
+P-Location: SM;origlocname="Aura";origsiglocname="Aura";termlocname="Aura";termsiglocname="Aura"
+
+v=0
+o=- 1374000488 2 IN IP4 192.168.115.13
+s=-
+c=IN IP4 192.168.115.196
+b=AS:64
+t=0 0
+m=audio 2048 RTP/AVP 9 96
+a=rtpmap:9 G722/8000
+a=rtpmap:96 telephone-event/8000
+m=video 0 RTP/AVP 34
+a=inactive
+a=rtpmap:34 H263/90000
+
+$$end_record
+
+16/07/2013-23:46:59.532 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: ACK sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 1 ACK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a540-285833f-408c3670-6eef5c08
+Max-Forwards: 70
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Type: application/sdp
+Content-Length: 233
+
+v=0
+o=- 1374000488 2 IN IP4 192.168.115.13
+s=-
+c=IN IP4 192.168.115.196
+b=AS:64
+t=0 0
+m=audio 2048 RTP/AVP 9 96
+a=rtpmap:9 G722/8000
+a=rtpmap:96 telephone-event/8000
+m=video 0 RTP/AVP 34
+a=inactive
+a=rtpmap:34 H263/90000
+
+$$end_record
+
+16/07/2013-23:46:59.585 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 6 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a540-285834b-4f9f0c67-6eef6568
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Type: application/x-mas-control
+Content-Length: 37
+
+type=request
+service=terminate
+tid=2
+
+$$end_record
+
+16/07/2013-23:46:59.586 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: ACK sip:57061@192.168.115.13:5061;transport=tls SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f5e60-c473a8c0-13c4-55013-a538-3c065c7a-a538
+To: <sip:57061@sip.aura.com>;tag=0c4339bef7e21321a51f6901700
+Call-ID: 72fb1980-75509240-51e5a32b@192.168.115.196
+CSeq: 1 ACK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a540-2858344-afb439-6eef5e60
+Max-Forwards: 70
+User-Agent: Avaya Aura Contact Center 6.x
+Route: <sip:rw-43b372c4@192.168.115.18;transport=TCP;lr>
+Route: <sip:192.168.115.17:15060;transport=tcp;lr;sap=837926302*1*016asm-callprocessing.sar292726720~1374000488493~1464990007~1>
+Route: <sip:rw-43b372c4@192.168.115.18;transport=TLS;lr>
+Route: <sip:192.168.115.13:5061;transport=tls;lr>
+Contact: <sip:27060@192.168.115.196:5060;transport=tcp>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:59.589 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 4 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a540-28582ed-113008d6-6eef6310;rport=5061
+Content-Type: application/csta+xml
+Content-Length: 130
+
+<?xml version="1.0" encoding="UTF-8"?>
+<AnswerCallResponse xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"/>
+$$end_record
+
+16/07/2013-23:46:59.594 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: INFO sip:57061@192.168.115.196:5061;transport=tls SIP/2.0
+Via: SIP/2.0/TLS 192.168.115.15:4723;branch=z9hG4bK487c3aab371cdaa22b6afe00cc41577e
+CSeq: 2 INFO
+From: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+Max-Forwards: 70
+To: <sip:57061@sip.aura.com>;epid;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+Content-Type: application/csta+xml
+Content-Length: 2202
+
+<?xml version="1.0" encoding="UTF-8"?>
+<EstablishedEvent xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"><monitorCrossRefID>140</monitorCrossRefID><establishedConnection><callID>5947</callID><deviceID typeOfNumber="other" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceID></establishedConnection><answeringDevice><deviceIdentifier typeOfNumber="explicitPrivate:localNumber" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceIdentifier></answeringDevice><callingDevice><deviceIdentifier typeOfNumber="explicitPrivate:unknown" mediaClass="notKnown" bitRate="constant">tel:27060;phone-context=dialstring</deviceIdentifier></callingDevice><calledDevice><deviceIdentifier typeOfNumber="explicitPrivate:localNumber" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceIdentifier></calledDevice><lastRedirectionDevice><notKnown/></lastRedirectionDevice><localConnectionInfo>connected</localConnectionInfo><userData><string>EFBFBD1044656661756C745F536B696C6C736574</string></userData><cause>newCall</cause><networkCallingDevice><notKnown/></networkCallingDevice><networkCalledDevice><notKnown/></networkCalledDevice><callLinkageData><globalCallData><globalCallLinkageID><globallyUniqueCallLinkageID>00000000000000000000</globallyUniqueCallLinkageID></globalCallLinkageID></globalCallData></callLinkageData><extensions><privateData><private><ns1:EstablishedEventPrivateData xmlns:ns1="http://www.avaya.com/csta" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns1:EstablishedEventPrivateData"><ns1:trunkGroup>3</ns1:trunkGroup><ns1:trunkMember>187</ns1:trunkMember><ns1:reason>none</ns1:reason><ns1:distributingDevice><notKnown/></ns1:distributingDevice><ns1:distributingVDN><notKnown/></ns1:distributingVDN><ns1:originalCallInfo><ns1:reason>0</ns1:reason><ns1:callLinkageData><globalCallData><globalCallLinkageID><globallyUniqueCallLinkageID>00000000000000000000</globallyUniqueCallLinkageID></globalCallLinkageID></globalCallData></ns1:callLinkageData></ns1:originalCallInfo></ns1:EstablishedEventPrivateData></private></privateData></extensions></EstablishedEvent>
+$$end_record
+
+16/07/2013-23:46:59.599 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=1374000428411-140
+To: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc;epid
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 2 INFO
+Via: SIP/2.0/TLS 192.168.115.15:4723;branch=z9hG4bK487c3aab371cdaa22b6afe00cc41577e
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:46:59.628 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 6 INFO
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a540-285834b-4f9f0c67-6eef6568
+Supported: replaces,sdp-anat
+User-Agent: Avaya MAS 7.5.0.837
+Contact: <sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1>
+Allow: INVITE,ACK,CANCEL,BYE,OPTIONS,INFO,REFER,NOTIFY,UPDATE,MESSAGE
+Content-Type: application/x-mas-control
+Content-Length: 7
+
+tid=2
+
+$$end_record
+
+16/07/2013-23:47:02.696 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:49638):$$begin_record
+Direction: incoming
+Start-Line: OPTIONS sip:192.168.115.196;transport=tcp SIP/2.0
+Record-Route: <sip:43b372c4@192.168.115.18:5070;transport=tcp;lr>
+Record-Route: <sip:192.168.115.17:15060;lr;sap=837926302*1*016asm-callprocessing.sar292726720~1374000499719~1464990059~1;transport=tcp>
+Call-ID: -538226379-1229017832@192.168.115.17
+Via: SIP/2.0/TCP 192.168.115.18:5070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075292-AP;ft=53
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075292
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175290
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175289
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175288
+To: <sip:192.168.115.196;transport=tcp>
+CSeq: 1 OPTIONS
+Contact: <sip:192.168.115.17:15060;transport=tcp>
+From: sip:192.168.115.18;tag=837926302*1*016asm-callprocessing.sar292726720~1374000499719~1464990057~1
+Content-Length: 0
+Expires: 0
+Route: <sip:192.168.115.196;transport=tcp;lr;phase=terminating>
+Max-Forwards: 67
+User-Agent:  AVAYA-SM-6.2.0.0.620120
+
+
+$$end_record
+
+16/07/2013-23:47:02.703 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:49638):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 100 Trying
+From: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000499719~1464990057~1
+To: <sip:192.168.115.196>
+Call-ID: -538226379-1229017832@192.168.115.17
+CSeq: 1 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.18:5070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075292-AP;ft=53
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075292
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175290
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175289
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175288
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:02.707 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:49638):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 200 OK
+From: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000499719~1464990057~1
+To: <sip:192.168.115.196>;tag=709f6bf8-c473a8c0-13c4-55013-a543-7a64fe02-a543
+Call-ID: -538226379-1229017832@192.168.115.17
+CSeq: 1 OPTIONS
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Supported: timer,replaces
+Via: SIP/2.0/TCP 192.168.115.18:5070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075292-AP;ft=53
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075292
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175290
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175289
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175288
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:04.544 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f6eb0-c473a8c0-13c4-55013-a545-1939aa31-a545
+To: <sip:192.168.115.15>
+Call-ID: UAC-0000000075521B00-00000000709F6EB0
+CSeq: 1677519176 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a545-28596d3-331a42f-6eef6c70
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:17.357 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.196 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f7168-c473a8c0-13c4-55013-a552-1206eaea-a552
+To: <sip:192.168.115.196>
+Call-ID: UAC-0000000075521B00-00000000709F7168
+CSeq: 991053125 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a552-285c8e0-46490f4-6eef6ec8
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:17.375 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:192.168.115.196>;tag=709f7168-c473a8c0-13c4-55013-a552-1206eaea-a552
+To: <sip:192.168.115.196>;tag=2ac6a428-c473a8c0-13ce-6006-a552-2fdc404f-a552
+Call-ID: UAC-0000000075521B00-00000000709F7168
+CSeq: 991053125 OPTIONS
+User-Agent: Avaya MAS 7.5.0.837
+Supported: replaces,sdp-anat
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a552-285c8e0-46490f4-6eef6ec8
+Content-Type: application/sdp
+Content-Length: 412
+
+v=0
+o=MAS 1 1 IN IP4 0.0.0.0
+s=-
+e=unknown@invalid.net
+c=IN IP4 0.0.0.0
+t=0 0
+m=audio 0 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 0.0.0.0
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=inactive
+m=video 0 RTP/AVP 34
+c=IN IP4 0.0.0.0
+a=inactive
+
+$$end_record
+
+16/07/2013-23:47:26.782 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f7420-c473a8c0-13c4-55013-a55b-6ca5bddb-a55b
+To: <sip:192.168.115.15>
+Call-ID: UAC-0000000075521B00-00000000709F7420
+CSeq: 1166522714 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a55b-285edb0-55afcf91-6eef7120
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.327 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: INFO sip:57061@sip.aura.com:4723;transport=tls SIP/2.0
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 5 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a560-285ff72-6d44c4c7-6eef7378
+Content-Disposition: signal;handling=required
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Type: application/csta+xml
+Content-Length: 280
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ClearConnection xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3">
+ <connectionToBeCleared>
+  <callID>5947</callID>
+  <deviceID>tel:57061;phone-context=sip.aura.com</deviceID>
+ </connectionToBeCleared>
+</ClearConnection>
+$$end_record
+
+16/07/2013-23:47:31.336 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:49638):$$begin_record
+Direction: incoming
+Start-Line: BYE sip:27060@192.168.115.196:5060;transport=tcp SIP/2.0
+From: <sip:57061@sip.aura.com>;tag=0c4339bef7e21321a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f5e60-c473a8c0-13c4-55013-a538-3c065c7a-a538
+Call-ID: 72fb1980-75509240-51e5a32b@192.168.115.196
+CSeq: 1 BYE
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075392-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075392
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175390
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK048bb3ef7e213d1a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK048bb3ef7e213d1a51f6901700
+User-Agent:  Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+Max-Forwards: 67
+
+
+$$end_record
+
+16/07/2013-23:47:31.349 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:49638):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=0c4339bef7e21321a51f6901700
+To: <sip:27060@sip.aura.com>;tag=709f5e60-c473a8c0-13c4-55013-a538-3c065c7a-a538
+Call-ID: 72fb1980-75509240-51e5a32b@192.168.115.196
+CSeq: 1 BYE
+Via: SIP/2.0/TCP 192.168.115.18;branch=z9hG4bKC0A87311FFFFFFFFE755394D075392-AP;ft=3094
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D075392
+Via: SIP/2.0/TCP 192.168.115.17:15070;branch=z9hG4bKC0A87311FFFFFFFFE755394D175390
+Via: SIP/2.0/TLS 192.168.115.18;branch=z9hG4bK048bb3ef7e213d1a51f6901700-AP;ft=10
+Via: SIP/2.0/TLS 192.168.115.13;branch=z9hG4bK048bb3ef7e213d1a51f6901700
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.350 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: BYE sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 2 BYE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a560-285ff82-62e36165-6eef7828
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.372 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f5ba8-c473a8c0-13c4-55013-a538-f93ac41-a538
+To: <sip:__sip-conf@sip.aura.com>;tag=5a8d912e-d9b3-3db5-9844-3fed806d0899
+Call-ID: 72fb1650-75508d70-51e5a32b@192.168.115.196
+CSeq: 2 BYE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a560-285ff82-62e36165-6eef7828
+Supported: replaces,sdp-anat
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.377 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+To: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 5 INFO
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a560-285ff72-6d44c4c7-6eef7378;rport=5061
+Content-Type: application/csta+xml
+Content-Length: 135
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ClearConnectionResponse xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"/>
+$$end_record
+
+16/07/2013-23:47:31.384 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.15:4723):$$begin_record
+Direction: incoming
+Start-Line: INFO sip:57061@192.168.115.196:5061;transport=tls SIP/2.0
+Via: SIP/2.0/TLS 192.168.115.15:4723;branch=z9hG4bK53cdad925eaa012eb3e0549a6911e042
+CSeq: 3 INFO
+From: <sip:57061@sip.aura.com>;tag=1374000428411-140
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+Max-Forwards: 70
+To: <sip:57061@sip.aura.com>;epid;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc
+Content-Type: application/csta+xml
+Content-Length: 1085
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectionClearedEvent xmlns="http://www.ecma-international.org/standards/ecma-323/csta/ed3"><monitorCrossRefID>140</monitorCrossRefID><droppedConnection><callID>5947</callID><deviceID typeOfNumber="other" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceID></droppedConnection><releasingDevice><deviceIdentifier typeOfNumber="explicitPrivate:localNumber" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceIdentifier></releasingDevice><localConnectionInfo>null</localConnectionInfo><cause>normalClearing</cause><deviceHistory><DeviceHistoryListItem><oldDeviceID><numberDialed typeOfNumber="other" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</numberDialed></oldDeviceID><eventCause>normal</eventCause><oldConnectionID><callID>5947</callID><deviceID typeOfNumber="other" mediaClass="notKnown" bitRate="constant">tel:57061;phone-context=sip.aura.com</deviceID></oldConnectionID></DeviceHistoryListItem></deviceHistory></ConnectionClearedEvent>
+$$end_record
+
+16/07/2013-23:47:31.388 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: SIP/2.0 200 OK
+From: <sip:57061@sip.aura.com>;tag=1374000428411-140
+To: <sip:57061@sip.aura.com>;tag=709f3028-c473a8c0-13c4-55013-a4fc-2834a21b-a4fc;epid
+Call-ID: 0000000072FB0CC0-00000000755076A0-51e5a2ef
+CSeq: 3 INFO
+Via: SIP/2.0/TLS 192.168.115.15:4723;branch=z9hG4bK53cdad925eaa012eb3e0549a6911e042
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Contact: <sip:57061@192.168.115.196:5061;transport=tls>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.424 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: BYE sip:__sip-conf@192.168.115.196:5070;transport=TCP;nt_service=__sip-conf;token=6f5b9e46-8632-3ed8-afb8-3273aa644aa1 SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 7 BYE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a560-285ffd4-64df00f8-6eef7cd8
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.428 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f48a0-c473a8c0-13c4-55013-a534-78edf72e-a534
+To: <sip:__sip-conf@sip.aura.com>;tag=72748cab-0800-3486-baea-d438f50cd15d
+Call-ID: 72fb1320-755088a0-51e5a328@192.168.115.196
+CSeq: 7 BYE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a560-285ffd4-64df00f8-6eef7cd8
+Supported: replaces,sdp-anat
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.559 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: BYE sip:+57071@192.168.115.13:5061;transport=tls SIP/2.0
+From: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+To: "sgm8-ext2"<sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 1 BYE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a560-286005a-4353259e-6eef7f30
+Max-Forwards: 70
+Supported: timer,replaces
+User-Agent: Avaya Aura Contact Center 6.x
+Route: <sip:43b372c4@192.168.115.18;transport=tcp;lr>
+Route: <sip:192.168.115.17:15060;transport=tcp;lr;sap=837926302*1*016asm-callprocessing.sar292726720~1374000484464~1464989987~1>
+Route: <sip:43b372c4@192.168.115.18;transport=tls;lr>
+Route: <sip:192.168.115.13:5061;transport=tls;lr>
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:31.565 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:27060@sip.aura.com>;tag=709f4330-c473a8c0-13c4-55013-a535-52a76651-a535
+To: "sgm8-ext2" <sip:+57071@sip.aura.com>;tag=06ad198ef7e212c1a51f6901700
+Call-ID: 06ad198ef7e212d1a51f6901700
+CSeq: 1 BYE
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a560-286005a-4353259e-6eef7f30
+Server: Avaya CM/R016x.02.0.823.0 AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:48.142 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f8728-c473a8c0-13c4-55013-a570-1238fa5d-a570
+To: <sip:192.168.115.15>
+Call-ID: UAC-000000007551EF40-00000000709F8728
+CSeq: 1461448356 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a570-2864121-5c2eeb-6eef8188
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:55.611 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.18 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f89e0-c473a8c0-13c4-55013-a578-306ad9b6-a578
+To: <sip:192.168.115.18>
+Call-ID: UAC-000000007551EF40-00000000709F89E0
+CSeq: 773898177 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a578-2865e4e-657b65d0-6eef83e0
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:47:55.614 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a578-2865e4e-657b65d0-6eef83e0
+To: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000552639~1464990251~1
+From: <sip:192.168.115.196>;tag=709f89e0-c473a8c0-13c4-55013-a578-306ad9b6-a578
+Call-ID: UAC-000000007551EF40-00000000709F89E0
+CSeq: 773898177 OPTIONS
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Server: AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:48:06.256 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f8c98-c473a8c0-13c4-55013-a583-4d505647-a583
+To: <sip:192.168.115.15>
+Call-ID: UAC-000000007551EF40-00000000709F8C98
+CSeq: 281870326 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a583-28687dd-484b9d8d-6eef8638
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:48:10.054 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.196:5070):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.196 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f8f50-c473a8c0-13c4-55013-a586-7577c650-a586
+To: <sip:192.168.115.196>
+Call-ID: UAC-000000007551F120-00000000709F8F50
+CSeq: 1890940547 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a586-28696b8-552f0f62-6eef8890
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:48:10.057 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.196:5070):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+From: <sip:192.168.115.196>;tag=709f8f50-c473a8c0-13c4-55013-a586-7577c650-a586
+To: <sip:192.168.115.196>;tag=2ac6a968-c473a8c0-13ce-6006-a586-45a9067a-a586
+Call-ID: UAC-000000007551F120-00000000709F8F50
+CSeq: 1890940547 OPTIONS
+User-Agent: Avaya MAS 7.5.0.837
+Supported: replaces,sdp-anat
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a586-28696b8-552f0f62-6eef8890
+Content-Type: application/sdp
+Content-Length: 412
+
+v=0
+o=MAS 1 1 IN IP4 0.0.0.0
+s=-
+e=unknown@invalid.net
+c=IN IP4 0.0.0.0
+t=0 0
+m=audio 0 RTP/AVP 0 8 18 9 13 96 97
+c=IN IP4 0.0.0.0
+a=rtpmap:0 PCMU/8000
+a=rtpmap:8 PCMA/8000
+a=rtpmap:18 G729/8000
+a=fmtp:18 annexb=yes
+a=rtpmap:9 G722/8000
+a=rtpmap:13 CN/8000
+a=rtpmap:96 telephone-event/8000
+a=rtpmap:97 X-nt-inforeq/8000
+a=ptime:20
+a=inactive
+m=video 0 RTP/AVP 34
+c=IN IP4 0.0.0.0
+a=inactive
+
+$$end_record
+
+16/07/2013-23:48:26.604 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f9208-c473a8c0-13c4-55013-a597-1da2ce11-a597
+To: <sip:192.168.115.15>
+Call-ID: UAC-000000007551EF40-00000000709F9208
+CSeq: 1380364456 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a597-286d75d-c242a8f-6eef8ae8
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:48:48.286 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f94c0-c473a8c0-13c4-55013-a5ad-bfbefca-a5ad
+To: <sip:192.168.115.15>
+Call-ID: UAC-0000000075526D00-00000000709F94C0
+CSeq: 169267621 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a5ad-2872c0f-3e73e454-6eef8d40
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:48:54.437 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.18:5060):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.18 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f9778-c473a8c0-13c4-55013-a5b3-211f9bbb-a5b3
+To: <sip:192.168.115.18>
+Call-ID: UAC-0000000075526D00-00000000709F9778
+CSeq: 1864950458 OPTIONS
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a5b3-2874418-4a6d87f1-6eef8f98
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:48:54.441 [0x00004ff0] - <-- Message Received (Sender Address IP: 192.168.115.18:5060):$$begin_record
+Direction: incoming
+Start-Line: SIP/2.0 200 OK
+Via: SIP/2.0/TCP 192.168.115.196:5060;branch=z9hG4bK-a5b3-2874418-4a6d87f1-6eef8f98
+To: <sip:192.168.115.18>;tag=837926302*1*016asm-callprocessing.sar292726720~1374000611467~1464990439~1
+From: <sip:192.168.115.196>;tag=709f9778-c473a8c0-13c4-55013-a5b3-211f9bbb-a5b3
+Call-ID: UAC-0000000075526D00-00000000709F9778
+CSeq: 1864950458 OPTIONS
+Record-Route: <sip:rw-43b372c4@192.168.115.18;lr;transport=TCP>
+Server: AVAYA-SM-6.2.0.0.620120
+Content-Length: 0
+
+
+$$end_record
+
+16/07/2013-23:49:03.833 [0x00004ff0] - --> Message to Send (Dest Address IP:  192.168.115.15:4723):$$begin_record
+Direction: outgoing
+Start-Line: OPTIONS sip:192.168.115.15 SIP/2.0
+From: <sip:192.168.115.196>;tag=709f9a30-c473a8c0-13c4-55013-a5bc-365cc024-a5bc
+To: <sip:192.168.115.15>
+Call-ID: UAC-0000000075526D00-00000000709F9A30
+CSeq: 1586864935 OPTIONS
+Via: SIP/2.0/TLS 192.168.115.196:5061;branch=z9hG4bK-a5bc-28768cd-48c406a6-6eef91f0
+Allow: INVITE,ACK,BYE,CANCEL,OPTIONS,MESSAGE,INFO,NOTIFY,REFER
+Max-Forwards: 70
+Supported: timer,replaces
+Content-Length: 0
+
+
+$$end_record
+

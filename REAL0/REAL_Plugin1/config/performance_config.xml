@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<!-- The number of search operations (with GUI) that can be performed simultaneously -->
+<entry key="org.eclipselabs.real.gui.e4swt.conveyor.SimultaneousConveyorOperationsNumber">4</entry>
+<!-- The maximum size of the aggregate in megabytes -->
+<entry key="org.eclipselabs.real.core.logfile.AggregateSizeLimit">20</entry>
+<!-- The number of the threads that actually perform search in log files. For example if the number if 2
+and there are 4 files
+log1
+log2
+log3
+log4
+Then Thread1 searches in log1 and simultaneously Thread2 searches in log2, then Thread1 
+searches in the next file etc -->
+<entry key="org.eclipselabs.real.core.logfile.SearchThreadsNumberPerAggregate">2</entry>
+<!-- The maximum size of the loaded text in megabytes in one GUI result when word wrap can be enabled
+The size is calculated taking into account that one symbol in the String object occupies 2 bytes
+I.e. if the file being loaded is 16 megabytes and it is fully loaded into the search result
+the calculated size will be 32 megabytes -->
+<entry key="org.eclipselabs.real.gui.e4swt.parts.WrapSizeLimit">50</entry>
+<entry key="org.eclipselabs.real.core.MaxGCCount">1000</entry>
+<entry key="org.eclipselabs.real.gui.e4swt.parts.GUISearchResult.MaxGCCount">100</entry>
+<entry key="org.eclipselabs.real.gui.UpdateIntervalms">2000</entry>
+</properties>

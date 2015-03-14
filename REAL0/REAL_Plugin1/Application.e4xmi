@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_DoV6cPtqEeKNE_0CMstYxA" elementId="REAL_Plugin1.application">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_EO15wPtqEeKNE_0CMstYxA" elementId="e4swt.mainwindow" label="Regular Expressions Analyzer for Logs" iconURI="platform:/plugin/REAL_Plugin1/icons/32x32/system-search-4.png" x="200" y="200" width="900" height="800">
+    <tags>shellMaximized</tags>
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_EZQnwPtvEeKNE_0CMstYxA" elementId="e4swt.mainwindow.mainstack">
+      <children xsi:type="advanced:Perspective" xmi:id="_HDQI0PtvEeKNE_0CMstYxA" elementId="e4swt.mainwindow.mainstack.perspective0">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_LVOUUPtvEeKNE_0CMstYxA" elementId="perspective0.sash" selectedElement="_P_Td0PtvEeKNE_0CMstYxA" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_P_Td0PtvEeKNE_0CMstYxA" elementId="perspective0.sash.searchtree_stack" containerData="30">
+            <children xsi:type="basic:Part" xmi:id="_fMCtwPtvEeKNE_0CMstYxA" elementId="perspective0.sash.searchtree_stack.sotree" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.GUISearchObjectTree" label="Search Object Tree" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/view-list-tree-3.png">
+              <menus xsi:type="menu:PopupMenu" xmi:id="_O10VoAj2EeOcrb72l4O6uA" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu">
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_GXcFkFCUEeSP-d-II8I-tw" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu.hmi_search_conv" label="Search" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/mail-find.png" command="_GvRzQFCTEeSP-d-II8I-tw"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JAR-oFLaEeSP-d-II8I-tw" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu.hmi_search_in_current_conv" label="Search In Current" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/edit-find-10.png" command="_VtbcIFLZEeSP-d-II8I-tw"/>
+              </menus>
+            </children>
+            <children xsi:type="basic:Part" xmi:id="_hYJsgDWlEeO3te4E2XDr0w" elementId="perspective0.sash.searchtree_stack.ooi" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.GUIOOI" label="OOI" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/emblem-notice.png">
+              <handlers xmi:id="_i2iNsDWzEeOtLaQ9qzO3Zg" elementId="perspective0.sash.searchtree_stack.global_objects.handler.add_string_key" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.HandlerAddStringKey" command="_e8rnQDWzEeOtLaQ9qzO3Zg"/>
+              <handlers xmi:id="_y4MtgDZCEeOtLaQ9qzO3Zg" elementId="perspective0.sash.searchtree_stack.global_objects.handler.remove_string_key" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.HandlerRemoveStringKey" command="_vAuFoDZCEeOtLaQ9qzO3Zg"/>
+              <handlers xmi:id="_NS7_kDZGEeOtLaQ9qzO3Zg" elementId="perspective0.sash.searchtree_stack.global_objects.handler.find_in_current" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.HandlerFindInCurrent" command="__MZisDZFEeOtLaQ9qzO3Zg"/>
+              <handlers xmi:id="_MaFtwECTEeOVLINtWpq92Q" elementId="perspective0.sash.searchtree_stack.global_objects.handler.remove_from_global_ooi" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.HandlerRemoveFromGlobalOOI" command="_HB13MDWREeO3te4E2XDr0w"/>
+              <handlers xmi:id="_TMtBYFq7EeOH8cnXh7vj0Q" elementId="perspective0.sash.searchtree_stack.global_objects.handler.select_in_current" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.HandlerSelectInCurrent" command="_x9Y2cFqyEeOH8cnXh7vj0Q"/>
+              <handlers xmi:id="_aI4B8Fq-EeOH8cnXh7vj0Q" elementId="perspective0.sash.searchtree_stack.global_objects.handler.remove_named_bookmark" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.HandlerRemoveNamedBookmark" command="_hleoUFq8EeOH8cnXh7vj0Q"/>
+              <handlers xmi:id="_CMuloGDDEeOFOaRTmGcGMw" elementId="perspective0.sash.searchtree_stack.global_objects.handler.remove_from_local_ooi" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.HandlerRemoveFromLocalOOI" command="_c2mTYF2mEeO5OoZCN4zDiQ"/>
+              <menus xsi:type="menu:PopupMenu" xmi:id="_DF9ikDW0EeOtLaQ9qzO3Zg" elementId="perspective0.sash.searchtree_stack.global_objects.popupmenu">
+                <children xsi:type="menu:DynamicMenuContribution" xmi:id="_f1KTEF2iEeO5OoZCN4zDiQ" elementId="perspective0.sash.searchtree_stack.global_objects.popupmenu.dm1" label="Dynamic OOI Menu Items" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.ooi.DynMenuPopupOOI"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_cbejkDv6EeOw3KVv2IbQ-w" elementId="perspective0.sash.searchtree_stack.global_objects.popupmenu.hmi_find_in_current" label="Find in current" command="__MZisDZFEeOtLaQ9qzO3Zg"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_eL104EY1EeOHk7eO_lYrZg" elementId="perspective0.sash.searchtree_stack.global_objects.popupmenu.hmi_remove_all_global_ooi" label="Remove all global OOI" command="_DV6VgEWLEeOoCr9m_2YeLg"/>
+              </menus>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_TmQWYPtvEeKNE_0CMstYxA" elementId="perspective0.sash.searchresults_stack" containerData="70">
+            <tags>NoAutoCollapse</tags>
+          </children>
+        </children>
+      </children>
+    </children>
+    <handlers xmi:id="_QRo6UFCTEeSP-d-II8I-tw" elementId="e4swt.handler.execute_search" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerExecuteSearch" command="_GvRzQFCTEeSP-d-II8I-tw"/>
+    <handlers xmi:id="_VJdZAAX4EeOj29n2JE-lug" elementId="e4swt.handler.add_folder" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerAddFolder" command="_Q5mGUAX4EeOj29n2JE-lug"/>
+    <handlers xmi:id="_b8MEcFLZEeSP-d-II8I-tw" elementId="e4swt.handler.search_in_current" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerSearchInCurrent" command="_VtbcIFLZEeSP-d-II8I-tw"/>
+    <handlers xmi:id="_UPcg0A2YEeO3J76tLOOphw" elementId="e4swt.handler.remove_folder" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerRemoveFolders" command="_Q56vcA2YEeO3J76tLOOphw"/>
+    <handlers xmi:id="_ifFVMBFPEeOnhf2zuk6Qtw" elementId="e4swt.handler.reload_all_folders" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerReloadAllFolders" command="_TuIpYBFPEeOnhf2zuk6Qtw"/>
+    <handlers xmi:id="_6EFR0BMWEeOumL-m2uvR-Q" elementId="e4swt.handler.log_files_info" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerLogFilesInfo" command="_w8UuABMUEeOumL-m2uvR-Q"/>
+    <handlers xmi:id="_qoA10BbOEeOGO5R7DhTg6g" elementId="e4swt.handler.log_type_state" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerLogTypeState" command="_RcMN8BbLEeOGO5R7DhTg6g"/>
+    <handlers xmi:id="_FLVT8BcFEeOGO5R7DhTg6g" elementId="e4swt.handler.set_window_title" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerSetWindowTitle" command="_BLxHEBcFEeOGO5R7DhTg6g"/>
+    <handlers xmi:id="_R1TWwCIqEeOKEPgxFo3M9w" elementId="e4swt.handler.about" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerAbout" command="_5kyEECInEeOKEPgxFo3M9w"/>
+    <handlers xmi:id="_d5750DyjEeOw3KVv2IbQ-w" elementId="e4swt.handler.test" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerTest1" command="_Yq6QMDyjEeOw3KVv2IbQ-w"/>
+    <handlers xmi:id="_KD0_AEWLEeOoCr9m_2YeLg" elementId="e4swt.handler.remove_all_global_ooi" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerRemoveAllGlobalOOI" command="_DV6VgEWLEeOoCr9m_2YeLg"/>
+    <handlers xmi:id="_ht5XgEfDEeOXzuK8im_mjw" elementId="e4swt.handler.save_workspace" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerSaveWorkspace" command="_M6xG0EfDEeOXzuK8im_mjw"/>
+    <handlers xmi:id="_eFogIElfEeOhCNz4YPcgBQ" elementId="e4swt.handler.load_workspace" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerLoadWorkspace" command="_PoNkgEfDEeOXzuK8im_mjw"/>
+    <handlers xmi:id="_D3UtUKCMEeOhJv7UL7P8Ew" elementId="e4swt.handler.test" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerTest1" command="_Yq6QMDyjEeOw3KVv2IbQ-w"/>
+    <handlers xmi:id="_ml0zoE5aEeSLS9-xTX6kWQ" elementId="e4swt.handler.enable_log_type" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerEnableLogType" command="_cEj0UE5aEeSLS9-xTX6kWQ"/>
+    <handlers xmi:id="_eZ1MUFhPEeSSP_sODfwkWg" elementId="e4swt.handler.custom_load_workspace" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerCustomLoadWorkspace" command="_WQ7ykFhPEeSSP_sODfwkWg"/>
+    <mainMenu xmi:id="_6Czp4AX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu">
+      <children xsi:type="menu:Menu" xmi:id="_67p9cAX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu.logfiles" label="Log Files">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_9cx2YAX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu.logfiles.add_folder" label="Add Folder" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/list-add-3.png" command="_Q5mGUAX4EeOj29n2JE-lug"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_C26j0AX6EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu.logfiles.remove_folder" label="Remove Folder" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/list-remove-3.png" command="_Q56vcA2YEeO3J76tLOOphw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_ZXW7sBFPEeOnhf2zuk6Qtw" elementId="e4swt.mainwindow.menu.logfiles.reload_all_folders" label="Reload all folders" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/view-refresh-4.png" command="_TuIpYBFPEeOnhf2zuk6Qtw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_ykgh4BMWEeOumL-m2uvR-Q" elementId="e4swt.mainwindow.menu.logfiles.log_files_info" label="Log files info" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/document-multiple.png" command="_w8UuABMUEeOumL-m2uvR-Q"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_U2WdUEfDEeOXzuK8im_mjw" elementId="e4swt.mainwindow.menu.workspace" label="Workspace">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_X4KBcEfDEeOXzuK8im_mjw" elementId="e4swt.mainwindow.menu.workspace.save_workspace" label="Save workspace" command="_M6xG0EfDEeOXzuK8im_mjw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_cjFfgEfDEeOXzuK8im_mjw" elementId="e4swt.mainwindow.menu.workspace.load_workspace" label="Load workspace" command="_PoNkgEfDEeOXzuK8im_mjw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_4c65wFhaEeSSP_sODfwkWg" elementId="e4swt.mainwindow.menu.workspace.custom_load_workspace" label="Load workspace ..." command="_WQ7ykFhPEeSSP_sODfwkWg"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_sRa7oBcmEeOE8Y2FoiVRSQ" elementId="e4swt.mainwindow.menu.options" label="Options">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_u-C58BcmEeOE8Y2FoiVRSQ" elementId="e4swt.mainwindow.menu.options.set_title" label="Additional window title" command="_BLxHEBcFEeOGO5R7DhTg6g"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_i5VDACIrEeOKEPgxFo3M9w" elementId="e4swt.mainwindow.menu.help" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_lp34ACIrEeOKEPgxFo3M9w" elementId="e4swt.mainwindow.menu.help.about" label="About" command="_5kyEECInEeOKEPgxFo3M9w"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_jUGccDyjEeOw3KVv2IbQ-w" elementId="e4swt.mainwindow.menu.test" label="test" command="_Yq6QMDyjEeOw3KVv2IbQ-w"/>
+      </children>
+    </mainMenu>
+    <sharedElements xsi:type="basic:PartStack" xmi:id="_34QsIA6EEeO1WbeTMEQIEA" elementId="e4swt.find_stack">
+      <children xsi:type="basic:Part" xmi:id="_5q2rIA6EEeO1WbeTMEQIEA" elementId="e4swt.find_stack.part0" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.FindPart" label="Find"/>
+    </sharedElements>
+    <trimBars xmi:id="__H5EMAj1EeOcrb72l4O6uA" elementId="e4swt.mainwindow..trimbar0">
+      <children xsi:type="menu:ToolBar" xmi:id="__nULIAj1EeOcrb72l4O6uA" elementId="toolbar0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_BpoBIAj2EeOcrb72l4O6uA" elementId="toolbar0.add_folder" label="Open" iconURI="platform:/plugin/REAL_Plugin1/icons/32x32/list-add-3.png" command="_Q5mGUAX4EeOj29n2JE-lug"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_s1MukA2YEeO3J76tLOOphw" elementId="toolbar0.remove_folder" label="Remove" iconURI="platform:/plugin/REAL_Plugin1/icons/32x32/list-remove-3.png" command="_Q56vcA2YEeO3J76tLOOphw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_eSJasBFPEeOnhf2zuk6Qtw" elementId="toolbar0.reload_all_folders" label="Reload all folders" iconURI="platform:/plugin/REAL_Plugin1/icons/32x32/view-refresh-4.png" command="_TuIpYBFPEeOnhf2zuk6Qtw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_4xONsBMUEeOumL-m2uvR-Q" elementId="toolbar0.log_files_info" label="Log files info" iconURI="platform:/plugin/REAL_Plugin1/icons/32x32/document-multiple.png" command="_w8UuABMUEeOumL-m2uvR-Q"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_-nd1kBbIEeOGO5R7DhTg6g" elementId="toolbar0.active_log_types" label="Active log types" iconURI="platform:/plugin/REAL_Plugin1/icons/32x32/mail-mark-task.png" command="_cEj0UE5aEeSLS9-xTX6kWQ">
+          <menu xmi:id="_C3fgUBbJEeOGO5R7DhTg6g" elementId="toolbar0.active_log_types.menu">
+            <children xsi:type="menu:DynamicMenuContribution" xmi:id="_FrjjYBbJEeOGO5R7DhTg6g" elementId="toolbar0.active_log_types.menu.items" label="Log types" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.DynMenuLogTypes"/>
+          </menu>
+        </children>
+      </children>
+    </trimBars>
+  </children>
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_sKWxMCIlEeOKEPgxFo3M9w" elementId="e4swt.aboutwindow" toBeRendered="false" visible="false" label="About" width="730" height="510">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_y62NkCIlEeOKEPgxFo3M9w" elementId="e4swt.aboutwindow.aboutstack">
+      <children xsi:type="advanced:Perspective" xmi:id="_3HZGgCIlEeOKEPgxFo3M9w" elementId="e4swt.aboutwindow.aboutstack.perspective0">
+        <children xsi:type="basic:PartStack" xmi:id="_HfJYECImEeOKEPgxFo3M9w" elementId="perspective0.aboutpst">
+          <children xsi:type="basic:Part" xmi:id="_LMGyACImEeOKEPgxFo3M9w" elementId="perspective0.aboutpst.mainpart" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.GUIAbout" label="About the author"/>
+        </children>
+      </children>
+    </children>
+  </children>
+  <handlers xmi:id="_O2LRIBbPEeOGO5R7DhTg6g" elementId="real_plugin1.handler.0" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerEmptyCommand" command="_LUSewBbPEeOGO5R7DhTg6g"/>
+  <bindingTables xmi:id="_YzXPsA6PEeOpQbjgqPj27A" elementId="e4swt.gui_search_result.bindingtable.0" bindingContext="_TEwuIA6PEeOpQbjgqPj27A">
+    <bindings xmi:id="_eqKD8A6PEeOpQbjgqPj27A" elementId="gui_search_result.text_popupmenu.kb_find_dialog_m1" keySequence="M1+F" command="_T8CVYA6EEeO1WbeTMEQIEA"/>
+  </bindingTables>
+  <rootContext xmi:id="_TEwuIA6PEeOpQbjgqPj27A" elementId="e4swt.gui_search_result.bindingcontext.0" name="GUI Search Result Binding Context"/>
+  <snippets xsi:type="basic:Part" xmi:id="_aQCbgAnNEeON86iuweqaVQ" elementId="gui_search_result" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.GUISearchResult" label="GUI Search Result" bindingContexts="_TEwuIA6PEeOpQbjgqPj27A" closeable="true">
+    <tags>removeOnHide</tags>
+    <handlers xmi:id="_ZLbRUFO7EeSP-d-II8I-tw" elementId="gui_search_result.handler.int_search" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerInternalSearch" command="_KiGBsFPBEeSP-d-II8I-tw"/>
+    <handlers xmi:id="_K1PEwA6LEeO1WbeTMEQIEA" elementId="gui_search_result.handler_find_dialog" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerFindDialog" command="_T8CVYA6EEeO1WbeTMEQIEA"/>
+    <handlers xmi:id="_OTNxIA3TEeO3J76tLOOphw" elementId="gui_search_result.handler_copy" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerCopy" command="_z45q8A3REeO3J76tLOOphw"/>
+    <handlers xmi:id="_I2JTUAnUEeON86iuweqaVQ" elementId="gui_search_result.handler_set_background" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerSetBackground" command="_R9HmQAnREeON86iuweqaVQ"/>
+    <handlers xmi:id="_yN8V0A5REeOFiZwot8U5dQ" elementId="gui_search_result.handler_set_foreground" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerSetForeground" command="_rgAeMA5REeOFiZwot8U5dQ"/>
+    <handlers xmi:id="_sEtr0A2jEeO3J76tLOOphw" elementId="gui_search_result.handler_remove_color" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerRemoveColor" command="_gkABsA2jEeO3J76tLOOphw"/>
+    <handlers xmi:id="_IKxRoB45EeOn0tYu8C47nQ" elementId="gui_search_result.handler_set_text_title" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerSetTextTitle" command="_zU3ZwB44EeOn0tYu8C47nQ"/>
+    <handlers xmi:id="_MM7fgB45EeOn0tYu8C47nQ" elementId="gui_search_result.handler_set_view_title" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerSetViewTitle" command="_3m86AB44EeOn0tYu8C47nQ"/>
+    <handlers xmi:id="_BF6-ECubEeOCuedEcBy2gw" elementId="gui_search_result.handler_remove_all__colors" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerRemoveAllColors" command="_7c3UQB47EeOn0tYu8C47nQ"/>
+    <handlers xmi:id="_5BTZEDTqEeO3te4E2XDr0w" elementId="gui_search_result.handler_add_to_global_ooi" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerAddToGlobalOOI" command="_xnQpYDTqEeO3te4E2XDr0w"/>
+    <handlers xmi:id="_NaL5UDWREeO3te4E2XDr0w" elementId="gui_search_result.handler_remove_from_global_ooi" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerRemoveFromGlobalOOI" command="_HB13MDWREeO3te4E2XDr0w"/>
+    <handlers xmi:id="_e5JmcE-vEeOA9O2GmkM_PA" elementId="gui_search_result.handler_save_to_text_file" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerSaveToTextFile" command="__Cv1kE-uEeOL-eyG32pLLw"/>
+    <handlers xmi:id="_ZJj_MFqsEeOH8cnXh7vj0Q" elementId="gui_search_result.handler_add_named_bookmark" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.searchres.HandlerAddNamedBookmark" command="_U5rQoFqnEeOH8cnXh7vj0Q"/>
+    <menus xsi:type="menu:PopupMenu" xmi:id="_JkJbEAnPEeON86iuweqaVQ" elementId="gui_search_result.text_popupmenu">
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_BhfVoA3UEeO3J76tLOOphw" elementId="gui_search_result.text_popupmenu.hmi_copy" label="Copy" command="_z45q8A3REeO3J76tLOOphw"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_jO-20A6LEeO1WbeTMEQIEA" elementId="gui_search_result.text_popupmenu.hmi_find_dialog" label="Find" command="_T8CVYA6EEeO1WbeTMEQIEA"/>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_uAiSAB47EeOn0tYu8C47nQ" elementId="real_plugin1.menuseparator.0"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_RRT24AnWEeON86iuweqaVQ" elementId="gui_search_result.text_popupmenu.hmi_set_background" label="Select background color" command="_R9HmQAnREeON86iuweqaVQ"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="__2WsQA5REeOFiZwot8U5dQ" elementId="gui_search_result.text_popupmenu.hmi_set_foreground" label="Select foreground color" command="_rgAeMA5REeOFiZwot8U5dQ"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_LhCd4A2mEeO3J76tLOOphw" elementId="gui_search_result.text_popupmenu.hmi_remove_color" label="Remove color at cursor" command="_gkABsA2jEeO3J76tLOOphw"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_iwObYB47EeOn0tYu8C47nQ" elementId="gui_search_result.text_popupmenu.hmi_remove_all_colors" label="Remove all colors" command="_7c3UQB47EeOn0tYu8C47nQ"/>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_u3XzYB47EeOn0tYu8C47nQ" elementId="real_plugin1.menuseparator.1"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_wTC8oB46EeOn0tYu8C47nQ" elementId="gui_search_result.text_popupmenu.hmi_set_text_title" label="Set tab title" command="_zU3ZwB44EeOn0tYu8C47nQ"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_lQsf4DTrEeO3te4E2XDr0w" elementId="gui_search_result.text_popupmenu.hmi_add_to_global_ooi" label="Add to Global OOI" command="_xnQpYDTqEeO3te4E2XDr0w"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_Cp2t0DWSEeO3te4E2XDr0w" elementId="gui_search_result.text_popupmenu.hmi_remove_from_global_ooi" label="Remove from Global OOI" command="_HB13MDWREeO3te4E2XDr0w"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_ULHEgE-xEeOA9O2GmkM_PA" elementId="gui_search_result.text_popupmenu.hmi_save_to_text_file" label="Save to text file" command="__Cv1kE-uEeOL-eyG32pLLw"/>
+      <children xsi:type="menu:MenuSeparator" xmi:id="_UFW2wFqyEeOH8cnXh7vj0Q" elementId="real_plugin1.menuseparator.2"/>
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_UhHlsFqyEeOH8cnXh7vj0Q" elementId="gui_search_result.text_popupmenu.hmi_add_local_bookmark" label="Add local bookmark" command="_U5rQoFqnEeOH8cnXh7vj0Q"/>
+    </menus>
+    <menus xsi:type="menu:PopupMenu" xmi:id="_be4cEB44EeOn0tYu8C47nQ" elementId="gui_search_result.view_popupmenu">
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_p1V5YB46EeOn0tYu8C47nQ" elementId="gui_search_result.view_popupmenu.hmi_copy" label="Set view title" command="_3m86AB44EeOn0tYu8C47nQ"/>
+    </menus>
+  </snippets>
+  <commands xmi:id="_GvRzQFCTEeSP-d-II8I-tw" elementId="e4swt.command.execute_search" commandName="Execute Search"/>
+  <commands xmi:id="_Q5mGUAX4EeOj29n2JE-lug" elementId="e4swt.command.add_folder" commandName="Add folder" description="Add folder"/>
+  <commands xmi:id="_Q56vcA2YEeO3J76tLOOphw" elementId="e4swt.command.remove_folder" commandName="Remove folder"/>
+  <commands xmi:id="_VtbcIFLZEeSP-d-II8I-tw" elementId="e4swt.command.search_in_current" commandName="Search in Current"/>
+  <commands xmi:id="_rgAeMA5REeOFiZwot8U5dQ" elementId="e4swt.command.set_foreground" commandName="Set Foreground Color"/>
+  <commands xmi:id="_R9HmQAnREeON86iuweqaVQ" elementId="e4swt.command.set_background" commandName="Set Background Color"/>
+  <commands xmi:id="_gkABsA2jEeO3J76tLOOphw" elementId="e4swt.command.remove_color" commandName="Remove Color"/>
+  <commands xmi:id="_z45q8A3REeO3J76tLOOphw" elementId="e4swt.command.copy" commandName="Copy"/>
+  <commands xmi:id="_T8CVYA6EEeO1WbeTMEQIEA" elementId="e4swt.command.find_dialog" commandName="Find dialog"/>
+  <commands xmi:id="_TuIpYBFPEeOnhf2zuk6Qtw" elementId="e4swt.command.reload_all_folders" commandName="Reload all folders"/>
+  <commands xmi:id="_w8UuABMUEeOumL-m2uvR-Q" elementId="e4swt.command.log_files_info" commandName="Log files information"/>
+  <commands xmi:id="_KiGBsFPBEeSP-d-II8I-tw" elementId="e4swt.command.internal_search" commandName="Internal Search">
+    <parameters xmi:id="_QrgP8FPBEeSP-d-II8I-tw" elementId="e4swt.command.internal_search.param.reqkey" name="Search Request Key"/>
+  </commands>
+  <commands xmi:id="_RcMN8BbLEeOGO5R7DhTg6g" elementId="e4swt.command.set_logtype_state" commandName="Set LogType state">
+    <parameters xmi:id="_VfLiQBbLEeOGO5R7DhTg6g" elementId="e4swt.command.set_logtype_state.type_name" name="LogType name"/>
+  </commands>
+  <commands xmi:id="_LUSewBbPEeOGO5R7DhTg6g" elementId="e4swt.command.empty_command" commandName="Empty Command"/>
+  <commands xmi:id="_BLxHEBcFEeOGO5R7DhTg6g" elementId="e4swt.command.set_window_title" commandName="Set title for a window"/>
+  <commands xmi:id="_zU3ZwB44EeOn0tYu8C47nQ" elementId="e4swt.command.set_text_title" commandName="Set title for the text tab"/>
+  <commands xmi:id="_3m86AB44EeOn0tYu8C47nQ" elementId="e4swt.command.set_view_title" commandName="Set title for a view"/>
+  <commands xmi:id="_7c3UQB47EeOn0tYu8C47nQ" elementId="e4swt.command.remove_all_colors" commandName="Remove all colors"/>
+  <commands xmi:id="_5kyEECInEeOKEPgxFo3M9w" elementId="e4swt.command.about" commandName="About window"/>
+  <commands xmi:id="_xnQpYDTqEeO3te4E2XDr0w" elementId="e4swt.command.add_to_global_ooi" commandName="Add to the list of global OOI"/>
+  <commands xmi:id="_HB13MDWREeO3te4E2XDr0w" elementId="e4swt.command.remove_from_global_ooi" commandName="Remove from the list of global OOI"/>
+  <commands xmi:id="_c2mTYF2mEeO5OoZCN4zDiQ" elementId="e4swt.command.remove_from_local_ooi" commandName="Remove from the list of local OOI"/>
+  <commands xmi:id="_e8rnQDWzEeOtLaQ9qzO3Zg" elementId="e4swt.command.add_string_key" commandName="Add a string key to an object"/>
+  <commands xmi:id="_vAuFoDZCEeOtLaQ9qzO3Zg" elementId="e4swt.command.remove_string_key" commandName="Remove string key from an object"/>
+  <commands xmi:id="__MZisDZFEeOtLaQ9qzO3Zg" elementId="e4swt.command.find_in_current" commandName="Find in current search result">
+    <parameters xmi:id="_GSVqoDZGEeOtLaQ9qzO3Zg" elementId="e4swt.command.find_in_current.param.text" name="Text to find String"/>
+    <parameters xmi:id="_PGdR4DfWEeOHKPNwYtLKFg" elementId="e4swt.command.find_in_current.param.direction" name="Direction of the find operation Integer"/>
+    <parameters xmi:id="_SxagsDfWEeOHKPNwYtLKFg" elementId="e4swt.command.find_in_current.param.wrap" name="Wrap the search Boolean"/>
+    <parameters xmi:id="_ZKSHQDfWEeOHKPNwYtLKFg" elementId="e4swt.command.find_in_current.param.is_regex" name="Treat the text to find as a regex Boolean"/>
+  </commands>
+  <commands xmi:id="_Yq6QMDyjEeOw3KVv2IbQ-w" elementId="e4swt.command.test" commandName="Test command"/>
+  <commands xmi:id="_DV6VgEWLEeOoCr9m_2YeLg" elementId="e4swt.command.remove_all_global_ooi" commandName="Remove All Global OOI"/>
+  <commands xmi:id="_M6xG0EfDEeOXzuK8im_mjw" elementId="e4swt.command.save_workspace" commandName="Save Workspace"/>
+  <commands xmi:id="_PoNkgEfDEeOXzuK8im_mjw" elementId="e4swt.command.load_workspace" commandName="Load Workspace"/>
+  <commands xmi:id="_WQ7ykFhPEeSSP_sODfwkWg" elementId="e4swt.command.custom_load_workspace" commandName="Custom Load Workspace"/>
+  <commands xmi:id="__Cv1kE-uEeOL-eyG32pLLw" elementId="e4swt.command.save_to_text_file" commandName="Save to text file"/>
+  <commands xmi:id="_U5rQoFqnEeOH8cnXh7vj0Q" elementId="e4swt.command.add_named_bookmark" commandName="Add a named bookmark"/>
+  <commands xmi:id="_hleoUFq8EeOH8cnXh7vj0Q" elementId="e4swt.command.remove_named_bookmark" commandName="Remove named bookmark">
+    <parameters xmi:id="_DXVZQFq9EeOH8cnXh7vj0Q" elementId="e4swt.command.remove_named_bookmark.param.sel_bookmark_uuid" name="Selected Bookmark UUID"/>
+  </commands>
+  <commands xmi:id="_x9Y2cFqyEeOH8cnXh7vj0Q" elementId="e4swt.command.select_in_current" commandName="Select in current">
+    <parameters xmi:id="_kOKJgFq2EeOH8cnXh7vj0Q" elementId="e4swt.command.select_in_current.param.start" name="Selection start"/>
+    <parameters xmi:id="_mpKzYFq2EeOH8cnXh7vj0Q" elementId="e4swt.command.select_in_current.param.end" name="Selection end"/>
+  </commands>
+  <commands xmi:id="_cEj0UE5aEeSLS9-xTX6kWQ" elementId="e4swt.command.enable_log_type" commandName="Enable/Disable Log Type"/>
+  <addons xmi:id="_DoWhgPtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_DoWhgftqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_DoWhgvtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_DoWhg_tqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_DoWhhPtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_DoWhhftqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_DoWhhvtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <categories xmi:id="_A6LPwFq8EeOH8cnXh7vj0Q" elementId="e4swt.comm_category.ooi" name="OOI"/>
+</application:Application>

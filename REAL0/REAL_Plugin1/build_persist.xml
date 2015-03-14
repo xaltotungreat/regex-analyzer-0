@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<!--
+  Copyright 2004 Sun Microsystems, Inc. All rights reserved.
+-->
+<project basedir="." default="gen_schema_ws">
+  <property name="project.home" value="." />
+  <path id="classpath">
+    <pathelement path="src" />
+	<pathelement path="schemas" />
+    <fileset dir="${project.home}" includes="lib/jaxb/*.jar" />
+  </path>
+  <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
+    <classpath refid="classpath" />
+  </taskdef>
+  
+  <target name="gen_schema_ws" description="Generate the schema for the work space">
+    <echo message="Generating schemas..." />
+	<mkdir dir="schemas" />
+    <schemagen destdir="schemas">
+      <src path="src/org/eclipselabs/real/gui/e4swt/persist" />
+      <classpath refid="classpath" />
+    </schemagen>	
+  </target>
+</project>
