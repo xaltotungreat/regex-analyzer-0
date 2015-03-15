@@ -42,6 +42,8 @@
 			<replaceParam name="CCMM_StarterService_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 			<replaceParam name="CC_CacheResiliency_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CC_CacheResiliency_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
+			<replaceParam name="AgentDesktop_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d:\d\d</replaceParam>
+			<replaceParam name="AgentDesktop_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSSX</replaceParam>
 		</replaceParams>
 		<complexRegexes>
 			<refComplexRegex name="RefTestPlan_Global" type="CP_ADD">
@@ -6321,7 +6323,7 @@
 						</view>
 					</views>
 				</complexRegex>
-				<refComplexRegex name="CMF_OI ANY RECORD Containing value">
+				<refComplexRegex name="CCMM_EmailManager ANY RECORD Containing value">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -7107,6 +7109,246 @@
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
+		<group name="AgentDesktop">
+			<complexRegexes>
+				<complexRegex name="!I:LogInterval AgentDesktop All">
+					<tags>
+						<tag name="Role">User Object</tag>
+						<tag name="Interval">TRUE</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>AgentDesktop</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex">
+							<regexLine>AgentDesktop_TIME_REGEX((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AgentDesktop_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
+				<refComplexRegex name="!I:LogInterval AgentDesktop">
+					<tags>
+						<tag name="Role">User Object</tag>
+						<tag name="Interval">TRUE</tag>
+					</tags>
+					<refName>!I:LogInterval AgentDesktop All</refName>
+					<refGroup>Global.AgentDesktop</refGroup>
+					<refTags>
+						<tag name="Role">User Object</tag>
+					</refTags>
+					<refReplaceParams>
+						<refReplaceParam name="Datetime bounds" type="REPLACE_ADD">
+							<replaceParam name="LOW_BOUND" type="DATE">
+								<replaceName>LOW_BOUND</replaceName>
+								<description>Low bound</description>
+								<replaceValue>Today Start</replaceValue>
+							</replaceParam>
+							<replaceParam name="HIGH_BOUND" type="DATE">
+								<replaceName>HIGH_BOUND</replaceName>
+								<description>High bound</description>
+								<replaceValue>Today End</replaceValue>
+							</replaceParam>
+						</refReplaceParam>
+					</refReplaceParams>
+					<refAcceptances>
+						<refAcceptance name="Interval Acceptance" type="REPLACE_ADD">
+							<dtIntervalAcceptance name="MainInterval" type="INTERVAL">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\AAgentDesktop_TIME_REGEX((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>AgentDesktop_TIME_REGEX((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
+				<refComplexRegex name="AgentDesktop Value Within Interval">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<refGroup>Global.AgentDesktop</refGroup>
+					<refTags>
+						<tag name="Role">internal</tag>
+						<tag name="Function">any record</tag>
+					</refTags>
+					<refReplaceParams>
+						<refReplaceParam name="Datetime bounds" type="REPLACE_ADD">
+							<replaceParam name="LOW_BOUND" type="DATE">
+								<replaceName>LOW_BOUND</replaceName>
+								<description>Low bound</description>
+								<replaceValue>Today Start</replaceValue>
+							</replaceParam>
+							<replaceParam name="HIGH_BOUND" type="DATE">
+								<replaceName>HIGH_BOUND</replaceName>
+								<description>High bound</description>
+								<replaceValue>Today End</replaceValue>
+							</replaceParam>
+						</refReplaceParam>
+					</refReplaceParams>
+					<refAcceptances name="DT Interval">
+						<refAcceptance name="Interval Acceptance" type="REPLACE_ADD">
+							<dtIntervalAcceptance name="MainInterval" type="INTERVAL">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\AAgentDesktop_TIME_REGEX((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>AgentDesktop_TIME_REGEX((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
+				<complexRegex name="Internal ANY RECORD Containing value">
+					<tags>
+						<tag name="Role">internal</tag>
+						<tag name="Function">any record</tag>
+					</tags>
+					<replaceParams>
+						<replaceParam name="VALUE"></replaceParam>
+					</replaceParams>
+					<required_log_types>
+						<log_type>AgentDesktop</log_type>
+					</required_log_types>
+					<regexes>
+						<regex>
+							<regex_flags>
+								<regex_flag>CASE_INSENSITIVE</regex_flag>
+								<regex_flag>UNICODE_CASE</regex_flag>
+							</regex_flags>
+							<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+							<regexLine>((?!((.*?VALUE)|(AgentDesktop_TIME_REGEX))).*\r?\n)*(?!(AgentDesktop_TIME_REGEX)).*?VALUE((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AgentDesktop_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+						<view name="FirstLine">
+							<regex>
+								<regexLine>(?&lt;=(AgentDesktop_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+							</regex>
+						</view>
+					</views>
+				</complexRegex>
+				<refComplexRegex name="AgentDesktop ANY RECORD Containing value">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<description>This SO selects all log entries that contain the specified value</description>
+					<refGroup>Global.AgentDesktop</refGroup>
+					<refTags>
+						<tag name="Role">internal</tag>
+						<tag name="Function">any record</tag>
+					</refTags>
+				</refComplexRegex>
+				<refComplexRegex name="CCMM_StarterService Errors Exceptions">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<refGroup>Global.AgentDesktop</refGroup>
+					<refTags>
+						<tag name="Role">internal</tag>
+						<tag name="Function">any record</tag>
+					</refTags>
+					<refReplaceParams>
+						<refReplaceParam name="Correct the default value" type="REPLACE_ADD">
+							<replaceParam name="VALUE">((Error)|(Exception))</replaceParam>
+						</refReplaceParam>
+					</refReplaceParams>
+					<refAcceptances>
+						<!-- may be necessary 
+						<refAcceptance name="CMF error success" type="REPLACE_ADD">
+							<regexAcceptance name="No success" type="NOT_FIND">
+								<regexes>
+									<regex name="ErrorCode_Success">
+										<regex_flags>
+											<regex_flag>CASE_INSENSITIVE</regex_flag>
+											<regex_flag>UNICODE_CASE</regex_flag>
+										</regex_flags>
+										<regexLine>((errorCode\[0\])|(ErrorCode\s*:\s*0)|(ErrorCode\s*=\s*Success)|(errorCode\[null\])|(cmfError\[Success.\]))</regexLine>
+									</regex>
+									<regex name="Adding listener to Contact Manager">
+										<regex_flags>
+											<regex_flag>CASE_INSENSITIVE</regex_flag>
+											<regex_flag>UNICODE_CASE</regex_flag>
+										</regex_flags>
+										<regexLine>Adding listener to Contact Manager</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance> -->
+					</refAcceptances>
+					<!-- <refViews>
+						<refView name="RefError" type="REPLACE_ADD" position="1">
+							<view name="Error">
+								<regex name="Error messsages">
+									<regex_flags>
+										<regex_flag>CASE_INSENSITIVE</regex_flag>
+										<regex_flag>UNICODE_CASE</regex_flag>
+									</regex_flags>
+									<regexLine>(((?&lt;=(errorCode\[)).*?(\]))|((?&lt;=(ErrorCode\s{1,50}:\s{1,10})).*?(?=(\r?\n)))</regexLine>
+									<regexLine>|((?&lt;=(ErrorCode\s{1,50}=\s{1,10})).*?(?=(\r?\n)))|((?&lt;=(cmfError\[)).*?(\])) </regexLine>
+									<regexLine>|(((\w+\.)+)\w+Exception))</regexLine>
+								</regex>
+							</view>
+						</refView>
+					</refViews> -->
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
 		<group name="CC_CacheResiliency">
 			<complexRegexes>
 				<complexRegex name="!I:LogInterval CC_CacheResiliency All">
@@ -7347,6 +7589,7 @@
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
+		
 		<searchScripts>
 			<searchScript name="Errors_Exceptions SGM+CMF">
 				<tags>

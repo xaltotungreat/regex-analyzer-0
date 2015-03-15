@@ -118,4 +118,9 @@
 			<filename_pattern>Common-CC_CacheResiliency(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
 		</filename_patterns>
 	</log_type>
+	<log_type name="AgentDesktop">
+		<filename_patterns>
+			<filename_pattern>CCMM_AgentDesktop(_\d)?\.log</filename_pattern>
+		</filename_patterns>
+	</log_type>
 </log_types>

@@ -34,6 +34,10 @@
             <value>true</value>
         </entry>
         <entry>
+            <key>AgentDesktop</key>
+            <value>true</value>
+        </entry>
+        <entry>
             <key>CCMM_MCMClient</key>
             <value>true</value>
         </entry>
