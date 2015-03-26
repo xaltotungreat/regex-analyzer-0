@@ -3,6 +3,7 @@
 	<log_type name="AML">		<filename_patterns>
 			<filename_pattern>CCMS_AML(\.\d+)*\.log</filename_pattern>
 			<filename_pattern>CCMS_AML(_\d)?\.log</filename_pattern>
+			<filename_pattern>CCMS-CCMS_AML(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
 		</filename_patterns>
 	</log_type>
 	<log_type name="ASM">		<filename_patterns>
