@@ -43,7 +43,8 @@
 			<replaceParam name="CC_CacheResiliency_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CC_CacheResiliency_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 			<replaceParam name="AgentDesktop_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d:\d\d</replaceParam>
-			<replaceParam name="AgentDesktop_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSSX</replaceParam>
+			<replaceParam name="AgentDesktop_TIME_REGEX_MATCH">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
+			<replaceParam name="AgentDesktop_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 		</replaceParams>
 		<complexRegexes>
 			<refComplexRegex name="RefTestPlan_Global" type="CP_ADD">
@@ -7142,7 +7143,7 @@
 						<regexes>
 							<regex name="Default">
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+								<regexLine>AgentDesktop_TIME_REGEX_MATCH</regexLine>
 							</regex>
 						</regexes>
 					</date_info>
@@ -7265,7 +7266,7 @@
 						<regexes>
 							<regex name="Default">
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+								<regexLine>AgentDesktop_TIME_REGEX_MATCH</regexLine>
 							</regex>
 						</regexes>
 					</date_info>
