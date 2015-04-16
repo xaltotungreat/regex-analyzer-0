@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/log4j-api-2.0.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/log4j-core-2.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-api-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-core-2.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-18.0.jar" sourcepath="D:/Install/Programming/Java/Guava/guava-libraries/guava/src"/>
 	<classpathentry exported="true" kind="lib" path="lib/groovy-all-2.3.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
