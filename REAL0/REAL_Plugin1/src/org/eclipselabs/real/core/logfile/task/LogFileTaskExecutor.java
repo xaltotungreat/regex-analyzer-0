@@ -1,11 +1,11 @@
 package org.eclipselabs.real.core.logfile.task;
 
 import java.util.List;
-import java.util.concurrent.locks.Lock;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.util.ITaskWatcherCallback;
+import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.TaskWatcher;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
@@ -23,14 +23,14 @@ public class LogFileTaskExecutor<V,R> {
     protected List<? extends LogFileTask<V,R>> theLogTasks;
     protected SettableFuture<R> theMainFuture;
     protected R theResultAggregate;
-    protected List<Lock> theLocks;
+    protected List<NamedLock> theLocks;
     protected TimeUnitWrapper theWaitTO;
     protected TimeUnitWrapper theExecutionTO;
     ListeningExecutorService executorService;
-    
-    public  LogFileTaskExecutor(String opName, ListeningExecutorService execService, List<? extends LogFileTask<V,R>> tasksList, 
-            SettableFuture<R> aMainFuture, R emptyResult, 
-            List<Lock> locksList,
+
+    public  LogFileTaskExecutor(String opName, ListeningExecutorService execService, List<? extends LogFileTask<V,R>> tasksList,
+            SettableFuture<R> aMainFuture, R emptyResult,
+            List<NamedLock> locksList,
             TimeUnitWrapper waitTO, TimeUnitWrapper execTO) {
         operationName = opName;
         theLogTasks = tasksList;
@@ -41,16 +41,16 @@ public class LogFileTaskExecutor<V,R> {
         theExecutionTO = execTO;
         executorService = execService;
     }
-    
+
     public void execute() {
         if ((theLogTasks != null) && (!theLogTasks.isEmpty())) {
             final TaskWatcher watcher = new TaskWatcher(operationName, theLocks, new ITaskWatcherCallback() {
-                
+
                 @Override
-                public void submitTasks(TaskWatcher watcher) {
-                    submitLogFileTasks(watcher);
+                public void submitTasks(TaskWatcher watcher1) {
+                    submitLogFileTasks(watcher1);
                 }
-                
+
                 @Override
                 public void executionComplete() {
                     log.debug("Execution complete ");
@@ -62,7 +62,7 @@ public class LogFileTaskExecutor<V,R> {
             log.error("No tasks to execute");
         }
     }
-    
+
     public void submitLogFileTasks(final TaskWatcher watcher) {
         for (final LogFileTask<V,R> logTask : theLogTasks) {
             ListenableFuture<V> currFuture = executorService.submit(logTask);

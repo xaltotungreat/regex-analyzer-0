@@ -3,7 +3,6 @@ package org.eclipselabs.real.core.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class TaskWatcher {
     private static final Logger log = LogManager.getLogger(TaskWatcher.class);
-    protected String name; 
+    protected String name;
     private volatile ReentrantLock theLock = new ReentrantLock();
     private volatile Thread lockingThread;
     protected AtomicInteger tasksSubmitted = new AtomicInteger();
@@ -21,41 +20,22 @@ public class TaskWatcher {
     public static final String TASK_WATCHER_THREAD_NAME = "TaskWatcher";
     protected ITaskWatcherCallback theCallback;
     protected volatile Long lastFinishedTaskTime;
-    
+
     public static enum TaskWatcherState {
         INIT,
         SUBMITTING,
         SUBMISSION_COMPLETE,
         FINISHED
     }
-    
-    public static class LockWrapper {
-        protected Lock theLock;
-        protected Boolean lockLocked = false;
-        public LockWrapper(Lock aLock) {
-            theLock = aLock;
-        }
-        public void setLocked(Boolean locked) {
-            lockLocked = locked;
-        }
-        
-        public Lock getLock() {
-            return theLock;
-        }
-        
-        public Boolean isLocked() {
-            return lockLocked;
-        }
-    }
-    
-    public TaskWatcher(String aName, List<Lock> locksList, ITaskWatcherCallback completionCallback) {
+
+    public TaskWatcher(String aName, List<NamedLock> locksList, ITaskWatcherCallback completionCallback) {
         name = aName;
         currentState = TaskWatcherState.INIT;
         theCallback = completionCallback;
         theLocks = new ArrayList<LockWrapper>();
         if (locksList != null) {
-            for (Lock currLock : locksList) {
-                theLocks.add(new LockWrapper(currLock));
+            for (NamedLock currLock : locksList) {
+                theLocks.add(new LockWrapper(currLock.getLock(), currLock.getLockName()));
             }
             log.debug(name + " Locks number " + theLocks.size());
         }
@@ -65,16 +45,14 @@ public class TaskWatcher {
         private TimeUnitWrapper theExecutionTO;
         private TimeUnitWrapper theWaitTO;
         private TaskWatcher parentWatcher;
-        //private ReentrantLock timedLock;
-        
-        
+
         public TimeoutLockThread(TaskWatcher watcher, TimeUnitWrapper execTO, TimeUnitWrapper waitTO) {
             super(TASK_WATCHER_THREAD_NAME + "-" + name);
             theExecutionTO = new TimeUnitWrapper(execTO.getTimeout(), execTO.getTimeUnit());
             theWaitTO = waitTO;
             parentWatcher = watcher;
         }
-        
+
         @Override
         public void run() {
             try {
@@ -83,9 +61,9 @@ public class TaskWatcher {
                     if (!currLock.lockLocked) {
                         if ((currLock.getLock().tryLock()) || (currLock.getLock().tryLock(theWaitTO.getTimeout(), theWaitTO.getTimeUnit()))) {
                             currLock.setLocked(true);
-                            log.debug(name + " TaskWatcher Lock locked " + currLock);
+                            log.debug(name + " TaskWatcher Lock locked " + currLock.getLockName());
                         } else {
-                            log.error(name + " Unable to obtain lock");
+                            log.error(name + " Unable to obtain lock" + currLock.getLockName());
                         }
                     }
                 }
@@ -101,6 +79,7 @@ public class TaskWatcher {
                         theExecutionTO.getTimeUnit().timedWait(this, theExecutionTO.getTimeout());
                     }
                     log.debug(name + " TaskWatcher continues calling callback");
+                    log.debug("After timeout All tasks " + tasksSubmitted.get() + " Finished " + tasksFinished.get());
                 } else {
                     log.debug("No need to wait tasks already executed");
                 }
@@ -113,7 +92,7 @@ public class TaskWatcher {
                     if (currLock.isLocked()) {
                         currLock.getLock().unlock();
                         currLock.setLocked(false);
-                        log.debug(name + " TaskWatcher Locks unlocked " + currLock);
+                        log.debug(name + " TaskWatcher Locks unlocked " + currLock.getLockName());
                     }
                 }
                 parentWatcher.setCurrentState(TaskWatcherState.FINISHED);
@@ -126,35 +105,35 @@ public class TaskWatcher {
                     if (currLock.isLocked()) {
                         currLock.getLock().unlock();
                         currLock.setLocked(false);
-                        log.debug(name + " TaskWatcher Finally Lock unlocked " + currLock);
+                        log.debug(name + " TaskWatcher Finally Lock unlocked " + currLock.getLockName());
                     }
                 }
             }
         }
     }
-    
+
     public void startWatch(TimeUnitWrapper waitTO, TimeUnitWrapper execTO) {
         TimeoutLockThread tlt = new TimeoutLockThread(this, execTO, waitTO);
         lockingThread = tlt;
         currentState = TaskWatcherState.SUBMITTING;
         tlt.start();
     }
-    
+
     public int getSubmitted() {
         return tasksSubmitted.get();
     }
-    
+
     public int incrementAndGetSubmitted() {
         tasksSubmitted.incrementAndGet();
         log.debug(name + " Tasks submitted " + tasksSubmitted.get());
         return tasksSubmitted.get();
-        
+
     }
-    
+
     public int getFinished() {
         return tasksFinished.get();
     }
-    
+
     public int incrementAndGetFinished() {
         tasksFinished.incrementAndGet();
         lastFinishedTaskTime = System.currentTimeMillis();
@@ -167,7 +146,7 @@ public class TaskWatcher {
         }
         return tasksFinished.get();
     }
-    
+
     public synchronized void timedUnlockObtain() {
         synchronized(lockingThread) {
             lockingThread.notify();

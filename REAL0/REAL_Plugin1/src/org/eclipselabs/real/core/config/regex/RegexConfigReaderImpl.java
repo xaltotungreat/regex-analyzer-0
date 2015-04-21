@@ -3,7 +3,6 @@ package org.eclipselabs.real.core.config.regex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 import org.eclipselabs.real.core.config.ConstructionTask;
 import org.eclipselabs.real.core.config.IConfigObjectConstructor;
@@ -18,19 +17,22 @@ import org.eclipselabs.real.core.searchobject.ref.IRefKeyedSOContainer;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
+import org.eclipselabs.real.core.util.NamedLock;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 
 public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
     //protected IRegexConfigCompletionCallback completionCallback = new AddSOCallback();
-    protected List<Lock> modificationLocks = new ArrayList<Lock>();
+    protected List<NamedLock> modificationLocks = new ArrayList<NamedLock>();
     protected ListeningExecutorService configReaderExecutor;
 
     public RegexConfigReaderImpl(ListeningExecutorService executor) {
         configReaderExecutor = executor;
-        modificationLocks.add(SearchObjectController.INSTANCE.getSearchObjectRepository().getWriteLock());
-        modificationLocks.add(SearchObjectController.INSTANCE.getReplaceParamRepository().getWriteLock());
+        modificationLocks.add(
+                new NamedLock(SearchObjectController.INSTANCE.getSearchObjectRepository().getWriteLock(), "SearchObj repo write lock"));
+        modificationLocks.add(
+                new NamedLock(SearchObjectController.INSTANCE.getReplaceParamRepository().getWriteLock(), "ReplaceParam repo write lock"));
     }
     public class AddSOCallback implements IRegexConfigCompletionCallback {
 
@@ -69,7 +71,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
             }
             internalResolveAllRefs(copyRefsList, copyContainersList);
         }
-        
+
         protected void internalResolveAllRefs(List<RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> refsList,
                 List<IRefKeyedSOContainer> refContainersList) {
             int resolveCount = 0;
@@ -78,7 +80,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
                 // cannot remove inside the cycle because it leads to a ConcurrentModificationException
                 List<RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> toRemove = new ArrayList<>();
                 for (RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> currRef : refsList) {
-                    IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> resolvedSO 
+                    IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> resolvedSO
                         = currRef.resolve(SearchObjectController.INSTANCE.getSearchObjectRepository());
                     if (resolvedSO != null) {
                         SearchObjectController.INSTANCE.getSearchObjectRepository().add(
@@ -112,7 +114,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
             }
         }
     }
-    
+
     protected <K, V> ListenableFuture<V> submitConstructionTask(
             IConfigObjectConstructor<K, V> coConstructor,
             IConstructionSource<K> aSource) {

@@ -25,6 +25,7 @@ import org.eclipselabs.real.core.logtype.LogFileType;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.core.util.IListenableFutureWatcherCallback;
 import org.eclipselabs.real.core.util.ListenableFutureWatcher;
+import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
@@ -63,9 +64,8 @@ public enum LogFileControllerImpl {
         File newLogFilesDir = new File(logFilesDir);
         if (newLogFilesDir.exists() && newLogFilesDir.isDirectory()) {
             return reloadFoldersFutureList(Collections.singletonList(logFilesDir), timeout);
-        } else {
-            log.error("Not a folder or not exists " + logFilesDir + " returning null future");
         }
+        log.error("Not a folder or not exists " + logFilesDir + " returning null future");
         return null;
     }
 
@@ -77,9 +77,8 @@ public enum LogFileControllerImpl {
         File newLogFilesDir = new File(logFilesDir);
         if (newLogFilesDir.exists() && newLogFilesDir.isDirectory()) {
             return reloadFoldersListFutures(Collections.singletonList(logFilesDir), timeout);
-        } else {
-            log.error("Not a folder or not exists " + logFilesDir + " returning null future");
         }
+        log.error("Not a folder or not exists " + logFilesDir + " returning null future");
         return null;
     }
 
@@ -90,9 +89,8 @@ public enum LogFileControllerImpl {
     public SettableFuture<List<LogFileAggregateInfo>> reloadCurrentFoldersFutureList(TimeUnitWrapper timeout) {
         if (!controllerLogFolders.isEmpty()) {
             return reloadFoldersFutureList(controllerLogFolders, timeout);
-        } else {
-            log.error("No folder in the controller list");
         }
+        log.error("No folder in the controller list");
         return null;
     }
 
@@ -103,9 +101,8 @@ public enum LogFileControllerImpl {
     public SettableFuture<List<ListenableFuture<LogFileAggregateInfo>>> reloadCurrentFoldersListFutures(TimeUnitWrapper timeout) {
         if (!controllerLogFolders.isEmpty()) {
             return reloadFoldersListFutures(new ArrayList<String>(controllerLogFolders), timeout);
-        } else {
-            log.error("No folders to reload");
         }
+        log.error("No folders to reload");
         return null;
     }
 
@@ -160,8 +157,8 @@ public enum LogFileControllerImpl {
                         ControllerFolderListUpdated newFldListEvent = new ControllerFolderListUpdated(oldFolders, newFolders);
                         CoreEventBus.INSTANCE.postSingleThreadAsync(newFldListEvent);
                     }
-                    List<Lock> locks = new ArrayList<Lock>();
-                    locks.add(logControllerLock.writeLock());
+                    List<NamedLock> locks = new ArrayList<NamedLock>();
+                    locks.add(new NamedLock(logControllerLock.writeLock(), "LogController write lock"));
                     SettableFuture<List<LogFileAggregateInfo>> contrFuture = SettableFuture.<List<LogFileAggregateInfo>> create();
                     LogFileTaskExecutor<LogFileAggregateInfo, List<LogFileAggregateInfo>> theTaskExecutor
                                 = new LogFileTaskExecutor<LogFileAggregateInfo, List<LogFileAggregateInfo>>(
@@ -172,9 +169,8 @@ public enum LogFileControllerImpl {
                                                 LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
                     theTaskExecutor.execute();
                     return contrFuture;
-                } else {
-                    log.error("reloadFoldersFutureList Timeout trying to get write lock");
                 }
+                log.error("reloadFoldersFutureList Timeout trying to get write lock");
             } catch (InterruptedException e) {
                 log.error("Interrupted exception", e);
             } finally {
@@ -257,9 +253,8 @@ public enum LogFileControllerImpl {
                             new TimeUnitWrapper(cumulativeReadWaitTimeout + cumulativeReadTimeout,
                                     LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
                     return returnFuture;
-                } else {
-                    log.error("reloadFoldersListFutures Timeout trying to get write lock");
                 }
+                log.error("reloadFoldersListFutures Timeout trying to get write lock");
             } catch (InterruptedException e) {
                 log.error("Interrupted exception", e);
             } finally {
@@ -283,9 +278,8 @@ public enum LogFileControllerImpl {
                 ILogFileAggregate res = logAggregateMap.get(type);
                 log.debug("Getting Aggregate for type = " + type + " res=" + res);
                 return res;
-            } else {
-                log.error("getLogAggregate Timeout trying to get read lock");
             }
+            log.error("getLogAggregate Timeout trying to get read lock");
         } catch (InterruptedException e) {
             log.error("Interrupted exception", e);
         } finally {
@@ -413,9 +407,8 @@ public enum LogFileControllerImpl {
                     resultList.add(logAggr.getInfo());
                 }
                 return resultList;
-            } else {
-                log.error("getInfos Timeout trying to get read lock");
             }
+            log.error("getInfos Timeout trying to get read lock");
         } catch (InterruptedException e) {
             log.error("Interrupted exception", e);
         } finally {

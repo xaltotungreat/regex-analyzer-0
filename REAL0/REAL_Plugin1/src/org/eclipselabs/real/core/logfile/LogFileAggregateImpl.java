@@ -26,6 +26,7 @@ import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.KeyedObjectRepositoryImpl;
+import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.PerformanceUtils;
 import org.eclipselabs.real.core.util.RepositorySizeChangedEvent;
@@ -168,9 +169,9 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                 cumulativeSearchWaitTimeout += currSearchWaitTimeout;
                 cumulativeSearchTimeout += currSearchTimeout;
             }
-            List<Lock> locks = new ArrayList<Lock>();
-            locks.add(getReadLock());
-            locks.add(contrReadLock);
+            List<NamedLock> locks = new ArrayList<NamedLock>();
+            locks.add(new NamedLock(getReadLock(), "LogAggregate read lock"));
+            locks.add(new NamedLock(contrReadLock, "LogController read lock"));
             returnFuture = SettableFuture.<ConcurrentHashMap<String, R>> create();
             LogFileTaskExecutor<R, ConcurrentHashMap<String, R>> theTaskExecutor = new LogFileTaskExecutor<R, ConcurrentHashMap<String, R>>("LogSearch-" + lfTypeKey.getLogTypeName(),
                     logFileAggregateExecutor, taskList, returnFuture, new ConcurrentHashMap<String, R>(), locks, new TimeUnitWrapper(2 * putTimeout, putTimeUnit),
@@ -213,8 +214,8 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                     taskList.add(newTask);
                     log.debug("LogReadTask added file=" + currLogFile.getFilePath());
                 }
-                List<Lock> locks = new ArrayList<Lock>();
-                locks.add(getWriteLock());
+                List<NamedLock> locks = new ArrayList<NamedLock>();
+                locks.add(new NamedLock(getWriteLock(), "LogAggregate write lock"));
                 returnFuture = SettableFuture.<LogFileAggregateInfo> create();
                 LogFileTaskExecutor<LogFileInfo, LogFileAggregateInfo> theTaskExecutor
                         = new LogFileTaskExecutor<LogFileInfo, LogFileAggregateInfo>(
