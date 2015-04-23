@@ -1,18 +1,18 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefReplaceParam extends RefSimpleImpl<List<IReplaceParam<?>>> {
 
     private static final Logger log = LogManager.getLogger(RefReplaceParam.class);
-    
-    protected RealPredicate<List<IReplaceParam<?>>> matchPredicate = new RealPredicate<List<IReplaceParam<?>>>() {
-        
+
+    protected Predicate<List<IReplaceParam<?>>> matchPredicate = new Predicate<List<IReplaceParam<?>>>() {
+
         @Override
         public boolean test(List<IReplaceParam<?>> obj) {
             boolean result = true;
@@ -44,11 +44,11 @@ public class RefReplaceParam extends RefSimpleImpl<List<IReplaceParam<?>>> {
             return result;
         }
     };
-    
+
     public RefReplaceParam(RefType aType, String aName) {
         super(aType, aName);
     }
-    
+
     public void addReplaceParam(IReplaceParam<?> param) {
         if (refValue != null) {
             refValue.add(param);
@@ -63,7 +63,7 @@ public class RefReplaceParam extends RefSimpleImpl<List<IReplaceParam<?>>> {
     }
 
     @Override
-    public RealPredicate<List<IReplaceParam<?>>> getDefaultMatchPredicate() {
+    public Predicate<List<IReplaceParam<?>>> getDefaultMatchPredicate() {
         return matchPredicate;
     }
 

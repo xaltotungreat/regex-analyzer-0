@@ -3,6 +3,7 @@ package org.eclipselabs.real.core.searchobject.ref;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,6 @@ import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> extends RefImpl<T> {
 
@@ -61,8 +61,8 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         tags = aTags;
     }
 
-    public RealPredicate<SearchObjectKey> getSOKeyMatchPredicate() {
-        return new RealPredicate<SearchObjectKey>() {
+    public Predicate<SearchObjectKey> getSOKeyMatchPredicate() {
+        return new Predicate<SearchObjectKey>() {
 
             @Override
             public boolean test(SearchObjectKey t) {
@@ -96,8 +96,8 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         };
     }
 
-    public RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> getSearchObjectMatchPredicate() {
-        return new RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>() {
+    public Predicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> getSearchObjectMatchPredicate() {
+        return new Predicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>() {
 
             @Override
             public boolean test(IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject> t) {
@@ -137,8 +137,8 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
 
 
     @Override
-    public RealPredicate<? super T> getDefaultMatchPredicate() {
-        return new RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>() {
+    public Predicate<? super T> getDefaultMatchPredicate() {
+        return new Predicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>() {
 
             @Override
             public boolean test(IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject> t) {

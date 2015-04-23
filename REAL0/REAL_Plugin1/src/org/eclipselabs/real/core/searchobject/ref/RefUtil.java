@@ -1,6 +1,7 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,16 +10,15 @@ import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
 import org.eclipselabs.real.core.searchobject.SearchObjectController;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefUtil {
 
     private static final Logger log = LogManager.getLogger(RefUtil.class);
 
     private RefUtil() {}
-    
-    public static <T> RealPredicate<T> getAlwaysTruePredicate() {
-        return new RealPredicate<T>() {
+
+    public static <T> Predicate<T> getAlwaysTruePredicate() {
+        return new Predicate<T>() {
 
             @Override
             public boolean test(T t) {
@@ -26,9 +26,9 @@ public class RefUtil {
             }
         };
     }
-    
-    public static <T> RealPredicate<T> getAlwaysFalsePredicate() {
-        return new RealPredicate<T>() {
+
+    public static <T> Predicate<T> getAlwaysFalsePredicate() {
+        return new Predicate<T>() {
 
             @Override
             public boolean test(T t) {
@@ -36,11 +36,11 @@ public class RefUtil {
             }
         };
     }
-    
+
     public static List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> getMatchingSO(RefKeyedSO<?> ref) {
         return SearchObjectController.INSTANCE.getSearchObjectRepository().getValues(ref.getSOKeyMatchPredicate());
     }
-    
+
     public static boolean matchRefRealRegex(List<IRealRegex> originalList, List<RefRealRegex> refList) {
         boolean matches = true;
         if ((refList != null) && (!refList.isEmpty())) {
@@ -79,7 +79,7 @@ public class RefUtil {
         }
         return matches;
     }
-    
+
     /**
      * If the position is specified in this regex then the value is added to the specified position
      * Otherwise to the "end" of the List
@@ -105,7 +105,7 @@ public class RefUtil {
                         if ((refRealRegex.getPosition() >= 0) && (refRealRegex.getPosition() <= originalList.size())) {
                             originalList.add(refRealRegex.getPosition(), refRealRegex.getValue());
                         } else {
-                            log.warn("addRefRealRegex Incorrect sort request position (adding to the end) position " 
+                            log.warn("addRefRealRegex Incorrect sort request position (adding to the end) position "
                                     + refRealRegex.getPosition() + " size=" + originalList.size());
                             originalList.add(refRealRegex.getValue());
                         }
@@ -119,7 +119,7 @@ public class RefUtil {
         }
         return count;
     }
-    
+
     public static Integer replaceAddRefRealRegex(List<IRealRegex> originalList, List<RefRealRegex> refList) {
         Integer count = 0;
         if ((refList != null) && (!refList.isEmpty())) {
@@ -167,7 +167,7 @@ public class RefUtil {
         }
         return count;
     }
-    
+
     public static Integer replaceRefRealRegex(List<IRealRegex> originalList, List<RefRealRegex> refList) {
         Integer count = 0;
         if ((refList != null) && (!refList.isEmpty())) {
@@ -199,7 +199,7 @@ public class RefUtil {
                                 }
                             }
                         }
-                        
+
                         if (setPos > -1) {
                             originalList.set(setPos, refRealRegex.getValue());
                             replaced = true;
@@ -214,7 +214,7 @@ public class RefUtil {
         }
         return count;
     }
-    
+
     public static Integer removeRefRealRegex(List<IRealRegex> originalList, List<RefRealRegex> refList) {
         Integer count = 0;
         if ((refList != null) && (!refList.isEmpty())) {
@@ -246,7 +246,7 @@ public class RefUtil {
                                 }
                             }
                         }
-                        
+
                         if (setPos > -1) {
                             originalList.remove(setPos);
                             replaced = true;
@@ -261,7 +261,7 @@ public class RefUtil {
         }
         return count;
     }
-    
+
     public static Integer cpAddRefRealRegex(List<IRealRegex> originalList, List<RefRealRegex> refList) {
         Integer count = 0;
         if ((refList != null) && (!refList.isEmpty())) {
@@ -288,7 +288,7 @@ public class RefUtil {
                             if ((refRealRegex.getPosition() >= 0) && (refRealRegex.getPosition() <= originalList.size())) {
                                 originalList.add(refRealRegex.getPosition().intValue(), resolvedObj);
                             } else {
-                                log.warn("cpAddRefRealRegex Incorrect ref real regex position (adding to the end) position " 
+                                log.warn("cpAddRefRealRegex Incorrect ref real regex position (adding to the end) position "
                                         + refRealRegex.getPosition() + " size=" + originalList.size());
                                 originalList.add(resolvedObj);
                             }
@@ -304,7 +304,7 @@ public class RefUtil {
         }
         return count;
     }
-    
+
     public static Integer cpReplaceRefRealRegex(List<IRealRegex> originalList, List<RefRealRegex> refList) {
         Integer count = 0;
         if ((refList != null) && (!refList.isEmpty())) {
@@ -333,13 +333,13 @@ public class RefUtil {
                             if ((refRealRegex.getPosition() >= 0) && (refRealRegex.getPosition() < originalList.size())) {
                                 originalList.set(refRealRegex.getPosition().intValue(), resolvedObj);
                             } else {
-                                log.warn("cpReplaceRefRealRegex Incorrect ref real regex position (no action) position " 
+                                log.warn("cpReplaceRefRealRegex Incorrect ref real regex position (no action) position "
                                         + refRealRegex.getPosition() + " size=" + originalList.size());
                             }
                         } else if (setPos > 0) {
                             originalList.set(setPos, resolvedObj);
                         } else {
-                            log.error("cpReplaceRefRealRegex Unknown error setPos " + setPos + " size " + originalList.size() 
+                            log.error("cpReplaceRefRealRegex Unknown error setPos " + setPos + " size " + originalList.size()
                                     + " Ref\n" + refRealRegex);
                         }
                         count++;

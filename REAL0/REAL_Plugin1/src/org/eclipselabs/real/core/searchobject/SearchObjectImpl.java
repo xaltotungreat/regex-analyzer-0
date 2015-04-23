@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +16,6 @@ import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 import org.eclipselabs.real.core.searchresult.sort.SortingType;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISearchResultObject>
         //extends KeyedObjectRepositoryImpl<ReplaceParamKey, IReplaceParam<?>>
@@ -160,7 +160,7 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     }
 
     @Override
-    public List<IAcceptanceCriterion> getAcceptanceList(RealPredicate<IAcceptanceCriterion> stagePred) {
+    public List<IAcceptanceCriterion> getAcceptanceList(Predicate<IAcceptanceCriterion> stagePred) {
         List<IAcceptanceCriterion> result = null;
         if (acceptanceList != null) {
             if (stagePred != null) {
@@ -182,7 +182,7 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     }
 
     @Override
-    public List<IAcceptanceCriterion> getCloneAcceptanceList(RealPredicate<IAcceptanceCriterion> stagePred) {
+    public List<IAcceptanceCriterion> getCloneAcceptanceList(Predicate<IAcceptanceCriterion> stagePred) {
         List<IAcceptanceCriterion> result = null;
         if (acceptanceList != null) {
             if (stagePred != null) {

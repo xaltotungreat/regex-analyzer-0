@@ -2,6 +2,7 @@ package org.eclipselabs.real.core.searchobject;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
 import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
@@ -11,7 +12,6 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 import org.eclipselabs.real.core.searchresult.sort.SortingType;
 import org.eclipselabs.real.core.util.ITypedObject;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 /**
  * This is the highest level abstraction of a search object.
@@ -153,7 +153,7 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
      */
     public List<IAcceptanceCriterion> getAcceptanceList();
 
-    public List<IAcceptanceCriterion> getAcceptanceList(RealPredicate<IAcceptanceCriterion> stagePred);
+    public List<IAcceptanceCriterion> getAcceptanceList(Predicate<IAcceptanceCriterion> stagePred);
 
     /**
      * Sometimes the requirements for selecting objects may be quite complex
@@ -181,7 +181,7 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
      * @param st the stages for which acceptance criteria need to be cloned and returned
      * @return a list of clones of acceptance criteria for all specified stages
      */
-    public List<IAcceptanceCriterion> getCloneAcceptanceList(RealPredicate<IAcceptanceCriterion> stagePred);
+    public List<IAcceptanceCriterion> getCloneAcceptanceList(Predicate<IAcceptanceCriterion> stagePred);
 
     /**
      * For example it is very convenient to sort the results by time. The REAL framework allows this

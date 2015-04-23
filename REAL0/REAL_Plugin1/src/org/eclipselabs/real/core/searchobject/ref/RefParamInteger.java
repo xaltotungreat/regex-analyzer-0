@@ -1,18 +1,19 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
-import org.eclipselabs.real.core.util.RealPredicate;
+import java.util.function.Predicate;
+
 
 public class RefParamInteger extends RefSimpleImpl<Integer> {
-    
+
     public RefParamInteger(RefType aType, String aName) {
         super(aType, aName);
     }
-    
+
     public RefParamInteger(RefType aType, String aName, Integer rFlags) {
         super(aType, aName);
         refValue = rFlags;
     }
-    
+
     @Override
     public Integer resolve(Integer originalObj) {
         Integer result = refValue;
@@ -51,7 +52,7 @@ public class RefParamInteger extends RefSimpleImpl<Integer> {
     }
 
     @Override
-    public RealPredicate<Integer> getDefaultMatchPredicate() {
+    public Predicate<Integer> getDefaultMatchPredicate() {
         // a string is used as other parameters
         // return false to avoid any confusion
         return RefUtil.getAlwaysFalsePredicate();

@@ -1,9 +1,10 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
+import java.util.function.Predicate;
+
 import org.eclipselabs.real.core.searchobject.ISearchObject;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefView<V extends ISearchObject<W,X>,W extends ISearchResult<X>, X extends ISearchResultObject,Q> 
             extends RefSimpleImpl<V> {
@@ -62,7 +63,7 @@ public class RefView<V extends ISearchObject<W,X>,W extends ISearchResult<X>, X 
     }
 
     @Override
-    public RealPredicate<V> getDefaultMatchPredicate() {
+    public Predicate<V> getDefaultMatchPredicate() {
         // The RefView has two parameters the key and the value
         // a simple default predicate will not work here therefore return 
         // an always false predicate

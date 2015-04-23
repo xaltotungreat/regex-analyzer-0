@@ -1,14 +1,15 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
+import java.util.function.Predicate;
+
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefAcceptanceCriterion extends RefSimpleImpl<IAcceptanceCriterion> {
 
     //private static final Logger log = LogManager.getLogger(RefAcceptanceCriterion.class);
 
-    protected RealPredicate<IAcceptanceCriterion> matchPredicate = new RealPredicate<IAcceptanceCriterion>() {
-        
+    protected Predicate<IAcceptanceCriterion> matchPredicate = new Predicate<IAcceptanceCriterion>() {
+
         @Override
         public boolean test(IAcceptanceCriterion obj) {
             boolean result = true;
@@ -27,7 +28,7 @@ public class RefAcceptanceCriterion extends RefSimpleImpl<IAcceptanceCriterion> 
             return result;
         }
     };
-    
+
     public RefAcceptanceCriterion(RefType aType, String aName) {
         super(aType, aName);
     }
@@ -38,12 +39,12 @@ public class RefAcceptanceCriterion extends RefSimpleImpl<IAcceptanceCriterion> 
 
     @Override
     public String toString() {
-        return "RefAcceptanceCriterion [refType=" + refType + ", name=" + name 
+        return "RefAcceptanceCriterion [refType=" + refType + ", name=" + name
                 + ", position=" + position + ", acceptanceCriterion=" + refValue + "]";
     }
 
     @Override
-    public RealPredicate<IAcceptanceCriterion> getDefaultMatchPredicate() {
+    public Predicate<IAcceptanceCriterion> getDefaultMatchPredicate() {
         return matchPredicate;
     }
 

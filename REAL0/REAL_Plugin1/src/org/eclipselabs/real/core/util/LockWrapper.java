@@ -12,9 +12,10 @@ import java.util.concurrent.locks.Lock;
  *
  */
 public class LockWrapper {
-    protected Lock theLock;
-    protected Boolean lockLocked = false;
-    protected String lockName;
+    private Lock theLock;
+    private Boolean lockLocked = false;
+    private String lockName;
+
     public LockWrapper(Lock aLock) {
         theLock = aLock;
     }

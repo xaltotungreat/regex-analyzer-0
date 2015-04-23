@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
@@ -21,7 +22,6 @@ import org.eclipselabs.real.core.config.xml.IConfigXmlConstants;
 import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
 import org.eclipselabs.real.core.logfile.LogFileTypeRepository;
-import org.eclipselabs.real.core.util.RealPredicate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -130,7 +130,7 @@ public enum LogFileTypes {
         return logFileTypeRep.getAllKeys();
     }
 
-    public Set<LogFileTypeKey> getAllTypeKeys(RealPredicate<LogFileType> typePredicate) {
+    public Set<LogFileTypeKey> getAllTypeKeys(Predicate<LogFileType> typePredicate) {
         return logFileTypeRep.getKeys(typePredicate);
     }
 

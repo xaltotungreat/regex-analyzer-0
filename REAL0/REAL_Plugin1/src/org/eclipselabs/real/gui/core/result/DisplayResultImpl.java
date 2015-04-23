@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,6 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 import org.eclipselabs.real.core.searchresult.sort.SortingApplicability;
 import org.eclipselabs.real.core.util.PerformanceUtils;
-import org.eclipselabs.real.core.util.RealPredicate;
 import org.eclipselabs.real.gui.core.sort.SortRequestKey;
 import org.eclipselabs.real.gui.core.sort.SortRequestKeyParam;
 import org.eclipselabs.real.gui.core.sort.SortRequestKeyParamType;
@@ -153,7 +153,7 @@ public class DisplayResultImpl implements IDisplayResult {
         if ((displaySearchObject.getSortRequestKeys() != null) && (!displaySearchObject.getSortRequestKeys().isEmpty())) {
             newLst = new ArrayList<>();
             for (final SortRequestKey currKey : displaySearchObject.getSortRequestKeys()) {
-                RealPredicate<IInternalSortRequest> currPred = new RealPredicate<IInternalSortRequest>() {
+                Predicate<IInternalSortRequest> currPred = new Predicate<IInternalSortRequest>() {
 
                     @Override
                     public boolean test(IInternalSortRequest t) {

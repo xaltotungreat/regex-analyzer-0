@@ -3,11 +3,11 @@ package org.eclipselabs.real.core.logtype;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.eclipselabs.real.core.event.CoreEventBus;
 import org.eclipselabs.real.core.event.logfile.LogFileTypeStateChangedEvent;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 /**
  * This class implements an abstraction - a log file type.
@@ -23,7 +23,7 @@ public class LogFileType {
     protected LogFileTypeState stateInfo = new LogFileTypeState(true, false);
     protected Set<String> filePatterns = Collections.synchronizedSet(new HashSet<String>());
 
-    public static class LFTNamePredicate implements RealPredicate<LogFileType> {
+    public static class LFTNamePredicate implements Predicate<LogFileType> {
 
         protected String testName;
 
@@ -42,7 +42,7 @@ public class LogFileType {
         }
     }
 
-    public static class LFTEnabledStatePredicate implements RealPredicate<LogFileType> {
+    public static class LFTEnabledStatePredicate implements Predicate<LogFileType> {
 
         protected boolean testState;
         public LFTEnabledStatePredicate(boolean state) {
@@ -59,7 +59,7 @@ public class LogFileType {
         }
     }
 
-    public static class LFTAvailableStatePredicate implements RealPredicate<LogFileType> {
+    public static class LFTAvailableStatePredicate implements Predicate<LogFileType> {
 
         protected boolean testState;
         public LFTAvailableStatePredicate(boolean state) {

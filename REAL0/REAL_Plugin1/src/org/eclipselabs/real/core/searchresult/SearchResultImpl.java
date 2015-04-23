@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +26,6 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 import org.eclipselabs.real.core.searchresult.sort.SortingApplicability;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public abstract class SearchResultImpl<O extends ISearchResultObject> implements ISearchResult<O> {
 
@@ -303,7 +303,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
 
     protected List<O> getAcceptedMergeList(List<? extends O> sroList) {
         List<O> sroToMerge = new ArrayList<>(sroList);
-        List<IAcceptanceCriterion> mergeAC = getAcceptanceList(new RealPredicate<Set<AcceptanceCriterionStage>>() {
+        List<IAcceptanceCriterion> mergeAC = getAcceptanceList(new Predicate<Set<AcceptanceCriterionStage>>() {
 
             @Override
             public boolean test(Set<AcceptanceCriterionStage> t) {
@@ -525,7 +525,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     }
 
     @Override
-    public List<IAcceptanceCriterion> getAcceptanceList(RealPredicate<Set<AcceptanceCriterionStage>> st) {
+    public List<IAcceptanceCriterion> getAcceptanceList(Predicate<Set<AcceptanceCriterionStage>> st) {
         List<IAcceptanceCriterion> result = null;
         if (acceptanceList != null) {
             if (st != null) {
@@ -560,7 +560,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     }
 
     @Override
-    public List<IInternalSortRequest> getSortRequests(RealPredicate<IInternalSortRequest> predicate) {
+    public List<IInternalSortRequest> getSortRequests(Predicate<IInternalSortRequest> predicate) {
         List<IInternalSortRequest> res = new ArrayList<>();
         if ((sortRequestList != null) && (!sortRequestList.isEmpty()) && (predicate != null)) {
             for (IInternalSortRequest currSortReq : sortRequestList) {
@@ -577,7 +577,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     }
 
     @Override
-    public void removeSortRequests(RealPredicate<IInternalSortRequest> predicate) {
+    public void removeSortRequests(Predicate<IInternalSortRequest> predicate) {
         if ((sortRequestList != null) && (!sortRequestList.isEmpty()) && (predicate != null)) {
             for (IInternalSortRequest currSortReq : sortRequestList) {
                 if (predicate.test(currSortReq)) {

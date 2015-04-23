@@ -1,21 +1,22 @@
 package org.eclipselabs.real.core.searchobject.ref;
+import java.util.function.Predicate;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefParamString extends RefSimpleImpl<String> {
 
     private static final Logger log = LogManager.getLogger(RefParamString.class);
-    
+
     public RefParamString(RefType aType, String aName) {
         super(aType, aName);
     }
-    
+
     public RefParamString(RefType aType, String aName, String aText) {
         super(aType, aName);
         refValue = aText;
     }
-    
+
     @Override
     public String toString() {
         return "RefParamString [name=" + name + ", refType=" + refType +", text=" + refValue + "]";
@@ -46,7 +47,7 @@ public class RefParamString extends RefSimpleImpl<String> {
     }
 
     @Override
-    public RealPredicate<String> getDefaultMatchPredicate() {
+    public Predicate<String> getDefaultMatchPredicate() {
         // a string is used as other parameters
         // return false to avoid any confusion
         return RefUtil.getAlwaysFalsePredicate();

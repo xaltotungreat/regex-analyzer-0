@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +28,6 @@ import org.eclipselabs.real.core.searchresult.SRSearchScriptImpl;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript,
         IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
@@ -81,7 +81,7 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
                 }
             }
             // clone all stages after SEARCH (not containing search)
-            List<IAcceptanceCriterion> mergeAC = getCloneAcceptanceList(new RealPredicate<IAcceptanceCriterion>() {
+            List<IAcceptanceCriterion> mergeAC = getCloneAcceptanceList(new Predicate<IAcceptanceCriterion>() {
 
                 @Override
                 public boolean test(IAcceptanceCriterion t) {
@@ -95,7 +95,7 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
             /* make a list of acceptance clones for the SEARCH stage because the acceptance objects
              * may be changed during the search (some criteria may accumulate results to perform certain functions)
              */
-            List<IAcceptanceCriterion> searchAC = getCloneAcceptanceList(new RealPredicate<IAcceptanceCriterion>() {
+            List<IAcceptanceCriterion> searchAC = getCloneAcceptanceList(new Predicate<IAcceptanceCriterion>() {
 
                 @Override
                 public boolean test(IAcceptanceCriterion t) {

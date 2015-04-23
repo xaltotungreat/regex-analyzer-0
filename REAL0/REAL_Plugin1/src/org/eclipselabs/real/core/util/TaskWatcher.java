@@ -8,6 +8,27 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * This utility class is used to submit and execute tasks in a sequential manner.
+ * Usually this class is used if the tasks require some locks (on some arrays or repositories)
+ * to be locked during execution. (to avoid modification while the tasks are run)
+ * This class allows to specify the wait time (to lock all locks) and execution time
+ * (to wait for the tasks to be executed)
+ *
+ * The sequence of actions in the internal thread is the following:
+ * 1. Lock the lock necessary to proceed (passed in the constructor)
+ * 2. Submit the tasks via the taskwatcher callback
+ * 3. Wait for the specified timeout or until all the tasks are executed
+ *      (whichever comes first)
+ * 4. Execute the completion callback via the taskwatcher callback
+ * 5. Unlock the locks
+ *
+ * This class uses the strict policy by default - do not submit and execute tasks if
+ * even one of the locks wasn't successfully locked.
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class TaskWatcher {
     private static final Logger log = LogManager.getLogger(TaskWatcher.class);
     protected String name;
@@ -17,9 +38,11 @@ public class TaskWatcher {
     protected AtomicInteger tasksFinished = new AtomicInteger();
     protected volatile TaskWatcherState currentState;
     protected List<LockWrapper> theLocks;
-    public static final String TASK_WATCHER_THREAD_NAME = "TaskWatcher";
     protected ITaskWatcherCallback theCallback;
     protected volatile Long lastFinishedTaskTime;
+    protected boolean proceedIfNotLocked = false;
+
+    public static final String TASK_WATCHER_THREAD_NAME = "TaskWatcher";
 
     public static enum TaskWatcherState {
         INIT,
@@ -29,9 +52,15 @@ public class TaskWatcher {
     }
 
     public TaskWatcher(String aName, List<NamedLock> locksList, ITaskWatcherCallback completionCallback) {
+        // strict policy by default - do not execute anything if one of the locks is not locked
+        this(aName, locksList, completionCallback, false);
+    }
+
+    public TaskWatcher(String aName, List<NamedLock> locksList, ITaskWatcherCallback completionCallback, boolean proceed) {
         name = aName;
         currentState = TaskWatcherState.INIT;
         theCallback = completionCallback;
+        proceedIfNotLocked = proceed;
         theLocks = new ArrayList<LockWrapper>();
         if (locksList != null) {
             for (NamedLock currLock : locksList) {
@@ -57,37 +86,43 @@ public class TaskWatcher {
         public void run() {
             try {
                 double beginTime = System.currentTimeMillis();
+                boolean allLocksLocked = true;
                 for (LockWrapper currLock : theLocks) {
-                    if (!currLock.lockLocked) {
+                    if (!currLock.isLocked()) {
                         if ((currLock.getLock().tryLock()) || (currLock.getLock().tryLock(theWaitTO.getTimeout(), theWaitTO.getTimeUnit()))) {
                             currLock.setLocked(true);
                             log.debug(name + " TaskWatcher Lock locked " + currLock.getLockName());
                         } else {
-                            log.error(name + " Unable to obtain lock" + currLock.getLockName());
+                            log.error(name + " Unable to obtain lock " + currLock.getLockName() + " timeout " + theWaitTO.getTimeout() + theWaitTO.getTimeUnit());
+                            allLocksLocked = false;
                         }
                     }
                 }
                 double beginSubmitTime = System.currentTimeMillis();
                 log.info("Time Acquiring locks " + (beginSubmitTime - beginTime)/1000);
-                theCallback.submitTasks(parentWatcher);
-                double beginWaitTime = System.currentTimeMillis();
-                log.info("Time Submition " + (beginWaitTime - beginSubmitTime)/1000);
-                parentWatcher.setCurrentState(TaskWatcherState.SUBMISSION_COMPLETE);
-                if (tasksFinished.get() < tasksSubmitted.get()) {
-                    synchronized (this) {
-                        log.info("Waiting for completion of timeout " + theExecutionTO);
-                        theExecutionTO.getTimeUnit().timedWait(this, theExecutionTO.getTimeout());
+                if (allLocksLocked || (!allLocksLocked && proceedIfNotLocked)) {
+                    theCallback.submitTasks(parentWatcher);
+                    double beginWaitTime = System.currentTimeMillis();
+                    log.info("Time Submition " + (beginWaitTime - beginSubmitTime)/1000);
+                    parentWatcher.setCurrentState(TaskWatcherState.SUBMISSION_COMPLETE);
+                    if (tasksFinished.get() < tasksSubmitted.get()) {
+                        synchronized (this) {
+                            log.info("Waiting for completion of timeout " + theExecutionTO);
+                            theExecutionTO.getTimeUnit().timedWait(this, theExecutionTO.getTimeout());
+                        }
+                        log.debug(name + " TaskWatcher continues calling callback");
+                        log.debug("After timeout All tasks " + tasksSubmitted.get() + " Finished " + tasksFinished.get());
+                    } else {
+                        log.debug("No need to wait tasks already executed");
                     }
-                    log.debug(name + " TaskWatcher continues calling callback");
-                    log.debug("After timeout All tasks " + tasksSubmitted.get() + " Finished " + tasksFinished.get());
+                    double beginCallbackTime = System.currentTimeMillis();
+                    log.info("Time Execution " + (beginCallbackTime - beginWaitTime)/1000);
+                    theCallback.executionComplete();
+                    double beginUnlockTime = System.currentTimeMillis();
+                    log.info("Time Callback " + (beginUnlockTime - beginCallbackTime)/1000);
                 } else {
-                    log.debug("No need to wait tasks already executed");
+                    log.debug("Some locks were not locked, the tasks were not submitted and not executed, proceed to unlock");
                 }
-                double beginCallbackTime = System.currentTimeMillis();
-                log.info("Time Execution " + (beginCallbackTime - beginWaitTime)/1000);
-                theCallback.executionComplete();
-                double beginUnlockTime = System.currentTimeMillis();
-                log.info("Time Callback " + (beginUnlockTime - beginCallbackTime)/1000);
                 for (LockWrapper currLock : theLocks) {
                     if (currLock.isLocked()) {
                         currLock.getLock().unlock();

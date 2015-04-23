@@ -1,12 +1,13 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
+import java.util.function.Predicate;
+
 import org.eclipselabs.real.core.regex.IRealRegexParam;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefRealRegexParam extends RefSimpleImpl<IRealRegexParam<?>> {
 
-    protected RealPredicate<IRealRegexParam<?>> matchPredicate = new RealPredicate<IRealRegexParam<?>>() {
-        
+    protected Predicate<IRealRegexParam<?>> matchPredicate = new Predicate<IRealRegexParam<?>>() {
+
         @Override
         public boolean test(IRealRegexParam<?> obj) {
             boolean result = true;
@@ -25,11 +26,11 @@ public class RefRealRegexParam extends RefSimpleImpl<IRealRegexParam<?>> {
             return result;
         }
     };
-    
+
     public RefRealRegexParam(RefType aType, String aName) {
         super(aType, aName);
     }
-    
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -46,7 +47,7 @@ public class RefRealRegexParam extends RefSimpleImpl<IRealRegexParam<?>> {
     }
 
     @Override
-    public RealPredicate<IRealRegexParam<?>> getDefaultMatchPredicate() {
+    public Predicate<IRealRegexParam<?>> getDefaultMatchPredicate() {
         return matchPredicate;
     }
 

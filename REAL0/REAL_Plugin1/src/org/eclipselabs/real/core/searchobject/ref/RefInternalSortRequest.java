@@ -1,11 +1,12 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
+import java.util.function.Predicate;
+
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefInternalSortRequest extends RefSimpleImpl<IInternalSortRequest> {
 
-    protected RealPredicate<IInternalSortRequest> matchPredicate = new RealPredicate<IInternalSortRequest>() {
+    protected Predicate<IInternalSortRequest> matchPredicate = new Predicate<IInternalSortRequest>() {
 
         @Override
         public boolean test(IInternalSortRequest obj) {
@@ -46,12 +47,12 @@ public class RefInternalSortRequest extends RefSimpleImpl<IInternalSortRequest> 
 
     @Override
     public String toString() {
-        return "RefInternalSortRequest [refType=" + refType + ", name=" + name 
+        return "RefInternalSortRequest [refType=" + refType + ", name=" + name
                 + ", position=" + position + ", sortRequest=" + refValue + "]";
     }
 
     @Override
-    public RealPredicate<IInternalSortRequest> getDefaultMatchPredicate() {
+    public Predicate<IInternalSortRequest> getDefaultMatchPredicate() {
         return matchPredicate;
     }
 

@@ -2,6 +2,7 @@ package org.eclipselabs.real.core.searchobject;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,6 @@ import org.eclipselabs.real.core.searchresult.SRRegex;
 import org.eclipselabs.real.core.searchresult.resultobject.ISRORegex;
 import org.eclipselabs.real.core.searchresult.resultobject.SRORegexImpl;
 import org.eclipselabs.real.core.util.FindTextResult;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> implements ISORegex {
 
@@ -61,7 +61,7 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
             }
         }
         // clone all stages after SEARCH (not containing search)
-        List<IAcceptanceCriterion> mergeAC = getCloneAcceptanceList(new RealPredicate<IAcceptanceCriterion>() {
+        List<IAcceptanceCriterion> mergeAC = getCloneAcceptanceList(new Predicate<IAcceptanceCriterion>() {
 
             @Override
             public boolean test(IAcceptanceCriterion t) {
@@ -75,7 +75,7 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
         /* make a list of acceptance clones for the SEARCH stage because the acceptance objects
          * may be changed during the search (some criteria may accumulate results to perform certain functions)
          */
-        List<IAcceptanceCriterion> searchAC = getCloneAcceptanceList(new RealPredicate<IAcceptanceCriterion>() {
+        List<IAcceptanceCriterion> searchAC = getCloneAcceptanceList(new Predicate<IAcceptanceCriterion>() {
 
             @Override
             public boolean test(IAcceptanceCriterion t) {

@@ -3,16 +3,15 @@ package org.eclipselabs.real.core.searchobject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.eclipselabs.real.core.util.RealPredicate;
+import java.util.function.Predicate;
 
 public class SearchObjectKey {
 
     protected String soName;
     protected ISearchObjectGroup<String> soGroup;
     protected Map<String,String> soTags = new ConcurrentHashMap<String, String>();
-    
-    public static class SOKNamePredicate implements RealPredicate<SearchObjectKey> {
+
+    public static class SOKNamePredicate implements Predicate<SearchObjectKey> {
 
         protected String testName;
         public SOKNamePredicate(String name) {
@@ -28,10 +27,10 @@ public class SearchObjectKey {
             }
             return result;
         }
-        
+
     }
-    
-    public static class SOKGroupPredicate implements RealPredicate<SearchObjectKey> {
+
+    public static class SOKGroupPredicate implements Predicate<SearchObjectKey> {
 
         protected ISearchObjectGroup<String> testGroup;
         public SOKGroupPredicate(ISearchObjectGroup<String> group) {
@@ -47,18 +46,18 @@ public class SearchObjectKey {
             }
             return result;
         }
-        
+
     }
 
     public SearchObjectKey(String name) {
         soName = name;
     }
-    
+
     public SearchObjectKey(String name, ISearchObjectGroup<String> group) {
         soName = name;
         soGroup = group;
     }
-    
+
     public SearchObjectKey(String name, ISearchObjectGroup<String> group, Map<String, String> tags) {
         soName = name;
         soGroup = group;
@@ -66,7 +65,7 @@ public class SearchObjectKey {
             soTags.putAll(tags);
         }
     }
-    
+
     public SearchObjectKey(SearchObjectKey otherKey) {
         if (otherKey != null) {
             soGroup = otherKey.getSOGroup();
@@ -76,7 +75,7 @@ public class SearchObjectKey {
             }
         }
     }
-    
+
     public ISearchObjectGroup<String> getSOGroup() {
         return soGroup;
     }
@@ -89,7 +88,7 @@ public class SearchObjectKey {
     public void setSOName(String soName) {
         this.soName = soName;
     }
-    
+
     public Map<String, String> getSOTags() {
         return new HashMap<String,String>(soTags);
     }

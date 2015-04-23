@@ -1,19 +1,19 @@
 package org.eclipselabs.real.core.searchobject.param;
 
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.util.IKeyedObject;
 import org.eclipselabs.real.core.util.ITypedObject;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public interface IReplaceParam<T> extends IKeyedObject<ReplaceParamKey>, ITypedObject<ReplaceParamValueType>, Cloneable {
-    
+
     public static final String DEFAULT_FORMAT_STRING_LONG = "yyyy-MM-dd HH:mm:ss.SSS";
-    
-    public static class IRPTypePredicate implements RealPredicate<IReplaceParam<?>>{
+
+    public static class IRPTypePredicate implements Predicate<IReplaceParam<?>>{
         ReplaceParamValueType tp;
-        
+
         public IRPTypePredicate(ReplaceParamValueType t) {
             tp = t;
         }
@@ -34,7 +34,7 @@ public interface IReplaceParam<T> extends IKeyedObject<ReplaceParamKey>, ITypedO
             this.tp = tp;
         }
     }
-    
+
     public String getName();
     public void setName(String aName);
     public Set<String> getReplaceNames();

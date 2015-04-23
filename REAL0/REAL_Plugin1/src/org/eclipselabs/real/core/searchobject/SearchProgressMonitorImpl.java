@@ -5,14 +5,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.eclipselabs.real.core.util.RealPredicate;
+import java.util.function.Predicate;
 
 public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
 
     protected volatile String currentSOName;
     protected volatile AtomicInteger objFound = new AtomicInteger();
-     
+
     protected volatile Integer totalSOCount;
     protected volatile Object completedSOCountLock = new Object();
     protected volatile AtomicInteger completedSOCount = new AtomicInteger(0);
@@ -21,21 +20,21 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
     protected volatile AtomicInteger completedSOFilesCount = new AtomicInteger(0);
     protected volatile Object completeLock = new Object();
     protected volatile AtomicBoolean complete = new AtomicBoolean(false);
-    
+
     protected volatile AtomicBoolean calcelled = new AtomicBoolean(false);
-    
-    protected RealPredicate<ISearchProgressMonitor> completionPredicate;
-    
+
+    protected Predicate<ISearchProgressMonitor> completionPredicate;
+
     protected volatile Map<String, String> customNVP = new ConcurrentHashMap<>();
-    
+
     public SearchProgressMonitorImpl() {
-        
+
     }
-    
+
     public SearchProgressMonitorImpl(Integer totalWorkAmount) {
         totalSOCount = totalWorkAmount;
     }
-    
+
     @Override
     public void setCurrentSOName(String soName) {
         currentSOName = soName;
@@ -45,7 +44,7 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
     public String getCurrentSOName() {
         return currentSOName;
     }
-    
+
     @Override
     public synchronized void incrementObjectsFound() {
         objFound.incrementAndGet();
@@ -67,12 +66,12 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
     public synchronized void setTotalWork(Integer total) {
         totalSOCount = total;
     }
-    
+
     @Override
     public synchronized Integer getTotalWork() {
         return totalSOCount;
     }
-    
+
     @Override
     public void incrementCompletedWork() {
         synchronized(completedSOCountLock) {
@@ -111,7 +110,7 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
             return completedSOCount.get();
         }
     }
-    
+
     @Override
     public void resetCompletedWork() {
         synchronized(completedSOCountLock) {
@@ -161,14 +160,14 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
             }
         }
     }
-    
+
     @Override
     public Integer getCompletedSOFiles() {
         synchronized (completedSOFilesCountLock) {
             return completedSOFilesCount.get();
         }
     }
-    
+
     @Override
     public void resetCompletedSOFiles() {
         synchronized (completedSOFilesCountLock) {
@@ -182,7 +181,7 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
             return complete.get();
         }
     }
-    
+
     @Override
     public void setComplete(Boolean newValue) {
         synchronized (completeLock) {
@@ -206,7 +205,7 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
     }
 
     @Override
-    public void setCompletionPredicate(RealPredicate<ISearchProgressMonitor> completionPred) {
+    public void setCompletionPredicate(Predicate<ISearchProgressMonitor> completionPred) {
         completionPredicate = completionPred;
     }
 
@@ -227,9 +226,9 @@ public class SearchProgressMonitorImpl implements ISearchProgressMonitor {
 
     @Override
     public String toString() {
-        return "SearchProgressMonitorImpl [currentSOName=" + currentSOName + ", objFound=" + objFound 
+        return "SearchProgressMonitorImpl [currentSOName=" + currentSOName + ", objFound=" + objFound
                 + ", totalSOFilesCount=" + totalSOFilesCount + ", completedSOFilesCount=" + completedSOFilesCount
-                + ", complete=" + complete + ", calcelled=" + calcelled 
+                + ", complete=" + complete + ", calcelled=" + calcelled
                 + ", completionPredicate=" + completionPredicate + ", customNVP=" + customNVP + "]";
     }
 

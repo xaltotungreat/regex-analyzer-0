@@ -3,12 +3,12 @@ package org.eclipselabs.real.core.searchobject.ref;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.regex.IRealRegexParam;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class RefRealRegex extends RefImpl<IRealRegex> {
     private static final Logger log = LogManager.getLogger(RefRealRegex.class);
@@ -16,7 +16,7 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
     protected List<RefRealRegexParam> refParamList;
     protected RefParamInteger refRegexFlags;
 
-    protected RealPredicate<IRealRegex> matchPredicate = new RealPredicate<IRealRegex>() {
+    protected Predicate<IRealRegex> matchPredicate = new Predicate<IRealRegex>() {
 
         @Override
         public boolean test(IRealRegex obj) {
@@ -292,7 +292,7 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
     }
 
     @Override
-    public RealPredicate<IRealRegex> getDefaultMatchPredicate() {
+    public Predicate<IRealRegex> getDefaultMatchPredicate() {
         return matchPredicate;
     }
 

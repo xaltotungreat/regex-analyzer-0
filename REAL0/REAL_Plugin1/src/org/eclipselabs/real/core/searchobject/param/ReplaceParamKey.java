@@ -1,15 +1,16 @@
 package org.eclipselabs.real.core.searchobject.param;
 
+import java.util.function.Predicate;
+
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
-import org.eclipselabs.real.core.util.RealPredicate;
 
 public class ReplaceParamKey implements Cloneable {
     protected String rpName;
     protected ISearchObjectGroup<String> rpGroup;
-    
-    public static class RPKNamePredicate implements RealPredicate<ReplaceParamKey> {
+
+    public static class RPKNamePredicate implements Predicate<ReplaceParamKey> {
         String rpKeyName;
-        
+
         public RPKNamePredicate(String aRPName) {
             rpKeyName = aRPName;
         }
@@ -25,10 +26,10 @@ public class ReplaceParamKey implements Cloneable {
             return returnVal;
         }
     }
-    
-    public static class RPKGroupStartsWithPredicate implements RealPredicate<ReplaceParamKey> {
+
+    public static class RPKGroupStartsWithPredicate implements Predicate<ReplaceParamKey> {
         ISearchObjectGroup<String> rpKeyGroup;
-        
+
         public RPKGroupStartsWithPredicate(ISearchObjectGroup<String> aRPName) {
             rpKeyGroup = aRPName;
         }
@@ -45,10 +46,10 @@ public class ReplaceParamKey implements Cloneable {
             return returnVal;
         }
     }
-    
-    public static class RPKGroupEqualsPredicate implements RealPredicate<ReplaceParamKey> {
+
+    public static class RPKGroupEqualsPredicate implements Predicate<ReplaceParamKey> {
         ISearchObjectGroup<String> rpKeyGroup;
-        
+
         public RPKGroupEqualsPredicate(ISearchObjectGroup<String> aRPName) {
             rpKeyGroup = aRPName;
         }
@@ -65,21 +66,21 @@ public class ReplaceParamKey implements Cloneable {
             return returnVal;
         }
     }
-    
+
     public ReplaceParamKey(ReplaceParamKey otherKey) {
         rpName = otherKey.getRPName();
         rpGroup = otherKey.getRPGroup();
     }
-    
+
     public ReplaceParamKey(String name) {
         rpName = name;
     }
-    
+
     public ReplaceParamKey(String name, ISearchObjectGroup<String> path) {
         rpName = name;
         rpGroup = path;
     }
-    
+
     public String getRPName() {
         return rpName;
     }
