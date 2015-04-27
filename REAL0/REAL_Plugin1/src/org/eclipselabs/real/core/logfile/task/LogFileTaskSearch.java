@@ -51,4 +51,32 @@ public class LogFileTaskSearch<R extends ISearchResult<?>,M> extends LogFileTask
 
         return result;
     }
+
+    @Override
+    public R get() {
+        R result = null;
+        if ((searchRequest.getProgressMonitor() != null) && (!searchRequest.getProgressMonitor().isSearchCancelled())) {
+            log.debug("LogFileSearchTask LogFile " + taskLogFile);
+            if (taskLogFile.isRead()) {
+                searchRequest.setText(taskLogFile.getFileText(false));
+                result = theSearchObject.performSearch(searchRequest);
+            } else {
+                LogFileInfo currRes = taskLogFile.readFile();
+                if (currRes.getLastReadSuccessful()) {
+                    searchRequest.setText(taskLogFile.getFileText(true));
+                    result = theSearchObject.performSearch(searchRequest);
+                    searchRequest.setText(null);
+                    taskLogFile.cleanFile();
+                    System.gc();
+                } else {
+                    log.error("Unable to read file returning null search result", currRes.getLastReadException());
+                }
+            }
+            searchRequest.getProgressMonitor().incrementCompletedSOFiles();
+        } else {
+            log.debug("LogFileSearchTask canceled LogFile " + taskLogFile);
+        }
+
+        return result;
+    }
 }

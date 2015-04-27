@@ -3,6 +3,7 @@ package org.eclipselabs.real.core.logfile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
@@ -34,10 +35,8 @@ import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.Subscribe;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.google.common.util.concurrent.SettableFuture;
 
 /**
  * This class represents an abstraction - a group of log files from one application component.
@@ -95,7 +94,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
     }
 
     @Override
-    public ListenableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs, TimeUnitWrapper submitTimeout) {
+    public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs, TimeUnitWrapper submitTimeout) {
         Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ_WAIT, this).getTimeout();
         Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ, this).getTimeout();
         AddLogFileAggregateTaskResult<LogFileAggregateInfo, LogFileAggregateInfo> currAddResult = new AddLogFileAggregateTaskResult<LogFileAggregateInfo, LogFileAggregateInfo>(this) {
@@ -115,11 +114,12 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                 new TimeUnitWrapper(currReadWaitTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()),
                 new TimeUnitWrapper(currReadTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
         log.debug("LogFileAggregateTaskReloadFolders added task for " + this.getType());
-        return logFileAggregateExecutor.submit(newTask);
+        return CompletableFuture.supplyAsync(newTask, logFileAggregateExecutor);
+        //return logFileAggregateExecutor.submit(newTask);
     }
 
     @Override
-    public ListenableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs) {
+    public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs) {
         return addFolders(filesDirs, new TimeUnitWrapper((long)5, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
     }
 
@@ -136,9 +136,9 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
     }
 
     @Override
-    public <R extends ISearchResult<O>, O extends ISearchResultObject> ListenableFuture<? extends Map<String, R>> submitSearch(ISearchObject<R, O> so,
+    public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String, R>> submitSearch(ISearchObject<R, O> so,
             PerformSearchRequest searchRequest, TimeUnitWrapper submitTimeout) {
-        SettableFuture<ConcurrentHashMap<String, R>> returnFuture = null;
+        CompletableFuture<ConcurrentHashMap<String, R>> returnFuture = null;
         List<LogFileTaskSearch<R, ConcurrentHashMap<String, R>>> taskList = new ArrayList<LogFileTaskSearch<R, ConcurrentHashMap<String, R>>>();
         List<ILogFile> allLogFiles = getAllValues();
         Long cumulativeSearchWaitTimeout = (long) 0;
@@ -172,7 +172,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
             List<NamedLock> locks = new ArrayList<NamedLock>();
             locks.add(new NamedLock(getReadLock(), "LogAggregate read lock"));
             locks.add(new NamedLock(contrReadLock, "LogController read lock"));
-            returnFuture = SettableFuture.<ConcurrentHashMap<String, R>> create();
+            returnFuture = new CompletableFuture<ConcurrentHashMap<String, R>>();
             LogFileTaskExecutor<R, ConcurrentHashMap<String, R>> theTaskExecutor = new LogFileTaskExecutor<R, ConcurrentHashMap<String, R>>("LogSearch-" + lfTypeKey.getLogTypeName(),
                     logFileAggregateExecutor, taskList, returnFuture, new ConcurrentHashMap<String, R>(), locks, new TimeUnitWrapper(2 * putTimeout, putTimeUnit),
                     new TimeUnitWrapper(cumulativeSearchWaitTimeout + cumulativeSearchTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
@@ -184,13 +184,13 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
     }
 
     @Override
-    public <R extends ISearchResult<O>, O extends ISearchResultObject> ListenableFuture<? extends Map<String, R>> submitSearch(ISearchObject<R, O> so,
+    public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String, R>> submitSearch(ISearchObject<R, O> so,
             PerformSearchRequest searchRequest) {
         return submitSearch(so, searchRequest, new TimeUnitWrapper(DEFAULT_READ_TIMEOUT, DEFAULT_READ_TIME_UNIT));
     }
 
-    public ListenableFuture<LogFileAggregateInfo> readFiles(List<ILogFile> files, LogFileAggregateInfo res, TimeUnitWrapper submitTimeout) {
-        SettableFuture<LogFileAggregateInfo> returnFuture = null;
+    public CompletableFuture<LogFileAggregateInfo> readFiles(List<ILogFile> files, LogFileAggregateInfo res, TimeUnitWrapper submitTimeout) {
+        CompletableFuture<LogFileAggregateInfo> returnFuture = null;
         try {
             if (operationPendingLock.tryLock() || operationPendingLock.tryLock(submitTimeout.getTimeout(), submitTimeout.getTimeUnit())) {
                 log.debug("ReadFiles operationpending LOCK");
@@ -216,7 +216,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                 }
                 List<NamedLock> locks = new ArrayList<NamedLock>();
                 locks.add(new NamedLock(getWriteLock(), "LogAggregate write lock"));
-                returnFuture = SettableFuture.<LogFileAggregateInfo> create();
+                returnFuture = new CompletableFuture<LogFileAggregateInfo>();
                 LogFileTaskExecutor<LogFileInfo, LogFileAggregateInfo> theTaskExecutor
                         = new LogFileTaskExecutor<LogFileInfo, LogFileAggregateInfo>(
                         "LogRead-" + lfTypeKey.getLogTypeName(), logFileAggregateExecutor,taskList, returnFuture,

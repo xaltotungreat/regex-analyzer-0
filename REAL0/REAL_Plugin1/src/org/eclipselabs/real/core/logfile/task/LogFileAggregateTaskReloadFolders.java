@@ -91,6 +91,63 @@ public class LogFileAggregateTaskReloadFolders<M> extends LogFileTask<LogFileAgg
         return null;
     }
 
+    @Override
+    public LogFileAggregateInfo get() {
+        if (folders != null) {
+            LogFileAggregateInfo aggrResult = new LogFileAggregateInfo(aggregate.getType());
+            for (String currFolder : folders) {
+                log.debug("Starting new AddFolder task type=" + aggregate.getType() + " folder=" + currFolder);
+                Set<String> allPatterns = LogFileTypes.INSTANCE.getPatterns(aggregate.getType());
+                List<ILogFile> newFiles = Collections.synchronizedList(new ArrayList<ILogFile>());
+                if (allPatterns != null) {
+                    for (String currPattern : allPatterns) {
+                        Pattern logFilePattern = Pattern.compile(currPattern);
+                        File newDir = new File(currFolder);
+                        List<File> allFilesList = Collections.synchronizedList(new ArrayList<File>());
+                        getFilesWithSubfolders(newDir, allFilesList, logFilePattern);
+                        if (!allFilesList.isEmpty()) {
+                            for (File file : allFilesList) {
+                                if (aggregate.get(file.getAbsolutePath()) == null) {
+                                    ILogFile newLog = new LogFile6Impl(aggregate, file);
+                                    newFiles.add(newLog);
+                                    aggregate.add(file.getAbsolutePath(), newLog);
+                                }
+                            }
+                        }
+                    }
+                }
+                log.debug("Found all files size=" + newFiles.size() + " type=" + aggregate.getType());
+                if (!newFiles.isEmpty()) {
+                    Long aggrFileSize = aggregate.getAggregateFilesSize(newFiles);
+                    if (aggrFileSize / (1024 * 1024) > aggregate.getAggregateSizeLimit()) {
+                        log.info(aggregate.getType() + "The aggregate file size is bigger than the limit, will read for search aggrSize=" + aggrFileSize);
+                        aggregate.setReadFilesState(MultiThreadingState.DISALLOW_MULTITHREADING_READ);
+                        List<ILogFile> allLogFiles = aggregate.getAllValues();
+                        log.info("Cleaning all files");
+                        for (ILogFile currLogFile : allLogFiles) {
+                            currLogFile.cleanFile();
+                            LogFileInfo currRes = new LogFileInfo();
+                            currRes.setFileFullName(currLogFile.getFilePath());
+                            currRes.setFileSize(currLogFile.getFileSize().doubleValue() / (1024 * 1024));
+                            currRes.setInMemory(false);
+                            currRes.setLastReadSuccessful(null);
+                            aggrResult.addLogFileInfo(currRes);
+                        }
+                    } else {
+                        for (ILogFile currLF : newFiles) {
+                            aggrResult.addLogFileInfo(currLF.readFile());
+                        }
+                    }
+                } else {
+                    log.info("No log files found of type " + aggregate.getType() + " in folder=" + currFolder);
+                }
+            }
+            return aggrResult;
+        }
+        log.error("No folders to reload return null");
+        return null;
+    }
+
     protected void getFilesWithSubfolders(File filesDir, final List<File> allFiles, final Pattern logFilePattern) {
         if (filesDir.isDirectory()) {
             File[] logFiles = filesDir.listFiles(new FileFilter() {
@@ -122,5 +179,6 @@ public class LogFileAggregateTaskReloadFolders<M> extends LogFileTask<LogFileAgg
             }
         }
     }
+
 
 }

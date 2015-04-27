@@ -1,14 +1,14 @@
 package org.eclipselabs.real.core.config;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import java.util.concurrent.CompletableFuture;
 
 public interface IConfigReader<U> {
-    
+
     /**
-     * The main method for reading the configuration 
+     * The main method for reading the configuration
      * @param configRI the resource from which the configuration is read
-     * @return a listenable future which returns some Integer parameter (could be the number of objects read)
+     * @return a completable future which returns some Integer parameter (could be the number of objects read)
      */
-    public ListenableFuture<Integer> read(U configRI);
-    
+    public CompletableFuture<Integer> read(U configRI);
+
 }

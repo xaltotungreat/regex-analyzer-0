@@ -61,10 +61,6 @@ import org.eclipselabs.real.gui.e4swt.persist.SavedWorkspace;
 import org.eclipselabs.real.gui.e4swt.persist.SearchResultCurrentInfo;
 import org.eclipselabs.real.gui.e4swt.persist.SearchResultPartInfo;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-
 @Creatable
 public class WorkspaceLoader implements Runnable {
 
@@ -371,8 +367,16 @@ public class WorkspaceLoader implements Runnable {
 
                 @Override
                 public void run() {
-                    ListenableFuture<Void> installGOOI = OOIHelper.installGlobalOOI(newGlobalOOI, mainWindow.getContext(), uiSynch, resultsStack);
-                    Futures.addCallback(installGOOI, new FutureCallback<Void>() {
+                    CompletableFuture<Void> installGOOI = OOIHelper.installGlobalOOI(newGlobalOOI, mainWindow.getContext(), uiSynch, resultsStack);
+                    installGOOI.handle((Void arg0, Throwable t) ->
+                    {
+                        oneTimeLt.countDown();
+                        if (t != null) {
+                            log.error("HandlerLoadWorkspace Exception installing global OOI", arg0);
+                        }
+                        return null;
+                    });
+                    /*Futures.addCallback(installGOOI, new FutureCallback<Void>() {
 
                         @Override
                         public void onSuccess(Void arg0) {
@@ -384,7 +388,7 @@ public class WorkspaceLoader implements Runnable {
                             log.error("HandlerLoadWorkspace Exception installing global OOI", arg0);
                             oneTimeLt.countDown();
                         }
-                    });
+                    });*/
                 }
 
             });

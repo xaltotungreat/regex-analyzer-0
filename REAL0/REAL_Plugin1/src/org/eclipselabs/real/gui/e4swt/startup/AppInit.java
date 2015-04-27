@@ -3,6 +3,7 @@ package org.eclipselabs.real.gui.e4swt.startup;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,8 +17,6 @@ import org.eclipselabs.real.core.config.IConfigurationConsts;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.osgi.framework.Bundle;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 public class AppInit {
     private static final Logger log = LogManager.getLogger(AppInit.class);
@@ -62,7 +61,7 @@ public class AppInit {
         }
 
         // load the regex configuration
-        ListenableFuture<Integer> regexConfigFuture = null;
+        CompletableFuture<Integer> regexConfigFuture = null;
         try (InputStream regexIS = FileLocator.openStream(
                 plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_REGEX_CONFIG), false)) {
             log.info("Loading the regex configuration");
@@ -72,7 +71,7 @@ public class AppInit {
         }
 
         // load the gui configuration
-        ListenableFuture<Integer> guiConfigFuture = null;
+        CompletableFuture<Integer> guiConfigFuture = null;
         try (InputStream guiIS = FileLocator.openStream(
                 plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_GUI_CONFIG), false)) {
             log.info("Loading the GUI configuration");

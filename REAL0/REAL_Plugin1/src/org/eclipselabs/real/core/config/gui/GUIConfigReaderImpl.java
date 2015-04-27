@@ -3,6 +3,7 @@ package org.eclipselabs.real.core.config.gui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import org.eclipselabs.real.core.config.ConstructionTask;
 import org.eclipselabs.real.core.config.IConfigObjectConstructor;
@@ -12,7 +13,6 @@ import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.gui.core.GUIConfigController;
 import org.eclipselabs.real.gui.core.GUIConfigKey;
 
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 
 public abstract class GUIConfigReaderImpl<U> implements IConfigReader<U> {
@@ -34,12 +34,12 @@ public abstract class GUIConfigReaderImpl<U> implements IConfigReader<U> {
                 new NamedLock(GUIConfigController.INSTANCE.getGUIObjectRepository().getWriteLock(), "GUIObj Repo write lock"));
     }
 
-    protected <K, V> ListenableFuture<V> submitConstructionTask(
+    protected <K, V> CompletableFuture<V> submitConstructionTask(
             IConfigObjectConstructor<K, V> coConstructor,
             IConstructionSource<K> aSource) {
         ConstructionTask<K, V> newTask = new ConstructionTask<K, V>(
                 coConstructor, aSource);
-        return configReaderExecutor.submit(newTask);
+        return CompletableFuture.supplyAsync(newTask, configReaderExecutor);//configReaderExecutor.submit(newTask);
     }
 
 }

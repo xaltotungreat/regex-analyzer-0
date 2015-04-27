@@ -1,28 +1,28 @@
 package org.eclipselabs.real.gui.e4swt.util;
 
-import com.google.common.util.concurrent.ListenableFuture;
+import java.util.concurrent.CompletableFuture;
 
 public class FutureProgressMonitor<V> {
 
-    protected volatile ListenableFuture<V> future;
+    protected volatile CompletableFuture<V> future;
     protected volatile Integer totalProgress;
     protected volatile Integer currentProgress;
-    
+
     public FutureProgressMonitor() {
         // TODO Auto-generated constructor stub
     }
-    
-    public FutureProgressMonitor(ListenableFuture<V> aFuture, Integer totProg, Integer currProg) {
+
+    public FutureProgressMonitor(CompletableFuture<V> aFuture, Integer totProg, Integer currProg) {
         future = aFuture;
         totalProgress = totProg;
         currentProgress = currProg;
     }
 
-    public ListenableFuture<V> getFuture() {
+    public CompletableFuture<V> getFuture() {
         return future;
     }
 
-    public void setFuture(ListenableFuture<V> future) {
+    public void setFuture(CompletableFuture<V> future) {
         this.future = future;
     }
 

@@ -3,6 +3,7 @@ package org.eclipselabs.real.core.config.regex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import org.eclipselabs.real.core.config.ConstructionTask;
 import org.eclipselabs.real.core.config.IConfigObjectConstructor;
@@ -19,9 +20,19 @@ import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.NamedLock;
 
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 
+/**
+ * This abstract implementation handles the writing part of the configuration.
+ * It means that this reader cannot read information - the read method is not implemented.
+ * But with the methods in this class any descendant class can write the information to
+ * the appropriate repositories.
+ * All reading is delegated to the descendant classes.
+ *
+ * @author Vadim Korkin
+ *
+ * @param <U> the type of the source (InputStream for a file, JDBC conn for a DB etc.)
+ */
 public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
     //protected IRegexConfigCompletionCallback completionCallback = new AddSOCallback();
     protected List<NamedLock> modificationLocks = new ArrayList<NamedLock>();
@@ -115,12 +126,12 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
         }
     }
 
-    protected <K, V> ListenableFuture<V> submitConstructionTask(
+    protected <K, V> CompletableFuture<V> submitConstructionTask(
             IConfigObjectConstructor<K, V> coConstructor,
             IConstructionSource<K> aSource) {
         ConstructionTask<K, V> newTask = new ConstructionTask<K, V>(
                 coConstructor, aSource);
-        return configReaderExecutor.submit(newTask);
+        return CompletableFuture.supplyAsync(newTask, configReaderExecutor);//configReaderExecutor.submit(newTask);
     }
 
 }

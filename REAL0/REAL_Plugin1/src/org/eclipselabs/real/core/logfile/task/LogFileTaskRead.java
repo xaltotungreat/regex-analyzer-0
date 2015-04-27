@@ -17,4 +17,9 @@ public class LogFileTaskRead<M> extends LogFileTask<LogFileInfo,M> {
         return taskLogFile.readFile();
     }
 
+    @Override
+    public LogFileInfo get() {
+        return taskLogFile.readFile();
+    }
+
 }

@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -89,11 +90,6 @@ import org.eclipselabs.real.gui.e4swt.util.FutureProgressMonitor;
 import org.eclipselabs.real.gui.e4swt.widgets.StyledTable;
 import org.eclipselabs.real.gui.e4swt.widgets.StyledTableItem;
 import org.eclipselabs.real.gui.e4swt.widgets.StyledText2;
-
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
 
 /**
  * The main class for the GUI object for the search result part.
@@ -589,9 +585,38 @@ public class GUISearchResult {
                     @Override
                     public void run() {
                         for (final GlobalOOIInfo globObj : globalObjects.values()) {
-                            ListenableFuture<Integer> globObjFuture = setStyleForPattern(globObj.getTextPattern(), globObj.getStyle(), false).getFuture();
+                            CompletableFuture<Integer> globObjFuture = setStyleForPattern(globObj.getTextPattern(), globObj.getStyle(), false).getFuture();
                             if (globObjFuture != null) {
-                                Futures.addCallback(globObjFuture, new FutureCallback<Integer>() {
+                                globObjFuture.handle((Integer arg0, Throwable t) -> {
+                                    if (arg0 != null) {
+                                        log.debug("setGlobalObjects installed " + globObj.getDisplayString() + " SearchInfo " + mainSearchInfo);
+                                    } else {
+                                        log.error("Error setting a global object ", t);
+                                    }
+                                    uiSynch.asyncExec(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                if (!installSilently) {
+                                                    globObjProgressDialog.increaseProgress(1);
+                                                }
+                                                if (totalGlobObj == progressCount.incrementAndGet()) {
+                                                    if (!installSilently) {
+                                                        globObjProgressDialog.setStatus("Complete");
+                                                        globObjProgressDialog.getShell().dispose();
+                                                    }
+                                                    styledText.redraw();
+                                                }
+                                            } finally {
+                                                if (installSilently) {
+                                                    globOOILatch.countDown();
+                                                }
+                                            }
+                                        }
+                                    });
+                                    return null;
+                                });
+                                /*Futures.addCallback(globObjFuture, new FutureCallback<Integer>() {
 
                                     @Override
                                     public void onSuccess(Integer arg0) {
@@ -645,7 +670,7 @@ public class GUISearchResult {
                                             }
                                         });
                                     }
-                                });
+                                });*/
                             }
                         }
                         if (installSilently) {
@@ -819,8 +844,8 @@ public class GUISearchResult {
         log.debug("setStyleForPattern Text=" + textPattern + " newStyle=" + newStyle + " SearchInfo " + mainSearchInfo);
         if (getMainSearchState() != SearchResultActiveState.SEARCH_COMPLETED) {
             log.debug("setBackgroundColor search not completed. Part " + partContext.get(MPart.class).getLabel());
-            SettableFuture<Integer> resultFuture = SettableFuture.<Integer>create();
-            resultFuture.set(0);
+            CompletableFuture<Integer> resultFuture = CompletableFuture.completedFuture(0);
+            //resultFuture.set(0);
             FutureProgressMonitor<Integer> returnMonitor = new FutureProgressMonitor<>();
             returnMonitor.setFuture(resultFuture);
             return returnMonitor;
@@ -830,8 +855,8 @@ public class GUISearchResult {
                 if (styleOOICache.get(textPattern.pattern()).getStyle().equals(newStyle)) {
                     log.debug("Part " + partContext.get(MPart.class).getLabel()
                             + " Setting the same color for " + textPattern);
-                    SettableFuture<Integer> resultFuture = SettableFuture.<Integer>create();
-                    resultFuture.set(0);
+                    CompletableFuture<Integer> resultFuture = CompletableFuture.completedFuture(0);
+                    //resultFuture.set(0);
                     FutureProgressMonitor<Integer> returnMonitor = new FutureProgressMonitor<>();
                     returnMonitor.setFuture(resultFuture);
                     return returnMonitor;
@@ -859,10 +884,10 @@ public class GUISearchResult {
             returnMonitor.setTotalProgress(totalProgressLength);
             returnMonitor.setCurrentProgress(0);
 
-            Callable<Integer> styleRangeBkgr = new Callable<Integer>() {
+            Supplier<Integer> styleRangeBkgr = new Supplier<Integer>() {
 
                 @Override
-                public Integer call() throws Exception {
+                public Integer get() {
                     final List<Matcher> matcherList = new ArrayList<>(1);
                     uiSynch.syncExec(new Runnable() {
 
@@ -964,16 +989,17 @@ public class GUISearchResult {
                     return totalSelectedStrings;
                 }
             };
-            returnMonitor.setFuture(Eclipse4GUIBridge.INSTANCE.getGuiFixedTPExecutor().submit(styleRangeBkgr));
-            return returnMonitor;
-        } else {
-            log.error("No text to select");
-            SettableFuture<Integer> resultFuture = SettableFuture.<Integer>create();
-            resultFuture.set(0);
-            FutureProgressMonitor<Integer> returnMonitor = new FutureProgressMonitor<>();
-            returnMonitor.setFuture(resultFuture);
+            //returnMonitor.setFuture(Eclipse4GUIBridge.INSTANCE.getGuiFixedTPExecutor().submit(styleRangeBkgr));
+            returnMonitor.setFuture(CompletableFuture.supplyAsync(styleRangeBkgr, Eclipse4GUIBridge.INSTANCE.getGuiFixedTPExecutor()));
             return returnMonitor;
         }
+        // general ending if the pattern is incorrect
+        log.error("No text to select");
+        CompletableFuture<Integer> resultFuture = CompletableFuture.completedFuture(0);
+        //resultFuture.set(0);
+        FutureProgressMonitor<Integer> returnMonitor = new FutureProgressMonitor<>();
+        returnMonitor.setFuture(resultFuture);
+        return returnMonitor;
     }
 
     public FindRegexAnalysisResult findRegex(String patternStr, int aDirection,
@@ -1175,16 +1201,16 @@ public class GUISearchResult {
         updateLocalOOI();
     }
 
-    public ListenableFuture<Void> removeColorForText(final Pattern removePt) {
-        log.debug("removeColorForText " + removePt);
+    public CompletableFuture<Void> removeStyleForPattern(final Pattern removePt) {
+        log.debug("removeStyleForPattern " + removePt);
         if (getMainSearchState() != SearchResultActiveState.SEARCH_COMPLETED) {
-            SettableFuture<Void> resultFuture = SettableFuture.<Void>create();
-            resultFuture.set(null);
+            CompletableFuture<Void> resultFuture = CompletableFuture.completedFuture(null);
+            //resultFuture.set(null);
             return resultFuture;
         }
-        Callable<Void> remCallable = new Callable<Void>() {
+        Runnable remCallable = new Runnable() {
             @Override
-            public Void call() {
+            public void run() {
                 uiSynch.syncExec(new Runnable() {
                     @Override
                     public void run() {
@@ -1207,16 +1233,17 @@ public class GUISearchResult {
                                 }
                             }
                         } catch (SWTException e) {
-                            log.error("removeColorForText SWT Exception",e);
+                            log.error("removeStyleForPattern SWT Exception",e);
                         }
                         styleOOICache.remove(removePt.pattern());
                         updateLocalOOI();
                     }
                 });
-                return null;
+                //return null;
             }
         };
-        return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(remCallable);
+        return CompletableFuture.runAsync(remCallable, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
+        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(remCallable);
     }
 
     public void saveActiveTextToFile(final File saveFile) {

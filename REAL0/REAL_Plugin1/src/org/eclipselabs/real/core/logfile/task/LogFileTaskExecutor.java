@@ -1,6 +1,7 @@
 package org.eclipselabs.real.core.logfile.task;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,11 +10,7 @@ import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.TaskWatcher;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.SettableFuture;
 
 public class LogFileTaskExecutor<V,R> {
 
@@ -21,7 +18,7 @@ public class LogFileTaskExecutor<V,R> {
 
     protected String operationName;
     protected List<? extends LogFileTask<V,R>> theLogTasks;
-    protected SettableFuture<R> theMainFuture;
+    protected CompletableFuture<R> theMainFuture;
     protected R theResultAggregate;
     protected List<NamedLock> theLocks;
     protected TimeUnitWrapper theWaitTO;
@@ -29,7 +26,7 @@ public class LogFileTaskExecutor<V,R> {
     ListeningExecutorService executorService;
 
     public  LogFileTaskExecutor(String opName, ListeningExecutorService execService, List<? extends LogFileTask<V,R>> tasksList,
-            SettableFuture<R> aMainFuture, R emptyResult,
+            CompletableFuture<R> aMainFuture, R emptyResult,
             List<NamedLock> locksList,
             TimeUnitWrapper waitTO, TimeUnitWrapper execTO) {
         operationName = opName;
@@ -54,7 +51,7 @@ public class LogFileTaskExecutor<V,R> {
                 @Override
                 public void executionComplete() {
                     log.debug("Execution complete ");
-                    theMainFuture.set(theResultAggregate);
+                    theMainFuture.complete(theResultAggregate);
                 }
             });
             watcher.startWatch(theWaitTO, theExecutionTO);
@@ -65,10 +62,24 @@ public class LogFileTaskExecutor<V,R> {
 
     public void submitLogFileTasks(final TaskWatcher watcher) {
         for (final LogFileTask<V,R> logTask : theLogTasks) {
-            ListenableFuture<V> currFuture = executorService.submit(logTask);
+            //ListenableFuture<V> currFuture = executorService.submit(logTask);
+            CompletableFuture<V> currFuture = CompletableFuture.supplyAsync(logTask, executorService);
             watcher.incrementAndGetSubmitted();
             log.debug("LogTaskSubmitted " + watcher.getSubmitted());
-            Futures.addCallback(currFuture, new FutureCallback<V>() {
+            currFuture.handle((V arg0, Throwable t) -> {
+                if (arg0 != null) {
+                    logTask.getAddTaskResult().addResult(arg0, theResultAggregate);
+                    log.debug("LogTaskFinished success submitted=" + watcher.getSubmitted() + " finished=" + watcher.getFinished());
+                }
+                if (t != null) {
+                    log.error("Future error", arg0);
+                    log.debug("LogTaskFinished failure submitted=" + watcher.getSubmitted() + " finished=" + watcher.getFinished());
+                }
+                // increment in any case
+                watcher.incrementAndGetFinished();
+                return null;
+            });
+            /*Futures.addCallback(currFuture, new FutureCallback<V>() {
                 @Override
                 public void onSuccess(V arg0) {
                     logTask.getAddTaskResult().addResult(arg0, theResultAggregate);
@@ -82,7 +93,7 @@ public class LogFileTaskExecutor<V,R> {
                     watcher.incrementAndGetFinished();
                     log.debug("LogTaskFinished failure submitted=" + watcher.getSubmitted() + " finished=" + watcher.getFinished());
                 }
-            });
+            });*/
         }
     }
 

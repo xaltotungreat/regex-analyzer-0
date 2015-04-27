@@ -1,8 +1,8 @@
 package org.eclipselabs.real.core.config;
 
-import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
-public class ConstructionTask<K, V> implements Callable<V> {
+public class ConstructionTask<K, V> implements Supplier<V> {
 
     private IConfigObjectConstructor<K, V> theConstructor;
     private IConstructionSource<K> theConstructionSource;
@@ -13,7 +13,7 @@ public class ConstructionTask<K, V> implements Callable<V> {
     }
 
     @Override
-    public V call() throws Exception {
+    public V get() {
         return theConstructor.constructCO(theConstructionSource);
     }
 

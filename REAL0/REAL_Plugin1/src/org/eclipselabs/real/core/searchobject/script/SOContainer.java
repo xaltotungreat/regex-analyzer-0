@@ -2,6 +2,7 @@ package org.eclipselabs.real.core.searchobject.script;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,40 +19,38 @@ import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultO
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 
-import com.google.common.util.concurrent.ListenableFuture;
-
 public class SOContainer {
 
     private static final Logger log = LogManager.getLogger(SOContainer.class);
-    protected volatile IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
+    protected volatile IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+            ISRComplexRegexView, ISROComplexRegexView, String>,
+            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
             ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> searchObject;
-    
+
     protected volatile ISRSearchScript scriptResult;
     protected volatile String logText;
-    
-    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
+
+    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+            ISRComplexRegexView, ISROComplexRegexView, String>,
+            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
             ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> containerSO, ISRSearchScript scrRes) {
         searchObject = containerSO;
         scriptResult = scrRes;
     }
-    
-    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
+
+    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+            ISRComplexRegexView, ISROComplexRegexView, String>,
+            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
             ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> containerSO, ISRSearchScript scrRes, String text) {
         this(containerSO, scrRes);
         logText = text;
     }
-    
+
     public boolean isNull() {
         return searchObject == null;
     }
-    
-    public <R extends IKeyedComplexSearchResult<O, ISRComplexRegexView, ISROComplexRegexView, String>, 
+
+    public <R extends IKeyedComplexSearchResult<O, ISRComplexRegexView, ISROComplexRegexView, String>,
                 O extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>> SRContainer execute() {
         SRContainer resultContainer = null;
         if (searchObject == null) {
@@ -60,9 +59,9 @@ public class SOContainer {
             return resultContainer;
         }
         log.debug("Executing " + searchObject.getSearchObjectName());
-        IKeyedComplexSearchObject<R,O,ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> paramSO 
+        IKeyedComplexSearchObject<R,O,ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> paramSO
             = (IKeyedComplexSearchObject<R,O,ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)searchObject;
-        
+
         if (logText == null) {
             if (!LogFileControllerImpl.INSTANCE.isLogFilesAvailable(searchObject.getRequiredLogTypes())) {
                 log.error("execute SO no log files available for this SO returning empty container");
@@ -72,9 +71,9 @@ public class SOContainer {
             // before a new search reset the completed SO Files
             // total SO Files will be set in submitSearch
             scriptResult.getProgressMonitor().resetCompletedSOFiles();
-            PerformSearchRequest req = new PerformSearchRequest(null, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(), 
+            PerformSearchRequest req = new PerformSearchRequest(null, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(),
                     scriptResult.getCachedReplaceTable(), scriptResult.getRegexFlags());
-            final ListenableFuture<? extends Map<String, R>> future = 
+            final CompletableFuture<? extends Map<String, R>> future =
                         LogFileControllerImpl.INSTANCE.getLogAggregate(searchObject.getLogFileType()).submitSearch(paramSO, req);
             if (future == null) {
                 log.warn("execute search nu log files null result");
@@ -104,11 +103,11 @@ public class SOContainer {
             }
         } else {
             // if logText is not null it is a search in current
-            // it means only one file for every search. 
+            // it means only one file for every search.
             // total So Files are set to 1 in the search task no need to reset
             // before a new search reset the completed SO Files
             scriptResult.getProgressMonitor().resetCompletedSOFiles();
-            PerformSearchRequest req = new PerformSearchRequest(logText, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(), 
+            PerformSearchRequest req = new PerformSearchRequest(logText, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(),
                     scriptResult.getCachedReplaceTable(), scriptResult.getRegexFlags());
             R searchResult = paramSO.performSearch(req);
             scriptResult.getProgressMonitor().incrementCompletedSOFiles();
@@ -123,6 +122,6 @@ public class SOContainer {
         }
         return resultContainer;
     }
-    
+
 
 }

@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,11 +43,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.SettableFuture;
 
 public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream> {
     private static final Logger log = LogManager.getLogger(RegexXmlConfigFileReader.class);
@@ -57,7 +55,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
     protected Long repositoryLockTimeout = DEFAULT_REPOSITORY_LOCK_TIMEOUT;
     protected TimeUnit repositoryLockTimeUnit = DEFAULT_REPOSITORY_LOCK_TIMEUNIT;
     protected volatile ISearchObjectGroup<String> currentSOGroup;
-    
+
     public static final Long DEFAULT_XML_READ_FILE_TIMEOUT = (long)10;
     public static final TimeUnit DEFAULT_XML_READ_FILE_TIMEUNIT = TimeUnit.SECONDS;
     public static final Long DEFAULT_REPOSITORY_LOCK_TIMEOUT = (long)5;
@@ -65,10 +63,10 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
     protected volatile Map<SearchObjectKey,
                 IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> soMap;
     protected volatile Map<ReplaceParamKey,IReplaceParam<?>> rpMap;
-    
+
     protected volatile List<RefKeyedSO<
         ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> refList;
-    
+
     protected volatile List<IRefKeyedSOContainer> refContainerList;
 
     public RegexXmlConfigFileReader(ListeningExecutorService executor) {
@@ -92,18 +90,39 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
         } else if ((XmlConfigNodeType.COMPLEX_REGEXES.equalsNode(elem)) && (currentSOGroup.getElementCount() > 0)) {
             List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.COMPLEX_REGEX, XmlConfigNodeType.DISTINCT_COMPLEX_REGEX);
             for (final Node currNode : crNodes) {
-                ListenableFuture<IKeyedSearchObject<?, ?>> future = submitConstructionTask(
+                CompletableFuture<IKeyedSearchObject<?, ?>> future = submitConstructionTask(
                         constructionFactory.getSOConstructor(currNode), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
-                
+
                 try {
-                    Futures.addCallback(future, new FutureCallback<IKeyedSearchObject<?, ?>>() {
+                    future.handle(new BiFunction<IKeyedSearchObject<?, ?>, Throwable, Void>() {
+                        protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
+                        @Override
+                        public Void apply(IKeyedSearchObject<?, ?> result, Throwable t) {
+                            if (result != null) {
+                                result.setSearchObjectGroup(configObjectGroup);
+                                log.info("Future addComplexRegex name=" + result.getSearchObjectName() + " group=" + configObjectGroup.getString());
+                                soMap.put(new SearchObjectKey(result.getSearchObjectName(), result.getSearchObjectGroup(), result.getSearchObjectTags()),result);
+                                watcher.incrementAndGetFinished();
+                                log.info("Tasks finished " + watcher.getFinished());
+                            } else {
+                                log.error("ComplexRegex null object constructed " + currNode.getTextContent());
+                            }
+                            if (t != null) {
+                                log.error("ComplexRegex Failure processing future ", t);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            }
+                            return null;
+                        }
+                    });
+                    /*Futures.addCallback(future, new FutureCallback<IKeyedSearchObject<?, ?>>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
                         public void onSuccess(IKeyedSearchObject<?, ?> result) {
                             if (result != null) {
                                 result.setSearchObjectGroup(configObjectGroup);
-                                log.info("Future add(Distinct)ComplexRegex name=" + result.getSearchObjectName() + " group=" + configObjectGroup.getString());
+                                log.info("Future addComplexRegex name=" + result.getSearchObjectName() + " group=" + configObjectGroup.getString());
                                 soMap.put(new SearchObjectKey(result.getSearchObjectName(), result.getSearchObjectGroup(), result.getSearchObjectTags()),result);
                                 watcher.incrementAndGetFinished();
                                 log.info("Tasks finished " + watcher.getFinished());
@@ -118,22 +137,46 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                             watcher.incrementAndGetFinished();
                             log.error("Tasks finished " + watcher.getFinished());
                         }
-                    });
+                    });*/
                 } catch (CloneNotSupportedException e) {
                     log.error("parseDomStructure Clone not supported ", e);
                 }
             }
             log.info("ComplexRegex Tasks submitted " + watcher.getSubmitted() + " for group " + currentSOGroup);
-            
+
             List<Node> refCRNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REF_COMPLEX_REGEX, XmlConfigNodeType.REF_DISTINCT_COMPLEX_REGEX);
             for (final Node currNode : refCRNodes) {
-                ListenableFuture<? extends RefKeyedSO<
+                CompletableFuture<? extends RefKeyedSO<
                     ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> future = submitConstructionTask(
                         constructionFactory.getRefConstructor(currNode), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
-                
+
                 try {
-                    Futures.addCallback(future, new FutureCallback<RefKeyedSO<
+                    future.handle(new BiFunction<RefKeyedSO<
+                                        ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>,
+                                    Throwable, Void>() {
+                        protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
+                        @Override
+                        public Void apply(RefKeyedSO<
+                                ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result, Throwable t) {
+                            if (result != null) {
+                                result.setGroup(configObjectGroup);
+                                log.info("Future addRef(Distinct)ComplexRegex name=" + result.getName() + " group=" + configObjectGroup.getString());
+                                refList.add(result);
+                                watcher.incrementAndGetFinished();
+                                log.info("Tasks finished " + watcher.getFinished());
+                            } else {
+                                log.error("Ref(Distinct)ComplexRegex null object constructed " + currNode.getTextContent());
+                            }
+                            if (t != null) {
+                                log.error("ComplexRegex Failure processing future ", t);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            }
+                            return null;
+                        }
+                    });
+                    /*Futures.addCallback(future, new FutureCallback<RefKeyedSO<
                             ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
@@ -156,7 +199,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                             watcher.incrementAndGetFinished();
                             log.error("Tasks finished " + watcher.getFinished());
                         }
-                    });
+                    });*/
                 } catch (CloneNotSupportedException e) {
                     log.error("parseDomStructure ", e);
                 }
@@ -165,12 +208,36 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
         } else if ((XmlConfigNodeType.SEARCH_SCRIPTS.equalsNode(elem)) && (currentSOGroup.getElementCount() > 0)) {
             List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.SEARCH_SCRIPT);
             for (final Node currNode : crNodes) {
-                ListenableFuture<ISOSearchScript> future = submitConstructionTask(
+                CompletableFuture<ISOSearchScript> future = submitConstructionTask(
                         constructionFactory.getSearchScriptConstructor(), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
-                
+
                 try {
-                    Futures.addCallback(future, new FutureCallback<ISOSearchScript>() {
+                    future.handle(new BiFunction<ISOSearchScript, Throwable, Void>() {
+                        protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
+                        @Override
+                        public Void apply(ISOSearchScript result, Throwable t) {
+                            if (result != null) {
+                                result.setSearchObjectGroup(configObjectGroup);
+                                log.info("Future addSearchScript name=" + result.getSearchObjectName() + " group=" + result.getSearchObjectGroup());
+                                soMap.put(new SearchObjectKey(result.getSearchObjectName(), result.getSearchObjectGroup(), result.getSearchObjectTags()),result);
+                                if (result.isContainRefs()) {
+                                    refContainerList.add(result);
+                                }
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            } else {
+                                log.error("SearchScript null object constructed " + currNode.getTextContent());
+                            }
+                            if (t != null) {
+                                log.error("SearchScript Failure processing future ",t);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            }
+                            return null;
+                        }
+                    });
+                    /*Futures.addCallback(future, new FutureCallback<ISOSearchScript>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
                         public void onSuccess(ISOSearchScript result) {
@@ -194,22 +261,45 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                             watcher.incrementAndGetFinished();
                             log.error("Tasks finished " + watcher.getFinished());
                         }
-                    });
+                    });*/
                 } catch (CloneNotSupportedException e) {
                     log.error("parseDomStructure ", e);
                 }
             }
             log.info("SearchScript Tasks submitted " + watcher.getSubmitted() + " for group " + currentSOGroup);
-            
+
             List<Node> refCRNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REF_SEARCH_SCRIPT);
             for (final Node currNode : refCRNodes) {
-                ListenableFuture<? extends RefKeyedSO<
+                CompletableFuture<? extends RefKeyedSO<
                     ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> future = submitConstructionTask(
                         constructionFactory.getRefConstructor(currNode), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
-                
+
                 try {
-                    Futures.addCallback(future, new FutureCallback<RefKeyedSO<
+                    future.handle(new BiFunction<RefKeyedSO<
+                            ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>, Throwable, Void>() {
+                        protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
+                        @Override
+                        public Void apply(RefKeyedSO<
+                                ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result, Throwable t) {
+                            if (result != null) {
+                                result.setGroup(configObjectGroup);
+                                log.info("Future addRefSearchScript name=" + result.getName() + " group=" + configObjectGroup.getString());
+                                refList.add(result);
+                                watcher.incrementAndGetFinished();
+                                log.info("Tasks finished " + watcher.getFinished());
+                            } else {
+                                log.error("addRefSearchScript null object constructed " + currNode.getTextContent());
+                            }
+                            if (t != null) {
+                                log.error("addRefSearchScript Failure processing future ", t);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            }
+                            return null;
+                        }
+                    });
+                    /*Futures.addCallback(future, new FutureCallback<RefKeyedSO<
                             ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
@@ -232,7 +322,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                             watcher.incrementAndGetFinished();
                             log.error("Tasks finished " + watcher.getFinished());
                         }
-                    });
+                    });*/
                 } catch (CloneNotSupportedException e) {
                     log.error("parseDomStructure ", e);
                 }
@@ -241,12 +331,33 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
         } else if ((XmlConfigNodeType.KEYED_REGEXES.equalsNode(elem)) && (currentSOGroup.getElementCount() > 0)) {
             List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.KEYED_REGEX);
             for (final Node currNode : crNodes) {
-                ListenableFuture<ISORegex> future = submitConstructionTask(
+                CompletableFuture<ISORegex> future = submitConstructionTask(
                         constructionFactory.getRegexConstructor(), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
-                
+
                 try {
-                    Futures.addCallback(future, new FutureCallback<ISORegex>() {
+                    future.handle(new BiFunction<ISORegex, Throwable, Void>() {
+                        protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
+                        @Override
+                        public Void apply(ISORegex result, Throwable t) {
+                            if (result != null) {
+                                result.setSearchObjectGroup(configObjectGroup);
+                                log.info("Future addRegex name=" + result.getSearchObjectName() + " group=" + configObjectGroup.getString());
+                                soMap.put(new SearchObjectKey(result.getSearchObjectName(), result.getSearchObjectGroup(), result.getSearchObjectTags()),result);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            } else {
+                                log.error("Regex null object constructed " + currNode.getTextContent());
+                            }
+                            if (t != null) {
+                                log.error("Regex Failure processing future ", t);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            }
+                            return null;
+                        }
+                    });
+                    /*Futures.addCallback(future, new FutureCallback<ISORegex>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
                         public void onSuccess(ISORegex result) {
@@ -260,29 +371,52 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                             }
                             log.info("Tasks executed " + watcher.getFinished());
                         }
-   
+
                         @Override
                         public void onFailure(Throwable t) {
                             log.error("Regex Failure processing future ", t);
                             watcher.incrementAndGetFinished();
                             log.error("Tasks executed " + watcher.getFinished());
                         }
-                    });
+                    });*/
                 } catch (CloneNotSupportedException e) {
                     log.error("parseDomStructure ", e);
                 }
             }
             log.info("Regex Tasks submitted " + watcher.getSubmitted() + " for group " + currentSOGroup);
-            
+
             List<Node> refCRNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REF_KEYED_REGEX);
             for (final Node currNode : refCRNodes) {
-                ListenableFuture<? extends RefKeyedSO<
+                CompletableFuture<? extends RefKeyedSO<
                     ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> future = submitConstructionTask(
                         constructionFactory.getRefConstructor(currNode), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
-                
+
                 try {
-                    Futures.addCallback(future, new FutureCallback<RefKeyedSO<
+                    future.handle(new BiFunction<RefKeyedSO<
+                            ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>, Throwable, Void>() {
+                        protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
+                        @Override
+                        public Void apply(RefKeyedSO<
+                                ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result, Throwable t) {
+                            if (result != null) {
+                                result.setGroup(configObjectGroup);
+                                log.info("Future addRefKeyedRegex name=" + result.getName() + " group=" + configObjectGroup.getString());
+                                refList.add(result);
+                                watcher.incrementAndGetFinished();
+                                log.info("Tasks finished " + watcher.getFinished());
+                            } else {
+                                log.error("addRefKeyedRegex null object constructed " + currNode.getTextContent());
+                            }
+                            if (t != null) {
+                                log.error("addRefKeyedRegex Failure processing future ", t);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            }
+                            return null;
+                        }
+                    });
+                    /*Futures.addCallback(future, new FutureCallback<RefKeyedSO<
                             ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
@@ -305,7 +439,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                             watcher.incrementAndGetFinished();
                             log.error("Tasks finished " + watcher.getFinished());
                         }
-                    });
+                    });*/
                 } catch (CloneNotSupportedException e) {
                     log.error("parseDomStructure ", e);
                 }
@@ -314,12 +448,33 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
         } else if ((XmlConfigNodeType.REPLACE_PARAMS.equalsNode(elem)) && (currentSOGroup.getElementCount() > 0)) {
             List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REPLACE_PARAM);
             for (final Node currNode : crNodes) {
-                ListenableFuture<IReplaceParam<?>> future = submitConstructionTask(
+                CompletableFuture<IReplaceParam<?>> future = submitConstructionTask(
                         constructionFactory.getReplaceParamConstructor(), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
-                
+
                 try {
-                    Futures.addCallback(future, new FutureCallback<IReplaceParam<?>>() {
+                    future.handle(new BiFunction<IReplaceParam<?>, Throwable, Void>() {
+                        protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
+                        @Override
+                        public Void apply(IReplaceParam<?> result, Throwable t) {
+                            if (result != null) {
+                                result.setGroup(configObjectGroup);
+                                log.info("Future addReplaceParam key=" + result.getKey() + " value=" + result.getValue());
+                                rpMap.put(result.getKey(), result);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks finished " + watcher.getFinished());
+                            } else {
+                                log.error("ReplaceParam null object constructed " + currNode.getTextContent());
+                            }
+                            if (t != null) {
+                                log.error("ReplaceParam Failure processing future ",t);
+                                watcher.incrementAndGetFinished();
+                                log.error("Tasks executed " + watcher.getFinished());
+                            }
+                            return null;
+                        }
+                    });
+                    /*Futures.addCallback(future, new FutureCallback<IReplaceParam<?>>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
                         public void onSuccess(IReplaceParam<?> result) {
@@ -333,14 +488,14 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                             }
                             log.info("Tasks executed " + watcher.getFinished());
                         }
-   
+
                         @Override
                         public void onFailure(Throwable t) {
                             log.error("ReplaceParam Failure processing future ",t);
                             watcher.incrementAndGetFinished();
                             log.error("Tasks executed " + watcher.getFinished());
                         }
-                    });
+                    });*/
                 } catch (CloneNotSupportedException e) {
                     log.error("parseDomStructure ", e);
                 }
@@ -353,9 +508,9 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
             }
         }
     }
-    
+
     @Override
-    public ListenableFuture<Integer> read(InputStream configRI) {
+    public CompletableFuture<Integer> read(InputStream configRI) {
         soMap = new ConcurrentHashMap<SearchObjectKey,
                 IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>();
         rpMap = new ConcurrentHashMap<ReplaceParamKey,IReplaceParam<?>>();
@@ -363,8 +518,8 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                 ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>>());
         refContainerList = Collections.synchronizedList(new ArrayList<IRefKeyedSOContainer>());
         final AddSOCallback completionCallback = new AddSOCallback();
-        final SettableFuture<Integer> returnFuture = SettableFuture.<Integer>create();
-        
+        final CompletableFuture<Integer> returnFuture = new CompletableFuture<Integer>();
+
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
         final Document doc;
@@ -374,18 +529,18 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
             currentSOGroup = SearchObjectFactory.getInstance().getSearchObjectGroup();
             doc.getDocumentElement().normalize();
             TaskWatcher newWatcher = new TaskWatcher("RegexXmlConfig", modificationLocks, new ITaskWatcherCallback() {
-                
+
                 @Override
                 public void submitTasks(TaskWatcher watcher) {
                     parseDomStructure(doc.getDocumentElement(), watcher);
                 }
-                
+
                 @Override
                 public void executionComplete() {
                     completionCallback.addAllSearchObject(soMap);
                     completionCallback.addAllReplaceParam(rpMap);
                     completionCallback.resolveAllRefs(refList, refContainerList);
-                    returnFuture.set(soMap.size());
+                    returnFuture.complete(soMap.size());
                 }
             });
             newWatcher.startWatch(new TimeUnitWrapper(readXmlFileTimeout, readXmlFileTimeUnit),

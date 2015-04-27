@@ -39,7 +39,7 @@ public class HandlerRemoveFromLocalOOI {
                     guiSR = (GUISearchResult)activePart.getObject();
                 }
                 if (guiSR != null) {
-                    guiSR.removeColorForText(selLocalOOI.getTextPattern());
+                    guiSR.removeStyleForPattern(selLocalOOI.getTextPattern());
                 } else {
                     log.warn("execute not executed GUISR is null");
                 }

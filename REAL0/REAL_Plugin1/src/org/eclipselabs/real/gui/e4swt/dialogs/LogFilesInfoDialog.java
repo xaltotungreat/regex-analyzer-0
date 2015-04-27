@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
@@ -37,14 +38,12 @@ import org.eclipselabs.real.core.util.PerformanceUtils;
 import org.eclipselabs.real.gui.e4swt.Eclipse4GUIBridge;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 
-import com.google.common.util.concurrent.ListenableFuture;
-
 @Creatable
 public class LogFilesInfoDialog extends SingleDialog {
 
     private static final Logger log = LogManager.getLogger(LogFilesInfoDialog.class);
 
-    protected List<ListenableFuture<LogFileAggregateInfo>> aggrFuturesList = Collections.synchronizedList(new ArrayList<ListenableFuture<LogFileAggregateInfo>>());
+    protected List<CompletableFuture<LogFileAggregateInfo>> aggrFuturesList = Collections.synchronizedList(new ArrayList<CompletableFuture<LogFileAggregateInfo>>());
     protected List<LogFileAggregateInfo> aggrInfoList;
 
     @Inject
@@ -65,7 +64,7 @@ public class LogFilesInfoDialog extends SingleDialog {
         setText("Read files");
     }
 
-    public void initFuturesList(List<ListenableFuture<LogFileAggregateInfo>> dialogResults) {
+    public void initFuturesList(List<CompletableFuture<LogFileAggregateInfo>> dialogResults) {
         aggrFuturesList.clear();
         aggrFuturesList.addAll(dialogResults);
     }
@@ -235,7 +234,7 @@ public class LogFilesInfoDialog extends SingleDialog {
                         futuresComplete = 0;
                         futuresCanceled = 0;
                         try {
-                            for (ListenableFuture<LogFileAggregateInfo> infoFuture : aggrFuturesList) {
+                            for (CompletableFuture<LogFileAggregateInfo> infoFuture : aggrFuturesList) {
                                 if (infoFuture.isCancelled()) {
                                     futuresComplete++;
                                     futuresCanceled++;
@@ -348,11 +347,11 @@ public class LogFilesInfoDialog extends SingleDialog {
         }
     }
 
-    public List<ListenableFuture<LogFileAggregateInfo>> getAggrFuturesList() {
+    public List<CompletableFuture<LogFileAggregateInfo>> getAggrFuturesList() {
         return aggrFuturesList;
     }
 
-    public void setAggrFuturesList(List<ListenableFuture<LogFileAggregateInfo>> aggrFutures) {
+    public void setAggrFuturesList(List<CompletableFuture<LogFileAggregateInfo>> aggrFutures) {
         aggrFuturesList = aggrFutures;
     }
 

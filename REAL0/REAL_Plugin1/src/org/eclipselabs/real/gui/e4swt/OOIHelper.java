@@ -3,7 +3,7 @@ package org.eclipselabs.real.gui.e4swt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,11 +23,6 @@ import org.eclipselabs.real.gui.e4swt.parts.GUISearchResult;
 import org.eclipselabs.real.gui.e4swt.parts.GUISearchResult.SearchResultActiveState;
 import org.eclipselabs.real.gui.e4swt.util.FutureProgressMonitor;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
-
 public class OOIHelper {
     private static final Logger log = LogManager.getLogger(OOIHelper.class);
 
@@ -35,19 +30,19 @@ public class OOIHelper {
     /**
      * This method must be called from the UI thread
      * @param addInfo the GlobalOOIInfo to install
-     * @param globOOIContext the context that contains the map of global OOIs. usually it should be 
+     * @param globOOIContext the context that contains the map of global OOIs. usually it should be
      * the context of the window
-     * @param uiSynch to execute some code in the UI thread 
-     * @param resultsStack the PartStack that contains the results 
+     * @param uiSynch to execute some code in the UI thread
+     * @param resultsStack the PartStack that contains the results
      * @return a ListenableFuture that completes when the operation is complete
      */
-    public static ListenableFuture<Void> installGlobalOOI(final GlobalOOIInfo addInfo, final IEclipseContext globOOIContext,
+    public static CompletableFuture<Void> installGlobalOOI(final GlobalOOIInfo addInfo, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {
         if ((addInfo == null) || (globOOIContext == null) || (uiSynch == null) || (resultsStack == null)) {
             log.error("installGlobalOOI One of the arguments is null addInfo=" + addInfo + " globOOIContext=" + globOOIContext
                     + " uiSynch=" + uiSynch + " resultsStack=" + resultsStack);
-            SettableFuture<Void> rt = SettableFuture.<Void>create();
-            rt.set(null);
+            CompletableFuture<Void> rt = CompletableFuture.completedFuture(null);
+            //rt.set(null);
             return rt;
         }
         // get the map
@@ -69,22 +64,22 @@ public class OOIHelper {
             }
         }
         final int finalPartsCount = partsCount;
-        
+
         // init and show the progress dialog
-        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL), 
+        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL),
                 SWT.BORDER | SWT.CLOSE | SWT.RESIZE | SWT.APPLICATION_MODAL, "Install Global OOI");
         globObjProgressDialog.init(finalPartsCount, false);
         globObjProgressDialog.open();
         globObjProgressDialog.setStatus("Initializing...");
-        
-        Callable<Void> removeAllRun = new Callable<Void>() {
-            
+
+        Runnable removeAllRun = new Runnable() {
+
             @Override
-            public Void call() {
+            public void run() {
                 final CountDownLatch ooiLatch = new CountDownLatch(finalPartsCount);
                 log.info("Adding " + addInfo.getDisplayString() +" to Global Objects");
                 uiSynch.syncExec(new Runnable() {
-                    
+
                     @Override
                     public void run() {
                         globObjProgressDialog.setStatus("Adding " + addInfo.getDisplayString() +" to Global Objects");
@@ -94,8 +89,22 @@ public class OOIHelper {
                 for (GUISearchResult currSR : partsToExecute) {
                     if (currSR.getMainSearchState() == SearchResultActiveState.SEARCH_COMPLETED) {
                         FutureProgressMonitor<Integer> globObjFPM = currSR.setStyleForPattern(addInfo.getTextPattern(), addInfo.getStyle(), false);
-                        Futures.addCallback(globObjFPM.getFuture(), new FutureCallback<Integer>() {
-                            
+                        globObjFPM.getFuture().handle((Integer arg0, Throwable t) -> {
+                            if (t != null) {
+                                log.error("Error removing a global object ", t);
+                            }
+                            uiSynch.asyncExec(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    globObjProgressDialog.increaseProgress(1);
+                                }
+                            });
+                            ooiLatch.countDown();
+                            return null;
+                        });
+                        /*Futures.addCallback(globObjFPM.getFuture(), new FutureCallback<Integer>() {
+
                             @Override
                             public void onSuccess(Integer arg0) {
                                 uiSynch.asyncExec(new Runnable() {
@@ -119,7 +128,7 @@ public class OOIHelper {
                                 });
                                 ooiLatch.countDown();
                             }
-                        });
+                        });*/
                     } else {
                         uiSynch.asyncExec(new Runnable() {
 
@@ -135,14 +144,14 @@ public class OOIHelper {
                 try {
                     ooiLatch.await();
                     uiSynch.syncExec(new Runnable() {
-                        
+
                         @Override
                         public void run() {
                             globObjProgressDialog.setStatus("Complete");
                             globObjProgressDialog.getShell().dispose();
                         }
                     });
-                    
+
                     log.debug("Adding " + addInfo.getDisplayString() + " all threads completed continue after latch");
                 } catch (InterruptedException e) {
                     log.error("Interrupted countdown latch", e);
@@ -158,12 +167,13 @@ public class OOIHelper {
                 }
                 // now update the OOI part through the context tracker
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                return null;
+                //return null;
             }
         };
-        return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
+        return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
+        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
     }
-    
+
     /**
      * This static method must be called from the UI thread
      * @param addInfoList the List of GlobalOOIInfo to add to the map
@@ -172,13 +182,13 @@ public class OOIHelper {
      * @param resultsStack the MPartStack that contains search results
      * @return a ListenableFuture that completes when the operation is complete
      */
-    public static ListenableFuture<Void> installGlobalOOI(final List<GlobalOOIInfo> addInfoList, final IEclipseContext globOOIContext,
+    public static CompletableFuture<Void> installGlobalOOI(final List<GlobalOOIInfo> addInfoList, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {
         if ((addInfoList == null) || (globOOIContext == null) || (uiSynch == null) || (resultsStack == null)) {
             log.error("installGlobalOOI installGlobalOOIOne of the arguments is null addInfoList=" +addInfoList + " globOOIContext=" + globOOIContext
                     + " uiSynch=" + uiSynch + " resultsStack=" + resultsStack);
-            SettableFuture<Void> rt = SettableFuture.<Void>create();
-            rt.set(null);
+            CompletableFuture<Void> rt = CompletableFuture.completedFuture(null);
+            //rt.set(null);
             return rt;
         }
         // get the map
@@ -187,10 +197,10 @@ public class OOIHelper {
             globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, false);
         }
         final Map<String, GlobalOOIInfo> globalObjMap = (Map<String, GlobalOOIInfo>)globOOIContext.get(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST);
-        
+
         final int addGlobOOICount = addInfoList.size();
         // init and show the progress dialog
-        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL), 
+        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL),
                 SWT.BORDER | SWT.CLOSE | SWT.RESIZE | SWT.APPLICATION_MODAL, "Install Global OOI");
         globObjProgressDialog.init(addGlobOOICount, false);
         globObjProgressDialog.open();
@@ -209,17 +219,17 @@ public class OOIHelper {
             }
         }
         final int finalPartsCount = partsCount;
-        
+
         final AtomicInteger progressCount = new AtomicInteger(0);
-        Callable<Void> removeAllRun = new Callable<Void>() {
-            
+        Runnable removeAllRun = new Runnable() {
+
             @Override
-            public Void call() {
+            public void run() {
                 for (final GlobalOOIInfo currOOI : addInfoList) {
                     final CountDownLatch ooiLatch = new CountDownLatch(finalPartsCount);
                     log.info("Adding " + currOOI.getDisplayString() +" to Global Objects");
                     uiSynch.syncExec(new Runnable() {
-                        
+
                         @Override
                         public void run() {
                             globObjProgressDialog.setStatus("Adding " + currOOI.getDisplayString() +" to Global Objects");
@@ -229,8 +239,15 @@ public class OOIHelper {
                     for (GUISearchResult currSR : partsToExecute) {
                         if (currSR.getMainSearchState() == SearchResultActiveState.SEARCH_COMPLETED) {
                             FutureProgressMonitor<Integer> globObjFPM = currSR.setStyleForPattern(currOOI.getTextPattern(), currOOI.getStyle(), false);
-                            Futures.addCallback(globObjFPM.getFuture(), new FutureCallback<Integer>() {
-                                
+                            globObjFPM.getFuture().handle((Integer arg0, Throwable t) -> {
+                                if (t != null) {
+                                    log.error("Error installing a global object ", t);
+                                }
+                                ooiLatch.countDown();
+                                return null;
+                            });
+                            /*Futures.addCallback(globObjFPM.getFuture(), new FutureCallback<Integer>() {
+
                                 @Override
                                 public void onSuccess(Integer arg0) {
                                     ooiLatch.countDown();
@@ -240,7 +257,7 @@ public class OOIHelper {
                                     log.error("Error installing a global object ", arg0);
                                     ooiLatch.countDown();
                                 }
-                            });
+                            });*/
                         } else {
                             ooiLatch.countDown();
                             log.error("execute The current part state is " + currSR.getMainSearchState());
@@ -250,7 +267,7 @@ public class OOIHelper {
                         ooiLatch.await();
                         if (addGlobOOICount == progressCount.incrementAndGet()) {
                             uiSynch.syncExec(new Runnable() {
-                                
+
                                 @Override
                                 public void run() {
                                     globObjProgressDialog.increaseProgress(1);
@@ -262,7 +279,7 @@ public class OOIHelper {
                             });
                         } else {
                             uiSynch.asyncExec(new Runnable() {
-                                
+
                                 @Override
                                 public void run() {
                                     globObjProgressDialog.increaseProgress(1);
@@ -282,12 +299,13 @@ public class OOIHelper {
                     globalObjMap.put(addInfo.getTextPattern().pattern(), addInfo);
                 }
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                return null;
+                //return null;
             }
         };
-        return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
+        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
+        return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
     }
-    
+
     /**
      * This method must be called from the UI thread
      * @param removeInfo the Gloabl OOI to remove
@@ -296,18 +314,18 @@ public class OOIHelper {
      * @param resultsStack the PartStack that contains search results
      * @return a ListenableFuture that completes when the operation is complete
      */
-    public static ListenableFuture<Void> removeGlobalOOI(final GlobalOOIInfo removeInfo, final IEclipseContext globOOIContext, 
+    public static CompletableFuture<Void> removeGlobalOOI(final GlobalOOIInfo removeInfo, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {
         if ((removeInfo == null) || (globOOIContext == null) || (uiSynch == null) || (resultsStack == null)) {
             log.error("One of the arguments is null removeInfo=" + removeInfo + " globOOIContext=" + globOOIContext
                     + " uiSynch=" + uiSynch + " resultsStack=" + resultsStack);
-            SettableFuture<Void> rt = SettableFuture.<Void>create();
-            rt.set(null);
+            CompletableFuture<Void> rt = CompletableFuture.completedFuture(null);
+            //rt.set(null);
             return rt;
         }
         // get the map
         final Map<String, GlobalOOIInfo> globalObjMap = (Map<String, GlobalOOIInfo>)globOOIContext.get(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST);
-        
+
         int partsCount = 0;
         // select the parts for which the global OOI will be removed
         final List<GUISearchResult> partsToExecute = new ArrayList<>();
@@ -321,22 +339,22 @@ public class OOIHelper {
             }
         }
         final int finalPartsCount = partsCount;
-        
+
         // init and show the progress dialog
-        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL), 
+        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL),
                 SWT.BORDER | SWT.CLOSE | SWT.RESIZE | SWT.APPLICATION_MODAL, "Remove Global OOI");
         globObjProgressDialog.init(finalPartsCount, false);
         globObjProgressDialog.open();
         globObjProgressDialog.setStatus("Initializing...");
-        
-        Callable<Void> removeAllRun = new Callable<Void>() {
-            
+
+        Runnable removeAllRun = new Runnable() {
+
             @Override
-            public Void call() {
+            public void run() {
                 final CountDownLatch ooiLatch = new CountDownLatch(finalPartsCount);
                 log.info("Removing " + removeInfo.getDisplayString() + " from Global Objects");
                 uiSynch.syncExec(new Runnable() {
-                    
+
                     @Override
                     public void run() {
                         globObjProgressDialog.setStatus("Removing " + removeInfo.getDisplayString() + " from Global Objects");
@@ -345,9 +363,23 @@ public class OOIHelper {
                 });
                 for (GUISearchResult currSR : partsToExecute) {
                     if (currSR.getMainSearchState() == SearchResultActiveState.SEARCH_COMPLETED) {
-                        ListenableFuture<Void> globObjFuture = currSR.removeColorForText(removeInfo.getTextPattern());
-                        Futures.addCallback(globObjFuture, new FutureCallback<Void>() {
-                            
+                        CompletableFuture<Void> globObjFuture = currSR.removeStyleForPattern(removeInfo.getTextPattern());
+                        globObjFuture.handle((Void arg0, Throwable t) -> {
+                            if (t != null) {
+                                log.error("Error removing a global object ", t);
+                            }
+                            uiSynch.asyncExec(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    globObjProgressDialog.increaseProgress(1);
+                                }
+                            });
+                            ooiLatch.countDown();
+                            return null;
+                        });
+                        /*Futures.addCallback(globObjFuture, new FutureCallback<Void>() {
+
                             @Override
                             public void onSuccess(Void arg0) {
                                 uiSynch.asyncExec(new Runnable() {
@@ -371,7 +403,7 @@ public class OOIHelper {
                                 });
                                 ooiLatch.countDown();
                             }
-                        });
+                        });*/
                     } else {
                         uiSynch.asyncExec(new Runnable() {
 
@@ -387,7 +419,7 @@ public class OOIHelper {
                 try {
                     ooiLatch.await();
                     uiSynch.syncExec(new Runnable() {
-                        
+
                         @Override
                         public void run() {
                             globObjProgressDialog.setStatus("Complete");
@@ -398,15 +430,16 @@ public class OOIHelper {
                 } catch (InterruptedException e) {
                     log.error("Interrupted countdown latch", e);
                 }
-                
+
                 globalObjMap.remove(removeInfo.getTextPattern().pattern());
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                return null;
+                //return null;
             }
         };
-        return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
+        return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
+        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
     }
-    
+
     /**
      * This static method should be run from the UI thread
      * @param removeInfoList the List of GlobalOOIInfo to remove from the map
@@ -415,18 +448,18 @@ public class OOIHelper {
      * @param resultsStack the MPartStack that contains search results
      * @return a ListenableFuture that completes when the operation is complete
      */
-    public static ListenableFuture<Void> removeGlobalOOI(final List<GlobalOOIInfo> removeInfoList, final IEclipseContext globOOIContext, 
+    public static CompletableFuture<Void> removeGlobalOOI(final List<GlobalOOIInfo> removeInfoList, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {
         if ((removeInfoList == null) || (globOOIContext == null) || (uiSynch == null) || (resultsStack == null)) {
             log.error("One of the arguments is null removeInfoList=" +removeInfoList + " globOOIContext=" + globOOIContext
                     + " uiSynch=" + uiSynch + " resultsStack=" + resultsStack);
-            SettableFuture<Void> rt = SettableFuture.<Void>create();
-            rt.set(null);
+            CompletableFuture<Void> rt = CompletableFuture.completedFuture(null);
+            //rt.set(null);
             return rt;
         }
         // get the map
         final Map<String, GlobalOOIInfo> globalObjMap = (Map<String, GlobalOOIInfo>)globOOIContext.get(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST);
-        
+
         // verify all passed global OOI are present in the map
         // remove the ones that aren't
         for (GlobalOOIInfo globInfo : removeInfoList) {
@@ -436,7 +469,7 @@ public class OOIHelper {
         }
         final int globalObjCount = removeInfoList.size();
         // init and show the progress dialog
-        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL), 
+        final ProgressStatusDialog globObjProgressDialog = new ProgressStatusDialog((Shell)globOOIContext.get(IServiceConstants.ACTIVE_SHELL),
                 SWT.BORDER | SWT.CLOSE | SWT.RESIZE | SWT.APPLICATION_MODAL, "Remove Global OOI");
         globObjProgressDialog.init(globalObjCount, false);
         globObjProgressDialog.open();
@@ -455,17 +488,17 @@ public class OOIHelper {
             }
         }
         final int finalPartsCount = partsCount;
-        
+
         final AtomicInteger progressCount = new AtomicInteger(0);
-        Callable<Void> removeAllRun = new Callable<Void>() {
-            
+        Runnable removeAllRun = new Runnable() {
+
             @Override
-            public Void call() {
+            public void run() {
                 for (final GlobalOOIInfo currOOI : removeInfoList) {
                     final CountDownLatch ooiLatch = new CountDownLatch(finalPartsCount);
                     log.info("Removing " + currOOI.getDisplayString() + " from Global Objects");
                     uiSynch.syncExec(new Runnable() {
-                        
+
                         @Override
                         public void run() {
                             globObjProgressDialog.setStatus("Removing " + currOOI.getDisplayString() + " from Global Objects");
@@ -474,9 +507,16 @@ public class OOIHelper {
                     });
                     for (GUISearchResult currSR : partsToExecute) {
                         if (currSR.getMainSearchState() == SearchResultActiveState.SEARCH_COMPLETED) {
-                            ListenableFuture<Void> globObjFuture = currSR.removeColorForText(currOOI.getTextPattern());
-                            Futures.addCallback(globObjFuture, new FutureCallback<Void>() {
-                                
+                            CompletableFuture<Void> globObjFuture = currSR.removeStyleForPattern(currOOI.getTextPattern());
+                            globObjFuture.handle((Void arg0, Throwable t) -> {
+                                if (t != null) {
+                                    log.error("Error removing a global object ", arg0);
+                                }
+                                ooiLatch.countDown();
+                                return null;
+                            });
+                            /*Futures.addCallback(globObjFuture, new FutureCallback<Void>() {
+
                                 @Override
                                 public void onSuccess(Void arg0) {
                                     ooiLatch.countDown();
@@ -486,7 +526,7 @@ public class OOIHelper {
                                     log.error("Error removing a global object ", arg0);
                                     ooiLatch.countDown();
                                 }
-                            });
+                            });*/
                         } else {
                             ooiLatch.countDown();
                             log.error("execute The current part state is " + currSR.getMainSearchState());
@@ -495,7 +535,7 @@ public class OOIHelper {
                     try {
                         ooiLatch.await();
                         uiSynch.syncExec(new Runnable() {
-                            
+
                             @Override
                             public void run() {
                                 globObjProgressDialog.increaseProgress(1);
@@ -505,7 +545,7 @@ public class OOIHelper {
                                 }
                             }
                         });
-                        
+
                         log.debug("Removing " + currOOI.getDisplayString() + " all threads completed continue after latch");
                     } catch (InterruptedException e) {
                         log.error("Interrupted countdown latch", e);
@@ -515,10 +555,11 @@ public class OOIHelper {
                     globalObjMap.remove(removeInfo.getTextPattern().pattern());
                 }
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                return null;
+                //return null;
             }
         };
-        return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
+        return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
+        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
     }
-    
+
 }
