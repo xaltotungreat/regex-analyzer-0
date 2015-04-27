@@ -34,7 +34,7 @@ public class OOIHelper {
      * the context of the window
      * @param uiSynch to execute some code in the UI thread
      * @param resultsStack the PartStack that contains the results
-     * @return a ListenableFuture that completes when the operation is complete
+     * @return a CompletableFuture that completes when the operation is complete
      */
     public static CompletableFuture<Void> installGlobalOOI(final GlobalOOIInfo addInfo, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {
@@ -180,7 +180,7 @@ public class OOIHelper {
      * @param globOOIContext the context that contains the global OOI map
      * @param uiSynch to execute some code in the UI thread
      * @param resultsStack the MPartStack that contains search results
-     * @return a ListenableFuture that completes when the operation is complete
+     * @return a CompletableFuture that completes when the operation is complete
      */
     public static CompletableFuture<Void> installGlobalOOI(final List<GlobalOOIInfo> addInfoList, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {
@@ -312,7 +312,7 @@ public class OOIHelper {
      * @param globOOIContext the context that contains the map of GlobalOOI
      * @param uiSynch to execute some code in the UI thread
      * @param resultsStack the PartStack that contains search results
-     * @return a ListenableFuture that completes when the operation is complete
+     * @return a CompletableFuture that completes when the operation is complete
      */
     public static CompletableFuture<Void> removeGlobalOOI(final GlobalOOIInfo removeInfo, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {
@@ -446,7 +446,7 @@ public class OOIHelper {
      * @param globOOIContext the context that contains the global OOI map
      * @param uiSynch to execute some code in the UI thread
      * @param resultsStack the MPartStack that contains search results
-     * @return a ListenableFuture that completes when the operation is complete
+     * @return a CompletableFuture that completes when the operation is complete
      */
     public static CompletableFuture<Void> removeGlobalOOI(final List<GlobalOOIInfo> removeInfoList, final IEclipseContext globOOIContext,
             final UISynchronize uiSynch, MPartStack resultsStack) {

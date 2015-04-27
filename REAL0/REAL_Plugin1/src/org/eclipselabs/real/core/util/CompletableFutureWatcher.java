@@ -93,7 +93,7 @@ public class CompletableFutureWatcher<V> {
                     for (CompletableFuture<R> currFuture : resultList) {
                         currFuture.handle((R arg0, Throwable t) -> {
                             if (t != null) {
-                                log.error("Listenable future failed", arg0);
+                                log.error("Completable future failed", arg0);
                             }
                             parentWatcher.incrementAndGetFinished();
                             return null;

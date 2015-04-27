@@ -138,6 +138,8 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
                     String paramValue = ((IReplaceParam<String>)currParam.getValue()).getValue();
                     if ((currParam.getValue().getReplaceNames() != null) && (!currParam.getValue().getReplaceNames().isEmpty())) {
                         String existingValue = paramValue;
+                        // dynamic params are used by search scripts (maybe others)
+                        // they have higher priority than normal (static) params
                         if (dynamicReplaceParams != null) {
                             for (String replaceName : currParam.getValue().getReplaceNames()) {
                                 if (dynamicReplaceParams.containsKey(replaceName)) {

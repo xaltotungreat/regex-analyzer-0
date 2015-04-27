@@ -218,7 +218,7 @@ public enum LogFileControllerImpl {
                         @Override
                         public List<CompletableFuture<LogFileAggregateInfo>> submitTasks(
                                 CompletableFutureWatcher<LogFileAggregateInfo> watcher) {
-                            log.debug("Listenable Future Watcher Submitting tasks");
+                            log.debug("Completable Future Watcher Submitting tasks");
                             List<CompletableFuture<LogFileAggregateInfo>> fList = Collections.synchronizedList(new ArrayList<CompletableFuture<LogFileAggregateInfo>>());
                             for (final LogFileTypeKey currType : allTypes) {
                                 ILogFileAggregateRep logAggr = getLogAggregateRep(currType);
@@ -230,7 +230,7 @@ public enum LogFileControllerImpl {
 
                         @Override
                         public void executionComplete(List<CompletableFuture<LogFileAggregateInfo>> currentFutures) {
-                            log.debug("Listenable Future Watcher execution complete. Setting unfinished to error results");
+                            log.debug("Completable Future Watcher execution complete. Setting unfinished to error results");
                             int i = 0;
                             for (CompletableFuture<LogFileAggregateInfo> lFuture : currentFutures) {
 
