@@ -207,6 +207,7 @@
 			</keyed_regexes>
 			<complexRegexes>
 				<complexRegex name="!I:LogInterval AML All">
+					<description>An interval in the available AML logs</description>
 					<tags>
 						<tag name="Role">User Object</tag>
 						<tag name="Interval">TRUE</tag>
@@ -7593,6 +7594,7 @@
 		
 		<searchScripts>
 			<searchScript name="Errors_Exceptions SGM+CMF">
+				<description>The main errors in SGM and CMF logs sorted by time</description>
 				<tags>
 					<tag name="Role">User Object</tag>
 				</tags>
@@ -7700,6 +7702,7 @@
 				</viewNames>
 			</searchScript>
 			<searchScript name="Errors_Exceptions CCMM">
+				<description>The main errors in all CCMM logs sorted by time</description>
 				<tags>
 					<tag name="Role">User Object</tag>
 				</tags>

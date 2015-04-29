@@ -58,6 +58,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * This class contains many static methods to work with the XML config files.
+ * They are necessary to simplify construction of search objects
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class ConfigXmlUtil implements IConfigXmlConstants {
     private static final Logger log  = LogManager.getLogger(ConfigXmlUtil.class);
 

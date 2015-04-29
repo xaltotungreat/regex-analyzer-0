@@ -18,6 +18,12 @@
 	</Appenders>
 
 	<Loggers>
+		<Logger name="org.eclipselabs.real.core.searchobject.KeyedSOImpl" level="warn"
+			additivity="false">
+			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+		
 		<Logger name="org.eclipselabs.real.core.util.KeyedObjectRepositoryImpl" level="warn"
 			additivity="false">
 			<AppenderRef ref="RollingFile" />

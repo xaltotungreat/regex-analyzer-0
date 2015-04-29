@@ -38,7 +38,6 @@ public class SubmitSearchStageCR extends ConveyorStageBase {
                 V extends ISearchObject<W,X>,
                 W extends ISearchResult<X>, X extends ISearchResultObject>
             CompletableFuture<Void> runWithTypeParams(ConvSearchRequest req, final ConvProductContext params) {
-        //final CompletableFuture<Void> methodResult = new CompletableFuture<Void>();
         final IKeyedComplexSearchObject<R,O,V,W,X,String> currSO = (IKeyedComplexSearchObject<R,O,V,W,X,String>)req.getDso().getSearchObject();
         final GUISearchResult partSRObj = (GUISearchResult) params.getSearchPart().getObject();
 

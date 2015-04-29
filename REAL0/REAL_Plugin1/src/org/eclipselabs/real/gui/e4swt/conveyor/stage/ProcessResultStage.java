@@ -17,7 +17,6 @@ import org.eclipselabs.real.gui.core.result.IDisplayResult;
 import org.eclipselabs.real.gui.e4swt.conveyor.ConvProductContext;
 import org.eclipselabs.real.gui.e4swt.conveyor.ConvSearchRequest;
 import org.eclipselabs.real.gui.e4swt.parts.GUISearchResult;
-import org.eclipselabs.real.gui.e4swt.parts.GUISearchResult.SearchResultActiveState;
 
 public class ProcessResultStage extends ConveyorStageBase {
     private static final Logger log = LogManager.getLogger(ProcessResultStage.class);
@@ -47,12 +46,6 @@ public class ProcessResultStage extends ConveyorStageBase {
             log.warn("runWithTypeParams The result is null " + req.getDso().getDisplayName());
         } else {
             final GUISearchResult partSRObj = (GUISearchResult) params.getSearchPart().getObject();
-            // before processing the result check if the user has closed the part
-            if (SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState())) {
-                log.warn("Search Success Part already closed not rendering");
-                params.setProceed(false);
-                return CompletableFuture.completedFuture(null);
-            }
             params.setGuiObjectRef(partSRObj);
             // for scripts views may be added during the search
             R firstRes = (R)params.getResult().values().iterator().next();

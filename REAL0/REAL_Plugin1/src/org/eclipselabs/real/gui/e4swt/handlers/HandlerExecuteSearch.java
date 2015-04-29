@@ -52,7 +52,7 @@ public class HandlerExecuteSearch {
 
     @CanExecute
     public boolean canExecute(IEclipseContext ctxt) {
-        Boolean returnValue = false;
+        boolean returnValue = false;
         TreeItem[] selItems = (TreeItem[]) ctxt.get(IEclipse4Constants.CONTEXT_SEARCH_OBJECT_TREE_SELECTED);
         if ((selItems != null) && (selItems.length > 0) && (selItems[0].getData(IEclipse4Constants.DATA_TREE_ELEMENT_STATE_KEY) != null)
                 && (selItems[0].getData(IEclipse4Constants.DATA_TREE_ELEMENT_STATE_KEY) == GUISearchObjectTree.TreeElementState.ACTIVE)

@@ -8,8 +8,9 @@
           <children xsi:type="basic:PartStack" xmi:id="_P_Td0PtvEeKNE_0CMstYxA" elementId="perspective0.sash.searchtree_stack" containerData="30">
             <children xsi:type="basic:Part" xmi:id="_fMCtwPtvEeKNE_0CMstYxA" elementId="perspective0.sash.searchtree_stack.sotree" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.GUISearchObjectTree" label="Search Object Tree" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/view-list-tree-3.png">
               <menus xsi:type="menu:PopupMenu" xmi:id="_O10VoAj2EeOcrb72l4O6uA" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu">
-                <children xsi:type="menu:HandledMenuItem" xmi:id="_GXcFkFCUEeSP-d-II8I-tw" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu.hmi_search_conv" label="Search" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/mail-find.png" command="_GvRzQFCTEeSP-d-II8I-tw"/>
-                <children xsi:type="menu:HandledMenuItem" xmi:id="_JAR-oFLaEeSP-d-II8I-tw" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu.hmi_search_in_current_conv" label="Search In Current" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/edit-find-10.png" command="_VtbcIFLZEeSP-d-II8I-tw"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_GXcFkFCUEeSP-d-II8I-tw" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu.hmi_search" label="Search" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/mail-find.png" command="_GvRzQFCTEeSP-d-II8I-tw"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_JAR-oFLaEeSP-d-II8I-tw" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu.hmi_search_in_current" label="Search In Current" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/edit-find-10.png" command="_VtbcIFLZEeSP-d-II8I-tw"/>
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_q9DTcO6IEeS4Tv9-O_tGEw" elementId="perspective0.sash.searchtree_stack.sotree.popupmenu.hmi_descr" label="Description" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/dialog-question.png" command="_vZgQoO6IEeS4Tv9-O_tGEw"/>
               </menus>
             </children>
             <children xsi:type="basic:Part" xmi:id="_hYJsgDWlEeO3te4E2XDr0w" elementId="perspective0.sash.searchtree_stack.ooi" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.parts.GUIOOI" label="OOI" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/emblem-notice.png">
@@ -49,6 +50,7 @@
     <handlers xmi:id="_D3UtUKCMEeOhJv7UL7P8Ew" elementId="e4swt.handler.test" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerTest1" command="_Yq6QMDyjEeOw3KVv2IbQ-w"/>
     <handlers xmi:id="_ml0zoE5aEeSLS9-xTX6kWQ" elementId="e4swt.handler.enable_log_type" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerEnableLogType" command="_cEj0UE5aEeSLS9-xTX6kWQ"/>
     <handlers xmi:id="_eZ1MUFhPEeSSP_sODfwkWg" elementId="e4swt.handler.custom_load_workspace" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerCustomLoadWorkspace" command="_WQ7ykFhPEeSSP_sODfwkWg"/>
+    <handlers xmi:id="_LocyoO6JEeS4Tv9-O_tGEw" elementId="e4swt.handler.so_description" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerSODescription" command="_vZgQoO6IEeS4Tv9-O_tGEw"/>
     <mainMenu xmi:id="_6Czp4AX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu">
       <children xsi:type="menu:Menu" xmi:id="_67p9cAX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu.logfiles" label="Log Files">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_9cx2YAX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu.logfiles.add_folder" label="Add Folder" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/list-add-3.png" command="_Q5mGUAX4EeOj29n2JE-lug"/>
@@ -184,6 +186,7 @@
     <parameters xmi:id="_mpKzYFq2EeOH8cnXh7vj0Q" elementId="e4swt.command.select_in_current.param.end" name="Selection end"/>
   </commands>
   <commands xmi:id="_cEj0UE5aEeSLS9-xTX6kWQ" elementId="e4swt.command.enable_log_type" commandName="Enable/Disable Log Type"/>
+  <commands xmi:id="_vZgQoO6IEeS4Tv9-O_tGEw" elementId="e4swt.command.so_description" commandName="Search Object Description"/>
   <addons xmi:id="_DoWhgPtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_DoWhgftqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_DoWhgvtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
