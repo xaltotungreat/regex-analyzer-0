@@ -1,7 +1,7 @@
 package org.eclipselabs.real.core.searchobject.param;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
@@ -15,7 +15,7 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
     protected String description;
     protected Set<String> replaceNames;
     protected T paramValue;
-    
+
     public ReplaceParamImpl(ReplaceParamValueType aType, ReplaceParamKey aKey, String aDescr, Set<String> rns, T aValue) {
         type = aType;
         theKey = aKey;
@@ -23,42 +23,42 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
         replaceNames = rns;
         paramValue = aValue;
     }
-    
+
     public ReplaceParamImpl(ReplaceParamValueType aType, ReplaceParamKey aKey, Set<String> rns, T aValue) {
         this(aType, aKey, null, rns, aValue);
     }
-    
+
     public ReplaceParamImpl(ReplaceParamKey aKey, Set<String> rns) {
         this(ReplaceParamValueType.STRING, aKey, rns, null);
     }
-    
+
     public ReplaceParamImpl(ReplaceParamKey aKey, T aValue) {
         this(ReplaceParamValueType.STRING, aKey, null, aValue);
     }
-    
+
     public ReplaceParamImpl(ReplaceParamKey aKey, Set<String> rns, T aValue) {
         this(ReplaceParamValueType.STRING, aKey, rns, aValue);
     }
-    
+
     public ReplaceParamImpl(ReplaceParamKey aKey, String aDescr, Set<String> rns, T aValue) {
         this(ReplaceParamValueType.STRING, aKey, aDescr, rns, aValue);
     }
-    
+
     @Override
     public ReplaceParamValueType getType() {
         return type;
     }
-    
+
     @Override
     public ReplaceParamKey getKey() {
         return new ReplaceParamKey(theKey);
     }
-    
+
     @Override
     public void setKey(ReplaceParamKey aNewName) {
         theKey = aNewName;
     }
-    
+
     @Override
     public String getName() {
         return theKey.getRPName();
@@ -68,7 +68,7 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
     public void setName(String aName) {
         theKey.setRPName(aName);
     }
-    
+
     @Override
     public Set<String> getReplaceNames() {
         return replaceNames;
@@ -133,23 +133,19 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
         if (theKey != null) {
             cloneObj.theKey = theKey.clone();
         }
-        if ((ReplaceParamValueType.DATE.equals(type)) && (paramValue != null)) {
-            Calendar thisValue = (Calendar)paramValue;
-            cloneObj.setValue((T)thisValue.clone());
-        }
         return cloneObj;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ReplaceParamImpl [type=" + type + ", theKey=" + theKey + ", replaceNames=" 
+        sb.append("ReplaceParamImpl [type=" + type + ", theKey=" + theKey + ", replaceNames="
                 + replaceNames + ", paramValue=");
         // to avoid a NPE
         String paramValStr = "" + paramValue;
         if ((ReplaceParamValueType.DATE.equals(type)) && (paramValue != null)) {
-            SimpleDateFormat fmt = new SimpleDateFormat(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
-            paramValStr = fmt.format(((Calendar)paramValue).getTime());
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+            paramValStr = fmt.format((LocalDateTime)paramValue);
         }
         sb.append(paramValStr + "]");
         return sb.toString();

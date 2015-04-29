@@ -1,8 +1,8 @@
 package org.eclipselabs.real.core.config.regex.xml.constructor;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -80,25 +80,20 @@ public class ReplaceParamXmlConstructorImpl implements IReplaceParamConstructor<
                         }
                         break;
                     case DATE:
-                        Calendar cal = Calendar.getInstance();
+                        LocalDateTime cal = LocalDateTime.now().withNano(0);
                         // do not use milliseconds as they are not available in the UI time picker
-                        cal.set(Calendar.MILLISECOND, 0);
-                        SimpleDateFormat ftm = new SimpleDateFormat(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+                        DateTimeFormatter ftm = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
                         try {
-                            cal.setTime(ftm.parse(rpValueStr));
-                        } catch (ParseException e) {
+                            cal = LocalDateTime.parse(rpValueStr, ftm);
+                        } catch (DateTimeParseException e) {
                             // check if the value is actually a hint
                             if (rpValueStr.equalsIgnoreCase(REPLACE_PARAM_VALUE_HINT_TODAY_START)) {
-                                cal.set(Calendar.HOUR_OF_DAY, 0);
-                                cal.set(Calendar.MINUTE, 0);
-                                cal.set(Calendar.SECOND, 0);
+                                cal = cal.withHour(0).withMinute(0).withSecond(0);
                             } else if (rpValueStr.equalsIgnoreCase(REPLACE_PARAM_VALUE_HINT_TODAY_END)) {
-                                cal.set(Calendar.HOUR_OF_DAY, 23);
-                                cal.set(Calendar.MINUTE, 59);
-                                cal.set(Calendar.SECOND, 59);
+                                cal = cal.withHour(23).withMinute(59).withSecond(59);
                             }
                         }
-                        rpResult = new ReplaceParamImpl<Calendar>(valType, new ReplaceParamKey(rpName), rpDescr, replaceNameList, cal);
+                        rpResult = new ReplaceParamImpl<LocalDateTime>(valType, new ReplaceParamKey(rpName), rpDescr, replaceNameList, cal);
                         break;
                     case STRING:
                     default:

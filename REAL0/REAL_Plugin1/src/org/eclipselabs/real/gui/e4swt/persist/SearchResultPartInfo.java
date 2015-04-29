@@ -1,5 +1,6 @@
 package org.eclipselabs.real.gui.e4swt.persist;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,6 +16,19 @@ import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
 import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
 import org.eclipselabs.real.gui.core.util.SearchInfo;
 
+/**
+ * This class stores information about one part. it is one search
+ * in all log files of an aggregate.
+ * This class still uses Calendar and was not moved to LocalDateTime.
+ * The reason for this is that LocalDateTime (as of 2015-04-29) doesn't have
+ * a no-arg constructor and JAXB doesn't work with java.time types.
+ *
+ * As soon as JAXB is modified to handle java.time types this Calendar is to be replaced
+ * with LocalDateTime.
+ *
+ * @author Vadim Korkin
+ *
+ */
 @XmlType(propOrder={"searchID","searchTime","searchObjectName","searchObjectGroup","partLabel","partIconURI",
         "caretPos","selectedIndex", "searchObjectTags","customReplaceTable","currentSearchInfos",
         "localOOI","localBookmarks"})
@@ -44,7 +58,10 @@ public class SearchResultPartInfo {
 
     public SearchResultPartInfo(SearchInfo origInfo) {
         searchID = origInfo.getSearchID();
-        searchTime = origInfo.getSearchTime();
+        searchTime = Calendar.getInstance();
+        searchTime.set(origInfo.getSearchTime().getYear(), origInfo.getSearchTime().getMonthValue(),
+                origInfo.getSearchTime().getDayOfMonth(), origInfo.getSearchTime().getHour(),
+                origInfo.getSearchTime().getMinute(), origInfo.getSearchTime().getSecond());
         searchObjectName = origInfo.getSearchObjectName();
         searchObjectGroup = new SearchObjectGroupPersist(origInfo.getSearchObjectGroup());
         if (origInfo.getSearchObjectTags() != null) {
@@ -67,7 +84,7 @@ public class SearchResultPartInfo {
                      * It doesn't contain milliseconds. Therefore a String with mililseconds
                      * is stored instead.
                      */
-                    rpp = new ReplaceParamPersist<String>((IReplaceParam<Calendar>)currEntry.getValue());
+                    rpp = new ReplaceParamPersist<String>((IReplaceParam<LocalDateTime>)currEntry.getValue());
                     break;
                 case INTEGER:
                     rpp = new ReplaceParamPersist<Integer>((IReplaceParam<Integer>)currEntry.getValue());
@@ -91,11 +108,11 @@ public class SearchResultPartInfo {
         }
     }
 
-    public SearchResultCurrentInfo getCurrentInfo(String searchID) {
+    public SearchResultCurrentInfo getCurrentInfo(String searchIDChild) {
         SearchResultCurrentInfo res = null;
         if ((currentSearchInfos != null) && (!currentSearchInfos.isEmpty())) {
             for (SearchResultCurrentInfo info : currentSearchInfos) {
-                if (info.getSearchID().equals(searchID)) {
+                if (info.getSearchID().equals(searchIDChild)) {
                     res = info;
                     break;
                 }

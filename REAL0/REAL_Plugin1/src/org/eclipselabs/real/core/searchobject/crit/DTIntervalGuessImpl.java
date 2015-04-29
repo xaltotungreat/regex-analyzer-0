@@ -1,6 +1,6 @@
 package org.eclipselabs.real.core.searchobject.crit;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +16,7 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
     private static final Logger log = LogManager.getLogger(DTIntervalGuessImpl.class);
     protected IRealRegex firstRecord;
     protected IRealRegex lastRecord;
-    
+
     public DTIntervalGuessImpl() {
     }
 
@@ -29,7 +29,7 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
         AcceptanceGuessResult result = null;
         boolean proceed = true;
         if (proceed && ((firstRecord == null) || (lastRecord == null))) {
-            log.error("getGuessResult first record " + firstRecord + 
+            log.error("getGuessResult first record " + firstRecord +
                     " or last record " + lastRecord + " is null");
             proceed = false;
         }
@@ -40,46 +40,47 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
         if (proceed) {
             IDTIntervalCriterion currCriterion = (IDTIntervalCriterion)criterion;
             result = new AcceptanceGuessResult(currCriterion.getName(), currCriterion.getType());
-            Calendar lowBound = currCriterion.getLowBound();
-            Calendar highBound = currCriterion.getHighBound();
-            
+            LocalDateTime lowBound = currCriterion.getLowBound();
+            LocalDateTime highBound = currCriterion.getHighBound();
+
             IMatcherWrapper fstMwr = firstRecord.getMatcherWrapper(logText, sr.getCachedReplaceTable(), sr.getRegexFlags());
-            Calendar fstDate = null;
+            LocalDateTime fstDate = null;
             if (fstMwr.find()) {
                 FindTextResult fstRes = fstMwr.getResult();
-                fstDate = SearchObjectUtil.parseDate(sr.getDateInfo(), fstRes.getStrResult(), 
+                fstDate = SearchObjectUtil.parseDate(sr.getDateInfo(), fstRes.getStrResult(),
                         sr.getCachedReplaceTable(), sr.getRegexFlags());
             }
-            
+
             IMatcherWrapper lstMwr = lastRecord.getMatcherWrapper(logText, sr.getCachedReplaceTable(), sr.getRegexFlags());
-            Calendar lstDate = null;
+            LocalDateTime lstDate = null;
             if (lstMwr.find()) {
                 FindTextResult lstRes = lstMwr.getResult();
-                lstDate = SearchObjectUtil.parseDate(sr.getDateInfo(), lstRes.getStrResult(), 
+                lstDate = SearchObjectUtil.parseDate(sr.getDateInfo(), lstRes.getStrResult(),
                         sr.getCachedReplaceTable(), sr.getRegexFlags());
             }
             if ((fstDate != null) && (lstDate != null)) {
-                if ((fstDate.get(Calendar.YEAR) == 1970) || (lstDate.get(Calendar.YEAR) == 1970)) {
-                    /* to guard against a possible new year issue try to get the fist date year
-                     * from the low bound and last record year from the high bound 
+                if ((fstDate.getYear() == 1970) || (lstDate.getYear() == 1970)) {
+                    /* to guard against a possible new year issue try to get the years
+                     * from the bounds. it is highly unlikely that the month of
+                     * the low bound and the month of the high bound differ by more than 1.
                      */
-                    if (fstDate.get(Calendar.YEAR) == 1970) {
-                        if (fstDate.get(Calendar.MONTH) == highBound.get(Calendar.MONTH)) {
-                            fstDate.set(Calendar.YEAR, highBound.get(Calendar.YEAR));
+                    if (fstDate.getYear() == 1970) {
+                        if (fstDate.getMonth() == highBound.getMonth()) {
+                            fstDate = fstDate.withYear(highBound.getYear());
                         } else {
-                            fstDate.set(Calendar.YEAR, lowBound.get(Calendar.YEAR));
+                            fstDate = fstDate.withYear(lowBound.getYear());
                         }
                     }
-                    if (lstDate.get(Calendar.YEAR) == 1970) {
-                        if (lstDate.get(Calendar.MONTH) == lowBound.get(Calendar.MONTH)) {
-                            lstDate.set(Calendar.YEAR, lowBound.get(Calendar.YEAR));
+                    if (lstDate.getYear() == 1970) {
+                        if (lstDate.getMonth() == lowBound.getMonth()) {
+                            lstDate = lstDate.withYear(lowBound.getYear());
                         } else {
-                            lstDate.set(Calendar.YEAR, highBound.get(Calendar.YEAR));
+                            lstDate = lstDate.withYear(highBound.getYear());
                         }
                     }
                 }
-                boolean shouldSearch = (((fstDate.compareTo(lowBound) >= 0) && (fstDate.compareTo(highBound) <= 0)) 
-                        || ((lstDate.compareTo(lowBound) >= 0) && (lstDate.compareTo(highBound) <= 0)) 
+                boolean shouldSearch = (((fstDate.compareTo(lowBound) >= 0) && (fstDate.compareTo(highBound) <= 0))
+                        || ((lstDate.compareTo(lowBound) >= 0) && (lstDate.compareTo(highBound) <= 0))
                         || ((fstDate.compareTo(lowBound) <= 0) && (lstDate.compareTo(highBound) >= 0)));
                 result.setContinueSearch(shouldSearch);
             }

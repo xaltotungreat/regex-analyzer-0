@@ -62,7 +62,6 @@ public class LogFileTaskExecutor<V,R> {
 
     public void submitLogFileTasks(final TaskWatcher watcher) {
         for (final LogFileTask<V,R> logTask : theLogTasks) {
-            //ListenableFuture<V> currFuture = executorService.submit(logTask);
             CompletableFuture<V> currFuture = CompletableFuture.supplyAsync(logTask, executorService);
             watcher.incrementAndGetSubmitted();
             log.debug("LogTaskSubmitted " + watcher.getSubmitted());
@@ -79,21 +78,6 @@ public class LogFileTaskExecutor<V,R> {
                 watcher.incrementAndGetFinished();
                 return null;
             });
-            /*Futures.addCallback(currFuture, new FutureCallback<V>() {
-                @Override
-                public void onSuccess(V arg0) {
-                    logTask.getAddTaskResult().addResult(arg0, theResultAggregate);
-                    watcher.incrementAndGetFinished();
-                    log.debug("LogTaskFinished success submitted=" + watcher.getSubmitted() + " finished=" + watcher.getFinished());
-                }
-
-                @Override
-                public void onFailure(Throwable arg0) {
-                    log.error("Future error", arg0);
-                    watcher.incrementAndGetFinished();
-                    log.debug("LogTaskFinished failure submitted=" + watcher.getSubmitted() + " finished=" + watcher.getFinished());
-                }
-            });*/
         }
     }
 

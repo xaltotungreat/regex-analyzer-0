@@ -1,7 +1,6 @@
 package org.eclipselabs.real.core.searchobject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -116,7 +115,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                                 foundStr.getStartPos(), foundStr.getEndPos(), SearchObjectUtil.parseDate(getDateInfo(),
                                         foundStr.getStrResult(), cachedReplaceTable, finalRegexFlags));
                         if (newSR.getDate() != null) {
-                            result.getFoundYears().add(newSR.getDate().get(Calendar.YEAR));
+                            result.getFoundYears().add(newSR.getDate().getYear());
                         }
                         for (ISOComplexRegexView currView : viewMap.values()) {
                             newSR.addView(currView.getSearchObjectName(),

@@ -1,7 +1,7 @@
 package org.eclipselabs.real.core.searchresult.resultobject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ public abstract class ComplexSearchResultObjectImpl<W extends ISearchResult<X>, 
         super(aText, aStartPos, aEndPos);
     }
 
-    public ComplexSearchResultObjectImpl(String aText, Integer aStartPos, Integer aEndPos, Calendar dt) {
+    public ComplexSearchResultObjectImpl(String aText, Integer aStartPos, Integer aEndPos, LocalDateTime dt) {
         super(aText, aStartPos, aEndPos, dt);
     }
 

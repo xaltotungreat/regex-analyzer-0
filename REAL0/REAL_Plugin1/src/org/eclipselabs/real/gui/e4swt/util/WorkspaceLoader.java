@@ -376,21 +376,7 @@ public class WorkspaceLoader implements Runnable {
                         }
                         return null;
                     });
-                    /*Futures.addCallback(installGOOI, new FutureCallback<Void>() {
-
-                        @Override
-                        public void onSuccess(Void arg0) {
-                            oneTimeLt.countDown();
-                        }
-
-                        @Override
-                        public void onFailure(Throwable arg0) {
-                            log.error("HandlerLoadWorkspace Exception installing global OOI", arg0);
-                            oneTimeLt.countDown();
-                        }
-                    });*/
                 }
-
             });
             try {
                 oneTimeLt.await();

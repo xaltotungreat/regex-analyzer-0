@@ -1,9 +1,12 @@
 package org.eclipselabs.real.core.searchobject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.text.ParsePosition;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Map;
 
@@ -21,12 +24,12 @@ import org.eclipselabs.real.core.util.IRealCoreConstants;
 public class SearchObjectUtil {
 
     private static final Logger log = LogManager.getLogger(SearchObjectUtil.class);
-    
+
     private SearchObjectUtil() {}
-    
-    public static Calendar parseDate(ISearchObjectDateInfo dateInfo, String dateStr, Map<String,String> replaceTable, 
+
+    public static LocalDateTime parseDate(ISearchObjectDateInfo dateInfo, String dateStr, Map<String,String> replaceTable,
             Integer regexFlags) {
-        Calendar cald = null;
+        LocalDateTime cald = null;
         if (dateInfo != null) {
             StringBuilder sb = new StringBuilder();
             for (IRealRegex currReg : dateInfo.getRegexList()) {
@@ -41,18 +44,34 @@ public class SearchObjectUtil {
                     dateFtmStr = dateFtmStr.replace(currEntry.getKey(), currEntry.getValue());
                 }
             }
-            SimpleDateFormat sdf = new SimpleDateFormat(dateFtmStr, IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFtmStr, IRealCoreConstants.MAIN_DATE_LOCALE);
             try {
-                Date dt = sdf.parse(sb.toString());
-                cald = Calendar.getInstance();
-                cald.setTime(dt);
-            } catch (ParseException e) {
+                // do not parse completely because some important fields like the year may be
+                TemporalAccessor interimValue = dtf.parseUnresolved(sb.toString(), new ParsePosition(0));
+                // the default value as some log records may have no year at all
+                int year = ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR;
+                try {
+                    year = interimValue.get(ChronoField.YEAR);
+                } catch (DateTimeException e) {
+                    // these errors may be common do not print them
+                }
+                // the default value for the milliseconds as some log entries may have no milliseconds at all
+                int nanoSecs = 0;
+                try {
+                    nanoSecs = interimValue.get(ChronoField.NANO_OF_SECOND);
+                } catch (DateTimeException e) {
+                    // these errors may be common do not print them
+                }
+                cald = LocalDateTime.of(year, interimValue.get(ChronoField.MONTH_OF_YEAR), interimValue.get(ChronoField.DAY_OF_MONTH),
+                        interimValue.get(ChronoField.HOUR_OF_DAY), interimValue.get(ChronoField.MINUTE_OF_HOUR),
+                        interimValue.get(ChronoField.SECOND_OF_MINUTE), nanoSecs);
+            } catch (DateTimeParseException e) {
                 log.error("Exception parsing date for text " + dateStr,e);
             }
         }
         return cald;
     }
-    
+
     public static boolean accept(ISearchResultObject sro, List<IAcceptanceCriterion> acceptanceLst,
             ISearchResult<? extends ISearchResultObject> sr) {
         boolean result = true;
@@ -66,7 +85,7 @@ public class SearchObjectUtil {
         }
         return result;
     }
-    
+
     public static boolean isSearchProceed(String logText, List<IAcceptanceCriterion> acceptanceLst,
             ISearchResult<? extends ISearchResultObject> sr) {
         boolean result = true;
@@ -80,7 +99,7 @@ public class SearchObjectUtil {
                             result = false;
                             break;
                         }
-                    } 
+                    }
                 }
                 if (!result) {
                     break;
@@ -89,5 +108,5 @@ public class SearchObjectUtil {
         }
         return result;
     }
-    
+
 }

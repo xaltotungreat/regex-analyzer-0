@@ -1,8 +1,9 @@
 package org.eclipselabs.real.core.searchresult;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -340,7 +341,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
             List<O> noYearList = new ArrayList<>();
             for (O sro : srObjectsList) {
                 if (sro.getDate() != null) {
-                    if (sro.getDate().get(Calendar.YEAR) > ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
+                    if (sro.getDate().getYear() > ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
                         correctYearList.add(sro);
                     } else {
                         noYearList.add(sro);
@@ -349,39 +350,32 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
             }
             for (O sro : otherSR.getSRObjects()) {
                 if (sro.getDate() != null) {
-                    if (sro.getDate().get(Calendar.YEAR) > ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
+                    if (sro.getDate().getYear() > ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
                         correctYearList.add(sro);
                     } else {
                         noYearList.add(sro);
                     }
                 }
             }
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
             for (O currSRO : noYearList) {
-                final Calendar tmpCal = (Calendar)currSRO.getDate().clone();
-                final long thisSROMillis = tmpCal.getTimeInMillis();
+                final long thisSROMillis = currSRO.getDate().getLong(ChronoField.MILLI_OF_SECOND);
                 Comparator<O> dateComp = new Comparator<O>() {
 
                     @Override
                     public int compare(O o1, O o2) {
                         int result = 0;
-                        Calendar cal1 = null;
-                        if (o1.getDate() != null) {
-                            cal1 = (Calendar)o1.getDate().clone();
-                        }
-                        Calendar cal2 = null;
-                        if (o2.getDate() != null) {
-                            cal2 = (Calendar)o2.getDate().clone();
-                        }
-                        if ((cal1 != null) && (cal2 != null)) {
-                            cal1.set(Calendar.YEAR, 1970);
-                            cal2.set(Calendar.YEAR, 1970);
-                            Long diff1 = Math.abs(thisSROMillis - cal1.getTimeInMillis());
-                            Long diff2 = Math.abs(thisSROMillis - cal2.getTimeInMillis());
+                        LocalDateTime t1 = o1.getDate();
+                        LocalDateTime t2 = o2.getDate();
+                        if ((t1 != null) && (t2 != null)) {
+                            t1 = t1.withYear(1970);
+                            t2 = t2.withYear(1970);
+                            Long diff1 = Math.abs(thisSROMillis - t1.getLong(ChronoField.MILLI_OF_SECOND));
+                            Long diff2 = Math.abs(thisSROMillis - t2.getLong(ChronoField.MILLI_OF_SECOND));
                             result = diff1.compareTo(diff2);
-                        } else if ((cal1 == null) && (cal2 != null)) {
+                        } else if ((t1 == null) && (t2 != null)) {
                             result = 1;
-                        } else if ((cal1 != null) && (cal2 == null)) {
+                        } else if ((t1 != null) && (t2 == null)) {
                             result = -1;
                         }
                         return result;
@@ -389,7 +383,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
                 };
                 O minSRO = Collections.min(correctYearList, dateComp);
                 log.debug("guessYears original date " + fmt.format(currSRO.getDate()) + " closest " + fmt.format(minSRO.getDate()));
-                minSRO.getDate().set(Calendar.YEAR, minSRO.getDate().get(Calendar.YEAR));
+                currSRO.setDate(currSRO.getDate().withYear(minSRO.getDate().getYear()));
             }
             foundYears.remove(ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR);
         }
@@ -402,47 +396,40 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
             List<O> noYearList = new ArrayList<>();
             for (O sro : srObjectsList) {
                 if (sro.getDate() != null) {
-                    if (sro.getDate().get(Calendar.YEAR) > ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
+                    if (sro.getDate().getYear() > ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
                         correctYearList.add(sro);
                     } else {
                         noYearList.add(sro);
                     }
                 }
             }
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
             for (O currSRO : noYearList) {
-                final Calendar tmpCal = (Calendar)currSRO.getDate().clone();
-                final long thisSROMillis = tmpCal.getTimeInMillis();
+                final long thisSROMillis = currSRO.getDate().getLong(ChronoField.MILLI_OF_SECOND);
                 Comparator<O> dateComp = new Comparator<O>() {
 
                     @Override
                     public int compare(O o1, O o2) {
                         int result = 0;
-                        Calendar cal1 = null;
-                        if (o1.getDate() != null) {
-                            cal1 = (Calendar)o1.getDate().clone();
-                        }
-                        Calendar cal2 = null;
-                        if (o2.getDate() != null) {
-                            cal2 = (Calendar)o2.getDate().clone();
-                        }
-                        if ((cal1 != null) && (cal2 != null)) {
-                            cal1.set(Calendar.YEAR, 1970);
-                            cal2.set(Calendar.YEAR, 1970);
-                            Long diff1 = Math.abs(thisSROMillis - cal1.getTimeInMillis());
-                            Long diff2 = Math.abs(thisSROMillis - cal2.getTimeInMillis());
+                        LocalDateTime t1 = o1.getDate();
+                        LocalDateTime t2 = o2.getDate();
+                        if ((t1 != null) && (t2 != null)) {
+                            t1 = t1.withYear(1970);
+                            t2 = t2.withYear(1970);
+                            Long diff1 = Math.abs(thisSROMillis - t1.getLong(ChronoField.MILLI_OF_SECOND));
+                            Long diff2 = Math.abs(thisSROMillis - t2.getLong(ChronoField.MILLI_OF_SECOND));
                             result = diff1.compareTo(diff2);
-                        } else if ((cal1 == null) && (cal2 != null)) {
+                        } else if ((t1 == null) && (t2 != null)) {
                             result = 1;
-                        } else if ((cal1 != null) && (cal2 == null)) {
+                        } else if ((t1 != null) && (t2 == null)) {
                             result = -1;
                         }
                         return result;
                     }
                 };
                 O minSRO = Collections.min(correctYearList, dateComp);
-                log.debug("guessYears original date " + fmt.format(currSRO.getDate().getTime()) + " closest " + fmt.format(minSRO.getDate().getTime()));
-                currSRO.getDate().set(Calendar.YEAR, minSRO.getDate().get(Calendar.YEAR));
+                log.debug("guessYears original date " + fmt.format(currSRO.getDate()) + " closest " + fmt.format(minSRO.getDate()));
+                currSRO.setDate(currSRO.getDate().withYear(minSRO.getDate().getYear()));
             }
             foundYears.remove(ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR);
         }

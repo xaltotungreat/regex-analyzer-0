@@ -1,6 +1,6 @@
 package org.eclipselabs.real.gui.core.result;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IDRViewItem {
@@ -9,6 +9,6 @@ public interface IDRViewItem {
     public Integer getEndPos();
     public List<String> getAllViewText();
     public void addViewText(String newText);
-    public Calendar getDate();
-    public void setDate(Calendar cal);
+    public LocalDateTime getDate();
+    public void setDate(LocalDateTime cal);
 }

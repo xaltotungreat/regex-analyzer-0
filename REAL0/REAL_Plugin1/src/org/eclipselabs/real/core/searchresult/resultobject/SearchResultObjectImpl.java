@@ -1,21 +1,21 @@
 package org.eclipselabs.real.core.searchresult.resultobject;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 public class SearchResultObjectImpl implements ISearchResultObject {
 
     protected String text;
     protected Integer startPos;
     protected Integer endPos;
-    protected Calendar date;
-    
+    protected LocalDateTime date;
+
     public SearchResultObjectImpl(String aText, Integer aStartPos, Integer aEndPos) {
         text = aText;
         startPos = aStartPos;
         endPos = aEndPos;
     }
-    
-    public SearchResultObjectImpl(String aText, Integer aStartPos, Integer aEndPos, Calendar newDate) {
+
+    public SearchResultObjectImpl(String aText, Integer aStartPos, Integer aEndPos, LocalDateTime newDate) {
         text = aText;
         startPos = aStartPos;
         endPos = aEndPos;
@@ -29,14 +29,11 @@ public class SearchResultObjectImpl implements ISearchResultObject {
         endPos = null;
         date = null;
     }
-    
+
     @Override
     public ISearchResultObject clone() throws CloneNotSupportedException {
         SearchResultObjectImpl cloneObbj = null;
         cloneObbj = (SearchResultObjectImpl)super.clone();
-        if (date != null) {
-            cloneObbj.setDate((Calendar)date.clone());
-        }
         return cloneObbj;
     }
 
@@ -49,7 +46,7 @@ public class SearchResultObjectImpl implements ISearchResultObject {
     public void setText(String aText) {
         text = aText;
     }
-    
+
     @Override
     public void appendText(String appText) {
         StringBuilder sb = new StringBuilder();
@@ -86,14 +83,14 @@ public class SearchResultObjectImpl implements ISearchResultObject {
     public String toString() {
         return "SearchResultObjectImpl [text=" + text + ", startPos=" + startPos + ", endPos=" + endPos + "]";
     }
-    
+
     @Override
-    public Calendar getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
     @Override
-    public void setDate(Calendar date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

@@ -83,22 +83,6 @@ public class GUIXmlConfigFileReader extends GUIConfigReaderImpl<InputStream> {
                     }
                     return null;
                 });
-            /*Futures.addCallback(future, new FutureCallback<DefaultMutableTreeNode>() {
-                @Override
-                public void onSuccess(DefaultMutableTreeNode result) {
-                    log.info("Future addSOTree name=" + result);
-                    guiObjMap.put(new GUIConfigKey(GUIConfigObjectType.SEARCH_OBJECT_TREE),result);
-                    watcher.incrementAndGetFinished();
-                    log.info("Tasks finished " + watcher.getFinished());
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    log.error("SOTree Failure processing future " + t.toString(), t);
-                    watcher.incrementAndGetFinished();
-                    log.info("Tasks finished " + watcher.getFinished());
-                }
-            });*/
         } else if (XmlConfigNodeType.GUI_PROPERTY.equalsNode(elem)) {
             CompletableFuture<GUIProperty> future = submitConstructionTask(
                     constructionFactory.getPropertyConstructor(), new XmlDomConstructionSource(elem));
@@ -119,22 +103,6 @@ public class GUIXmlConfigFileReader extends GUIConfigReaderImpl<InputStream> {
                 }
                 return null;
             });
-            /*Futures.addCallback(future, new FutureCallback<GUIProperty>() {
-                @Override
-                public void onSuccess(GUIProperty result) {
-                    log.info("Future addGUIProperty name=" + result);
-                    guiObjMap.put(new GUIConfigKey(GUIConfigObjectType.GUI_PROPERTY, result.getName()),result);
-                    watcher.incrementAndGetFinished();
-                    log.info("Tasks finished " + watcher.getFinished());
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    log.error("GUIProperty Failure processing future " + t.toString(), t);
-                    watcher.incrementAndGetFinished();
-                    log.info("Tasks finished " + watcher.getFinished());
-                }
-            });*/
         }
     }
 

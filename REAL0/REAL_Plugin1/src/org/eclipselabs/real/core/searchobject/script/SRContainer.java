@@ -1,7 +1,6 @@
 package org.eclipselabs.real.core.searchobject.script;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +14,13 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 
 public class SRContainer {
     private static final Logger log = LogManager.getLogger(SRContainer.class);
-    
-    protected volatile IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
+
+    protected volatile IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
             ISRComplexRegexView, ISROComplexRegexView, String> searchResult;
-    
+
     protected volatile ISRSearchScript scriptResult;
-    
-    public SRContainer(IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
+
+    public SRContainer(IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
             ISRComplexRegexView, ISROComplexRegexView, String> res, ISRSearchScript scrRes) {
         if ((res != null) && (res.getSRObjects() != null) && (!res.getSRObjects().isEmpty())) {
             searchResult = res;
@@ -42,11 +41,11 @@ public class SRContainer {
         }
         return emptyRes;
     }
-    
+
     public ISRComplexRegexView getView(int objNumber, String viewKey) {
         ISRComplexRegexView viewRes = null;
         if (viewKey != null) {
-            if ((searchResult != null) && (searchResult.getSRObjects() != null) 
+            if ((searchResult != null) && (searchResult.getSRObjects() != null)
                     && (objNumber >= 0) && (objNumber < searchResult.getSRObjects().size())) {
                 IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> resObj = searchResult.getSRObjects().get(objNumber);
                 viewRes = resObj.getView(viewKey);
@@ -58,10 +57,10 @@ public class SRContainer {
         }
         return viewRes;
     }
-    
+
     public void addView(int objNumber, String viewKey, ISRComplexRegexView newView) {
         if ((viewKey != null) && (newView != null)) {
-            if ((searchResult != null) && (searchResult.getSRObjects() != null) 
+            if ((searchResult != null) && (searchResult.getSRObjects() != null)
                     && (objNumber >= 0) && (objNumber < searchResult.getSRObjects().size())) {
                 IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> resObj = searchResult.getSRObjects().get(objNumber);
                 resObj.addView(viewKey, newView);
@@ -72,10 +71,10 @@ public class SRContainer {
             log.warn("addView viewKey " + viewKey + " or view " + newView);
         }
     }
-    
+
     public String getText(int objNumber) {
         String res = null;
-        if ((searchResult != null) && (searchResult.getSRObjects() != null) 
+        if ((searchResult != null) && (searchResult.getSRObjects() != null)
                 && (objNumber >= 0) && (objNumber < searchResult.getSRObjects().size())) {
             IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> resObj = searchResult.getSRObjects().get(objNumber);
             res = resObj.getText();
@@ -84,10 +83,10 @@ public class SRContainer {
         }
         return res;
     }
-    
+
     public void appendText(int objNumber, String txt) {
         if (txt != null) {
-            if ((searchResult != null) && (searchResult.getSRObjects() != null) 
+            if ((searchResult != null) && (searchResult.getSRObjects() != null)
                     && (objNumber >= 0) && (objNumber < searchResult.getSRObjects().size())) {
                 IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> resObj = searchResult.getSRObjects().get(objNumber);
                 resObj.appendText(txt);
@@ -96,7 +95,7 @@ public class SRContainer {
             log.warn("appendText null text passed");
         }
     }
-    
+
     public int getResultsCount() {
         int res = 0;
         if ((searchResult != null) && (searchResult.getSRObjects() != null)) {
@@ -106,7 +105,7 @@ public class SRContainer {
         }
         return res;
     }
-    
+
     public void updateReplaceMap(int objNumber) {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty())) {
             if ((objNumber >= 0) && (objNumber < searchResult.getSRObjects().size())) {
@@ -119,7 +118,7 @@ public class SRContainer {
             log.error("Either searchResult is null or it has no SR Objects");
         }
     }
-    
+
     public void updateReplaceMap(int objNumber, String...viewNames) {
         if (viewNames != null) {
             updateReplaceMap(objNumber, Arrays.asList(viewNames));
@@ -127,7 +126,7 @@ public class SRContainer {
             log.warn("updateReplaceMap resNumber=" + objNumber + " no view names nothing to update");
         }
     }
-    
+
     public void updateReplaceMap(int objNumber, List<String> viewNames) {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty()) && (viewNames != null)) {
             log.debug("updateReplaceMap resNumber=" + objNumber + " viewNames=" + viewNames);
@@ -146,7 +145,7 @@ public class SRContainer {
             log.error("Either searchResult is null " + searchResult + " or viewNames is null " + viewNames);
         }
     }
-    
+
     public void pushResultObjects() {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty())) {
             log.debug("pushResultObjects SOName=" + searchResult.getSearchObjectName() + " objCount=" + searchResult.getSRObjects().size());
@@ -161,7 +160,7 @@ public class SRContainer {
             log.error("pushResultObjects Either searchResult is null or it has no SR Objects");
         }
     }
-    
+
     public void pushResultObjects(String...viewNames) {
         if (viewNames != null) {
             pushResultObjects(Arrays.asList(viewNames));
@@ -169,7 +168,7 @@ public class SRContainer {
             pushResultObjects((List<String>)null);
         }
     }
-    
+
     public void pushResultObjects(List<String> viewNames) {
         if (viewNames == null) {
             log.warn("pushResultObjects viewNames is null all views will be removed");
@@ -178,7 +177,7 @@ public class SRContainer {
             log.debug("pushResultObjects viewNames=" + viewNames);
             for (IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> currSRO : searchResult.getSRObjects()) {
                 try {
-                    IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> cloneSRO 
+                    IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> cloneSRO
                         = (IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>)currSRO.clone();
                     List<String> allViewNames = cloneSRO.getViewKeys();
                     if (viewNames != null) {
@@ -199,12 +198,12 @@ public class SRContainer {
                 log.debug("pushResultObjects adding found years " + searchResult.getFoundYears());
                 scriptResult.getFoundYears().addAll(searchResult.getFoundYears());
             }
-            
+
         } else {
             log.error("pushResultObjects Either searchResult is null or it has no SR Objects");
         }
     }
-    
+
     public void pushResultObject(int objNumber) {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty())) {
             log.debug("pushResultObject SOName=" + searchResult.getSearchObjectName() + " number=" + objNumber);
@@ -213,7 +212,7 @@ public class SRContainer {
                 scriptResult.addSRObject(objToPush);
                 if (objToPush.getDate() != null) {
                     log.debug("pushResultObject adding found years " + searchResult.getFoundYears());
-                    scriptResult.getFoundYears().add(objToPush.getDate().get(Calendar.YEAR));
+                    scriptResult.getFoundYears().add(objToPush.getDate().getYear());
                 }
             } else {
                 log.error("pushResultObject Incorrect objNumber " + objNumber);
@@ -222,7 +221,7 @@ public class SRContainer {
             log.error("pushResultObject Either searchResult is null or it has no SR Objects");
         }
     }
-    
+
     public void pushResultObject(int objNumber, String...viewNames) {
         if (viewNames != null) {
             pushResultObject(objNumber, Arrays.asList(viewNames));
@@ -230,7 +229,7 @@ public class SRContainer {
             pushResultObject(objNumber, (List<String>)null);
         }
     }
-    
+
     public void pushResultObject(int objNumber, List<String> viewNames) {
         if (viewNames == null) {
             log.warn("pushResultObjects viewNames is null all views will be removed");
@@ -238,7 +237,7 @@ public class SRContainer {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty())) {
             if ((objNumber >= 0) && (objNumber < searchResult.getSRObjects().size())) {
                 try {
-                    IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> cloneSRO 
+                    IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String> cloneSRO
                         = (IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>)((IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>)searchResult.getSRObjects().get(objNumber)).clone();
                     List<String> allViewNames = cloneSRO.getViewKeys();
                     if (viewNames != null) {
@@ -253,12 +252,12 @@ public class SRContainer {
                     scriptResult.addSRObject(cloneSRO);
                     if (cloneSRO.getDate() != null) {
                         log.debug("pushResultObject adding found years " + searchResult.getFoundYears());
-                        scriptResult.getFoundYears().add(cloneSRO.getDate().get(Calendar.YEAR));
+                        scriptResult.getFoundYears().add(cloneSRO.getDate().getYear());
                     }
                 } catch (CloneNotSupportedException e) {
                     log.error("",e);
                 }
-                
+
             } else {
                 log.error("pushResultObject Incorrect objNumber " + objNumber);
             }

@@ -1,7 +1,7 @@
 package org.eclipselabs.real.gui.e4swt.conveyor.stage;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -50,8 +50,9 @@ public class NewPartStage extends ConveyorStageBase {
             for (Map.Entry<ReplaceParamKey, IReplaceParam<?>> currParam : params.getCurrentParamMap().entrySet()) {
                 String value = currParam.getValue().getValue().toString();
                 if (ReplaceParamValueType.DATE.equals(currParam.getValue().getType())) {
-                    SimpleDateFormat fmt = new SimpleDateFormat(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
-                    value = fmt.format(((IReplaceParam<Calendar>)currParam.getValue()).getValue().getTime());
+                    //SimpleDateFormat fmt = new SimpleDateFormat(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+                    DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+                    value = fmt.format(((IReplaceParam<LocalDateTime>)currParam.getValue()).getValue());
                 }
                 tabTooltip.append(currParam.getKey().getRPName() + "=" + value + ",");
             }

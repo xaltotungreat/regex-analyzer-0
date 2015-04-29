@@ -1,7 +1,7 @@
 package org.eclipselabs.real.gui.e4swt.persist;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -22,26 +22,25 @@ public class ReplaceParamPersist<T> {
 
     public ReplaceParamPersist() {
     }
-    
+
     public ReplaceParamPersist(String aName, T aValue) {
         name = aName;
         value = aValue;
     }
-    
+
     public ReplaceParamPersist(IReplaceParam<?> param) {
         name = param.getName();
         replaceNames = param.getReplaceNames();
         valueType = ReplaceParamValueTypePersist.valueOf(param.getType().name());
-        
+
         /*
-         * If store the Calendar Type the loaded type is XMLGregorianCalndar
-         * It doesn't contain milliseconds. Therefore a String with milliseconds
-         * is stored instead. 
+         * JAXB as of 2015-04-29 doesn't work with java.time classes
+         * Therefore the datetime is converted to String and stored as String.
          */
         switch(param.getType()) {
         case DATE:
-            SimpleDateFormat fmt = new SimpleDateFormat(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
-            value = (T)fmt.format(((IReplaceParam<Calendar>)param).getValue().getTime());
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+            value = (T)fmt.format(((IReplaceParam<LocalDateTime>)param).getValue());
             break;
         default:
             value = (T)param.getValue();

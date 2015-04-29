@@ -1,9 +1,8 @@
 package org.eclipselabs.real.gui.e4swt.dialogs;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +70,8 @@ public class SOParamsDialog extends Dialog {
     protected Double valueSpace = 0.35;
     protected Double hintSpace = 0.35;
 
-    protected SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
+    //protected SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
+    protected DateTimeFormatter dtFmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
 
     /**
      * Create the dialog.
@@ -134,14 +134,18 @@ public class SOParamsDialog extends Dialog {
                 booleanParam.setValue(val);
                 break;
             case DATE:
-                IReplaceParam<Calendar> calParam = (IReplaceParam<Calendar>)editedParam;
-                Date cellDt;
+                IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)editedParam;
+                //Date cellDt;
                 try {
-                    cellDt = dateFmt.parse(ti.getText(columnValueIndex));
+                    LocalDateTime locDT = LocalDateTime.parse(ti.getText(columnValueIndex), dtFmt);
+                    if (locDT != null) {
+                        calParam.setValue(locDT);
+                    }
+                    /*cellDt = dateFmt.parse(ti.getText(columnValueIndex));
                     if (cellDt != null) {
                         calParam.getValue().setTime(cellDt);
-                    }
-                } catch (ParseException e1) {
+                    }*/
+                } catch (DateTimeParseException e1) {
                     log.error("widgetSelected ", e1);
                 }
                 break;
@@ -274,19 +278,23 @@ public class SOParamsDialog extends Dialog {
                         });
                         break;
                     case DATE:
-                        IReplaceParam<Calendar> calParam = (IReplaceParam<Calendar>)editedParam;
-                        Calendar calToUse = calParam.getValue();
+                        IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)editedParam;
+                        LocalDateTime calToUse = calParam.getValue();
                         Composite dateAndTime = new Composite(tableParams, SWT.NONE);
                         RowLayout rl = new RowLayout();
                         rl.wrap = false;
                         dateAndTime.setLayout(rl);
-                        Date cellDt;
+                        //Date cellDt;
                         try {
-                            cellDt = dateFmt.parse(cellText);
+                            LocalDateTime locDT = LocalDateTime.parse(cellText, dtFmt);
+                            if (locDT != null) {
+                                calToUse = locDT;
+                            }
+                            /*cellDt = dateFmt.parse(cellText);
                             if (cellDt != null) {
                                 calToUse.setTime(cellDt);
-                            }
-                        } catch (ParseException e1) {
+                            }*/
+                        } catch (DateTimeParseException e1) {
                             log.error("widgetSelected ", e1);
                         }
 
@@ -294,23 +302,25 @@ public class SOParamsDialog extends Dialog {
                         datePicker.setData(DATA_VALUE_PARAM, calParam);
                         DateTime timePicker = new DateTime(dateAndTime, SWT.TIME | SWT.LONG);
                         timePicker.setData(DATA_VALUE_PARAM, calParam);
-
-                        datePicker.setDate(calToUse.get(Calendar.YEAR), calToUse.get(Calendar.MONTH),
-                                calToUse.get(Calendar.DAY_OF_MONTH));
-                        timePicker.setTime(calToUse.get(Calendar.HOUR_OF_DAY), calToUse.get(Calendar.MINUTE),
-                                calToUse.get(Calendar.SECOND));
+                        // for the date picker the months are zero-based, the first month is 0 the last is 11
+                        // for LocalDateTime the months range 1-12
+                        datePicker.setDate(calToUse.getYear(), calToUse.getMonthValue() - 1,
+                                calToUse.getDayOfMonth());
+                        timePicker.setTime(calToUse.getHour(), calToUse.getMinute(),
+                                calToUse.getSecond());
 
                         datePicker.addSelectionListener(new SelectionAdapter() {
 
                             @Override
                             public void widgetSelected(SelectionEvent se) {
                                 DateTime source = (DateTime)se.getSource();
-                                IReplaceParam<Calendar> calParam = (IReplaceParam<Calendar>)source.getData(DATA_VALUE_PARAM);
+                                IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
                                 if (calParam != null) {
-                                    calParam.getValue().set(Calendar.YEAR, source.getYear());
-                                    calParam.getValue().set(Calendar.MONTH, source.getMonth());
-                                    calParam.getValue().set(Calendar.DAY_OF_MONTH, source.getDay());
-                                    String resultText = dateFmt.format(calParam.getValue().getTime());
+                                    LocalDateTime currDt = calParam.getValue();
+                                    // for the date picker the months are zero-based, the first month is 0 the last is 11
+                                    // for LocalDateTime the months range 1-12
+                                    calParam.setValue(currDt.withYear(source.getYear()).withMonth(source.getMonth() + 1).withDayOfMonth(source.getDay()));
+                                    String resultText = dtFmt.format(calParam.getValue());
                                     log.debug("Result Text " + resultText);
                                     editor.getItem().setText(columnValueIndex, resultText);
                                 } else {
@@ -324,12 +334,11 @@ public class SOParamsDialog extends Dialog {
                             @Override
                             public void widgetSelected(SelectionEvent se) {
                                 DateTime source = (DateTime)se.getSource();
-                                IReplaceParam<Calendar> calParam = (IReplaceParam<Calendar>)source.getData(DATA_VALUE_PARAM);
+                                IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
                                 if (calParam != null) {
-                                    calParam.getValue().set(Calendar.HOUR_OF_DAY, source.getHours());
-                                    calParam.getValue().set(Calendar.MINUTE, source.getMinutes());
-                                    calParam.getValue().set(Calendar.SECOND, source.getSeconds());
-                                    String resultText = dateFmt.format(calParam.getValue().getTime());
+                                    LocalDateTime currDt = calParam.getValue();
+                                    calParam.setValue(currDt.withHour(source.getHours()).withMinute(source.getMinutes()).withSecond(source.getSeconds()));
+                                    String resultText = dtFmt.format(calParam.getValue());
                                     log.debug("Result Text " + resultText);
                                     editor.getItem().setText(columnValueIndex, resultText);
                                 } else {
@@ -459,10 +468,10 @@ public class SOParamsDialog extends Dialog {
                     }
                     break;
                 case DATE:
-                    cellText = dateFmt.format(((IReplaceParam<Calendar>)currRow).getValue().getTime());
+                    cellText = dtFmt.format(((IReplaceParam<LocalDateTime>)currRow).getValue());
                     if (prevValue != null) {
-                        cellText = dateFmt.format(((IReplaceParam<Calendar>)prevValue).getValue().getTime());
-                        ((IReplaceParam<Calendar>)currRow).setValue((Calendar)((IReplaceParam<Calendar>)prevValue).getValue().clone());
+                        cellText = dtFmt.format(((IReplaceParam<LocalDateTime>)prevValue).getValue());
+                        ((IReplaceParam<LocalDateTime>)currRow).setValue(((IReplaceParam<LocalDateTime>)prevValue).getValue());
                     }
                     break;
                 case STRING:

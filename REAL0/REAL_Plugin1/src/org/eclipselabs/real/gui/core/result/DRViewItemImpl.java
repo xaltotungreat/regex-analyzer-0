@@ -1,7 +1,7 @@
 package org.eclipselabs.real.gui.core.result;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DRViewItemImpl implements IDRViewItem {
@@ -9,7 +9,7 @@ public class DRViewItemImpl implements IDRViewItem {
     protected List<String> textList = new ArrayList<String>();
     protected Integer startPos;
     protected Integer endPos;
-    protected Calendar date;
+    protected LocalDateTime date;
 
     public DRViewItemImpl(Integer aStartPos, Integer aEndPos) {
         startPos = aStartPos;
@@ -37,12 +37,12 @@ public class DRViewItemImpl implements IDRViewItem {
     }
 
     @Override
-    public Calendar getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
     @Override
-    public void setDate(Calendar cal) {
+    public void setDate(LocalDateTime cal) {
         date = cal;
     }
 

@@ -17,7 +17,7 @@ public class SRODateTimeComparator<C extends ISearchResultObject> implements Com
         if ((o1 != null) && (o2 != null)) {
             if ((o1.getDate() != null) && (o2.getDate() != null)) {
                 result = o1.getDate().compareTo(o2.getDate());
-                //log.debug("O1date " + getCalendarString(o1.getDate()) + " O2date " + getCalendarString(o2.getDate()) + " result=" + result);
+                //log.debug("O1date " + getDateTimeString(o1.getDate()) + " O2date " + getDateTimeString(o2.getDate()) + " result=" + result);
             } else if ((o1.getDate() == null) && (o2.getDate() != null)) {
                 result = -1;
             } else if ((o1.getDate() != null) && (o2.getDate() == null)) {
@@ -31,16 +31,16 @@ public class SRODateTimeComparator<C extends ISearchResultObject> implements Com
         return result;
     }
 
-    /*private String getCalendarString(Calendar cal) {
+    /*private String getDateTimeString(LocalDateTime cal) {
         StringBuilder sb = new StringBuilder();
-        sb.append(cal.get(Calendar.YEAR));
-        sb.append("-" + cal.get(Calendar.MONTH));
-        sb.append("-" + cal.get(Calendar.DAY_OF_MONTH));
-        
-        sb.append(" " + cal.get(Calendar.HOUR_OF_DAY));
-        sb.append(":" + cal.get(Calendar.MINUTE));
-        sb.append(":" + cal.get(Calendar.SECOND));
-        sb.append(":" + cal.get(Calendar.MILLISECOND));
+        sb.append(cal.getYear());
+        sb.append("-" + cal.getMonthValue());
+        sb.append("-" + cal.getDayOfMonth());
+
+        sb.append(" " + cal.getHour());
+        sb.append(":" + cal.getMinute());
+        sb.append(":" + cal.getSecond());
+        sb.append(":" + cal.get(ChronoField.MILLI_OF_SECOND));
         return sb.toString();
     }*/
 }

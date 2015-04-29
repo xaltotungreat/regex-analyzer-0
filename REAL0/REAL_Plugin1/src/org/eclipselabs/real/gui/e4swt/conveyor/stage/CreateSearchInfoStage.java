@@ -1,6 +1,6 @@
 package org.eclipselabs.real.gui.e4swt.conveyor.stage;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
 import org.eclipselabs.real.gui.core.util.SearchInfo;
@@ -19,12 +19,8 @@ public class CreateSearchInfoStage extends ConveyorStageBase {
         // but it is worth considering a transition to UUID
         String searchID = (req.getOldSearchID() != null)?req.getOldSearchID():String.valueOf(System.currentTimeMillis());
         SearchInfo info;
-        long currMillis = System.currentTimeMillis();
-        Calendar searchTime = Calendar.getInstance();
-        searchTime.setTimeInMillis(currMillis);
+        LocalDateTime searchTime = LocalDateTime.now();
         info = new SearchInfo(searchTime);
-        Calendar curInfoTime = Calendar.getInstance();
-        curInfoTime.setTimeInMillis(currMillis);
         info.setSearchID(searchID);
         info.setParamsFromSO(req.getDso().getSearchObject());
 

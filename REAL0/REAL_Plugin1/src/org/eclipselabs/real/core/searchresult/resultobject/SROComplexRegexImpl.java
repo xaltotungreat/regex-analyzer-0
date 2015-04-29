@@ -1,6 +1,6 @@
 package org.eclipselabs.real.core.searchresult.resultobject;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
@@ -10,11 +10,11 @@ public class SROComplexRegexImpl extends ComplexSearchResultObjectImpl<ISRComple
     public SROComplexRegexImpl(String logExcerpt, Integer aStartPos, Integer aEndPos) {
         super(logExcerpt, aStartPos, aEndPos);
     }
-    
-    public SROComplexRegexImpl(String logExcerpt, Integer aStartPos, Integer aEndPos, Calendar dt) {
+
+    public SROComplexRegexImpl(String logExcerpt, Integer aStartPos, Integer aEndPos, LocalDateTime dt) {
         super(logExcerpt, aStartPos, aEndPos, dt);
     }
-    
+
     public SROComplexRegexImpl(String logExcerpt, Map<String,ISRComplexRegexView> newViewMap,
             Integer aStartPos, Integer aEndPos) {
         super(logExcerpt, aStartPos, aEndPos);

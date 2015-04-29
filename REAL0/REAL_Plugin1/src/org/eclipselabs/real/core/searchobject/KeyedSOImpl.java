@@ -165,6 +165,29 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
         return getReplaceTableUpstream(stringParams);
     }
 
+    @Override
+    public Map<ReplaceParamKey, IReplaceParam<?>> getParentReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
+        Map<ReplaceParamKey, IReplaceParam<?>> soParams = new HashMap<>();
+        if (parent != null) {
+            Map<ReplaceParamKey, IReplaceParam<?>> parentParams = parent.getParentReplaceParams(customReplaceParams);
+            if ((parentParams != null) && (!parentParams.isEmpty())) {
+                soParams.putAll(parentParams);
+            }
+        }
+        List<IReplaceParam<?>> thisSOParams = keyedSO.getCloneParamList();
+        if ((thisSOParams != null) && (!thisSOParams.isEmpty())) {
+            for (IReplaceParam<?> rp : thisSOParams) {
+                soParams.put(rp.getKey(), rp);
+            }
+        }
+        return soParams;
+    }
+
+    @Override
+    public Map<ReplaceParamKey, IReplaceParam<?>> getAllReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
+        return getReplaceParamsUpstream(customReplaceParams);
+    }
+
     protected Map<ReplaceParamKey, IReplaceParam<?>> getReplaceParamsUpstream(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
         Map<ReplaceParamKey, IReplaceParam<?>> finalMap = new HashMap<>();
         // first get group params the lower group params replace the higher group params
@@ -197,29 +220,6 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
         }
         log.debug("getFinalReplaceTable " + finalMap);
         return finalMap;
-    }
-
-    @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getParentReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
-        Map<ReplaceParamKey, IReplaceParam<?>> soParams = new HashMap<>();
-        if (parent != null) {
-            Map<ReplaceParamKey, IReplaceParam<?>> parentParams = parent.getParentReplaceParams(customReplaceParams);
-            if ((parentParams != null) && (!parentParams.isEmpty())) {
-                soParams.putAll(parentParams);
-            }
-        }
-        List<IReplaceParam<?>> thisSOParams = keyedSO.getCloneParamList();
-        if ((thisSOParams != null) && (!thisSOParams.isEmpty())) {
-            for (IReplaceParam<?> rp : thisSOParams) {
-                soParams.put(rp.getKey(), rp);
-            }
-        }
-        return soParams;
-    }
-
-    @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getAllReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
-        return getReplaceParamsUpstream(customReplaceParams);
     }
 
     @Override

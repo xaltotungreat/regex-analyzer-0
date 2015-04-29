@@ -2,9 +2,9 @@ package org.eclipselabs.real.gui.e4swt.persist;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,20 +72,16 @@ public class PersistUtil {
                     break;
                 case DATE:
                     /*
-                     * If store the Calendar Type the loaded type is XMLGregorianCalndar
-                     * It doesn't contain milliseconds. Therefore a String with mililseconds
-                     * is stored instead.
+                     * JAXB as of 2015-04-29 doesn't work with java.time classes
+                     * Therefore the datetime is converted to String and stored as String.
                      */
-                    /*IReplaceParam<Calendar> rpCalendar = new ReplaceParamImpl<Calendar>(ReplaceParamValueType.DATE, key, currParam.getValue().getReplaceNames(),
-                            (Calendar)currParam.getValue().getValue());*/
-                    SimpleDateFormat fmt = new SimpleDateFormat(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
-                    Calendar cal = Calendar.getInstance();
+                    DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
                     try {
-                        cal.setTime(fmt.parse((String)currParam.getValue().getValue()));
-                        IReplaceParam<Calendar> rpCalendar = new ReplaceParamImpl<Calendar>(ReplaceParamValueType.DATE, key, currParam.getValue().getReplaceNames(),
-                                cal);
+                        LocalDateTime localDT = LocalDateTime.parse((String)currParam.getValue().getValue(), fmt);
+                        IReplaceParam<LocalDateTime> rpCalendar = new ReplaceParamImpl<LocalDateTime>(ReplaceParamValueType.DATE, key, currParam.getValue().getReplaceNames(),
+                                localDT);
                         loadedMap.put(key, rpCalendar);
-                    } catch (ParseException e) {
+                    } catch (DateTimeParseException e) {
                         log.error("getReplaceMap ", e);
                     }
                     break;

@@ -44,24 +44,25 @@ public class SubmitSearchStageCR extends ConveyorStageBase {
 
         CompletableFuture<? extends Map<String, R>> future = LogFileControllerImpl.INSTANCE.getLogAggregate(currSO.getLogFileType()).submitSearch(currSO, params.getSearchRequest());
         CompletableFuture<Void> methodResult = future.handle((Map<String, R> arg0, Throwable t) -> {
-            if (arg0 != null) {
-                if (SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState())) {
-                    log.warn("Success Part already closed not rendering");
-                    return null;
-                }
-                if (!arg0.isEmpty()) {
-                    log.info("ComplexRegex Result name=" + currSO.getSearchObjectName() + " size=" + arg0.size());
-                    params.setResult((Map<String, IKeyedComplexSearchResult<? extends
-                            IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
-                                    ? extends ISearchResultObject, String>,
-                            ? extends ISearchResult<? extends ISearchResultObject>,
-                            ? extends ISearchResultObject, String>>) arg0);
-                    params.getSearchInfo().setFoundObjects(params.getSearchRequest().getProgressMonitor().getObjectsFound());
-                    params.getSearchInfo().setCustomProgressKeys(params.getSearchRequest().getProgressMonitor().getAllCustomNVPs());
-                } else {
-                    params.setProceed(false);
+            if ((arg0 != null) && (!arg0.isEmpty())) {
+                log.info("ComplexRegex Result name=" + currSO.getSearchObjectName() + " size=" + arg0.size());
+                params.setResult((Map<String, IKeyedComplexSearchResult<? extends
+                        IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
+                                ? extends ISearchResultObject, String>,
+                        ? extends ISearchResult<? extends ISearchResultObject>,
+                        ? extends ISearchResultObject, String>>) arg0);
+                params.getSearchInfo().setFoundObjects(params.getSearchRequest().getProgressMonitor().getObjectsFound());
+                params.getSearchInfo().setCustomProgressKeys(params.getSearchRequest().getProgressMonitor().getAllCustomNVPs());
+            } else {
+                params.setProceed(false);
+                if (arg0 != null) {
                     params.setAbortMessage("No objects found for searchID=" + params.getSearchID());
-
+                } else if (t != null) {
+                    params.setAbortMessage("Search failure for searchID=" + params.getSearchID() + " " + t.getMessage());
+                    log.error("Display Result Error ", t);
+                }
+                // dispose the part if the result is null or empty and the part is not already disposed
+                if (!SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState())) {
                     req.getUiSynch().syncExec(new Runnable() {
 
                         @Override
@@ -72,63 +73,12 @@ public class SubmitSearchStageCR extends ConveyorStageBase {
                         }
                     });
                 }
-                params.getSearchRequest().getProgressMonitor().setComplete(true);
             }
-            if (t != null) {
-                log.error("Display Result Error ", t);
-                params.setProceed(false);
-                params.setAbortMessage("Search failure for searchID=" + params.getSearchID() + " " + t.getMessage());
-                params.getSearchRequest().getProgressMonitor().setComplete(true);
-            }
+            // complete the monitor anyway. The search has completed even if completed
+            // exceptionally
+            params.getSearchRequest().getProgressMonitor().setComplete(true);
             return null;
         });
-        /*Futures.addCallback(future, new FutureCallback<Map<String, R>>() {
-            @Override
-            public void onSuccess(Map<String, R> arg0) {
-                if (SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState())) {
-                    log.warn("onSuccess Part already closed not rendering");
-                    return;
-                }
-                if ((arg0 != null) && (!arg0.isEmpty())) {
-                    log.info("ComplexRegex Result name=" + currSO.getSearchObjectName() + " size=" + arg0.size());
-                    params.setResult((Map<String, IKeyedComplexSearchResult<? extends
-                            IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
-                                    ? extends ISearchResultObject, String>,
-                            ? extends ISearchResult<? extends ISearchResultObject>,
-                            ? extends ISearchResultObject, String>>) arg0);
-                    params.getSearchInfo().setFoundObjects(params.getSearchRequest().getProgressMonitor().getObjectsFound());
-                    params.getSearchInfo().setCustomProgressKeys(params.getSearchRequest().getProgressMonitor().getAllCustomNVPs());
-                } else {
-                    params.setProceed(false);
-                    params.setAbortMessage("No objects found for searchID=" + params.getSearchID());
-
-                    req.getUiSynch().syncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            partSRObj.disposeViewResult(params.getSearchID());
-                            log.info("No objects found for searchID=" + params.getSearchID());
-                            System.gc();
-                        }
-                    });
-                }
-                params.getSearchRequest().getProgressMonitor().setComplete(true);
-                methodResult.complete(null);
-            }
-
-            @Override
-            public void onFailure(Throwable arg0) {
-                log.error("Display Result Error ", arg0);
-                params.setProceed(false);
-                params.setAbortMessage("Search failure for searchID=" + params.getSearchID() + " " + arg0.getMessage());
-                if (SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState())) {
-                    log.warn("onSuccess Part already closed not rendering");
-                    return;
-                }
-                params.getSearchRequest().getProgressMonitor().setComplete(true);
-                methodResult.complete(null);
-            }
-        });*/
         return methodResult;
     }
 

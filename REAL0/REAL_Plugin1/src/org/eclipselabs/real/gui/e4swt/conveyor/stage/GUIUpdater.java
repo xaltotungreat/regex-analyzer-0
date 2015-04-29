@@ -16,7 +16,7 @@ public class GUIUpdater implements Runnable {
 
     private CompletableFuture<Void> future;
 
-    private ConvProductContext prodContext;
+    private volatile ConvProductContext prodContext;
 
     private UISynchronize uiSynch;
 
@@ -69,12 +69,6 @@ public class GUIUpdater implements Runnable {
                     public void run() {
                         statusFormatter.updateStatus(partSRObj, prodContext.getSearchRequest().getProgressMonitor(),
                                 prodContext.getSearchID());
-                        /*ISearchProgressMonitor mn = prodContext.getSearchRequest().getProgressMonitor();
-                        partSRObj.setSearchStatus(prodContext.getSearchID(), "Searched files " + mn.getCompletedSOFiles()
-                                + "/" + mn.getTotalSOFiles() + " Found objects " + mn.getObjectsFound(),
-                                mn.getCompletedSOFiles(), mn.getTotalSOFiles());
-                        partSRObj.setSearchStatus(prodContext.getSearchID(), statusFormatter.getStatusString(),
-                                statusFormatter.getCompletedFiles(), statusFormatter.getTotalFiles());*/
                     }
                 });
                 Thread.sleep(sleepInterval);
@@ -88,11 +82,6 @@ public class GUIUpdater implements Runnable {
 
                 @Override
                 public void run() {
-                    /*ISearchProgressMonitor mn = prodContext.getSearchRequest().getProgressMonitor();
-                    partSRObj.setSearchStatus(prodContext.getSearchID(), "Searched files " + mn.getCompletedSOFiles() + "/" + mn.getTotalSOFiles()
-                            + " Found objects " + mn.getObjectsFound(), mn.getCompletedSOFiles(), mn.getTotalSOFiles());
-                    partSRObj.setSearchStatus(prodContext.getSearchID(), statusFormatter.getStatusString(),
-                            statusFormatter.getCompletedFiles(), statusFormatter.getTotalFiles());*/
                     statusFormatter.updateStatus(partSRObj, prodContext.getSearchRequest().getProgressMonitor(),
                             prodContext.getSearchID());
                     partSRObj.stopProgress(prodContext.getSearchID());

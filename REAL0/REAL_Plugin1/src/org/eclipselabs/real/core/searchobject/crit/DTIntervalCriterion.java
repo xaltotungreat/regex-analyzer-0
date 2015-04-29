@@ -1,6 +1,6 @@
 package org.eclipselabs.real.core.searchobject.crit;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,9 +16,9 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
     private static final Logger log = LogManager.getLogger(DTIntervalCriterion.class);
     protected ReplaceParamKey lowBoundKey;
     protected ReplaceParamKey highBoundKey;
-    protected Calendar lowBound;
-    protected Calendar highBound;
-    
+    protected LocalDateTime lowBound;
+    protected LocalDateTime highBound;
+
     public DTIntervalCriterion(AcceptanceCriterionType aType) {
         this(aType, null);
     }
@@ -35,17 +35,17 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
         }
         init(sr);
         if (result && (lowBound != null) && (highBound != null)) {
-            Calendar useDate = (Calendar)sro.getDate().clone();
+            LocalDateTime useDate = sro.getDate();
             /*
              * Trying to guess the correct year (if 1970) from the bounds
              */
-            if (useDate.get(Calendar.YEAR) == 1970) {
-                if (useDate.get(Calendar.MONTH) == lowBound.get(Calendar.MONTH)) {
-                    useDate.set(Calendar.YEAR, lowBound.get(Calendar.YEAR));
-                } else if (useDate.get(Calendar.MONTH) == highBound.get(Calendar.MONTH)) {
-                    useDate.set(Calendar.YEAR, highBound.get(Calendar.YEAR));
+            if (useDate.getYear() == 1970) {
+                if (useDate.getMonth() == lowBound.getMonth()) {
+                    useDate = useDate.withYear(lowBound.getYear());
+                } else if (useDate.getMonth() == highBound.getMonth()) {
+                    useDate = useDate.withYear(highBound.getYear());
                 } else {
-                    useDate.set(Calendar.YEAR, lowBound.get(Calendar.YEAR));
+                    useDate = useDate.withYear(lowBound.getYear());
                 }
             }
             switch (type) {
@@ -63,7 +63,7 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
         }
         return result;
     }
-    
+
     @Override
     public void init(ISearchResult<? extends ISearchResultObject> sr) {
         Map<ReplaceParamKey, IReplaceParam<?>> allReplaceParams = sr.getAllCachedReplaceParams();
@@ -73,12 +73,12 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
         }
         if (lowBoundKey != null) {
             IReplaceParam<?> lowBoundParam = allReplaceParams.get(lowBoundKey);
-            if (lowBoundParam != null) { 
+            if (lowBoundParam != null) {
                 if ((ReplaceParamValueType.DATE.equals(lowBoundParam.getType()))) {
-                    IReplaceParam<Calendar> lowBoundParamType = (IReplaceParam<Calendar>)lowBoundParam;
-                    lowBound = (Calendar)lowBoundParamType.getValue().clone();
+                    IReplaceParam<LocalDateTime> lowBoundParamType = (IReplaceParam<LocalDateTime>)lowBoundParam;
+                    lowBound = lowBoundParamType.getValue();
                 } else {
-                    log.error("init incorrect param type expected " + ReplaceParamValueType.DATE + 
+                    log.error("init incorrect param type expected " + ReplaceParamValueType.DATE +
                             " received " + lowBoundParam.getType());
                 }
             } else {
@@ -91,10 +91,10 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
             IReplaceParam<?> highBoundParam = allReplaceParams.get(highBoundKey);
             if (highBoundParam != null) {
                 if ((ReplaceParamValueType.DATE.equals(highBoundParam.getType()))) {
-                    IReplaceParam<Calendar> highBoundParamType = (IReplaceParam<Calendar>)highBoundParam;
-                    highBound = (Calendar)highBoundParamType.getValue().clone();
+                    IReplaceParam<LocalDateTime> highBoundParamType = (IReplaceParam<LocalDateTime>)highBoundParam;
+                    highBound = highBoundParamType.getValue();
                 } else {
-                    log.error("init incorrect param type expected " + ReplaceParamValueType.DATE + 
+                    log.error("init incorrect param type expected " + ReplaceParamValueType.DATE +
                             " received " + highBoundParam.getType());
                 }
             } else {
@@ -104,7 +104,7 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
             log.error("init highBoundKey is null");
         }
     }
-    
+
     @Override
     public IAcceptanceCriterion clone() throws CloneNotSupportedException {
         DTIntervalCriterion cloneObj = (DTIntervalCriterion)super.clone();
@@ -115,10 +115,10 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
             cloneObj.setHighBoundKey(highBoundKey.clone());
         }
         if (lowBound != null) {
-            cloneObj.setLowBound((Calendar)lowBound.clone());
+            cloneObj.setLowBound(lowBound);
         }
         if (highBound != null) {
-            cloneObj.setHighBound((Calendar)highBound.clone());
+            cloneObj.setHighBound(highBound);
         }
         return cloneObj;
     }
@@ -144,22 +144,22 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
     }
 
     @Override
-    public Calendar getLowBound() {
+    public LocalDateTime getLowBound() {
         return lowBound;
     }
 
     @Override
-    public void setLowBound(Calendar lowBound) {
+    public void setLowBound(LocalDateTime lowBound) {
         this.lowBound = lowBound;
     }
 
     @Override
-    public Calendar getHighBound() {
+    public LocalDateTime getHighBound() {
         return highBound;
     }
 
     @Override
-    public void setHighBound(Calendar highBound) {
+    public void setHighBound(LocalDateTime highBound) {
         this.highBound = highBound;
     }
 

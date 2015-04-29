@@ -1,5 +1,6 @@
 package org.eclipselabs.real.gui.e4swt.persist;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,18 @@ import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
 import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
 import org.eclipselabs.real.gui.core.util.SearchInfo;
 
+/**
+ * This class stores information about one Search-in-current i.e. one tab in a part.
+ * This class still uses Calendar and was not moved to LocalDateTime.
+ * The reason for this is that LocalDateTime (as of 2015-04-29) doesn't have
+ * a no-arg constructor and JAXB doesn't work with java.time types.
+ *
+ * As soon as JAXB is modified to handle java.time types this Calendar is to be replaced
+ * with LocalDateTime.
+ *
+ * @author Vadim Korkin
+ *
+ */
 @XmlType(propOrder={"searchID","searchTime","searchObjectName","searchObjectGroup","tabTitle","selectedIndex",
         "searchObjectTags","customReplaceTable"})
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -33,7 +46,10 @@ public class SearchResultCurrentInfo {
 
     public SearchResultCurrentInfo(SearchInfo origInfo) {
         searchID = origInfo.getSearchID();
-        searchTime = origInfo.getSearchTime();
+        searchTime = Calendar.getInstance();
+        searchTime.set(origInfo.getSearchTime().getYear(), origInfo.getSearchTime().getMonthValue(),
+                origInfo.getSearchTime().getDayOfMonth(), origInfo.getSearchTime().getHour(),
+                origInfo.getSearchTime().getMinute(), origInfo.getSearchTime().getSecond());
         searchObjectName = origInfo.getSearchObjectName();
         searchObjectGroup = new SearchObjectGroupPersist(origInfo.getSearchObjectGroup());// origInfo.getSearchObjectGroup().getString();
         if (origInfo.getSearchObjectTags() != null) {
@@ -51,7 +67,7 @@ public class SearchResultCurrentInfo {
                     break;
                 case DATE:
                     //rpp = new DateReplaceParamPersist((IReplaceParam<Calendar>)currEntry.getValue());
-                    rpp = new ReplaceParamPersist<Calendar>((IReplaceParam<Calendar>)currEntry.getValue());
+                    rpp = new ReplaceParamPersist<String>((IReplaceParam<LocalDateTime>)currEntry.getValue());
                     break;
                 case INTEGER:
                     rpp = new ReplaceParamPersist<Integer>((IReplaceParam<Integer>)currEntry.getValue());

@@ -103,32 +103,6 @@ public class OOIHelper {
                             ooiLatch.countDown();
                             return null;
                         });
-                        /*Futures.addCallback(globObjFPM.getFuture(), new FutureCallback<Integer>() {
-
-                            @Override
-                            public void onSuccess(Integer arg0) {
-                                uiSynch.asyncExec(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        globObjProgressDialog.increaseProgress(1);
-                                    }
-                                });
-                                ooiLatch.countDown();
-                            }
-                            @Override
-                            public void onFailure(Throwable arg0) {
-                                log.error("Error removing a global object ", arg0);
-                                uiSynch.asyncExec(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        globObjProgressDialog.increaseProgress(1);
-                                    }
-                                });
-                                ooiLatch.countDown();
-                            }
-                        });*/
                     } else {
                         uiSynch.asyncExec(new Runnable() {
 
@@ -167,11 +141,9 @@ public class OOIHelper {
                 }
                 // now update the OOI part through the context tracker
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                //return null;
             }
         };
         return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
-        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
     }
 
     /**
@@ -246,18 +218,6 @@ public class OOIHelper {
                                 ooiLatch.countDown();
                                 return null;
                             });
-                            /*Futures.addCallback(globObjFPM.getFuture(), new FutureCallback<Integer>() {
-
-                                @Override
-                                public void onSuccess(Integer arg0) {
-                                    ooiLatch.countDown();
-                                }
-                                @Override
-                                public void onFailure(Throwable arg0) {
-                                    log.error("Error installing a global object ", arg0);
-                                    ooiLatch.countDown();
-                                }
-                            });*/
                         } else {
                             ooiLatch.countDown();
                             log.error("execute The current part state is " + currSR.getMainSearchState());
@@ -299,10 +259,8 @@ public class OOIHelper {
                     globalObjMap.put(addInfo.getTextPattern().pattern(), addInfo);
                 }
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                //return null;
             }
         };
-        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
         return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
     }
 
@@ -378,32 +336,6 @@ public class OOIHelper {
                             ooiLatch.countDown();
                             return null;
                         });
-                        /*Futures.addCallback(globObjFuture, new FutureCallback<Void>() {
-
-                            @Override
-                            public void onSuccess(Void arg0) {
-                                uiSynch.asyncExec(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        globObjProgressDialog.increaseProgress(1);
-                                    }
-                                });
-                                ooiLatch.countDown();
-                            }
-                            @Override
-                            public void onFailure(Throwable arg0) {
-                                log.error("Error removing a global object ", arg0);
-                                uiSynch.asyncExec(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        globObjProgressDialog.increaseProgress(1);
-                                    }
-                                });
-                                ooiLatch.countDown();
-                            }
-                        });*/
                     } else {
                         uiSynch.asyncExec(new Runnable() {
 
@@ -433,11 +365,9 @@ public class OOIHelper {
 
                 globalObjMap.remove(removeInfo.getTextPattern().pattern());
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                //return null;
             }
         };
         return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
-        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
     }
 
     /**
@@ -515,18 +445,6 @@ public class OOIHelper {
                                 ooiLatch.countDown();
                                 return null;
                             });
-                            /*Futures.addCallback(globObjFuture, new FutureCallback<Void>() {
-
-                                @Override
-                                public void onSuccess(Void arg0) {
-                                    ooiLatch.countDown();
-                                }
-                                @Override
-                                public void onFailure(Throwable arg0) {
-                                    log.error("Error removing a global object ", arg0);
-                                    ooiLatch.countDown();
-                                }
-                            });*/
                         } else {
                             ooiLatch.countDown();
                             log.error("execute The current part state is " + currSR.getMainSearchState());
@@ -555,11 +473,9 @@ public class OOIHelper {
                     globalObjMap.remove(removeInfo.getTextPattern().pattern());
                 }
                 globOOIContext.set(IEclipse4Constants.CONTEXT_GLOBAL_OOI_LIST_CHANGED, true);
-                //return null;
             }
         };
         return CompletableFuture.runAsync(removeAllRun, Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor());
-        //return Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().submit(removeAllRun);
     }
 
 }

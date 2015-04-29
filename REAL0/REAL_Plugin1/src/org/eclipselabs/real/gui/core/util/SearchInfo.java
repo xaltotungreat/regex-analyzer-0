@@ -1,8 +1,8 @@
 package org.eclipselabs.real.gui.core.util;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,24 +24,23 @@ public class SearchInfo implements Cloneable {
 
     private static final Logger log = LogManager.getLogger(SearchInfo.class);
     protected String searchID;
-    protected Calendar searchTime;
+    protected LocalDateTime searchTime;
     protected SearchObjectType searchObjType;
     protected String searchObjectName;
     protected ISearchObjectGroup<String> searchObjectGroup;
     protected Map<String,String> searchObjectTags;
-    //protected Map<String,String> dynamicReplaceParams;
     protected Map<ReplaceParamKey, IReplaceParam<?>> customReplaceTable;
     protected Integer foundObjects;
     protected Map<String,String> customProgressKeys;
     protected List<SearchInfo> children = new ArrayList<>();
 
-    private SimpleDateFormat toStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", IRealCoreConstants.MAIN_DATE_LOCALE);
+    private DateTimeFormatter toStr = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", IRealCoreConstants.MAIN_DATE_LOCALE);
 
     public SearchInfo() {
 
     }
 
-    public SearchInfo(Calendar aTime) {
+    public SearchInfo(LocalDateTime aTime) {
         searchTime = aTime;
 
     }
@@ -71,9 +70,6 @@ public class SearchInfo implements Cloneable {
     @Override
     public SearchInfo clone() throws CloneNotSupportedException {
         SearchInfo newInstance = (SearchInfo)super.clone();
-        Calendar newSearchTime = Calendar.getInstance();
-        newSearchTime.setTimeInMillis(getSearchTime().getTimeInMillis());
-        newInstance.setSearchTime(newSearchTime);
         newInstance.setSearchObjectTags((getSearchObjectTags() != null)?new HashMap<>(getSearchObjectTags()):null);
         newInstance.setFoundObjects(getFoundObjects());
         newInstance.setCustomProgressKeys((getCustomProgressKeys() != null)?new HashMap<>(getCustomProgressKeys()):null);
@@ -188,11 +184,11 @@ public class SearchInfo implements Cloneable {
         this.customProgressKeys = customProgressKeys;
     }
 
-    public Calendar getSearchTime() {
+    public LocalDateTime getSearchTime() {
         return searchTime;
     }
 
-    public void setSearchTime(Calendar searchTime) {
+    public void setSearchTime(LocalDateTime searchTime) {
         this.searchTime = searchTime;
     }
 
@@ -207,7 +203,7 @@ public class SearchInfo implements Cloneable {
     @Override
     public String toString() {
         return "SearchInfo [searchID=" + searchID + ", searchTime="
-                + toStr.format(searchTime.getTime()) + ", searchObjectName=" + searchObjectName
+                + toStr.format(searchTime) + ", searchObjectName=" + searchObjectName
                 + ", searchObjectGroup=" + searchObjectGroup + "]";
     }
 

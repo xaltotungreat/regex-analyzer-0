@@ -56,7 +56,6 @@ public class CompletableFutureWatcher<V> {
         private TimeUnitWrapper theExecutionTO;
         private TimeUnitWrapper theWaitTO;
         private CompletableFutureWatcher<R> parentWatcher;
-        //private ReentrantLock timedLock;
 
 
         public TimeoutLockThread(CompletableFutureWatcher<R> watcher, TimeUnitWrapper execTO, TimeUnitWrapper waitTO) {
@@ -98,19 +97,6 @@ public class CompletableFutureWatcher<V> {
                             parentWatcher.incrementAndGetFinished();
                             return null;
                         });
-                        /*Futures.addCallback(currFuture, new FutureCallback<R>() {
-
-                            @Override
-                            public void onSuccess(R arg0) {
-                                parentWatcher.incrementAndGetFinished();
-                            }
-
-                            @Override
-                            public void onFailure(Throwable arg0) {
-                                log.error("Listenable future failed", arg0);
-                                parentWatcher.incrementAndGetFinished();
-                            }
-                        });*/
                     }
                     double beginWaitTime = System.currentTimeMillis();
                     log.info("Time Submition " + (beginWaitTime - beginSubmitTime)/1000);

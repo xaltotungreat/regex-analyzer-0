@@ -616,61 +616,6 @@ public class GUISearchResult {
                                     });
                                     return null;
                                 });
-                                /*Futures.addCallback(globObjFuture, new FutureCallback<Integer>() {
-
-                                    @Override
-                                    public void onSuccess(Integer arg0) {
-                                        log.debug("setGlobalObjects installed " + globObj.getDisplayString() + " SearchInfo " + mainSearchInfo);
-                                        uiSynch.asyncExec(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    if (!installSilently) {
-                                                        globObjProgressDialog.increaseProgress(1);
-                                                    }
-                                                    if (totalGlobObj == progressCount.incrementAndGet()) {
-                                                        if (!installSilently) {
-                                                            globObjProgressDialog.setStatus("Complete");
-                                                            globObjProgressDialog.getShell().dispose();
-                                                        }
-                                                        styledText.redraw();
-                                                    }
-                                                } finally {
-                                                    if (installSilently) {
-                                                        globOOILatch.countDown();
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onFailure(Throwable arg0) {
-                                        log.error("Error setting a global object ", arg0);
-                                        uiSynch.asyncExec(new Runnable() {
-
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    if (!installSilently) {
-                                                        globObjProgressDialog.increaseProgress(1);
-                                                    }
-                                                    if (totalGlobObj == progressCount.incrementAndGet()) {
-                                                        if (!installSilently) {
-                                                            globObjProgressDialog.setStatus("Complete");
-                                                            globObjProgressDialog.getShell().dispose();
-                                                        }
-                                                        styledText.redraw();
-                                                    }
-                                                } finally {
-                                                    if (installSilently) {
-                                                        globOOILatch.countDown();
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    }
-                                });*/
                             }
                         }
                         if (installSilently) {
