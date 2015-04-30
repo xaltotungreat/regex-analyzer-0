@@ -70,8 +70,7 @@ public class SOParamsDialog extends Dialog {
     protected Double valueSpace = 0.35;
     protected Double hintSpace = 0.35;
 
-    //protected SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
-    protected DateTimeFormatter dtFmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+    protected DateTimeFormatter dtFmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
 
     /**
      * Create the dialog.

@@ -39,7 +39,7 @@ public class ReplaceParamPersist<T> {
          */
         switch(param.getType()) {
         case DATE:
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
             value = (T)fmt.format(((IReplaceParam<LocalDateTime>)param).getValue());
             break;
         default:

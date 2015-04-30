@@ -357,7 +357,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
                     }
                 }
             }
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
             for (O currSRO : noYearList) {
                 final long thisSROMillis = currSRO.getDate().getLong(ChronoField.MILLI_OF_SECOND);
                 Comparator<O> dateComp = new Comparator<O>() {
@@ -368,8 +368,8 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
                         LocalDateTime t1 = o1.getDate();
                         LocalDateTime t2 = o2.getDate();
                         if ((t1 != null) && (t2 != null)) {
-                            t1 = t1.withYear(1970);
-                            t2 = t2.withYear(1970);
+                            t1 = t1.withYear(ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR);
+                            t2 = t2.withYear(ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR);
                             Long diff1 = Math.abs(thisSROMillis - t1.getLong(ChronoField.MILLI_OF_SECOND));
                             Long diff2 = Math.abs(thisSROMillis - t2.getLong(ChronoField.MILLI_OF_SECOND));
                             result = diff1.compareTo(diff2);
@@ -403,7 +403,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
                     }
                 }
             }
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss.SSS", IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
             for (O currSRO : noYearList) {
                 final long thisSROMillis = currSRO.getDate().getLong(ChronoField.MILLI_OF_SECOND);
                 Comparator<O> dateComp = new Comparator<O>() {
@@ -414,8 +414,8 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
                         LocalDateTime t1 = o1.getDate();
                         LocalDateTime t2 = o2.getDate();
                         if ((t1 != null) && (t2 != null)) {
-                            t1 = t1.withYear(1970);
-                            t2 = t2.withYear(1970);
+                            t1 = t1.withYear(ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR);
+                            t2 = t2.withYear(ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR);
                             Long diff1 = Math.abs(thisSROMillis - t1.getLong(ChronoField.MILLI_OF_SECOND));
                             Long diff2 = Math.abs(thisSROMillis - t2.getLong(ChronoField.MILLI_OF_SECOND));
                             result = diff1.compareTo(diff2);

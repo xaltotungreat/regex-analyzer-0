@@ -34,7 +34,7 @@ public class SearchInfo implements Cloneable {
     protected Map<String,String> customProgressKeys;
     protected List<SearchInfo> children = new ArrayList<>();
 
-    private DateTimeFormatter toStr = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", IRealCoreConstants.MAIN_DATE_LOCALE);
+    private DateTimeFormatter toStr = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", IRealCoreConstants.DEFAULT_DATE_LOCALE);
 
     public SearchInfo() {
 

@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.eclipselabs.real.gui.e4swt.persist.ReplaceParamKeyPersist;
@@ -317,7 +316,7 @@ public class LoadWorkspaceDialog extends Dialog {
         StringBuilder sbPartText = new StringBuilder();
         sbPartText.append(partInfoWrapper.getObj().getSearchObjectName() + "\n");
         sbPartText.append(partInfoWrapper.getObj().getSearchObjectGroup() + "\n");
-        SimpleDateFormat fmt = new SimpleDateFormat(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+        SimpleDateFormat fmt = new SimpleDateFormat(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
         sbPartText.append(fmt.format(partInfoWrapper.getObj().getSearchTime().getTime()) + "\n");
         if ((partInfoWrapper.getObj().getCustomReplaceTable() != null) && (!partInfoWrapper.getObj().getCustomReplaceTable().isEmpty())) {
             for (Map.Entry<ReplaceParamKeyPersist, ReplaceParamPersist<?>> currParam : partInfoWrapper.getObj().getCustomReplaceTable().entrySet()) {

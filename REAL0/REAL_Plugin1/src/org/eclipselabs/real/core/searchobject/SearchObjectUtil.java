@@ -44,7 +44,7 @@ public class SearchObjectUtil {
                     dateFtmStr = dateFtmStr.replace(currEntry.getKey(), currEntry.getValue());
                 }
             }
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFtmStr, IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFtmStr, IRealCoreConstants.DEFAULT_DATE_LOCALE);
             try {
                 // do not parse completely because some important fields like the year may be
                 TemporalAccessor interimValue = dtf.parseUnresolved(sb.toString(), new ParsePosition(0));
