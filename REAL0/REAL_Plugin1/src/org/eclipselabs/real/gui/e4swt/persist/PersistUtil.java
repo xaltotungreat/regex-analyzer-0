@@ -75,7 +75,7 @@ public class PersistUtil {
                      * JAXB as of 2015-04-29 doesn't work with java.time classes
                      * Therefore the datetime is converted to String and stored as String.
                      */
-                    DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+                    DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
                     try {
                         LocalDateTime localDT = LocalDateTime.parse((String)currParam.getValue().getValue(), fmt);
                         IReplaceParam<LocalDateTime> rpCalendar = new ReplaceParamImpl<LocalDateTime>(ReplaceParamValueType.DATE, key, currParam.getValue().getReplaceNames(),

@@ -34,8 +34,6 @@ import org.eclipselabs.real.core.util.ITypedObject;
  */
 public interface IReplaceParam<T> extends IKeyedObject<ReplaceParamKey>, ITypedObject<ReplaceParamValueType>, Cloneable {
 
-    public static final String DEFAULT_FORMAT_STRING_LONG = "yyyy-MM-dd HH:mm:ss.SSS";
-
     public static class IRPTypePredicate implements Predicate<IReplaceParam<?>>{
         ReplaceParamValueType tp;
 

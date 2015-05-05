@@ -82,7 +82,7 @@ public class ReplaceParamXmlConstructorImpl implements IReplaceParamConstructor<
                     case DATE:
                         LocalDateTime cal = LocalDateTime.now().withNano(0);
                         // do not use milliseconds as they are not available in the UI time picker
-                        DateTimeFormatter ftm = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+                        DateTimeFormatter ftm = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
                         try {
                             cal = LocalDateTime.parse(rpValueStr, ftm);
                         } catch (DateTimeParseException e) {

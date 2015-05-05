@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
+import org.eclipselabs.real.core.searchobject.ISearchObjectConstants;
 import org.eclipselabs.real.core.searchobject.SearchObjectUtil;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
@@ -59,19 +60,19 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
                         sr.getCachedReplaceTable(), sr.getRegexFlags());
             }
             if ((fstDate != null) && (lstDate != null)) {
-                if ((fstDate.getYear() == 1970) || (lstDate.getYear() == 1970)) {
+                if ((fstDate.getYear() == ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) || (lstDate.getYear() == ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR)) {
                     /* to guard against a possible new year issue try to get the years
                      * from the bounds. it is highly unlikely that the month of
                      * the low bound and the month of the high bound differ by more than 1.
                      */
-                    if (fstDate.getYear() == 1970) {
+                    if (fstDate.getYear() == ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
                         if (fstDate.getMonth() == highBound.getMonth()) {
                             fstDate = fstDate.withYear(highBound.getYear());
                         } else {
                             fstDate = fstDate.withYear(lowBound.getYear());
                         }
                     }
-                    if (lstDate.getYear() == 1970) {
+                    if (lstDate.getYear() == ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
                         if (lstDate.getMonth() == lowBound.getMonth()) {
                             lstDate = lstDate.withYear(lowBound.getYear());
                         } else {

@@ -144,7 +144,7 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
         // to avoid a NPE
         String paramValStr = "" + paramValue;
         if ((ReplaceParamValueType.DATE.equals(type)) && (paramValue != null)) {
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IReplaceParam.DEFAULT_FORMAT_STRING_LONG, IRealCoreConstants.MAIN_DATE_LOCALE);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
             paramValStr = fmt.format((LocalDateTime)paramValue);
         }
         sb.append(paramValStr + "]");

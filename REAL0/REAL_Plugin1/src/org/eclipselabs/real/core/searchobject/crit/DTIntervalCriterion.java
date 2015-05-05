@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.searchobject.ISearchObjectConstants;
 import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
 import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
 import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
@@ -37,9 +38,9 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
         if (result && (lowBound != null) && (highBound != null)) {
             LocalDateTime useDate = sro.getDate();
             /*
-             * Trying to guess the correct year (if 1970) from the bounds
+             * Trying to guess the correct year (if no year then 1970) from the bounds
              */
-            if (useDate.getYear() == 1970) {
+            if (useDate.getYear() == ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR) {
                 if (useDate.getMonth() == lowBound.getMonth()) {
                     useDate = useDate.withYear(lowBound.getYear());
                 } else if (useDate.getMonth() == highBound.getMonth()) {
