@@ -16,15 +16,15 @@ import org.eclipselabs.real.core.util.FindTextResult;
 public class FindStrategyMnPtRegions extends FindStrategyImpl {
 
     private static final Logger log = LogManager.getLogger(FindStrategyMnPtRegions.class);
-    
+
     protected Matcher firstMatcher;
     protected List<Matcher> matchers;
 
     protected List<RegionInfo> regions;
     protected RegionInfo currentRegion;
     protected int currentRegionIndex;
-    
-    public FindStrategyMnPtRegions(List<Pattern> allPatterns, String text, IRealRegex regRegex, 
+
+    public FindStrategyMnPtRegions(List<Pattern> allPatterns, String text, IRealRegex regRegex,
             Map<String,String> replMap, Integer maxRegSize, Integer externalFlags) {
         super(FindStrategyType.MANY_PATTERNS_REGIONS, text);
         if ((allPatterns != null) && (!allPatterns.isEmpty())) {
@@ -46,7 +46,7 @@ public class FindStrategyMnPtRegions extends FindStrategyImpl {
 
                         @Override
                         public int compare(RegionInfo o1, RegionInfo o2) {
-                            return Integer.valueOf(o1.getRegionStart()).compareTo(Integer.valueOf(o2.getRegionStart()));
+                            return Integer.compare(o1.getRegionStart(), o2.getRegionStart());
                         }
                     });
                     log.debug("Regions number " + regions.size());
@@ -59,7 +59,7 @@ public class FindStrategyMnPtRegions extends FindStrategyImpl {
             }
         }
     }
-    
+
     protected void initRegions(IMatcherWrapper regionMt, Integer maxRegSize, int start, int end) {
         if ((end - start) > maxRegSize) {
             int middlePos = (end - start)/2 + start;
@@ -206,7 +206,7 @@ public class FindStrategyMnPtRegions extends FindStrategyImpl {
         }
         return matchVar;
     }
-    
+
     @Override
     public void region(int rgStart, int rgEnd) {
         super.region(rgStart, rgEnd);

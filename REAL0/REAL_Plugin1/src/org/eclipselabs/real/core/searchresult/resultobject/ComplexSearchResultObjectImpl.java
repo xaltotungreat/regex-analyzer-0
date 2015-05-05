@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,16 +47,19 @@ public abstract class ComplexSearchResultObjectImpl<W extends ISearchResult<X>, 
 
     @Override
     public Map<Q, String> getViewsText() {
-        Map<Q,String> resMap = new HashMap<Q,String>();
+        /*Map<Q,String> resMap = new HashMap<Q,String>();
         StringBuilder sb;
-        for (Q key : viewMap.keySet()) {
+        for (Map.Entry<Q, W> entry : viewMap.entrySet()) {
             sb = new StringBuilder();
             List<String> viewContent = viewMap.get(key).getTextList();
             for (String viewItem : viewContent) {
                 sb.append(viewItem);
             }
             resMap.put(key, sb.toString());
-        }
+        }*/
+        // the commented out code did the same thing
+        // left it here in case something goes wrong
+        Map<Q,String> resMap = viewMap.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().getTextConcat()));
         return resMap;
     }
 
@@ -84,8 +88,11 @@ public abstract class ComplexSearchResultObjectImpl<W extends ISearchResult<X>, 
     @Override
     public Map<Q,List<String>> getViewsTextList() {
         Map<Q,List<String>> resMap = new HashMap<Q,List<String>>();
-        for (Q key : viewMap.keySet()) {
+        /*for (Q key : viewMap.keySet()) {
             resMap.put(key, viewMap.get(key).getTextList());
+        }*/
+        for (Map.Entry<Q, W> entry : viewMap.entrySet()) {
+
         }
         return resMap;
     }

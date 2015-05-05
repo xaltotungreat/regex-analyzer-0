@@ -25,9 +25,12 @@ public class SROSearchScript extends ComplexSearchResultObjectImpl<ISRComplexReg
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("LogRecord\n\t\t").append(text).append("\n");
-        for (String viewKey : viewMap.keySet()) {
+        /*for (String viewKey : viewMap.keySet()) {
             sb.append("\tView name=").append(viewKey).append(" value=").append(viewMap.get(viewKey)).append("\n");
-        }
+        }*/
+        // the commented out code did the same left it just in case
+        viewMap.entrySet().stream().forEach(e ->
+            sb.append("\tView name=").append(e.getKey()).append(" value=").append(e.getValue()).append("\n"));
         return sb.toString();
     }
 

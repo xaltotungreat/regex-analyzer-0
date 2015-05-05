@@ -15,18 +15,18 @@ public enum SortingApplicability {
      */
     MERGE_RESULTS(1),
     /**
-     * Sorting will be performed when both the method sort is called and 
+     * Sorting will be performed when both the method sort is called and
      * when this Search Result is merged with other results. If the sort
      * method is called all existing SROs are sorted.
      * If this Search Result is merged with other results the lists from other
-     * SRs are inserted into the SRO list of this SR. The insertion happens 
-     * according to the rules of MERGE_RESULTS_DATE_TIME. Then the whole 
+     * SRs are inserted into the SRO list of this SR. The insertion happens
+     * according to the rules of MERGE_RESULTS_DATE_TIME. Then the whole
      * list is sorted.
      */
     ALL(2);
-    
+
     private Integer scope;
-    
+
     private SortingApplicability(Integer aScope) {
         scope = aScope;
     }
@@ -35,7 +35,4 @@ public enum SortingApplicability {
         return scope;
     }
 
-    public void setScope(Integer scope) {
-        this.scope = scope;
-    }
 }

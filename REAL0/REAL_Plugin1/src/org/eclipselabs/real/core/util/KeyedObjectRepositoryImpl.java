@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +28,7 @@ import com.google.common.eventbus.AsyncEventBus;
  * It is important to remember though that if the order of the events is important (as it is usually
  * with the size) the EventBus should be either a sync EventBus or with a single-threaded executor.
  *
- * @author Vadim Great
+ * @author Vadim Korkin
  *
  * @param <K> the type of the key in the repository
  * @param <V> the type of the values in the repository
@@ -188,16 +189,16 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
 
     @Override
     public List<V> getValues(Predicate<K> keyFilter, TimeUnitWrapper timeout) {
+        // return an empty list in the case of error
         List<V> result = new ArrayList<V>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
                 lockObtained = true;
-                for (K currKey : objMap.keySet()) {
-                    if (keyFilter.test(currKey)) {
-                        result.add(objMap.get(currKey));
-                    }
-                }
+                result = objMap.entrySet().stream()
+                    .filter(e -> keyFilter.test(e.getKey()))
+                    .map(e -> e.getValue())
+                    .collect(Collectors.toList());
             } else {
                 log.info("getValues Timeout expired trying to get ALL Keyed Objects");
             }
@@ -218,19 +219,18 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
 
     @Override
     public List<V> getValues(Predicate<K> keyFilter, Predicate<V> valueFilter, TimeUnitWrapper timeout) {
+        // return an empty list in the case of error
         List<V> result = new ArrayList<V>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
                 lockObtained = true;
-                for (K currKey : objMap.keySet()) {
-                    if (keyFilter.test(currKey)) {
-                        V val = objMap.get(currKey);
-                        if (valueFilter.test(val)) {
-                            result.add(objMap.get(currKey));
-                        }
-                    }
-                }
+                // the commented out code did the same left it just in case
+                result = objMap.entrySet().stream()
+                    .filter(e -> keyFilter.test(e.getKey()))
+                    .filter(e -> valueFilter.test(e.getValue()))
+                    .map(e -> e.getValue())
+                    .collect(Collectors.toList());
             }
         } catch (InterruptedException e) {
             log.error("getValues Error", e);
@@ -402,17 +402,18 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public Set<K> getKeys(Predicate<V> valueFilter, TimeUnitWrapper timeout) {
+    public Set<K> getKeys(final Predicate<V> valueFilter, TimeUnitWrapper timeout) {
+        // return an empty set in the case of error
         Set<K> result = new HashSet<K>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
                 lockObtained = true;
-                for (K key : objMap.keySet()) {
-                    if (valueFilter.test(objMap.get(key))) {
-                        result.add(key);
-                    }
-                }
+                // the commented out code did the same left it just in case
+                result = objMap.entrySet().stream()
+                    .filter(e -> valueFilter.test(e.getValue()))
+                    .map(e -> e.getKey())
+                    .collect(Collectors.toCollection(() -> new HashSet<K>()));
             } else {
                 log.info("getKeys Timeout expired trying to get ALL Keyed Objects");
             }
@@ -448,7 +449,6 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     public void setRepositoryEventBus(AsyncEventBus repositoryEventBus) {
         this.repositoryEventBus = repositoryEventBus;
     }
-
 
     protected void setMap(Map<K, V> newMapRef) {
         objMap = newMapRef;

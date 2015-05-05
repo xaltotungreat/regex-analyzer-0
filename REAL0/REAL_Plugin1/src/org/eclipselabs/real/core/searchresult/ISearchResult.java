@@ -14,6 +14,27 @@ import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 
+/**
+ * This is the highest level abstraction of a search result.
+ * The search result is a collection of search result objects (SROs).
+ * The SROs can be
+ * - sorted (with sort requests {@link IInternalSortRequest})
+ * - merged with other search results from the same search object (SRO arrays merge)
+ *
+ * The search result also contains many (some cloned) properties of the originating
+ * search object (some acceptance criteria, the date info).
+ *
+ * Also a very important property for the search result is the replace table
+ * with which is was created. The search object contains only the templates
+ * of regular expressions. These are turned into real regular expressions by
+ * replacing parameters with actual values. But the regexes themselves are not changed,
+ * the search result simply stores the values of the parameters and therefore
+ * can use them for further work.
+ *
+ * @author Vadim Korkin
+ *
+ * @param <O> the type of the search result object
+ */
 public interface ISearchResult<O extends ISearchResultObject> extends Cloneable {
     public List<O> getSRObjects();
     public void setSRObjects(List<O> srObjects);

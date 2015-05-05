@@ -23,9 +23,7 @@ import org.eclipselabs.real.core.util.ITypedObject;
  * @param <O> The type of one object of the result. Must be a descendant of ISearchResultObject
  */
 public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResultObject>
-        extends
-        //IKeyedObjectRepository<ReplaceParamKey, IReplaceParam<?>>,
-        ITypedObject<SearchObjectType>, Cloneable {
+        extends ITypedObject<SearchObjectType>, Cloneable {
 
     /**
      * At the highest level of abstraction the search object can only have a name and a description.
@@ -79,12 +77,35 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
      */
     public R performSearch(PerformSearchRequest request);
 
+    /**
+     * Adds a replace parameter {@link IReplaceParam} to this search object.
+     * When a search is performed with this search object all params in regular expressions
+     * are replaced with actual values.
+     *
+     * @param newParam the parameter to add
+     */
     public void addParam(IReplaceParam<?> newParam);
 
+    /**
+     * Returns the replace parameter if it exists. Here I used the new Optional
+     * from Java 8 because the parameter may not exist for this key
+     * @param key the key of the replace param
+     * @return the replace param for this key
+     */
     public Optional<IReplaceParam<?>> getParam(ReplaceParamKey key);
 
+    /**
+     * Returns true if the param exists false otherwise
+     * @param key the key of the replace param
+     * @return true if the param exists false otherwise
+     */
     public boolean paramExists(ReplaceParamKey key);
 
+    /**
+     * Removes the replace param from this search object
+     * @param key the key of the replace param
+     * @return true if at least one parameter was removed false otherwise
+     */
     public boolean removeParam(ReplaceParamKey key);
 
     /**
@@ -153,6 +174,23 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
      */
     public List<IAcceptanceCriterion> getAcceptanceList();
 
+    /**
+     * Sometimes the requirements for selecting objects may be quite complex
+     * In these cases even if it may be possible to create a regular expression
+     * that will select objects in accordance with the requirements this expression
+     * will be very complex and will very likely hang on the Java regex engine.
+     * It makes sense to separate the complex requirements into several regular expressions.
+     * The first regular expression selects a lot of objects then the filters from
+     * the acceptance list select the right ones.
+     *
+     * The interface IAcceptanceCriterion resembles Predicate<T> but in the test method
+     * two parameters are passed: the search result object that is going to be tested
+     * and the search result. It is assumed that for many search objects the search result
+     * plays the context role during the search.
+     *
+     * @param stagePred the Predicate to filter the criteria
+     * @return the list of acceptance criteria that satisfy the predicate
+     */
     public List<IAcceptanceCriterion> getAcceptanceList(Predicate<IAcceptanceCriterion> stagePred);
 
     /**

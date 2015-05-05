@@ -16,15 +16,15 @@ public class FindStrategyPtRegions extends FindStrategyImpl {
 
     private static final Logger log = LogManager.getLogger(FindStrategyPtRegions.class);
     protected Matcher oneMatcher;
-    
+
     protected List<RegionInfo> regions;
     protected RegionInfo currentRegion;
     protected int currentRegionIndex;
-    
+
     public static class RegionInfo {
         protected int regionStart;
         protected int regionEnd;
-        
+
         public RegionInfo(int start, int end) {
             regionStart = start;
             regionEnd = end;
@@ -51,8 +51,8 @@ public class FindStrategyPtRegions extends FindStrategyImpl {
             return "RegionInfo [regionStart=" + regionStart + ", regionEnd=" + regionEnd + "]";
         }
     }
-    
-    public FindStrategyPtRegions(Pattern mainPt, String text, IRealRegex regRegex, 
+
+    public FindStrategyPtRegions(Pattern mainPt, String text, IRealRegex regRegex,
             Map<String,String> replMap, Integer maxRegSize, Integer externalFlags) {
         super(FindStrategyType.ONE_PATTERN_REGIONS, text);
         if (mainPt != null) {
@@ -69,7 +69,7 @@ public class FindStrategyPtRegions extends FindStrategyImpl {
 
                         @Override
                         public int compare(RegionInfo o1, RegionInfo o2) {
-                            return Integer.valueOf(o1.getRegionStart()).compareTo(Integer.valueOf(o2.getRegionStart()));
+                            return Integer.compare(o1.getRegionStart(), o2.getRegionStart());
                         }
                     });
                     log.debug("Regions number " + regions.size());
@@ -82,7 +82,7 @@ public class FindStrategyPtRegions extends FindStrategyImpl {
             }
         }
     }
-    
+
     protected void initRegions(IMatcherWrapper regionMt, Integer maxRegSize, int start, int end) {
         if ((end - start) > maxRegSize) {
             int middlePos = (end - start)/2 + start;
@@ -125,7 +125,7 @@ public class FindStrategyPtRegions extends FindStrategyImpl {
                 if (mainResult) {
                     currResult = new FindTextResult(oneMatcher.group(), oneMatcher.start(), oneMatcher.end());
                 } else {
-                    // cleaning memory 
+                    // cleaning memory
                     // the java regex engine leaves a lot of garbage
                     // after searching in large files. It will be collected some time
                     // in the future but collecting it now significantly reduces memory consumption
@@ -149,7 +149,7 @@ public class FindStrategyPtRegions extends FindStrategyImpl {
     public boolean matches() {
         return false;
     }
-    
+
     @Override
     public void region(int rgStart, int rgEnd) {
         super.region(rgStart, rgEnd);

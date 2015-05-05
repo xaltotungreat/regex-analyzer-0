@@ -34,7 +34,7 @@ public enum LogFileTypes {
     private static final Logger log = LogManager.getLogger(LogFileTypes.class);
 
     LogFileTypeRepository logFileTypeRep = new LogFileTypeRepository();
-    String xmlFileName;
+    //private String xmlFileName;
 
     public void initXml(InputStream aIS, InputStream activationIS) {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -58,7 +58,7 @@ public enum LogFileTypes {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
         final Document doc;
-        xmlFileName = aXmlFileName;
+        //xmlFileName = aXmlFileName;
         try {
             db = dbf.newDocumentBuilder();
             doc = db.parse(aXmlFileName);
