@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -31,8 +32,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-
 public class GUIXmlConfigFileReader extends GUIConfigReaderImpl<InputStream> {
 
     private static final Logger log = LogManager.getLogger(GUIXmlConfigFileReader.class);
@@ -51,7 +50,7 @@ public class GUIXmlConfigFileReader extends GUIConfigReaderImpl<InputStream> {
 
     protected volatile Map<GUIConfigKey, Object> guiObjMap;
 
-    public GUIXmlConfigFileReader(ListeningExecutorService executor) {
+    public GUIXmlConfigFileReader(ExecutorService executor) {
         super(executor);
     }
 

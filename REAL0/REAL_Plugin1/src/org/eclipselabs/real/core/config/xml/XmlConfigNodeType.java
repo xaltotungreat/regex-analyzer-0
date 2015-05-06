@@ -8,14 +8,9 @@ public enum XmlConfigNodeType {
     GROUP("group"),
     REPLACE_PARAMS("replaceParams"),
     COMPLEX_REGEXES("complexRegexes"),
-    EVENT_CHAINS("eventChains"),
-    INTERVALS("intervals"),
     SEARCH_SCRIPTS("searchScripts"),
-    
+
     COMPLEX_REGEX("complexRegex"),
-    DISTINCT_COMPLEX_REGEX("distinctComplexRegex"),
-    EVENT_CHAIN("eventChain"),
-    INTERVAL("interval"),
     SEARCH_SCRIPT("searchScript"),
     REGEXES("regexes"),
     KEYED_REGEXES("keyed_regexes"),
@@ -82,7 +77,7 @@ public enum XmlConfigNodeType {
     REF_DISTINCT_COMPLEX_REGEX("refDistinctComplexRegex"),
     REF_INTERVAL("refInterval"),
     REF_SEARCH_SCRIPT("refSearchScript"),
-    
+
     // gui config
     GUI_CONFIG("gui_config"),
     SEARCH_OBJECT_TREE("search_object_tree"),
@@ -106,7 +101,7 @@ public enum XmlConfigNodeType {
     ICON_PATH("iconPath"),
     GUI_PROPERTIES("gui_properties"),
     GUI_PROPERTY("gui_property"),
-    
+
     // log types config
     LOG_TYPES("log_types"),
     LOG_TYPE("log_type"),

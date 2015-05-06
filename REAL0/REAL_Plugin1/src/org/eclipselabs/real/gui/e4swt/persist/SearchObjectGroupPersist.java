@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
+import org.eclipselabs.real.core.util.IRealCoreConstants;
 
 @XmlType(propOrder={"pathElements"})
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -32,7 +33,7 @@ public class SearchObjectGroupPersist {
     }
 
     public String getString() {
-        return getString(ISearchObjectGroup.DEFAULT_DELIMITER);
+        return getString(IRealCoreConstants.DEFAULT_SO_GROUP_DELIMITER);
     }
 
     public String getString(String delim) {

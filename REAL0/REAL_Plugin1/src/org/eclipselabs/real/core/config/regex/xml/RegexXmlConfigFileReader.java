@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
 
@@ -43,8 +44,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-
 public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream> {
     private static final Logger log = LogManager.getLogger(RegexXmlConfigFileReader.class);
 
@@ -69,7 +68,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
 
     protected volatile List<IRefKeyedSOContainer> refContainerList;
 
-    public RegexXmlConfigFileReader(ListeningExecutorService executor) {
+    public RegexXmlConfigFileReader(ExecutorService executor) {
         super(executor);
     }
 
@@ -88,7 +87,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
             currentSOGroup.removeLastGroupElement();
             log.info("SOGroup reset = " + currentSOGroup);
         } else if ((XmlConfigNodeType.COMPLEX_REGEXES.equalsNode(elem)) && (currentSOGroup.getElementCount() > 0)) {
-            List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.COMPLEX_REGEX, XmlConfigNodeType.DISTINCT_COMPLEX_REGEX);
+            List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.COMPLEX_REGEX);
             for (final Node currNode : crNodes) {
                 CompletableFuture<IKeyedSearchObject<?, ?>> future = submitConstructionTask(
                         constructionFactory.getSOConstructor(currNode), new XmlDomConstructionSource(currNode));
@@ -139,7 +138,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                                 ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result, Throwable t) {
                             if (result != null) {
                                 result.setGroup(configObjectGroup);
-                                log.info("Future addRef(Distinct)ComplexRegex name=" + result.getName() + " group=" + configObjectGroup.getString());
+                                log.info("Future addRefComplexRegex name=" + result.getName() + " group=" + configObjectGroup.getString());
                                 refList.add(result);
                                 watcher.incrementAndGetFinished();
                                 log.info("Tasks finished " + watcher.getFinished());

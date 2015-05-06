@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<regex_config>
+	<group name="GlobalTest">
+		<complexRegexes>
+			<complexRegex name="!I:LogInterval AML All">
+				<description>An interval in the available AML logs</description>
+				<tags>
+					<tag name="Role">User Object</tag>
+					<tag name="Interval">TRUE</tag>
+				</tags>
+				<required_log_types>
+					<log_type>AML</log_type>
+				</required_log_types>
+				<regexes>
+					<regex name="MainRegex">
+						<regexLine>((=+)|(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*))\r?\n((?!(=)).*\r?\n)*</regexLine>
+					</regex>
+				</regexes>
+				<sortRequests>
+					<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+					<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</sortRequestRegex>
+				</sortRequests>
+				<date_info>
+					<date_format>AML_TIME_FORMAT</date_format>
+					<regexes>
+						<regex name="Default">
+							<regexParam name="instance" type="Integer">0</regexParam>
+							<regexLine>AML_TIME_REGEX</regexLine>
+						</regex>
+					</regexes>
+				</date_info>
+			</complexRegex>
+			<refComplexRegex name="!I:LogInterval AML">
+				<tags>
+					<tag name="Role">User Object</tag>
+					<tag name="Interval">TRUE</tag>
+				</tags>
+				<refName>!I:LogInterval AML All</refName>
+				<refGroup>GlobalTest</refGroup>
+				<refTags>
+					<tag name="Role">User Object</tag>
+				</refTags>
+				<refReplaceParams>
+					<refReplaceParam name="Datetime bounds" type="REPLACE_ADD">
+						<replaceParam name="LOW_BOUND" type="DATE">
+							<replaceName>LOW_BOUND</replaceName>
+							<description>Low bound</description>
+							<replaceValue>Today Start</replaceValue>
+						</replaceParam>
+						<replaceParam name="HIGH_BOUND" type="DATE">
+							<replaceName>HIGH_BOUND</replaceName>
+							<description>High bound</description>
+							<replaceValue>Today End</replaceValue>
+						</replaceParam>
+					</refReplaceParam>
+				</refReplaceParams>
+				<!-- <refAcceptances>
+					<refAcceptance name="Interval Acceptance" type="REPLACE_ADD">
+						<dtIntervalAcceptance name="MainInterval" type="INTERVAL">
+							<lowBound>LOW_BOUND</lowBound>
+							<highBound>HIGH_BOUND</highBound>
+							<dtIntervalGuess>
+								<regex name="FirstRecord">
+									<regexLine>\A\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*\r?\n((?!(=)).*\r?\n)*</regexLine>
+								</regex>
+								<regex name="LastRecord">
+									<regexLine>=+\r?\n((?!(=)).*\r?\n)*=+\Z</regexLine>
+								</regex>
+							</dtIntervalGuess>
+						</dtIntervalAcceptance>
+					</refAcceptance>
+				</refAcceptances> -->
+			</refComplexRegex>
+		</complexRegexes>
+	</group>
+</regex_config>

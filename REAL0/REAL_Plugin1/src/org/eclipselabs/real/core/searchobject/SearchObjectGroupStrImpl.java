@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.eclipselabs.real.core.util.IRealCoreConstants;
+
 public class SearchObjectGroupStrImpl implements ISearchObjectGroup<String> {
 
-    private String defaultDelimiter = DEFAULT_DELIMITER;
+    private String defaultDelimiter = IRealCoreConstants.DEFAULT_SO_GROUP_DELIMITER;
     protected List<String> pathElements = new ArrayList<>();
 
     public SearchObjectGroupStrImpl() {

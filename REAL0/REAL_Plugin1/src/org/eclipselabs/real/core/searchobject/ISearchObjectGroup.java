@@ -17,8 +17,6 @@ import java.util.List;
  */
 public interface ISearchObjectGroup<T> extends Cloneable {
 
-    public static final String DEFAULT_DELIMITER = ".";
-    
     /**
      * In order to get a String representation of path a delimiter
      * has to be used. This method returns the default delimiter.

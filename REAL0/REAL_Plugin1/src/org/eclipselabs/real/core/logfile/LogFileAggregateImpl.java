@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -35,8 +36,6 @@ import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.Subscribe;
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
 
 /**
  * This class represents an abstraction - a group of log files from one application component.
@@ -58,7 +57,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
 
     protected LogFileTypeKey lfTypeKey;
     protected Integer aggregateSizeLimit = FILE_SIZE_LIMIT;
-    protected ListeningExecutorService logFileAggregateExecutor;
+    protected ExecutorService logFileAggregateExecutor;
 
     protected ReentrantLock operationPendingLock = new ReentrantLock();
     protected ReentrantLock readFileLock = new ReentrantLock();
@@ -75,7 +74,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
      * the aggregate must lock the read lock to block any modification to the controller
      * until the search is completed
      */
-    public LogFileAggregateImpl(LogFileTypeKey aType, ListeningExecutorService executor, Lock contrRLock) {
+    public LogFileAggregateImpl(LogFileTypeKey aType, ExecutorService executor, Lock contrRLock) {
         repositoryEventBus = new AsyncEventBus(LogFileControllerImpl.INSTANCE.getAggrSizeChangeExecutor());
         repositoryEventBus.register(this);
         lfTypeKey = aType;
@@ -88,7 +87,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
         }
         // loaded from the performance config, 2 threads by default
         int threadsNumber = PerformanceUtils.getIntProperty(PERF_CONST_SEARCH_THREADS, 2);
-        logFileAggregateExecutor = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(threadsNumber, newFactory));
+        logFileAggregateExecutor = Executors.newFixedThreadPool(threadsNumber, newFactory);
         contrReadLock = contrRLock;
         aggregateSizeLimit = PerformanceUtils.getIntProperty(PERF_CONST_AGGREGATE_SIZE_LIMIT, aggregateSizeLimit);
     }

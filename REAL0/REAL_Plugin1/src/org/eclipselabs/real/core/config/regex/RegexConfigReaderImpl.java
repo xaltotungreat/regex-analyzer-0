@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 import org.eclipselabs.real.core.config.ConstructionTask;
 import org.eclipselabs.real.core.config.IConfigObjectConstructor;
@@ -20,8 +21,6 @@ import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.NamedLock;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-
 /**
  * This abstract implementation handles the writing part of the configuration.
  * It means that this reader cannot read information - the read method is not implemented.
@@ -34,11 +33,11 @@ import com.google.common.util.concurrent.ListeningExecutorService;
  * @param <U> the type of the source (InputStream for a file, JDBC conn for a DB etc.)
  */
 public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
-    //protected IRegexConfigCompletionCallback completionCallback = new AddSOCallback();
-    protected List<NamedLock> modificationLocks = new ArrayList<NamedLock>();
-    protected ListeningExecutorService configReaderExecutor;
 
-    public RegexConfigReaderImpl(ListeningExecutorService executor) {
+    protected List<NamedLock> modificationLocks = new ArrayList<NamedLock>();
+    protected ExecutorService configReaderExecutor;
+
+    public RegexConfigReaderImpl(ExecutorService executor) {
         configReaderExecutor = executor;
         modificationLocks.add(
                 new NamedLock(SearchObjectController.INSTANCE.getSearchObjectRepository().getWriteLock(), "SearchObj repo write lock"));

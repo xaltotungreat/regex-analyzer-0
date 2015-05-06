@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 import org.eclipselabs.real.core.config.ConstructionTask;
 import org.eclipselabs.real.core.config.IConfigObjectConstructor;
@@ -13,11 +14,9 @@ import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.gui.core.GUIConfigController;
 import org.eclipselabs.real.gui.core.GUIConfigKey;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-
 public abstract class GUIConfigReaderImpl<U> implements IConfigReader<U> {
     protected List<NamedLock> modificationLocks = new ArrayList<NamedLock>();
-    protected ListeningExecutorService configReaderExecutor;
+    protected ExecutorService configReaderExecutor;
 
     public class GUICompletionCallback implements IGUIConfigCompletionCallback {
 
@@ -28,7 +27,7 @@ public abstract class GUIConfigReaderImpl<U> implements IConfigReader<U> {
 
     }
 
-    public GUIConfigReaderImpl(ListeningExecutorService executor) {
+    public GUIConfigReaderImpl(ExecutorService executor) {
         configReaderExecutor = executor;
         modificationLocks.add(
                 new NamedLock(GUIConfigController.INSTANCE.getGUIObjectRepository().getWriteLock(), "GUIObj Repo write lock"));

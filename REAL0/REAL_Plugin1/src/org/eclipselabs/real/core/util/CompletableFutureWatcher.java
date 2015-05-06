@@ -3,13 +3,12 @@ package org.eclipselabs.real.core.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.google.common.util.concurrent.ListeningExecutorService;
 
 public class CompletableFutureWatcher<V> {
     private static final Logger log = LogManager.getLogger(CompletableFutureWatcher.class);
@@ -22,7 +21,7 @@ public class CompletableFutureWatcher<V> {
     protected List<CompletableFuture<V>> theFuturesList;
     private CompletableFuture<List<CompletableFuture<V>>> theListFuture;
     private ICompletableFutureWatcherCallback<V> theCallback;
-    private ListeningExecutorService watcherExecutor;
+    private ExecutorService watcherExecutor;
 
     public static final String COMPLETABLE_FUTURE_WATCHER_THREAD_NAME = "LFWatcher";
 
@@ -157,9 +156,9 @@ public class CompletableFutureWatcher<V> {
     }
 
     public CompletableFutureWatcher(String aName, List<Lock> locksList, ICompletableFutureWatcherCallback<V> aCallback,
-            CompletableFuture<List<CompletableFuture<V>>> listFuture, ListeningExecutorService aWatcherExecutor) {
+            CompletableFuture<List<CompletableFuture<V>>> listFuture, ExecutorService aWatcherExecutor) {
         name = aName;
-        setWatcherExecutor(aWatcherExecutor);
+        watcherExecutor = aWatcherExecutor;
         setCallback(aCallback);
         setListFuture(listFuture);
         if (locksList != null) {
@@ -213,14 +212,6 @@ public class CompletableFutureWatcher<V> {
 
     public void setCallback(ICompletableFutureWatcherCallback<V> theCallback) {
         this.theCallback = theCallback;
-    }
-
-    public ListeningExecutorService getWatcherExecutor() {
-        return watcherExecutor;
-    }
-
-    public void setWatcherExecutor(ListeningExecutorService watcherExecutor) {
-        this.watcherExecutor = watcherExecutor;
     }
 
     public CompletableFuture<List<CompletableFuture<V>>> getListFuture() {

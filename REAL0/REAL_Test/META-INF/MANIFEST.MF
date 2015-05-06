@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: REAL_Test
+Bundle-SymbolicName: REAL_Test
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: REAL_Plugin1;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.junit;bundle-version="4.0.0"

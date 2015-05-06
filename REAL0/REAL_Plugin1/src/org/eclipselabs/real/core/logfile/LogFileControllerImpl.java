@@ -30,9 +30,6 @@ import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
-
 public enum LogFileControllerImpl {
     INSTANCE;
 
@@ -46,8 +43,8 @@ public enum LogFileControllerImpl {
     protected volatile ReentrantReadWriteLock logControllerLock = new ReentrantReadWriteLock();
     protected ExecutorService aggrSizeChangeExecutor = Executors.newSingleThreadExecutor(new NamedThreadFactory("AggregateSizeChange"));
 
-    protected ListeningExecutorService logFileExecutor = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10,
-            new NamedThreadFactory("LogFileTask")));
+    protected ExecutorService logFileExecutor = Executors.newFixedThreadPool(10,
+            new NamedThreadFactory("LogFileTask"));
 
     protected Long controllerOperationTimeout = (long)60;
     protected TimeUnit controllerOperationTimeUnit = TimeUnit.SECONDS;

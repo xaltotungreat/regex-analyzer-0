@@ -2,6 +2,7 @@ package org.eclipselabs.real.core.logfile.task;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,8 +10,6 @@ import org.eclipselabs.real.core.util.ITaskWatcherCallback;
 import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.TaskWatcher;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
-
-import com.google.common.util.concurrent.ListeningExecutorService;
 
 public class LogFileTaskExecutor<V,R> {
 
@@ -23,9 +22,9 @@ public class LogFileTaskExecutor<V,R> {
     protected List<NamedLock> theLocks;
     protected TimeUnitWrapper theWaitTO;
     protected TimeUnitWrapper theExecutionTO;
-    ListeningExecutorService executorService;
+    private ExecutorService executorService;
 
-    public  LogFileTaskExecutor(String opName, ListeningExecutorService execService, List<? extends LogFileTask<V,R>> tasksList,
+    public  LogFileTaskExecutor(String opName, ExecutorService execService, List<? extends LogFileTask<V,R>> tasksList,
             CompletableFuture<R> aMainFuture, R emptyResult,
             List<NamedLock> locksList,
             TimeUnitWrapper waitTO, TimeUnitWrapper execTO) {

@@ -36,7 +36,7 @@ public class SearchScriptXmlConstructorImpl implements ISearchScriptConstructor<
         if (XmlConfigNodeType.SEARCH_SCRIPT.equalsNode(cSource.getSource())) {
             ssResult = SearchObjectFactory.getInstance().getSOSearchScript(cSource.getSource().getAttributes().getNamedItem(IConfigXmlConstants.ATTRIBUTE_NAME_NAME).getNodeValue());
             ConfigXmlUtil.constructKeyedSO(ssResult, (Element)cSource.getSource());
-            
+
             // main script text
             List<Node> textNodesList = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.SCRIPT_TEXT);
             if ((textNodesList != null) && (!textNodesList.isEmpty())) {
@@ -46,9 +46,9 @@ public class SearchScriptXmlConstructorImpl implements ISearchScriptConstructor<
                     }
                 }
             }
-            
+
             // collect complex regexes
-            List<Node> crNodeList = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.COMPLEX_REGEX, XmlConfigNodeType.DISTINCT_COMPLEX_REGEX);
+            List<Node> crNodeList = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.COMPLEX_REGEX);
             for (Node crNode : crNodeList) {
                 ISOConstructor<Node, IKeyedSearchObject<?,?>> currConstr = constructFactory.getSOConstructor(crNode);
                 if (currConstr != null) {
@@ -57,27 +57,27 @@ public class SearchScriptXmlConstructorImpl implements ISearchScriptConstructor<
                         constructedSO.setParent(ssResult);
                         ssResult.getMainRegexList().add((IKeyedComplexSearchObject<
                                 ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
+                                        ISRComplexRegexView, ISROComplexRegexView, String>,
+                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
                                     ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)constructedSO);
                     }
                 }
             }
-            
+
              // collect refs
             List<Node> refsNodes = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.REF_COMPLEX_REGEX, XmlConfigNodeType.REF_DISTINCT_COMPLEX_REGEX);
             for (Node crNode : refsNodes) {
                 IRefConstructor<Node, ? extends RefKeyedSO<
                         ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> currConstr = constructFactory.getRefConstructor(crNode);
                 if (currConstr != null) {
-                    RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> constructedSO 
+                    RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> constructedSO
                                 = currConstr.constructCO(new XmlDomConstructionSource(crNode));
                     if (constructedSO != null) {
                         ssResult.addRef(constructedSO);
                     }
                 }
             }
-            
+
             // collect the views before setting the view order
             ConfigXmlUtil.collectViews(ssResult, cSource.getSource());
             // collect view names
@@ -92,7 +92,7 @@ public class SearchScriptXmlConstructorImpl implements ISearchScriptConstructor<
                 }
             }
             ssResult.setViewOrder(viewNamesOrder);
-            
+
             // views for this search script
             /*List<Node> viewsNodeList = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.VIEWS);
             for (Node node1 : viewsNodeList) {
