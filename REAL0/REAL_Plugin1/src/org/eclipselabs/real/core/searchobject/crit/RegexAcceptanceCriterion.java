@@ -21,11 +21,11 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
     private static final Logger log = LogManager.getLogger(RegexAcceptanceCriterion.class);
     protected List<IRealRegex> acceptanceRegexList = Collections.synchronizedList(new ArrayList<IRealRegex>());
     protected Map<IRealRegex, Set<String>> distinctResultsMap = new ConcurrentHashMap<IRealRegex, Set<String>>();
-    
+
     public RegexAcceptanceCriterion(AcceptanceCriterionType aType) {
         this(aType, null);
     }
-    
+
     public RegexAcceptanceCriterion(AcceptanceCriterionType aType, String newName) {
         super(aType, newName, AcceptanceCriterionStage.SEARCH);
         if (AcceptanceCriterionType.DISTINCT.equals(aType)) {
@@ -33,12 +33,12 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
             accumulating = true;
         }
     }
-    
+
     @Override
     public void init(ISearchResult<? extends ISearchResultObject> sr) {
         // do nothing
     }
-    
+
     @Override
     public boolean test(ISearchResultObject sro, ISearchResult<? extends ISearchResultObject> sr) {
         boolean result = true;
@@ -58,6 +58,14 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
                     case NOT_FIND:
                         mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
                         result = !mwr.find();
+                        break;
+                    case NOT_FIND_NULLABLE:
+                        // for nullables if the pattern is 0-length after the parameter is replaced
+                        // the criterion is considered satisfied - special case
+                        if (!currAcceptRegex.getPatternString(sr.getCachedReplaceTable()).isEmpty()) {
+                            mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
+                            result = !mwr.find();
+                        }
                         break;
                     case NOT_MATCH:
                         mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
@@ -82,7 +90,7 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
         }
         return result;
     }
-    
+
     protected boolean verifyDistinct(ISearchResultObject sro, ISearchResult<? extends ISearchResultObject> sr, IRealRegex currRegex) {
         boolean result = false;
             Set<String> regexDistinctResults = distinctResultsMap.get(currRegex);
@@ -146,7 +154,7 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
             cloneObj.setAcceptanceRegex(clonedList);
             cloneObj.distinctResultsMap = clonedDistinctResultsMap;
         }
-        
+
         return cloneObj;
     }
 
@@ -165,6 +173,6 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
         return sb.toString();
     }
 
-    
+
 
 }

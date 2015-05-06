@@ -7600,6 +7600,9 @@
 				</tags>
 				<replaceParams>
 					<replaceParam name="VALUE">((Error)|(Exception))</replaceParam>
+					<replaceParam name="NOT_CONTAINS_1"></replaceParam>
+					<replaceParam name="NOT_CONTAINS_2"></replaceParam>
+					<replaceParam name="NOT_CONTAINS_3"></replaceParam>
 				</replaceParams>
 				<required_log_types>
 				</required_log_types>
@@ -7647,6 +7650,23 @@
 				<refComplexRegex name="SGM_SipSp_Any" type="REPLACE_ADD">
 					<refName>SGM_SipSp Errors Exceptions</refName>
 					<refGroup>Global.SGM_SipSp</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7659,6 +7679,23 @@
 					<tags></tags>
 					<refName>SGM_AmlSp Errors Exceptions</refName>
 					<refGroup>Global.SGM_AmlSp</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7671,6 +7708,23 @@
 					<tags></tags>
 					<refName>CMF_OAM Errors Exceptions</refName>
 					<refGroup>Global.CMF_OAM</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7683,6 +7737,23 @@
 					<tags></tags>
 					<refName>CMF_OAM32 Errors Exceptions</refName>
 					<refGroup>Global.CMF_OAM32</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7708,6 +7779,9 @@
 				</tags>
 				<replaceParams>
 					<replaceParam name="VALUE">((Error)|(Exception))</replaceParam>
+					<replaceParam name="NOT_CONTAINS_1"></replaceParam>
+					<replaceParam name="NOT_CONTAINS_2"></replaceParam>
+					<replaceParam name="NOT_CONTAINS_3"></replaceParam>
 				</replaceParams>
 				<required_log_types>
 				</required_log_types>
@@ -7755,6 +7829,23 @@
 				<refComplexRegex name="CCMM_EmailManager_Any" type="REPLACE_ADD">
 					<refName>CCMM_EmailManager Errors Exceptions</refName>
 					<refGroup>Global.CCMM_EmailManager</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7767,6 +7858,23 @@
 					<tags></tags>
 					<refName>CCMM_MCMClient Errors Exceptions</refName>
 					<refGroup>Global.CCMM_MCMClient</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7779,6 +7887,23 @@
 					<tags></tags>
 					<refName>CCMM_OAMClient Errors Exceptions</refName>
 					<refGroup>Global.CCMM_OAMClient</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7791,6 +7916,23 @@
 					<tags></tags>
 					<refName>CCMM_StarterService Errors Exceptions</refName>
 					<refGroup>Global.CCMM_StarterService</refGroup>
+					<refAcceptances>
+						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
+							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+									<regex name="2">
+										<regexLine>NOT_CONTAINS_2</regexLine>
+									</regex>
+									<regex name="3">
+										<regexLine>NOT_CONTAINS_3</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
