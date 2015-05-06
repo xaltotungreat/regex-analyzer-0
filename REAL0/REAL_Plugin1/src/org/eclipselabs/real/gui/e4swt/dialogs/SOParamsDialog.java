@@ -66,9 +66,10 @@ public class SOParamsDialog extends Dialog {
     protected Table tableParams;
     protected Button btnOK;
     protected Button btnCancel;
-    protected Double nameSpace = 0.3;
-    protected Double valueSpace = 0.35;
-    protected Double hintSpace = 0.35;
+    // percent of all space different columns occupy
+    protected final Double nameSpace = 0.3;
+    protected final Double valueSpace = 0.35;
+    protected final Double hintSpace = 0.35;
 
     protected DateTimeFormatter dtFmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
 
@@ -134,16 +135,11 @@ public class SOParamsDialog extends Dialog {
                 break;
             case DATE:
                 IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)editedParam;
-                //Date cellDt;
                 try {
                     LocalDateTime locDT = LocalDateTime.parse(ti.getText(columnValueIndex), dtFmt);
                     if (locDT != null) {
                         calParam.setValue(locDT);
                     }
-                    /*cellDt = dateFmt.parse(ti.getText(columnValueIndex));
-                    if (cellDt != null) {
-                        calParam.getValue().setTime(cellDt);
-                    }*/
                 } catch (DateTimeParseException e1) {
                     log.error("widgetSelected ", e1);
                 }
