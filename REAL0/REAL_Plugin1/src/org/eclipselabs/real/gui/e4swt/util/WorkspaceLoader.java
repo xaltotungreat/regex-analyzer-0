@@ -276,7 +276,9 @@ public class WorkspaceLoader implements Runnable {
 
             @Override
             public void run() {
-                wsLoadProgressDialog.setStatus("Loading " + mainReq.getDso().getDisplayName());
+                wsLoadProgressDialog.setStatus("Loading "
+                        + (((mainReq.getPartLabel() != null) && (!mainReq.getPartLabel().isEmpty()))
+                            ?mainReq.getPartLabel():mainReq.getDso().getDisplayName()));
             }
         });
         CompletableFuture<ConvSearchResult> mainResultFuture = ConveyorMain.INSTANCE.submitRequest(mainReq);

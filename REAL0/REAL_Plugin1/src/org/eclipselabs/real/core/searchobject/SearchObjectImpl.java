@@ -18,7 +18,6 @@ import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 import org.eclipselabs.real.core.searchresult.sort.SortingType;
 
 public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISearchResultObject>
-        //extends KeyedObjectRepositoryImpl<ReplaceParamKey, IReplaceParam<?>>
         implements ISearchObject<R,O> {
     private static final Logger log = LogManager.getLogger(SearchObjectImpl.class);
     protected String soName;
@@ -63,6 +62,11 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     @Override
     public void addParam(IReplaceParam<?> newParam) {
         synchronized(replaceParams) {
+            // before adding a new param remove all params with the same name
+            List<IReplaceParam<?>> sameNameparams = replaceParams.stream()
+                    .filter(param -> param.getKey().equals(newParam.getKey()))
+                    .collect(Collectors.toList());
+            replaceParams.removeAll(sameNameparams);
             replaceParams.add(newParam);
         }
     }
@@ -237,14 +241,6 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
             cloneObj.setAcceptanceList(clonedList);
         }
         //replace params
-        /*Map<ReplaceParamKey, IReplaceParam<?>> cloneObjMap = new ConcurrentHashMap<ReplaceParamKey, IReplaceParam<?>>();
-        cloneObj.setMap(cloneObjMap);
-        List<IReplaceParam<?>> allParams = getParamList();
-        cloneObj.removeAll();
-        for (IReplaceParam<?> currParam : allParams) {
-            IReplaceParam<?> newParam = currParam.clone();
-            cloneObj.add(newParam.getKey(), newParam);
-        }*/
         cloneObj.replaceParams = getCloneParamList();
         return cloneObj;
     }

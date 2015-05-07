@@ -27,10 +27,10 @@ public class NewPartStage extends ConveyorStageBase {
     protected CompletableFuture<Void> executeInternal(final ConvSearchRequest req, ConvProductContext params) {
         final MPart newSR = (MPart)req.getModelService().cloneSnippet(req.getApplication(), IEclipse4Constants.APP_MODEL_SEARCH_RESULT_SNIPPET, null);
         newSR.setElementId("SR" + params.getSearchID());
-        if (req.getTabTitle() == null) {
+        if (req.getPartLabel() == null) {
             newSR.setLabel(req.getDso().getSearchObject().getSearchObjectName());
         } else {
-            newSR.setLabel(req.getTabTitle());
+            newSR.setLabel(req.getPartLabel());
         }
         String iconPath = req.getIconURI();
         if (iconPath == null) {
