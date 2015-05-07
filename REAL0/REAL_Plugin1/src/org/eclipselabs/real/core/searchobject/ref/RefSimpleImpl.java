@@ -5,7 +5,7 @@ package org.eclipselabs.real.core.searchobject.ref;
  * the instruction what to do with the value (ADD, REPLACE etc)
  * It shouldn't contain any other refs as children
  * Refs that contain other refs as children should extend RefImpl
- * 
+ *
  * @author Vadim Korkin
  *
  * @param <T> the type of the object that this param is to modify
@@ -15,18 +15,18 @@ public abstract class RefSimpleImpl<T> extends RefImpl<T> implements IRefSimple<
     public RefSimpleImpl(RefType aType, String aName) {
         super(aType, aName);
     }
-    
+
     public RefSimpleImpl(RefType aType, String aName, Integer pos) {
         super(aType, aName, pos);
     }
-    
+
     /**
      * The ref is resolved to its own value by default
      * it is true for simple parameters - they have no child parameters
      * to modify the value. Compound parameters should override this method
      * Ref params that contain a list of params to perform the same action on
      * for example add all params have List<T> as the value of the ref
-     * 
+     *
      * @return the value of the parameter unchanged
      */
     @Override
@@ -68,6 +68,15 @@ public abstract class RefSimpleImpl<T> extends RefImpl<T> implements IRefSimple<
      */
     @Override
     protected Integer replaceAddParameters(T obj) {
+        return 0;
+    }
+
+    /**
+     * For simple parameters (that contain no child parameters)
+     * this method returns 0 that means 0 parameters have been replaced
+     */
+    @Override
+    protected Integer replaceParameters(T obj) {
         return 0;
     }
 

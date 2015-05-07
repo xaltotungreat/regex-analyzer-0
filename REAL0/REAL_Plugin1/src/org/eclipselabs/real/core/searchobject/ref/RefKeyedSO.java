@@ -318,7 +318,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         continue;
                     }
                     for (IReplaceParam<?> currParam : currRefRP.getValue()) {
-                        if (obj.paramExists(currParam.getKey())) {
+                        if (!obj.paramExists(currParam.getKey())) {
                             obj.addParam(currParam);
                             count++;
                         } else {
