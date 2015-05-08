@@ -249,7 +249,12 @@
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
-		<!-- the acceptance check should check the position, name and type -->
+		<!-- the acceptance check should check the position, name and type
+			These tests make use of the following fact:
+			It is possible to create an interval acceptance with the regex types FIND, MATCH etc
+			and a regex acceptance with an interval type INTERVAL etc. Therefore we can check if the AC
+			was replaced by checking the type: datetime or regex.
+		-->
 		<group name="Acceptances1">
 			<complexRegexes>
 				<complexRegex name="ResolveSource">
@@ -262,6 +267,36 @@
 							<regexLine>((=+)|(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*))\r?\n((?!(=)).*\r?\n)*</regexLine>
 						</regex>
 					</regexes>
+					<acceptances>
+						<regexAcceptance name="AC1" type="MATCH">
+							<regexes>
+								<regex name="1">
+									<regexLine>NOT_CONTAINS_1</regexLine>
+								</regex>
+							</regexes>
+						</regexAcceptance>
+						<regexAcceptance name="AC2" type="MATCH">
+							<regexes>
+								<regex name="1">
+									<regexLine>NOT_CONTAINS_1</regexLine>
+								</regex>
+							</regexes>
+						</regexAcceptance>
+						<regexAcceptance name="AC3" type="MATCH">
+							<regexes>
+								<regex name="1">
+									<regexLine>NOT_CONTAINS_1</regexLine>
+								</regex>
+							</regexes>
+						</regexAcceptance>
+						<regexAcceptance name="AC4" type="MATCH">
+							<regexes>
+								<regex name="1">
+									<regexLine>NOT_CONTAINS_1</regexLine>
+								</regex>
+							</regexes>
+						</regexAcceptance>
+					</acceptances>
 					<sortRequests>
 						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
 						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
@@ -283,6 +318,118 @@
 						</regexes>
 					</date_info>
 				</complexRegex>
+				<refComplexRegex name="AddAC">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.Acceptances1</refGroup>
+					<refAcceptances>
+						<!-- check it is added to the 0 position -->
+						<refAcceptance name="Add with position" type="ADD" position="0">
+							<dtIntervalAcceptance name="AC_Add" type="FIND">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\ASGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>SGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+						<!-- Not added the same AC -->
+						<refAcceptance name="Not added same" type="ADD">
+							<dtIntervalAcceptance name="AC1" type="MATCH">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\ASGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>SGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+						<!-- added to the end because the position is incorrect -->
+						<refAcceptance name="Added to the end incorrect pos" type="ADD" position="10">
+							<dtIntervalAcceptance name="AC10" type="FIND">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\ASGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>SGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+						<!-- added to the end because no position specified -->
+						<refAcceptance name="Added to the end no position" type="ADD">
+							<dtIntervalAcceptance name="AC_end" type="FIND">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\ASGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>SGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddAC">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.Acceptances1</refGroup>
+					<refAcceptances>
+						<!-- check it is added to the 0 position -->
+						<refAcceptance name="Add with position" type="ADD" position="0">
+							<regexAcceptance name="AC_Add" type="FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- added diff type -->
+						<refAcceptance name="Not added same" type="ADD" position="2">
+							<regexAcceptance name="AC1" type="FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- added to the end because the position is incorrect -->
+						<refAcceptance name="Added to the end incorrect pos" type="ADD" position="10">
+							<regexAcceptance name="AC10" type="FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- added to the end because no position specified -->
+						<refAcceptance name="Added to the end no position" type="ADD">
+							<regexAcceptance name="AC_end" type="FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
 			</complexRegexes>
 		</group>
 	</group>

@@ -1,9 +1,7 @@
 package org.eclipselabs.real.test.ref;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +11,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -24,16 +21,14 @@ import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.config.IConfigReader;
 import org.eclipselabs.real.core.config.regex.xml.RegexXmlConfigFileReader;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
-import org.eclipselabs.real.core.searchobject.ISearchObject;
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.searchobject.SearchObjectController;
 import org.eclipselabs.real.core.searchobject.SearchObjectFactory;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
+import org.eclipselabs.real.test.TestUtil;
 import org.junit.After;
 import org.junit.Before;
 
@@ -70,7 +65,7 @@ public abstract class RefTestBase {
     }
 
     public IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>
-        getSO(String soName, String soGroup, Map<String,String> tags) {
+            getFirstMatchingSO(String soName, String soGroup, Map<String,String> tags) {
         IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> result = null;
         ISearchObjectGroup<String> currGroup = SearchObjectFactory.getInstance().getSearchObjectGroup(soGroup);
         List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> resultList = SearchObjectController.INSTANCE.getSearchObjectRepository().getValues((key) ->
@@ -83,59 +78,50 @@ public abstract class RefTestBase {
         return result;
     }
 
-    protected void assertSOParamNameExists(String paramName, ISearchObject<?, ?> so) {
-        assertTrue(so.getParam(new ReplaceParamKey(paramName)).isPresent());
-    }
-
-    protected void assertSONotParamNameExists(String paramName, ISearchObject<?, ?> so) {
-        assertFalse(so.getParam(new ReplaceParamKey(paramName)).isPresent());
-    }
-
-    protected void assertSOStrParamExists(String paramName, String paramValue, String soName, String soGroup) {
-        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getSO(soName, soGroup, new HashMap<String, String>());
-        assertSOStrParamExists(paramName, paramValue, so);
-    }
-
-    protected void assertSOStrParamExists(String paramName, String paramValue, ISearchObject<?, ?> so) {
-        Optional<IReplaceParam<?>> optParam = so.getParam(new ReplaceParamKey(paramName));
-        assertTrue(optParam.isPresent());
-        if ((optParam.isPresent()) && (ReplaceParamValueType.STRING.equals(optParam.get().getType()))) {
-            IReplaceParam<String> param = (IReplaceParam<String>)optParam.get();
-            assertEquals(paramValue, param.getValue());
-        }
-    }
-
-    protected void assertSOStrParamNotExists(String paramName, String paramValue, String soName, String soGroup) {
-        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getSO(soName, soGroup, new HashMap<String, String>());
-        assertSOStrParamNotExists(paramName, paramValue, so);
-    }
-
-    protected void assertSOStrParamNotExists(String paramName, String paramValue, ISearchObject<?, ?> so) {
-        Optional<IReplaceParam<?>> optParam = so.getParam(new ReplaceParamKey(paramName));
-        if ((optParam.isPresent()) && (ReplaceParamValueType.STRING.equals(optParam.get().getType()))) {
-            IReplaceParam<String> param = (IReplaceParam<String>)optParam.get();
-            assertNotEquals(paramValue, param.getValue());
-        } else {
-            assertFalse(optParam.isPresent());
-        }
-    }
-
     protected void assertSOExists(String soName, String soGroup, Map<String,String> tags) {
-        ISearchObjectGroup<String> currGroup = SearchObjectFactory.getInstance().getSearchObjectGroup(soGroup);
+        /*ISearchObjectGroup<String> currGroup = SearchObjectFactory.getInstance().getSearchObjectGroup(soGroup);
         List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result = SearchObjectController.INSTANCE.getSearchObjectRepository().getValues((key) ->
             key.getSOName().equals(soName)
                 && key.getSOGroup().equals(currGroup)
                 && key.getSOTags().equals(tags));
-        assertFalse(result.isEmpty());
+        assertFalse(result.isEmpty());*/
+        assertNotNull(getFirstMatchingSO(soName, soGroup, tags));
     }
 
     protected void assertSONotExists(String soName, String soGroup, Map<String,String> tags) {
-        ISearchObjectGroup<String> currGroup = SearchObjectFactory.getInstance().getSearchObjectGroup(soGroup);
+        /*ISearchObjectGroup<String> currGroup = SearchObjectFactory.getInstance().getSearchObjectGroup(soGroup);
         List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result = SearchObjectController.INSTANCE.getSearchObjectRepository().getValues((key) ->
             key.getSOName().equals(soName)
                 && key.getSOGroup().equals(currGroup)
                 && key.getSOTags().equals(tags));
-        assertTrue(result.isEmpty());
+        assertTrue(result.isEmpty());*/
+        assertNull(getFirstMatchingSO(soName, soGroup, tags));
+    }
+
+    protected void assertSOStrParamExists(String paramName, String paramValue, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOStrParamExists(paramName, paramValue, so);
+    }
+
+    protected void assertSOStrParamNotExists(String paramName, String paramValue, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOStrParamNotExists(paramName, paramValue, so);
+    }
+
+    protected void assertSOACExists(String name, AcceptanceCriterionType type, Integer pos, Class<?> acClass,
+            String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOACExists(name, type, pos, acClass, so);
+    }
+
+    protected void assertSOACNotExists(String name, AcceptanceCriterionType type, Integer pos, Class<?> acClass,
+            String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOACNotExists(name, type, pos, acClass, so);
     }
 
 }

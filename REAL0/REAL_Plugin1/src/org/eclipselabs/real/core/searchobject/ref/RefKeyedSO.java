@@ -363,6 +363,8 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
 
         /* acceptance criteria
          * position takes priority over default match.
+         * If the position is not null even the same AC may be added
+         * If the position is null then the same (by equals) AC will not be added
          */
         if ((refAcceptanceCriteria != null) && (!refAcceptanceCriteria.isEmpty())) {
             List<IAcceptanceCriterion> objACList = obj.getAcceptanceList();
@@ -376,6 +378,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         log.warn("addParameters acceptance criteria list is null, ref not added (no more refs added)\n" + refAC);
                         break;
                     }
+
                     if (refAC.getPosition() != null) {
                         if ((refAC.getPosition() >= 0) && (refAC.getPosition() <= objACList.size())) {
                             objACList.add(refAC.getPosition(), refAC.getValue());
@@ -383,11 +386,20 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                             log.warn("addParameters Incorrect Acceptance criterion position (adding to the end) " + refAC.getPosition() + " size=" + objACList.size());
                             objACList.add(refAC.getValue());
                         }
+                        count++;
                     } else {
-                        objACList.add(refAC.getValue());
+                        /*
+                         * Do not add the same AC if the position is null
+                         */
+                        long matchACCount = objACList.stream().filter(refAC.getDefaultMatchPredicate()).count();
+                        if (matchACCount > 0) {
+                            log.warn("addParameters found a match for AC (don't add) name=" + refAC.getValue().getName()
+                                    + " type=" + refAC.getValue().getType());
+                        } else {
+                            objACList.add(refAC.getValue());
+                            count++;
+                        }
                     }
-                    // the criterion is added anyway - increase count at the end
-                    count++;
                 }
             }
         }
@@ -497,7 +509,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         if ((refAC.getPosition() >= 0) && (refAC.getPosition() < objACList.size())) {
                             objACList.set(refAC.getPosition(), refAC.getValue());
                         } else {
-                            log.error("replaceAddParameters Incorrect sort request position add to the end " + refAC);
+                            log.error("replaceAddParameters Incorrect acceptance criteria position add to the end " + refAC);
                             objACList.add(refAC.getValue());
                         }
                         count++;
@@ -516,7 +528,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                             count++;
                         }
                         if (!replaced) {
-                            log.warn("replaceAddParameters add to the end " + refAC);
+                            log.warn("replaceAddParameters acceptance criteria not found add to the end " + refAC);
                             objACList.add(refAC.getValue());
                         }
                     }
@@ -547,6 +559,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         return count;
     }
 
+    @Override
     public Integer replaceParameters(T obj) {
         Integer count = 0;
         // replacing name, group and tags
@@ -631,13 +644,12 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                             objACList.set(refAC.getPosition(), refAC.getValue());
                             count++;
                         } else {
-                            log.error("replaceParameters Incorrect sort request position cannot replace " + refAC);
+                            log.error("replaceParameters Incorrect acceptance criteria position cannot replace " + refAC);
                         }
                     } else {
                         int setPos = -1;
                         boolean replaced = false;
                         for (int i = 0; i < objACList.size(); i++) {
-                            //if (refAC.getParamValue().equals(objACList.get(i))) {
                             if (refAC.defaultMatch(objACList.get(i))) {
                                 setPos = i;
                                 break;
@@ -743,7 +755,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         }
                     } else {
                         int setPos = -1;
-                        boolean replaced = false;
+                        boolean removed = false;
                         for (int i = 0; i < objACList.size(); i++) {
                             if (refAC.defaultMatch(objACList.get(i))) {
                                 setPos = i;
@@ -753,10 +765,10 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
 
                         if (setPos > -1) {
                             objACList.remove(setPos);
-                            replaced = true;
+                            removed = true;
                             count++;
                         }
-                        if (!replaced) {
+                        if (!removed) {
                             log.error("removeParameters not matched " + refAC);
                         }
                     }
@@ -805,33 +817,6 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
     public Integer cpReplace(T obj) {
         return 0;
     }
-
-    /*public T resolve() {
-        List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> filteredList = RefUtil.getMatchingSO(this);
-        T matchedObj = null;
-        if ((filteredList != null) && (!filteredList.isEmpty())) {
-            Iterator<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> filteredIter = filteredList.iterator();
-            while (matchedObj == null) {
-                if (filteredIter.hasNext()) {
-                    T currObj = (T)filteredIter.next();
-                    if (matchByParameters(currObj)) {
-                        matchedObj = currObj;
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            }
-            if (matchedObj != null) {
-                return resolve(matchedObj);
-            } else {
-                log.warn("No match by parameters found for " + this);
-            }
-        } else {
-            log.warn("No match by predicate found for " + this);
-        }
-        return null;
-    }*/
 
     public T resolve(ISearchObjectRepository rep) {
         List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> filteredList = rep.getValues(getSOKeyMatchPredicate());

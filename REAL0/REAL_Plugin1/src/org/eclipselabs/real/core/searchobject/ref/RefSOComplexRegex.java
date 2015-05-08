@@ -11,16 +11,16 @@ import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 
 public class RefSOComplexRegex extends RefKeyedComplexSO<
-            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
+            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String,
             ISOComplexRegex> {
 
     //private static final Logger log = LogManager.getLogger(RefSOComplexRegex.class);
     protected List<RefRealRegex> refMainRegexes;
-    
+
     public RefSOComplexRegex(SearchObjectType soType, String aName) {
         super(soType, aName);
     }
-    
+
     public RefSOComplexRegex(RefType aType, SearchObjectType soType, String aName) {
         super(aType, soType, aName);
     }
@@ -28,7 +28,7 @@ public class RefSOComplexRegex extends RefKeyedComplexSO<
     public RefSOComplexRegex(SearchObjectType soType, String aName, ISearchObjectGroup<String> aGroup, Map<String, String> aTags) {
         super(soType, aName, aGroup, aTags);
     }
-    
+
     public void addMainRegex(RefRealRegex newRegex) {
         if (refMainRegexes != null) {
             refMainRegexes.add(newRegex);
@@ -75,7 +75,7 @@ public class RefSOComplexRegex extends RefKeyedComplexSO<
 
     @Override
     public Integer cpAdd(ISOComplexRegex obj) {
-        Integer count =  super.cpAdd(obj);
+        Integer count = super.cpAdd(obj);
         count += RefUtil.cpAddRefRealRegex(obj.getMainRegexList(), refMainRegexes);
         return count;
     }
@@ -89,11 +89,11 @@ public class RefSOComplexRegex extends RefKeyedComplexSO<
 
     @Override
     public String toString() {
-        return "RefSOComplexRegex [name=" + name + ", group=" + group + ", tags=" + tags + ", refType=" + refType 
-                + ", refName=" + refName + ", refGroup=" + refGroup + ", refTags=" + refTags 
-                + ", refReplaceParams=" + refReplaceParams + ", refSortRequests=" + refSortRequests 
-                + ", refRegexFlags=" + refRegexFlags + ", refDateInfo=" + refDateInfo 
-                + ", refViewList=" + refViewList + ", refMainRegexes=" + refMainRegexes 
+        return "RefSOComplexRegex [name=" + name + ", group=" + group + ", tags=" + tags + ", refType=" + refType
+                + ", refName=" + refName + ", refGroup=" + refGroup + ", refTags=" + refTags
+                + ", refReplaceParams=" + refReplaceParams + ", refSortRequests=" + refSortRequests
+                + ", refRegexFlags=" + refRegexFlags + ", refDateInfo=" + refDateInfo
+                + ", refViewList=" + refViewList + ", refMainRegexes=" + refMainRegexes
                 + ", refAcceptanceCriteria=" + refAcceptanceCriteria + "]";
     }
 
