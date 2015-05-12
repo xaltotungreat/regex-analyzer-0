@@ -27,6 +27,8 @@ import org.eclipselabs.real.core.searchobject.SearchObjectFactory;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
+import org.eclipselabs.real.core.searchresult.sort.SortingApplicability;
+import org.eclipselabs.real.core.searchresult.sort.SortingType;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.test.TestUtil;
 import org.junit.After;
@@ -79,22 +81,10 @@ public abstract class RefTestBase {
     }
 
     protected void assertSOExists(String soName, String soGroup, Map<String,String> tags) {
-        /*ISearchObjectGroup<String> currGroup = SearchObjectFactory.getInstance().getSearchObjectGroup(soGroup);
-        List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result = SearchObjectController.INSTANCE.getSearchObjectRepository().getValues((key) ->
-            key.getSOName().equals(soName)
-                && key.getSOGroup().equals(currGroup)
-                && key.getSOTags().equals(tags));
-        assertFalse(result.isEmpty());*/
         assertNotNull(getFirstMatchingSO(soName, soGroup, tags));
     }
 
     protected void assertSONotExists(String soName, String soGroup, Map<String,String> tags) {
-        /*ISearchObjectGroup<String> currGroup = SearchObjectFactory.getInstance().getSearchObjectGroup(soGroup);
-        List<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> result = SearchObjectController.INSTANCE.getSearchObjectRepository().getValues((key) ->
-            key.getSOName().equals(soName)
-                && key.getSOGroup().equals(currGroup)
-                && key.getSOTags().equals(tags));
-        assertTrue(result.isEmpty());*/
         assertNull(getFirstMatchingSO(soName, soGroup, tags));
     }
 
@@ -122,6 +112,20 @@ public abstract class RefTestBase {
         IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
                 (tags != null)?tags:(new HashMap<String, String>()));
         TestUtil.assertSOACNotExists(name, type, pos, acClass, so);
+    }
+
+    protected void assertSOISRExists(String name, SortingType type, Integer pos, SortingApplicability appl,
+            String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOISRExists(name, type, pos, appl, so);
+    }
+
+    protected void assertSOISRNotExists(String name, SortingType type, Integer pos, SortingApplicability appl,
+            String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOISRNotExists(name, type, pos, appl, so);
     }
 
 }

@@ -389,8 +389,8 @@
 					<refGroup>GlobalTest.Acceptances1</refGroup>
 					<refAcceptances>
 						<!-- check it is added to the 0 position -->
-						<refAcceptance name="Add with position" type="ADD" position="0">
-							<regexAcceptance name="AC_Add" type="FIND">
+						<refAcceptance name="Replace at 0 position" type="REPLACE_ADD" position="0">
+							<regexAcceptance name="AC_ReplaceAdd" type="FIND">
 								<regexes>
 									<regex name="removeTransaction">
 										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
@@ -398,18 +398,15 @@
 								</regexes>
 							</regexAcceptance>
 						</refAcceptance>
-						<!-- added diff type -->
-						<refAcceptance name="Not added same" type="ADD" position="2">
-							<regexAcceptance name="AC1" type="FIND">
-								<regexes>
-									<regex name="removeTransaction">
-										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
-									</regex>
-								</regexes>
-							</regexAcceptance>
+						<!-- replaced AC1 position -->
+						<refAcceptance name="Replaced regex with dtInterval" type="REPLACE_ADD">
+							<dtIntervalAcceptance name="AC2" type="MATCH">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+							</dtIntervalAcceptance>
 						</refAcceptance>
 						<!-- added to the end because the position is incorrect -->
-						<refAcceptance name="Added to the end incorrect pos" type="ADD" position="10">
+						<refAcceptance name="Added to the end incorrect pos" type="REPLACE_ADD" position="10">
 							<regexAcceptance name="AC10" type="FIND">
 								<regexes>
 									<regex name="removeTransaction">
@@ -419,7 +416,7 @@
 							</regexAcceptance>
 						</refAcceptance>
 						<!-- added to the end because no position specified -->
-						<refAcceptance name="Added to the end no position" type="ADD">
+						<refAcceptance name="Added to the end no position" type="REPLACE_ADD">
 							<regexAcceptance name="AC_end" type="FIND">
 								<regexes>
 									<regex name="removeTransaction">
@@ -429,6 +426,326 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAC">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.Acceptances1</refGroup>
+					<refAcceptances>
+						<!-- check it is added to the 0 position -->
+						<refAcceptance name="Replace at 0 position" type="REPLACE" position="0">
+							<regexAcceptance name="AC_ReplaceAdd" type="FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- replaced AC1 position -->
+						<refAcceptance name="Replaced regex with dtInterval" type="REPLACE">
+							<dtIntervalAcceptance name="AC2" type="MATCH">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+						<!-- not replaced incorrect position -->
+						<refAcceptance name="Not replaced incorrect pos" type="REPLACE" position="10">
+							<regexAcceptance name="AC10" type="NOT_FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- not replaced no match -->
+						<refAcceptance name="No match" type="REPLACE">
+							<regexAcceptance name="AC_end" type="NOT_FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
+				<refComplexRegex name="RemoveAC">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.Acceptances1</refGroup>
+					<refAcceptances>
+						<!-- removed at the 0 position -->
+						<refAcceptance name="Replace at 0 position" type="REMOVE" position="0">
+							<regexAcceptance name="AC_ReplaceAdd" type="FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- remove by name and type -->
+						<refAcceptance name="Replaced regex with dtInterval" type="REMOVE">
+							<regexAcceptance name="AC2" type="MATCH">
+								<regexes>
+									<regex name="1">
+										<regexLine>NOT_CONTAINS_1</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- not removed incorrect position -->
+						<refAcceptance name="Added to the end incorrect pos" type="REMOVE" position="10">
+							<regexAcceptance name="AC10" type="NOT_FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+						<!-- not removed no match -->
+						<refAcceptance name="Added to the end no position" type="REMOVE">
+							<regexAcceptance name="AC_end" type="NOT_FIND">
+								<regexes>
+									<regex name="removeTransaction">
+										<regexLine>((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))</regexLine>
+									</regex>
+								</regexes>
+							</regexAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
+		<group name="SortRequests1">
+			<complexRegexes>
+				<complexRegex name="ResolveSource">
+					<description>An interval in the available AML logs</description>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex">
+							<regexLine>((=+)|(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*))\r?\n((?!(=)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestRegex name="ISR1" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+						<sortRequestRegex name="ISR2" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+						<sortRequestRegex name="ISR3" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+						<sortRequestRegex name="ISR4" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
+				<refComplexRegex name="AddISR">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.SortRequests1</refGroup>
+					<refSortRequests>
+						<!-- Added to position 0 -->
+						<refSortRequest name="Add with position" type="ADD" position="0">
+							<sortRequestDateTime name="ISR_add0" applicability="ALL"/>
+						</refSortRequest>
+						<!-- Not added same name and type -->
+						<refSortRequest name="Not added same" type="ADD">
+							<sortRequestRegex name="ISR2" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+						<!-- added to the end because the position is incorrect -->
+						<refSortRequest name="Added to the end incorrect pos" type="ADD" position="10">
+							<sortRequestDateTime name="ISR_add10" applicability="ALL"/>
+						</refSortRequest>
+						<!-- added to the end because no position specified -->
+						<refSortRequest name="Added to the end no position" type="ADD">
+							<sortRequestDateTime name="ISR_addEnd" applicability="ALL"/>
+						</refSortRequest>
+					</refSortRequests>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddISR">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.SortRequests1</refGroup>
+					<refSortRequests>
+						<!-- check it is replaced at the 0 position -->
+						<refSortRequest name="Replace at 0 position" type="REPLACE_ADD" position="0">
+							<sortRequestDateTime name="ISR_replaceadd0" applicability="ALL"/>
+						</refSortRequest>
+						<!-- replaces the original ISR2 -->
+						<refSortRequest name="Replaces the original" type="REPLACE_ADD">
+							<sortRequestRegex name="ISR2" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+						<!-- added to the end because the position is incorrect -->
+						<refSortRequest name="Added to the end incorrect pos" type="REPLACE_ADD" position="10">
+							<sortRequestDateTime name="ISR_add10" applicability="ALL"/>
+						</refSortRequest>
+						<!-- added to the end because no position specified -->
+						<refSortRequest name="Added to the end no position" type="REPLACE_ADD">
+							<sortRequestDateTime name="ISR_addEnd" applicability="ALL"/>
+						</refSortRequest>
+					</refSortRequests>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddISR">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.SortRequests1</refGroup>
+					<refSortRequests>
+						<!-- check it is replaced at the 0 position -->
+						<refSortRequest name="Replace at 0 position" type="REPLACE_ADD" position="0">
+							<sortRequestDateTime name="ISR_replaceadd0" applicability="ALL"/>
+						</refSortRequest>
+						<!-- replaces the original ISR2 -->
+						<refSortRequest name="Replaces the original" type="REPLACE_ADD">
+							<sortRequestRegex name="ISR2" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+						<!-- added to the end because the position is incorrect -->
+						<refSortRequest name="Added to the end incorrect pos" type="REPLACE_ADD" position="10">
+							<sortRequestDateTime name="ISR_add10" applicability="ALL"/>
+						</refSortRequest>
+						<!-- added to the end because no position specified -->
+						<refSortRequest name="Added to the end no position" type="REPLACE_ADD">
+							<sortRequestDateTime name="ISR_addEnd" applicability="ALL"/>
+						</refSortRequest>
+					</refSortRequests>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceISR">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.SortRequests1</refGroup>
+					<refSortRequests>
+						<!-- check it is replaced at the 0 position -->
+						<refSortRequest name="Replace at 0 position" type="REPLACE" position="0">
+							<sortRequestDateTime name="ISR_replace0" applicability="ALL"/>
+						</refSortRequest>
+						<!-- replaces the original ISR2 -->
+						<refSortRequest name="Replaces the original" type="REPLACE">
+							<sortRequestRegex name="ISR2" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+						<!-- not replaced incorrect position -->
+						<refSortRequest name="Replaces the original" type="REPLACE" position="10">
+							<sortRequestRegex name="ISR_notreplaced incorrect position" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+						<!-- not replaced no match -->
+						<refSortRequest name="Replaces the original" type="REPLACE">
+							<sortRequestRegex name="ISR_notreplaced" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+					</refSortRequests>
+				</refComplexRegex>
+				<refComplexRegex name="RemoveISR">
+					<refName>ResolveSource</refName>
+					<refGroup>GlobalTest.SortRequests1</refGroup>
+					<refSortRequests>
+						<!-- removed at the 0 position -->
+						<refSortRequest name="Remove at 0 position" type="REMOVE" position="0">
+							<sortRequestDateTime name="ISR_replaceadd0" applicability="ALL"/>
+						</refSortRequest>
+						<!-- remove by name and type -->
+						<refSortRequest name="Replaces the original" type="REMOVE">
+							<sortRequestRegex name="ISR2" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+						<!-- not removed incorrect position -->
+						<refSortRequest name="Replaces the original" type="REMOVE" position="10">
+							<sortRequestRegex name="ISR_notreplaced incorrect position" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+						<!-- not removed no match -->
+						<refSortRequest name="Replaces the original" type="REMOVE">
+							<sortRequestRegex name="ISR_notreplaced" applicability="ALL">
+								<regexes>
+									<regex name="Default">
+										<regexParam name="instance" type="Integer">0</regexParam>
+										<regexLine>AML_TIME_REGEX</regexLine>
+									</regex>
+								</regexes>
+							</sortRequestRegex>
+						</refSortRequest>
+					</refSortRequests>
 				</refComplexRegex>
 			</complexRegexes>
 		</group>

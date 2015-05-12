@@ -132,10 +132,7 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
 
     @Override
     public void setSortRequestList(List<IInternalSortRequest> sortRequestList) {
-        this.sortRequestList.clear();
-        if (sortRequestList != null) {
-            this.sortRequestList.addAll(sortRequestList);
-        }
+        this.sortRequestList = sortRequestList;
     }
 
     public List<IInternalSortRequest> getCloneSortRequestList () {

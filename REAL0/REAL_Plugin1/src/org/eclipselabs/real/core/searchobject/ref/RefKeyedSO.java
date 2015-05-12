@@ -349,14 +349,23 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                                 && (refSortReq.getPosition() <= objSortRequests.size())) {
                             objSortRequests.add(refSortReq.getPosition(), refSortReq.getValue());
                         } else {
-                            log.warn("addParameters Incorrect sort request position (adding to the end) " + refSortReq.getPosition() + " size=" + objSortRequests.size());
+                            log.warn("addParameters Incorrect sort request position (adding to the end) " + refSortReq.getName() + " " + refSortReq.getPosition() + " size=" + objSortRequests.size());
                             objSortRequests.add(refSortReq.getValue());
                         }
+                        count++;
                     } else {
-                        objSortRequests.add(refSortReq.getValue());
+                        /*
+                         * Do not add the same AC if the position is null
+                         */
+                        long matchACCount = objSortRequests.stream().filter(refSortReq.getDefaultMatchPredicate()).count();
+                        if (matchACCount > 0) {
+                            log.warn("addParameters found a match for ISR (don't add) name=" + refSortReq.getValue().getName()
+                                    + " type=" + refSortReq.getValue().getType());
+                        } else {
+                            objSortRequests.add(refSortReq.getValue());
+                            count++;
+                        }
                     }
-                    // the request is added anyway - increase count at the end
-                    count++;
                 }
             }
         }
@@ -383,7 +392,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         if ((refAC.getPosition() >= 0) && (refAC.getPosition() <= objACList.size())) {
                             objACList.add(refAC.getPosition(), refAC.getValue());
                         } else {
-                            log.warn("addParameters Incorrect Acceptance criterion position (adding to the end) " + refAC.getPosition() + " size=" + objACList.size());
+                            log.warn("addParameters Incorrect Acceptance criterion position (adding to the end) " + refAC.getName() + " " +  refAC.getPosition() + " size=" + objACList.size());
                             objACList.add(refAC.getValue());
                         }
                         count++;
