@@ -2,6 +2,7 @@ package org.eclipselabs.real.test.ref.resolve;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchobject.crit.IDTIntervalCriterion;
@@ -107,6 +108,54 @@ public class RefTestResolve extends RefTestBase {
         assertSOISRNotExists("ISR2", SortingType.REGEX, null, SortingApplicability.MERGE_RESULTS, "RemoveISR", "GlobalTest.SortRequests1", null);
         assertSOISRExists("ISR3", SortingType.REGEX, 0, SortingApplicability.MERGE_RESULTS, "RemoveISR", "GlobalTest.SortRequests1", null);
         assertSOISRExists("ISR4", SortingType.REGEX, 1, SortingApplicability.MERGE_RESULTS, "RemoveISR", "GlobalTest.SortRequests1", null);
+    }
+
+    @Test
+    public void testDateInfo() {
+        assertSODateInfoNotExists("NotAdded", "AddDateInfo1", "GlobalTest.DateInfo1", null);
+        assertSODateInfoExists("Added", "AddDateInfo2", "GlobalTest.DateInfo1", null);
+
+        assertSODateInfoExists("ReplacedDF", "ReplaceAddDateInfo1", "GlobalTest.DateInfo1", null);
+        assertSODateInfoExists("AddedDF", "ReplaceAddDateInfo2", "GlobalTest.DateInfo1", null);
+
+        assertSODateInfoExists("ReplacedDF", "ReplaceDateInfo1", "GlobalTest.DateInfo1", null);
+        assertSODateInfoNotExists("NotAddedDF", "ReplaceDateInfo2", "GlobalTest.DateInfo1", null);
+
+        assertSODateInfoNotExists(null, "RemoveDateInfo1", "GlobalTest.DateInfo1", null);
+        assertSODateInfoNotExists(null, "RemoveDateInfo2", "GlobalTest.DateInfo1", null);
+    }
+
+    @Test
+    public void testRegexFlags() {
+        assertSORegexFlagExists(Pattern.CASE_INSENSITIVE, "AddRegexFlags1", "GlobalTest.RegexFlags1", null);
+        assertSORegexFlagExists(Pattern.UNICODE_CASE, "AddRegexFlags1", "GlobalTest.RegexFlags1", null);
+
+        assertSORegexFlagExists(Pattern.DOTALL, "ReplaceAddRegexFlags1", "GlobalTest.RegexFlags1", null);
+        assertSORegexFlagExists(Pattern.MULTILINE, "ReplaceAddRegexFlags1", "GlobalTest.RegexFlags1", null);
+
+        assertSORegexFlagNotExists(Pattern.CANON_EQ, "RemoveRegexFlags1", "GlobalTest.RegexFlags1", null);
+        assertSORegexFlagNotExists(Pattern.COMMENTS, "RemoveRegexFlags1", "GlobalTest.RegexFlags1", null);
+    }
+
+    @Test
+    public void testViews() {
+        assertSOViewExists("Add1", 0, "AddRegex1", "AddViews1", "GlobalTest.Views1", null);
+        assertSOViewNotExists("View1", null, "NotAddRegex1", "AddViews1", "GlobalTest.Views1", null);
+
+        assertSOViewExists("ReplaceAdd1", 0, "ReplaceAddRegex1", "ReplaceAddViews1", "GlobalTest.Views1", null);
+        assertSOViewExists("View2", null, "ReplacedRegex1", "ReplaceAddViews1", "GlobalTest.Views1", null);
+        assertSOViewExists("ReplaceAdd15", 4, "ReplaceAddRegex1", "ReplaceAddViews1", "GlobalTest.Views1", null);
+        assertSOViewExists("ReplaceAdd_End", 5, "ReplaceAddRegexEnd", "ReplaceAddViews1", "GlobalTest.Views1", null);
+
+        assertSOViewExists("Replace1", 0, "ReplaceRegex1", "ReplaceViews1", "GlobalTest.Views1", null);
+        assertSOViewExists("View2", null, "ReplacedRegex1", "ReplaceViews1", "GlobalTest.Views1", null);
+        assertSOViewNotExists("NotReplaced15", null, null, "ReplaceViews1", "GlobalTest.Views1", null);
+        assertSOViewNotExists("NotReplaced_End", null, null, "ReplaceViews1", "GlobalTest.Views1", null);
+
+        assertSOViewNotExists("View1", null, null, "RemoveViews1", "GlobalTest.Views1", null);
+        assertSOViewNotExists("View2", null, null, "RemoveViews1", "GlobalTest.Views1", null);
+        assertSOViewExists("View3", 0, "View3Regex1", "RemoveViews1", "GlobalTest.Views1", null);
+        assertSOViewExists("View4", 1, "View4Regex1", "RemoveViews1", "GlobalTest.Views1", null);
     }
 
 }

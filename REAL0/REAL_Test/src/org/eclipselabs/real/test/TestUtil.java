@@ -3,32 +3,39 @@ package org.eclipselabs.real.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipselabs.real.core.searchobject.ISearchObject;
+import org.eclipselabs.real.core.regex.IRealRegex;
+import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
+import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
 import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
 import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
 import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
+import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 import org.eclipselabs.real.core.searchresult.sort.SortingApplicability;
 import org.eclipselabs.real.core.searchresult.sort.SortingType;
 
 public class TestUtil {
 
-    public static void assertSOParamNameExists(String paramName, ISearchObject<?, ?> so) {
+    public static void assertSOParamNameExists(String paramName, IKeyedSearchObject<?, ?> so) {
         assertTrue(so.getParam(new ReplaceParamKey(paramName)).isPresent());
     }
 
-    public static void assertSONotParamNameExists(String paramName, ISearchObject<?, ?> so) {
+    public static void assertSONotParamNameExists(String paramName, IKeyedSearchObject<?, ?> so) {
         assertFalse(so.getParam(new ReplaceParamKey(paramName)).isPresent());
     }
 
-    public static void assertSOStrParamExists(String paramName, String paramValue, ISearchObject<?, ?> so) {
+    public static void assertSOStrParamExists(String paramName, String paramValue, IKeyedSearchObject<?, ?> so) {
         Optional<IReplaceParam<?>> optParam = so.getParam(new ReplaceParamKey(paramName));
         assertTrue(optParam.isPresent());
         if ((optParam.isPresent()) && (ReplaceParamValueType.STRING.equals(optParam.get().getType()))) {
@@ -37,7 +44,7 @@ public class TestUtil {
         }
     }
 
-    public static void assertSOStrParamNotExists(String paramName, String paramValue, ISearchObject<?, ?> so) {
+    public static void assertSOStrParamNotExists(String paramName, String paramValue, IKeyedSearchObject<?, ?> so) {
         Optional<IReplaceParam<?>> optParam = so.getParam(new ReplaceParamKey(paramName));
         if ((optParam.isPresent()) && (ReplaceParamValueType.STRING.equals(optParam.get().getType()))) {
             IReplaceParam<String> param = (IReplaceParam<String>)optParam.get();
@@ -47,12 +54,12 @@ public class TestUtil {
         }
     }
 
-    public static void assertSOACExists(String name, AcceptanceCriterionType type, Integer pos, ISearchObject<?, ?> so) {
+    public static void assertSOACExists(String name, AcceptanceCriterionType type, Integer pos, IKeyedSearchObject<?, ?> so) {
         assertSOACExists(name, type, pos, null, so);
     }
 
     public static void assertSOACExists(String name, AcceptanceCriterionType type, Integer pos,
-            Class<?> acClass, ISearchObject<?, ?> so) {
+            Class<?> acClass, IKeyedSearchObject<?, ?> so) {
         List<IAcceptanceCriterion> listAC = so.getAcceptanceList();
         if (pos != null) {
             assertTrue(0 <= pos && pos < listAC.size());
@@ -71,12 +78,12 @@ public class TestUtil {
         }
     }
 
-    public static void assertSOACNotExists(String name, AcceptanceCriterionType type, Integer pos, ISearchObject<?, ?> so) {
+    public static void assertSOACNotExists(String name, AcceptanceCriterionType type, Integer pos, IKeyedSearchObject<?, ?> so) {
         assertSOACNotExists(name, type, pos, null, so);
     }
 
     public static void assertSOACNotExists(String name, AcceptanceCriterionType type, Integer pos,
-            Class<?> acClass, ISearchObject<?, ?> so) {
+            Class<?> acClass, IKeyedSearchObject<?, ?> so) {
         List<IAcceptanceCriterion> listAC = so.getAcceptanceList();
         if (pos != null) {
             // if the position is incorrect this AC doesn't exist
@@ -103,11 +110,12 @@ public class TestUtil {
         }
     }
 
-    public static void assertSOISRExists(String name, SortingType type, Integer pos, ISearchObject<?, ?> so) {
+    public static void assertSOISRExists(String name, SortingType type, Integer pos, IKeyedSearchObject<?, ?> so) {
         assertSOISRExists(name, type, pos, null, so);
     }
 
-    public static void assertSOISRExists(String name, SortingType type, Integer pos, SortingApplicability appl, ISearchObject<?, ?> so) {
+    public static void assertSOISRExists(String name, SortingType type, Integer pos, SortingApplicability appl,
+            IKeyedSearchObject<?, ?> so) {
         List<IInternalSortRequest> reqList = so.getSortRequestList();
         if (pos != null) {
             assertTrue(0 <= pos && pos < reqList.size());
@@ -126,11 +134,12 @@ public class TestUtil {
         }
     }
 
-    public static void assertSOISRNotExists(String name, SortingType type, Integer pos, ISearchObject<?, ?> so) {
+    public static void assertSOISRNotExists(String name, SortingType type, Integer pos, IKeyedSearchObject<?, ?> so) {
         assertSOISRNotExists(name, type, pos, null, so);
     }
 
-    public static void assertSOISRNotExists(String name, SortingType type, Integer pos, SortingApplicability appl, ISearchObject<?, ?> so) {
+    public static void assertSOISRNotExists(String name, SortingType type, Integer pos, SortingApplicability appl,
+            IKeyedSearchObject<?, ?> so) {
         List<IInternalSortRequest> reqList = so.getSortRequestList();
         if (pos != null) {
             // if the position is incorrect this ISR doesn't exist
@@ -154,6 +163,84 @@ public class TestUtil {
             } else {
                 assertFalse(optCrit.isPresent());
             }
+        }
+    }
+
+    public static void assertSODateInfoExists(String dateFormat, IKeyedSearchObject<?, ?> so) {
+        assertNotNull(so.getDateInfo());
+        if (dateFormat != null) {
+            assertEquals(dateFormat, so.getDateInfo().getDateFormat());
+        }
+    }
+
+    public static void assertSODateInfoNotExists(String dateFormat, IKeyedSearchObject<?, ?> so) {
+        if ((so.getDateInfo() != null) && (dateFormat != null)) {
+            assertNotEquals(dateFormat, so.getDateInfo().getDateFormat());
+        } else {
+            assertNull(so.getDateInfo());
+        }
+    }
+
+    public static void assertSORegexFlagExists(int flag, IKeyedSearchObject<?, ?> so) {
+        assertNotNull(so.getRegexFlags());
+        assertEquals(flag, so.getRegexFlags() & flag);
+    }
+
+    public static void assertSORegexFlagNotExists(int flag, IKeyedSearchObject<?, ?> so) {
+        if (so.getRegexFlags() != null) {
+            assertNotEquals(flag, so.getRegexFlags() & flag);
+        }
+    }
+
+    public static void assertSOViewExists(String viewName, Integer pos, String regexName,
+            IKeyedComplexSearchObject<?, ?, ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> so) {
+        ISOComplexRegexView existingView = null;
+        if (pos != null) {
+            assertTrue(0 <= pos && pos < so.getViewCount());
+            String viewKey = so.getViewKey(pos);
+            assertEquals(viewName, viewKey);
+            existingView = so.getView(pos);
+            assertNotNull(existingView);
+        } else {
+            existingView = so.getView(viewName);
+            assertNotNull(existingView);
+        }
+        if (regexName != null) {
+            List<Object> viewObj = existingView.getViewObjects();
+            Optional<Object> optRegex = viewObj.stream().
+                    filter(obj -> (obj instanceof IRealRegex)).
+                    filter(obj -> regexName.equals(((IRealRegex)obj).getRegexName())).findFirst();
+            assertTrue(optRegex.isPresent());
+            IRealRegex reg = (IRealRegex)optRegex.get();
+            assertEquals(regexName, reg.getRegexName());
+        }
+    }
+
+    public static void assertSOViewNotExists(String viewName, Integer pos, String regexName,
+            IKeyedComplexSearchObject<?, ?, ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> so) {
+        ISOComplexRegexView existingView = null;
+        if (pos != null) {
+            if (0 <= pos && pos < so.getViewCount()) {
+                String viewKey = so.getViewKey(pos);
+                if (viewKey.equals(viewName)) {
+                    existingView = so.getView(pos);
+                }
+            }
+        } else {
+            existingView = so.getView(viewName);
+        }
+        if ((regexName != null) && (existingView != null)) {
+            List<Object> viewObj = existingView.getViewObjects();
+            Optional<Object> optRegex = viewObj.stream().
+                    filter(obj -> (obj instanceof IRealRegex)).
+                    filter(obj -> regexName.equals(((IRealRegex)obj).getRegexName())).findFirst();
+            // if not present then OK this view doesn't exist
+            if (optRegex.isPresent()) {
+                IRealRegex reg = (IRealRegex)optRegex.get();
+                assertNotEquals(regexName, reg.getRegexName());
+            }
+        } else {
+            assertNull(existingView);
         }
     }
 

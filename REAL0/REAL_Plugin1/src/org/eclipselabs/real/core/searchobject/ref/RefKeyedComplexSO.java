@@ -16,17 +16,17 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
 public abstract class RefKeyedComplexSO<
             V extends ISearchObject<W,X>, W extends ISearchResult<X>, X extends ISearchResultObject, Q,
-            T extends IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<W, X, Q>, W, X, Q>, 
+            T extends IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<W, X, Q>, W, X, Q>,
             ? extends IComplexSearchResultObject<W, X, Q>, V, W, X, Q>>
         extends RefKeyedSO<T> {
 
     private static final Logger log = LogManager.getLogger(RefKeyedComplexSO.class);
     protected List<RefView<V,W,X,Q>> refViewList;
-    
+
     public RefKeyedComplexSO(RefType aType, SearchObjectType soType, String aName) {
         super(aType, soType, aName);
     }
-    
+
     public RefKeyedComplexSO(SearchObjectType soType, String aName) {
         super(soType, aName);
     }
@@ -34,7 +34,7 @@ public abstract class RefKeyedComplexSO<
     public RefKeyedComplexSO(SearchObjectType soType, String aName, ISearchObjectGroup<String> aGroup, Map<String, String> aTags) {
         super(soType, aName, aGroup, aTags);
     }
-    
+
     public RefKeyedComplexSO(RefType aType, SearchObjectType soType, String aName, ISearchObjectGroup<String> aGroup, Map<String, String> aTags) {
         super(aType, soType, aName, aGroup, aTags);
     }
@@ -46,7 +46,7 @@ public abstract class RefKeyedComplexSO<
             for (RefView<V, W, X, Q> refView : refViewList) {
                 if (RefType.MATCH.equals(refView.getType())) {
                     if ((refView.getViewKey() == null) || (refView.getViewSearchObject() == null)) {
-                        log.error("matchByParameters one of the values is null (cannot process this param) key=" + refView.getViewKey() 
+                        log.error("matchByParameters one of the values is null (cannot process this param) key=" + refView.getViewKey()
                                 + " search object=" + refView.getViewSearchObject());
                         continue;
                     }
@@ -61,7 +61,7 @@ public abstract class RefKeyedComplexSO<
         }
         return matches;
     }
-    
+
     @Override
     public Integer addParameters(T obj) {
         Integer count = super.addParameters(obj);
@@ -69,12 +69,18 @@ public abstract class RefKeyedComplexSO<
             for (RefView<V, W, X, Q> refView : refViewList) {
                 if (RefType.ADD.equals(refView.getType())) {
                     if ((refView.getViewKey() == null) || (refView.getViewSearchObject() == null)) {
-                        log.error("addParameters one of the values is null (cannot process this param) key=" + refView.getViewKey() 
+                        log.error("addParameters one of the values is null (cannot process this param) key=" + refView.getViewKey()
                                 + " search object=" + refView.getViewSearchObject());
                         continue;
                     }
                     if (obj.getView(refView.getViewKey()) == null) {
-                        obj.addView(refView.getViewKey(), refView.getViewSearchObject(), refView.getPosition());
+                        if ((refView.getPosition() != null)
+                                && (0 <= refView.getPosition()) && (refView.getPosition() < obj.getViewCount())) {
+                            obj.addView(refView.getViewKey(), refView.getViewSearchObject(), refView.getPosition());
+                        } else {
+                            // add to the end - modify the default behavior
+                            obj.addView(refView.getViewKey(), refView.getViewSearchObject(), null);
+                        }
                         count++;
                     } else {
                         log.error("addParameters View ADD already exists " + refView);
@@ -92,11 +98,23 @@ public abstract class RefKeyedComplexSO<
             for (RefView<V, W, X, Q> refView : refViewList) {
                 if (RefType.REPLACE_ADD.equals(refView.getType())) {
                     if ((refView.getViewKey() == null) || (refView.getViewSearchObject() == null)) {
-                        log.error("replaceAddParameters one of the values is null (cannot process this param) key=" + refView.getViewKey() 
+                        log.error("replaceAddParameters one of the values is null (cannot process this param) key=" + refView.getViewKey()
                                 + " search object=" + refView.getViewSearchObject());
                         continue;
                     }
-                    obj.addView(refView.getViewKey(), refView.getViewSearchObject(), refView.getPosition());
+                    if ((refView.getPosition() != null)
+                            && (0 <= refView.getPosition()) && (refView.getPosition() < obj.getViewCount())) {
+                        // use the position only if it is correct otherwise the view will not be added
+                        obj.setView(refView.getViewKey(), refView.getViewSearchObject(), refView.getPosition());
+                    } else {
+                        if (obj.getView(refView.getViewKey()) != null) {
+                            // overwrite the existing view
+                            obj.setView(refView.getViewKey(), refView.getViewSearchObject(), null);
+                        } else {
+                            // add to the end - modify the default behavior
+                            obj.addView(refView.getViewKey(), refView.getViewSearchObject(), null);
+                        }
+                    }
                     count++;
                 }
             }
@@ -111,15 +129,12 @@ public abstract class RefKeyedComplexSO<
             for (RefView<V, W, X, Q> refView : refViewList) {
                 if (RefType.REPLACE.equals(refView.getType())) {
                     if ((refView.getViewKey() == null) || (refView.getViewSearchObject() == null)) {
-                        log.error("replaceAddParameters one of the values is null (cannot process this param) key=" + refView.getViewKey() 
+                        log.error("replaceAddParameters one of the values is null (cannot process this param) key=" + refView.getViewKey()
                                 + " search object=" + refView.getViewSearchObject());
                         continue;
                     }
-                    if (obj.getView(refView.getViewKey()) != null) {
-                        obj.addView(refView.getViewKey(), refView.getViewSearchObject(), refView.getPosition());
+                    if (obj.setView(refView.getViewKey(), refView.getViewSearchObject(), refView.getPosition())) {
                         count++;
-                    } else {
-                        log.error("replaceParameters View REPLACE doesn't exist " + refView);
                     }
                 }
             }
@@ -137,8 +152,16 @@ public abstract class RefKeyedComplexSO<
                         log.error("removeParameters one of the values is null (cannot process this param) key=" + refView.getViewKey());
                         continue;
                     }
-                    obj.removeView(refView.getViewKey());
-                    count++;
+                    if (refView.getPosition() != null) {
+                        if (obj.removeView(refView.getPosition()) != null) {
+                            count++;
+                        }
+                    } else {
+                        if (obj.removeView(refView.getViewKey()) != null) {
+                            count++;
+                        }
+                    }
+
                 }
             }
         }

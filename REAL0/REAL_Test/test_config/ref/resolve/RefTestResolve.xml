@@ -749,5 +749,415 @@
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
+		<group name="DateInfo1">
+			<complexRegexes>
+				<complexRegex name="ResolveSource1">
+					<description>An interval in the available AML logs</description>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex">
+							<regexLine>((=+)|(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*))\r?\n((?!(=)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestRegex name="ISR1" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
+				<complexRegex name="ResolveSource2">
+					<description>An interval in the available AML logs</description>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex">
+							<regexLine>((=+)|(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*))\r?\n((?!(=)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestRegex name="ISR1" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+				</complexRegex>
+				<refComplexRegex name="AddDateInfo1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Not added already exists" type="ADD">
+						<date_info>
+							<date_format>NotAdded</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+				<refComplexRegex name="AddDateInfo2">
+					<refName>ResolveSource2</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Add missing dateinfo" type="ADD">
+						<date_info>
+							<date_format>Added</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddDateInfo1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Replaced" type="REPLACE_ADD">
+						<date_info>
+							<date_format>ReplacedDF</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddDateInfo2">
+					<refName>ResolveSource2</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Added" type="REPLACE_ADD">
+						<date_info>
+							<date_format>AddedDF</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceDateInfo1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Replaced" type="REPLACE">
+						<date_info>
+							<date_format>ReplacedDF</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceDateInfo2">
+					<refName>ResolveSource2</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Not Added" type="REPLACE">
+						<date_info>
+							<date_format>NotAddedDF</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+				<refComplexRegex name="RemoveDateInfo1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Removed" type="REMOVE">
+						<date_info>
+							<date_format>ReplacedDF</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+				<refComplexRegex name="RemoveDateInfo2">
+					<refName>ResolveSource2</refName>
+					<refGroup>GlobalTest.DateInfo1</refGroup>
+					<refDateInfo name="Removed" type="REMOVE">
+						<date_info>
+							<date_format>NoActionDF</date_format>
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</date_info>
+					</refDateInfo>
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
+		<group name="RegexFlags1">
+			<complexRegexes>
+				<complexRegex name="ResolveSource1">
+					<description>An interval in the available AML logs</description>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex">
+							<regexLine>((=+)|(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*))\r?\n((?!(=)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestRegex name="ISR1" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<regex_flags>
+						<regex_flag>CANON_EQ</regex_flag>
+						<regex_flag>COMMENTS</regex_flag>
+					</regex_flags>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
+				<refComplexRegex name="AddRegexFlags1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RegexFlags1</refGroup>
+					<refRegexFlags name="AddFlag" type="ADD">
+						<regex_flags>
+							<regex_flag>CASE_INSENSITIVE</regex_flag>
+							<regex_flag>UNICODE_CASE</regex_flag>
+						</regex_flags>
+					</refRegexFlags>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddRegexFlags1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RegexFlags1</refGroup>
+					<refRegexFlags name="ReplaceAddFlag" type="REPLACE_ADD">
+						<regex_flags>
+							<regex_flag>DOTALL</regex_flag>
+							<regex_flag>MULTILINE</regex_flag>
+						</regex_flags>
+					</refRegexFlags>
+				</refComplexRegex>
+				<!-- regex flags cannot be replaced this case is not handled -->
+				<refComplexRegex name="RemoveRegexFlags1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RegexFlags1</refGroup>
+					<refRegexFlags name="RemoveFlag" type="REMOVE">
+						<regex_flags>
+							<regex_flag>CANON_EQ</regex_flag>
+							<regex_flag>COMMENTS</regex_flag>
+						</regex_flags>
+					</refRegexFlags>
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
+		<group name="Views1">
+			<complexRegexes>
+				<complexRegex name="ResolveSource1">
+					<description>An interval in the available AML logs</description>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex">
+							<regexLine>((=+)|(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d.*))\r?\n((?!(=)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestRegex name="ISR1" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+					<views>
+						<view name="View1">
+							<regex name="View1Regex1">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+						<view name="View2">
+							<regex name="View2Regex1">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+						<view name="View3">
+							<regex name="View3Regex1">
+								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+							</regex>
+						</view>
+						<view name="View4">
+							<regex name="View4Regex1">
+								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+							</regex>
+						</view>
+					</views>
+				</complexRegex>
+				<refComplexRegex name="AddViews1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.Views1</refGroup>
+					<refViews>
+						<refView name="RefAdd" type="ADD" position="0">
+							<view name="Add1">
+								<regex name="AddRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefNotAdded" type="ADD" position="1">
+							<view name="View1">
+								<regex name="NotAddRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+					</refViews>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddViews1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.Views1</refGroup>
+					<refViews>
+						<refView name="RefReplacedPos" type="REPLACE_ADD" position="0">
+							<view name="ReplaceAdd1">
+								<regex name="ReplaceAddRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefReplacedName" type="REPLACE_ADD">
+							<view name="View2">
+								<regex name="ReplacedRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefAddedEnd15" type="REPLACE_ADD" position="15">
+							<view name="ReplaceAdd15">
+								<regex name="ReplaceAddRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefAddedEnd" type="REPLACE_ADD">
+							<view name="ReplaceAdd_End">
+								<regex name="ReplaceAddRegexEnd">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+					</refViews>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceViews1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.Views1</refGroup>
+					<refViews>
+						<refView name="RefReplacedPos" type="REPLACE" position="0">
+							<view name="Replace1">
+								<regex name="ReplaceRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefReplacedName" type="REPLACE">
+							<view name="View2">
+								<regex name="ReplacedRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefNotAddedEnd15" type="REPLACE" position="15">
+							<view name="NotReplaced15">
+								<regex name="ReplaceRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefNotReplacedEnd" type="REPLACE">
+							<view name="NotReplaced_End">
+								<regex name="ReplaceAddRegexEnd">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+					</refViews>
+				</refComplexRegex>
+				<refComplexRegex name="RemoveViews1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.Views1</refGroup>
+					<refViews>
+						<refView name="RefRemovePos" type="REMOVE" position="0">
+							<view name="Replace1">
+								<regex name="ReplaceRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefRemoved2" type="REMOVE">
+							<view name="View2">
+								<regex name="ReplacedRegex1">
+									<regexLine>(((\w+\.)+)\w*Exception)</regexLine>
+								</regex>
+							</view>
+						</refView>
+					</refViews>
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
 	</group>
 </regex_config>

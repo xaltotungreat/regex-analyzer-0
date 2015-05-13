@@ -20,12 +20,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.config.IConfigReader;
 import org.eclipselabs.real.core.config.regex.xml.RegexXmlConfigFileReader;
+import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.searchobject.SearchObjectController;
 import org.eclipselabs.real.core.searchobject.SearchObjectFactory;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
+import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
+import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.SortingApplicability;
 import org.eclipselabs.real.core.searchresult.sort.SortingType;
@@ -126,6 +130,44 @@ public abstract class RefTestBase {
         IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
                 (tags != null)?tags:(new HashMap<String, String>()));
         TestUtil.assertSOISRNotExists(name, type, pos, appl, so);
+    }
+
+    public void assertSODateInfoExists(String dateFormat, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSODateInfoExists(dateFormat, so);
+    }
+
+    public void assertSODateInfoNotExists(String dateFormat, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSODateInfoNotExists(dateFormat, so);
+    }
+
+    public void assertSORegexFlagExists(int flag, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSORegexFlagExists(flag, so);
+    }
+
+    public void assertSORegexFlagNotExists(int flag, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSORegexFlagNotExists(flag, so);
+    }
+
+    public void assertSOViewExists(String viewName, Integer pos, String regexName, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOViewExists(viewName, pos, regexName,
+                (IKeyedComplexSearchObject<?, ?, ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)so);
+    }
+
+    public void assertSOViewNotExists(String viewName, Integer pos, String regexName, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOViewNotExists(viewName, pos, regexName,
+                (IKeyedComplexSearchObject<?, ?, ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)so);
     }
 
 }

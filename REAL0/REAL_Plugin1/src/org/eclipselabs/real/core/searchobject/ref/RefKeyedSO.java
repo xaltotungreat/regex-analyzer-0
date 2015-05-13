@@ -423,6 +423,16 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                 log.error("addParameters param value is null " + refRegexFlags);
             }
         }
+
+        // the date info is added if none existed before
+        if ((refDateInfo != null) && (RefType.ADD.equals(refDateInfo.getType()))
+                && (obj.getDateInfo() == null) && (refDateInfo.getValue() != null)) {
+            obj.setDateInfo(refDateInfo.getValue());
+            count++;
+            if (refDateInfo.getValue() == null) {
+                log.warn("addParameters date info value is null " + refDateInfo);
+            }
+        }
         return count;
     }
 
@@ -677,10 +687,16 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
             }
         }
 
-        // the date info can only be replaced cannot add
-        if ((refDateInfo != null) && (RefType.REPLACE_ADD.equals(refDateInfo.getType()))) {
-            obj.setDateInfo(refDateInfo.getValue());
-            count++;
+        // it makes no sense to replace regex flags - no action
+
+        // the date info may be replaced
+        if ((refDateInfo != null) && (RefType.REPLACE.equals(refDateInfo.getType()))) {
+            if (obj.getDateInfo() != null) {
+                obj.setDateInfo(refDateInfo.getValue());
+                count++;
+            } else {
+                log.warn("replaceParameters dateInfo doesn't exist cannot replace");
+            }
             if (refDateInfo.getValue() == null) {
                 log.warn("replaceParameters date info value is null " + refDateInfo);
             }
@@ -796,7 +812,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
             }
         }
 
-        // even though it may be unusual the date info can also be removed
+        // even though it may be unusual the date info may also be removed
         if ((refDateInfo != null) && (RefType.REMOVE.equals(refDateInfo.getType()))) {
             log.warn("removeParameters RefDateInfo with type REMOVE. Setting dateInfo to null");
             obj.setDateInfo(null);
