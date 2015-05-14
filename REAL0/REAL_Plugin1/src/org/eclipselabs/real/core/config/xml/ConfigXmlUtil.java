@@ -44,6 +44,7 @@ import org.eclipselabs.real.core.searchobject.ref.RefInternalSortRequest;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
 import org.eclipselabs.real.core.searchobject.ref.RefParamInteger;
 import org.eclipselabs.real.core.searchobject.ref.RefRealRegex;
+import org.eclipselabs.real.core.searchobject.ref.RefRealRegexParam;
 import org.eclipselabs.real.core.searchobject.ref.RefReplaceParam;
 import org.eclipselabs.real.core.searchobject.ref.RefType;
 import org.eclipselabs.real.core.searchobject.ref.RefView;
@@ -290,36 +291,6 @@ public class ConfigXmlUtil implements IConfigXmlConstants {
         return result;
     }
 
-    public static List<RefRealRegex> collectRefRegex(Node elem) {
-        List<RefRealRegex> allRefRegex = new ArrayList<>();
-        if (elem.hasChildNodes()) {
-            Node currNode = elem.getFirstChild();
-            do {
-                if (XmlConfigNodeType.REF_REGEX.equalsNode(currNode)) {
-                    String refName = getRefParamName(currNode);
-                    RefType refType = getRefParamType(currNode);
-                    if (refType == null) {
-                        log.error("No param type available. Cannot process this ref regex " + refName);
-                        continue;
-                    }
-                    RefRealRegex newRefRegex = new RefRealRegex(refType, refName);
-                    List<IRealRegex> refRegexList = ConfigXmlUtil.collectAllRegex(currNode);
-                    if ((refRegexList != null) && (!refRegexList.isEmpty())) {
-                        newRefRegex.setValue(refRegexList.get(0));
-                        // add to the list only if the IRealRegex if found
-                        allRefRegex.add(newRefRegex);
-                    } else {
-                        log.warn("No IRealRegex found for the ref real regex " + refName
-                                + " cannot process this ref real regex");
-                    }
-                }
-                // processing complete moving to the next node
-                currNode = currNode.getNextSibling();
-            } while (currNode != null);
-        }
-        return allRefRegex;
-    }
-
     public static List<IRealRegexParam<?>> collectRegexParams(Node regexElem) {
         List<IRealRegexParam<?>> resultList = new ArrayList<>();
         List<Node> regexParamNodes = ConfigXmlUtil.collectChildNodes(regexElem, XmlConfigNodeType.REGEX_PARAM);
@@ -393,7 +364,92 @@ public class ConfigXmlUtil implements IConfigXmlConstants {
         return resultList;
     }
 
+    public static List<RefRealRegex> collectRefRegex(Node elem) {
+        List<RefRealRegex> allRefRegex = new ArrayList<>();
+        if (elem.hasChildNodes()) {
+            Node currNode = elem.getFirstChild();
+            do {
+                if (XmlConfigNodeType.REF_REGEX.equalsNode(currNode)) {
+                    String refName = getRefParamName(currNode);
+                    RefType refType = getRefParamType(currNode);
+                    if (refType == null) {
+                        log.error("No param type available. Cannot process this ref regex " + refName);
+                        continue;
+                    }
+                    Integer position = getRefParamPosition(currNode);
+                    RefRealRegex newRefRegex = new RefRealRegex(refType, refName, position);
+                    List<IRealRegex> refRegexList = ConfigXmlUtil.collectAllRegex(currNode);
+                    List<RefRealRegexParam> refParams = collectRefRegexParams(currNode);
+                    List<RefParamInteger> refFlags = collectRefRegexFlags(currNode);
+                    if ((refRegexList != null) && (!refRegexList.isEmpty())) {
+                        newRefRegex.setValue(refRegexList.get(0));
+                        // add to the list only if the IRealRegex if found
+                        allRefRegex.add(newRefRegex);
+                    } else if ((!refParams.isEmpty()) || (!refFlags.isEmpty())) {
+                        newRefRegex.setRefParamList(refParams);
+                        newRefRegex.setRefRegexFlags(refFlags);
+                        allRefRegex.add(newRefRegex);
+                    } else {
+                        log.warn("No IRealRegex found for the ref real regex and no internal ref params" + refName
+                                + " cannot process this ref real regex");
+                    }
+                }
+                // processing complete moving to the next node
+                currNode = currNode.getNextSibling();
+            } while (currNode != null);
+        }
+        return allRefRegex;
+    }
 
+    public static List<RefParamInteger> collectRefRegexFlags(Node refNode) {
+        List<RefParamInteger> collectedRefFlags = new ArrayList<>();
+        List<Node> allRegexFlags = ConfigXmlUtil.collectChildNodes(refNode, XmlConfigNodeType.REF_REGEX_FLAGS);
+        if ((allRegexFlags != null) && (!allRegexFlags.isEmpty())) {
+            Iterator<Node> regexFlagIter = allRegexFlags.iterator();
+            while (regexFlagIter.hasNext()) {
+                Node refFlagsNode = regexFlagIter.next();
+
+                String refRPName = getRefParamName(refFlagsNode);
+                RefType rpRefType = getRefParamType(refFlagsNode);
+                if (rpRefType == null) {
+                    log.error("No param type available. Cannot process this ref replace param " + refRPName);
+                    continue;
+                }
+                RefParamInteger newRefRegexFlags = new RefParamInteger(rpRefType, refRPName);
+                List<Node> flagsNodeList = ConfigXmlUtil.collectChildNodes(refFlagsNode, XmlConfigNodeType.REGEX_FLAGS);
+                Integer endFlags = 0;
+                for (Node nodeFlags : flagsNodeList) {
+                    endFlags |= getRegexFlags(nodeFlags);
+                }
+                newRefRegexFlags.setValue(endFlags);
+                collectedRefFlags.add(newRefRegexFlags);
+            }
+        }
+        return collectedRefFlags;
+    }
+
+    public static List<RefRealRegexParam> collectRefRegexParams(Node refNode) {
+        List<RefRealRegexParam> collectedRefParams = new ArrayList<>();
+        List<Node> allRegexFlags = ConfigXmlUtil.collectChildNodes(refNode, XmlConfigNodeType.REF_REGEX_PARAM);
+        if ((allRegexFlags != null) && (!allRegexFlags.isEmpty())) {
+            Iterator<Node> regexFlagIter = allRegexFlags.iterator();
+            while (regexFlagIter.hasNext()) {
+                Node refFlagsNode = regexFlagIter.next();
+
+                String refRPName = getRefParamName(refFlagsNode);
+                RefType rpRefType = getRefParamType(refFlagsNode);
+                if (rpRefType == null) {
+                    log.error("No param type available. Cannot process this ref replace param " + refRPName);
+                    continue;
+                }
+                RefRealRegexParam newRefRegexFlags = new RefRealRegexParam(rpRefType, refRPName);
+                List<IRealRegexParam<?>> allRegParams = ConfigXmlUtil.collectRegexParams(refFlagsNode);
+                newRefRegexFlags.setValue(allRegParams);
+                collectedRefParams.add(newRefRegexFlags);
+            }
+        }
+        return collectedRefParams;
+    }
 
     public static List<Node> collectChildNodes(Node parentNode, XmlConfigNodeType nodeType) {
         List<Node> childNodes = new ArrayList<Node>();

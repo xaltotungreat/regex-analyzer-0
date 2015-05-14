@@ -121,7 +121,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
             }
             log.info("ComplexRegex Tasks submitted " + watcher.getSubmitted() + " for group " + currentSOGroup);
 
-            List<Node> refCRNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REF_COMPLEX_REGEX, XmlConfigNodeType.REF_DISTINCT_COMPLEX_REGEX);
+            List<Node> refCRNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REF_COMPLEX_REGEX);
             for (final Node currNode : refCRNodes) {
                 CompletableFuture<? extends RefKeyedSO<
                     ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> future = submitConstructionTask(

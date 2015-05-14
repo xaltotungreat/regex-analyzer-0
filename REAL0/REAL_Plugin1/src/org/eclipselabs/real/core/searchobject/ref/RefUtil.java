@@ -1,6 +1,7 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
@@ -104,16 +105,29 @@ public class RefUtil {
                     if (refRealRegex.getPosition() != null) {
                         if ((refRealRegex.getPosition() >= 0) && (refRealRegex.getPosition() <= originalList.size())) {
                             originalList.add(refRealRegex.getPosition(), refRealRegex.getValue());
+                            count++;
                         } else {
-                            log.warn("addRefRealRegex Incorrect sort request position (adding to the end) position "
-                                    + refRealRegex.getPosition() + " size=" + originalList.size());
-                            originalList.add(refRealRegex.getValue());
+                            log.warn("addRefRealRegex Incorrect sort request position refname=" + refRealRegex.getName()
+                                    + " position " + refRealRegex.getPosition() + " size=" + originalList.size());
+                            Optional<IRealRegex> optRegex = originalList.stream().
+                                    filter(reg -> refRealRegex.defaultMatch(reg)).findFirst();
+                            if (!optRegex.isPresent()) {
+                                originalList.add(refRealRegex.getValue());
+                                count++;
+                            } else {
+                                log.warn("addRefRealRegex incorrect position and default match found (not added) refname=" + refRealRegex.getName());
+                            }
                         }
                     } else {
-                        originalList.add(refRealRegex.getValue());
+                        Optional<IRealRegex> optRegex = originalList.stream().
+                                filter(reg -> refRealRegex.defaultMatch(reg)).findFirst();
+                        if (!optRegex.isPresent()) {
+                            originalList.add(refRealRegex.getValue());
+                            count++;
+                        } else {
+                            log.warn("addRefRealRegex default match found (not added) refname=" + refRealRegex.getName());
+                        }
                     }
-                    // the request is added anyway - increase count at the end
-                    count++;
                 }
             }
         }

@@ -67,6 +67,13 @@ public class RefSOComplexRegex extends RefKeyedComplexSO<
     }
 
     @Override
+    public Integer replaceParameters(ISOComplexRegex obj) {
+        Integer count = super.replaceParameters(obj);
+        count += RefUtil.replaceRefRealRegex(obj.getMainRegexList(), refMainRegexes);
+        return count;
+    }
+
+    @Override
     public Integer removeParameters(ISOComplexRegex obj) {
         Integer count = super.removeParameters(obj);
         count += RefUtil.removeRefRealRegex(obj.getMainRegexList(), refMainRegexes);

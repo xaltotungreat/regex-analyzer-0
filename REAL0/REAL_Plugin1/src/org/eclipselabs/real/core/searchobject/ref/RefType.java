@@ -24,7 +24,7 @@ public enum RefType {
     /**
      * The value of the ref with this type must be added either to a specified position
      * or "simply" added/replaced (implementation is provided by the ref).
-     * Usually it is assumed that this ref must replace the first matching value 
+     * Usually it is assumed that this ref must replace the first matching value
      * (details are implementation-specific)
      */
     REPLACE_ADD,
@@ -40,23 +40,23 @@ public enum RefType {
     REMOVE,
     /**
      * For compound refs (ref containing other refs as children) this type
-     * specifies that 
+     * specifies that
      * 1. The first value matching this ref must be found
      * 2. It is cloned
      * 3. The parameters of the cloned object are changed in accordance with
      * the refs to parameters of this ref
-     * 4. The resulting value is added (to he position of simply added)
+     * 4. The resulting value is added (to the specified position or added to the end of the list)
      */
     CP_ADD,
     /**
      * For compound refs (ref containing other refs as children) this type
-     * specifies that 
+     * specifies that
      * 1. The first value matching this ref must be found
      * 2. It is cloned
      * 3. The parameters of the cloned object are changed in accordance with
      * the refs to parameters of this ref
      * 4. The resulting value replaces either the value in the specified position
-     * or the first matching value (if no position is specified) 
+     * or the first matching value (if no position is specified)
      */
     CP_REPLACE;
 }

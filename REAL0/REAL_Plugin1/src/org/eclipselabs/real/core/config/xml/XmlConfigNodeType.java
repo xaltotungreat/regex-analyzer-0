@@ -61,8 +61,8 @@ public enum XmlConfigNodeType {
     REF_REPLACE_PARAM("refReplaceParam"),
     REF_REGEXES("refRegexes"),
     REF_MAIN_REGEXES("refMainRegexes"),
-    REF_SELECTION_REGEXES("refSelection_regexes"),
     REF_REGEX("refRegex"),
+    REF_REGEX_PARAM("refRegexParam"),
     REF_SORT_REQUESTS("refSortRequests"),
     REF_SORT_REQUEST("refSortRequest"),
     REF_ACCEPTANCES("refAcceptances"),
@@ -74,8 +74,6 @@ public enum XmlConfigNodeType {
     // main ref types
     REF_KEYED_REGEX("refKeyed_regex"),
     REF_COMPLEX_REGEX("refComplexRegex"),
-    REF_DISTINCT_COMPLEX_REGEX("refDistinctComplexRegex"),
-    REF_INTERVAL("refInterval"),
     REF_SEARCH_SCRIPT("refSearchScript"),
 
     // gui config

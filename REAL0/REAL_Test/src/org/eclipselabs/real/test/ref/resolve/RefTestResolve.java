@@ -1,9 +1,12 @@
 package org.eclipselabs.real.test.ref.resolve;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.eclipselabs.real.core.regex.IRealRegexParam;
+import org.eclipselabs.real.core.regex.RegexFactory;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchobject.crit.IDTIntervalCriterion;
 import org.eclipselabs.real.core.searchobject.crit.IRegexAcceptanceCriterion;
@@ -156,6 +159,53 @@ public class RefTestResolve extends RefTestBase {
         assertSOViewNotExists("View2", null, null, "RemoveViews1", "GlobalTest.Views1", null);
         assertSOViewExists("View3", 0, "View3Regex1", "RemoveViews1", "GlobalTest.Views1", null);
         assertSOViewExists("View4", 1, "View4Regex1", "RemoveViews1", "GlobalTest.Views1", null);
+    }
+
+    @Test
+    public void testMainRegexesSimple() {
+        assertSOMainRegexExists("Added to position 0", 0, "Added0", "AddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexNotExists("MainRegex2", null, "NotAddedSame", "AddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("AddedToEnd10", 5, "RegAddedToEnd10", "AddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("AddedToEnd_End", 6, "RegAddedToEnd_End", "AddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+
+        assertSOMainRegexExists("ReplacedAt0", 0, "Replaced0", "ReplaceAddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexNotExists("MainRegex1", null, null, "ReplaceAddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("MainRegex2", null, "ReplacedByName", "ReplaceAddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("ReplAddedToEnd10", 4, "RegReplAddedToEnd10", "ReplaceAddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("ReplAddedToEnd_End", 5, "RegReplAddedToEnd_End", "ReplaceAddRegexes1", "GlobalTest.RealRegexesSimple1", null);
+
+        assertSOMainRegexExists("ReplacedAt0", 0, "Replaced0", "ReplaceRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexNotExists("MainRegex1", null, null, "ReplaceRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("MainRegex2", null, "ReplacedByName", "ReplaceRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexNotExists("NotReplaced10", 4, null, "ReplaceRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexNotExists("NotReplaced_End", 5, null, "ReplaceRegexes1", "GlobalTest.RealRegexesSimple1", null);
+
+        assertSOMainRegexNotExists("MainRegex1", null, null, "RemoveRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexNotExists("MainRegex2", null, null, "RemoveRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("MainRegex3", 0, "MLine3", "RemoveRegexes1", "GlobalTest.RealRegexesSimple1", null);
+        assertSOMainRegexExists("MainRegex4", 1, "MLine4", "RemoveRegexes1", "GlobalTest.RealRegexesSimple1", null);
+    }
+
+    @Test
+    public void testMainRegexesCompound() {
+        IRealRegexParam<Integer> intParam0 = RegexFactory.INSTANCE.getRealRegexIntegerParam();
+        intParam0.setName("instance");
+        intParam0.setValue(0);
+        IRealRegexParam<Integer> intParam1 = RegexFactory.INSTANCE.getRealRegexIntegerParam();
+        intParam1.setName("instance");
+        intParam1.setValue(1);
+        IRealRegexParam<Integer> intParam2 = RegexFactory.INSTANCE.getRealRegexIntegerParam();
+        intParam2.setName("instance2");
+        intParam2.setValue(2);
+
+        assertSOMainRegexExists("MainRegex1", 3, Arrays.asList(intParam0), Pattern.CANON_EQ | Pattern.COMMENTS,
+                "CpAddRegexes1", "GlobalTest.RealRegexesCompound1", null);
+        assertSOMainRegexExists("MainRegex2", 2, Arrays.asList(intParam1, intParam2), Pattern.CANON_EQ | Pattern.COMMENTS |Pattern.DOTALL,
+                "CpAddRegexes1", "GlobalTest.RealRegexesCompound1", null);
+        assertSOMainRegexExists("MainRegex3", 1, Arrays.asList(intParam1), Pattern.LITERAL | Pattern.MULTILINE,
+                "CpAddRegexes1", "GlobalTest.RealRegexesCompound1", null);
+        assertSOMainRegexExists("MainRegex4", 0, Arrays.asList(intParam2), Pattern.COMMENTS,
+                "CpAddRegexes1", "GlobalTest.RealRegexesCompound1", null);
     }
 
 }

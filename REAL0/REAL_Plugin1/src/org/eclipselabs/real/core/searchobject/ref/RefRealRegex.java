@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,16 +15,24 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
     private static final Logger log = LogManager.getLogger(RefRealRegex.class);
 
     protected List<RefRealRegexParam> refParamList;
-    protected RefParamInteger refRegexFlags;
+    protected List<RefParamInteger> refRegexFlags;
 
+    /*
+     * This could be a simple ref with only the value and a compound ref
+     * with more parameters.
+     * If this is a simple ref comare the name of the regex value with the object name
+     * If this is a compound ref then compare its name and the object name.
+     */
     protected Predicate<IRealRegex> matchPredicate = new Predicate<IRealRegex>() {
 
         @Override
         public boolean test(IRealRegex obj) {
-            boolean result = true;
-            if (refValue != null) {
-                if ((obj != null) && (refValue.getRegexName() != null)) {
+            boolean result = false;
+            if (obj != null) {
+                if ((refValue != null) && (refValue.getRegexName() != null)) {
                     result = refValue.getRegexName().equals(obj.getRegexName());
+                } else {
+                    result = getName().equals(obj.getRegexName());
                 }
             }
             return result;
@@ -51,11 +60,11 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
         this.refParamList = refParamList;
     }
 
-    public RefParamInteger getRefRegexFlags() {
+    public List<RefParamInteger> getRefRegexFlags() {
         return refRegexFlags;
     }
 
-    public void setRefRegexFlags(RefParamInteger refRegexFlags) {
+    public void setRefRegexFlags(List<RefParamInteger> refRegexFlags) {
         this.refRegexFlags = refRegexFlags;
     }
 
@@ -85,13 +94,7 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
                 Collection<IRealRegexParam<?>> allRRParams = obj.getParameters();
                 if ((allRRParams != null) && (!allRRParams.isEmpty())) {
                     for (RefRealRegexParam refRRParam : matchRealRegexParams) {
-                        boolean refRRParamMatch = false;
-                        for (IRealRegexParam<?> rpObj : allRRParams) {
-                            if (refRRParam.getValue().equals(rpObj)) {
-                                refRRParamMatch = true;
-                                break;
-                            }
-                        }
+                        boolean refRRParamMatch = allRRParams.stream().anyMatch(rpObj -> refRRParam.getValue().equals(rpObj));
                         if (!refRRParamMatch) {
                             matches = false;
                             log.debug("matchByParameters RealRegexParam not matched " + refRRParam + " obj name=" + obj.getRegexName());
@@ -101,16 +104,26 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
                 }
             }
         }
-        if (matches && (refRegexFlags != null) && (RefType.MATCH.equals(refRegexFlags.getType()))) {
-            if (refRegexFlags.getValue() != null) {
-                if (!refRegexFlags.getValue().equals(obj.getRegexFlags())) {
-                    matches = false;
-                    log.debug("matchByParameters RegexFlags not matched " + refRegexFlags + " obj name=" + obj.getRegexName());
+
+        if ((refRegexFlags != null) && (!refRegexFlags.isEmpty())) {
+            List<RefParamInteger> matchRegexFlags = new ArrayList<>();
+            for (RefParamInteger refRRFlag : refRegexFlags) {
+                if ((RefType.MATCH.equals(refRRFlag.getType()) && (refRRFlag.getValue() != null))) {
+                    matchRegexFlags.add(refRRFlag);
                 }
-            } else {
-                log.error("matchByParameters param value is null " + refRegexFlags);
+            }
+
+            if (!matchRegexFlags.isEmpty()) {
+                Integer objFlags = obj.getRegexFlags();
+                List<RefParamInteger> nonMatching = matchRegexFlags.stream().
+                        filter(intParam -> !((objFlags & intParam.getValue()) == intParam.getValue())).collect(Collectors.toList());
+                if (!nonMatching.isEmpty()) {
+                    nonMatching.forEach(flags -> log.debug("matchByParameters Flags not matched " + flags.getName()));
+                    matches = false;
+                }
             }
         }
+
         return matches;
     }
 
@@ -119,33 +132,43 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
         Integer count = 0;
         if ((refParamList != null) && (!refParamList.isEmpty())) {
             for (RefRealRegexParam refRRParam : refParamList) {
-                if (refRRParam.getValue() != null) {
-                    log.error("addParameters null value for ref(cannot process this param)\n" + refRRParam);
-                    continue;
-                }
-                if (refRRParam.getPosition() != null) {
-                    log.warn("addParameters position is ignored for real regex params");
-                }
-                IRealRegexParam<?> existingParam = obj.getParameter(refRRParam.getValue().getName());
-                if (existingParam == null) {
-                    obj.putParameter(refRRParam.getValue());
-                    count++;
-                } else {
-                    log.error("addParameters trying to add an already existing param " + refRRParam);
+                if (RefType.ADD.equals(refRRParam.getType())) {
+                    if (refRRParam.getValue() == null) {
+                        log.error("addParameters null value for ref(cannot process this param)\n" + refRRParam);
+                        continue;
+                    }
+                    if (refRRParam.getPosition() != null) {
+                        log.warn("addParameters position is ignored for real regex params");
+                    }
+                    for (IRealRegexParam<?> rParam : refRRParam.getValue()) {
+                        if (obj.getParameter(rParam.getName()) == null) {
+                            obj.putParameter(rParam);
+                            count++;
+                        } else {
+                            log.error("addParameters trying to add an already existing param " + rParam);
+                        }
+                    }
                 }
             }
         }
-        if ((refRegexFlags != null) && (RefType.ADD.equals(refRegexFlags.getType()))) {
-            if (refRegexFlags.getValue() != null) {
-                if (obj.getRegexFlags() != null) {
-                    Integer resultFlags = obj.getRegexFlags() | refRegexFlags.getValue();
-                    obj.setRegexFlags(resultFlags);
-                } else {
-                    obj.setRegexFlags(refRegexFlags.getValue());
+        if ((refRegexFlags != null) && (!refRegexFlags.isEmpty())) {
+            for (RefParamInteger refRRFlag : refRegexFlags) {
+                if (RefType.ADD.equals(refRRFlag.getType())) {
+                    if (refRRFlag.getValue() == null) {
+                        log.error("addParameters null value for ref(cannot process this param)\n" + refRRFlag);
+                        continue;
+                    }
+                    if (refRRFlag.getPosition() != null) {
+                        log.warn("addParameters position is ignored for real regex params");
+                    }
+                    if (obj.getRegexFlags() != null) {
+                        Integer resultFlags = obj.getRegexFlags() | refRRFlag.getValue();
+                        obj.setRegexFlags(resultFlags);
+                    } else {
+                        obj.setRegexFlags(refRRFlag.getValue());
+                    }
+                    count++;
                 }
-                count++;
-            } else {
-                log.error("addParameters param value is null " + refRegexFlags);
             }
         }
         return count;
@@ -157,62 +180,80 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
         if ((refParamList != null) && (!refParamList.isEmpty())) {
             for (RefRealRegexParam refRRParam : refParamList) {
                 if (RefType.REPLACE_ADD.equals(refRRParam.getType())) {
-                    if (refRRParam.getValue() != null) {
+                    if (refRRParam.getValue() == null) {
                         log.error("replaceAddParameters null value for ref(cannot process this param)\n" + refRRParam);
                         continue;
                     }
                     if (refRRParam.getPosition() != null) {
                         log.warn("replaceAddParameters position is ignored for real regex params");
                     }
-                    obj.putParameter(refRRParam.getValue());
-                    count++;
+                    for (IRealRegexParam<?> rParam : refRRParam.getValue()) {
+                        obj.putParameter(rParam);
+                        count++;
+                    }
                 }
             }
         }
-        if ((refRegexFlags != null) && (RefType.REPLACE_ADD.equals(refRegexFlags.getType()))) {
-            if (refRegexFlags.getValue() != null) {
-                if (obj.getRegexFlags() != null) {
-                    Integer resultFlags = obj.getRegexFlags() | refRegexFlags.getValue();
-                    obj.setRegexFlags(resultFlags);
-                } else {
-                    obj.setRegexFlags(refRegexFlags.getValue());
+        if ((refRegexFlags != null) && (!refRegexFlags.isEmpty())) {
+            for (RefParamInteger refRRFlag : refRegexFlags) {
+                if (RefType.REPLACE_ADD.equals(refRRFlag.getType())) {
+                    if (refRRFlag.getValue() == null) {
+                        log.error("replaceAddParameters null value for ref(cannot process this param)\n" + refRRFlag);
+                        continue;
+                    }
+                    if (refRRFlag.getPosition() != null) {
+                        log.warn("replaceAddParameters position is ignored for real regex params");
+                    }
+                    if (obj.getRegexFlags() != null) {
+                        Integer resultFlags = obj.getRegexFlags() | refRRFlag.getValue();
+                        obj.setRegexFlags(resultFlags);
+                    } else {
+                        obj.setRegexFlags(refRRFlag.getValue());
+                    }
+                    count++;
                 }
-                count++;
-            } else {
-                log.error("replaceAddParameters param value is null " + refRegexFlags);
             }
         }
         return count;
     }
 
+    @Override
     public Integer replaceParameters(IRealRegex obj) {
         Integer count = 0;
         if ((refParamList != null) && (!refParamList.isEmpty())) {
             for (RefRealRegexParam refRRParam : refParamList) {
-                if (RefType.REPLACE_ADD.equals(refRRParam.getType())) {
-                    if (refRRParam.getValue() != null) {
-                        log.error("replaceAddParameters null value for ref(cannot process this param)\n" + refRRParam);
+                if (RefType.REPLACE.equals(refRRParam.getType())) {
+                    if (refRRParam.getValue() == null) {
+                        log.error("replaceParameters null value for ref(cannot process this param)\n" + refRRParam);
                         continue;
                     }
                     if (refRRParam.getPosition() != null) {
-                        log.warn("replaceAddParameters position is ignored for real regex params");
+                        log.warn("replaceParameters position is ignored for real regex params");
                     }
-                    IRealRegexParam<?> existingParam = obj.getParameter(refRRParam.getValue().getName());
-                    if (existingParam != null) {
-                        obj.putParameter(refRRParam.getValue());
-                        count++;
-                    } else {
-                        log.error("replaceParameters trying to replace a non-existing param " + refRRParam);
+                    for (IRealRegexParam<?> rParam : refRRParam.getValue()) {
+                        if (obj.getParameter(rParam.getName()) != null) {
+                            obj.putParameter(rParam);
+                            count++;
+                        } else {
+                            log.error("replaceParameters trying to replace a non-existing param " + rParam);
+                        }
                     }
                 }
             }
         }
-        if ((refRegexFlags != null) && (RefType.REPLACE_ADD.equals(refRegexFlags.getType()))
-                && (refRegexFlags.getValue() != null)) {
-            obj.setRegexFlags(refRegexFlags.getValue());
-            count++;
-            if (refRegexFlags.getValue() == null) {
-                log.warn("replaceParameters param value is null " + refRegexFlags);
+        if ((refRegexFlags != null) && (!refRegexFlags.isEmpty())) {
+            for (RefParamInteger refRRFlag : refRegexFlags) {
+                if (RefType.REPLACE.equals(refRRFlag.getType())) {
+                    if (refRRFlag.getValue() == null) {
+                        log.error("replaceParameters null value for ref(cannot process this param)\n" + refRRFlag);
+                        continue;
+                    }
+                    if (refRRFlag.getPosition() != null) {
+                        log.warn("replaceParameters position is ignored for real regex params");
+                    }
+                    obj.setRegexFlags(refRRFlag.getValue());
+                    count++;
+                }
             }
         }
         return count;
@@ -224,30 +265,42 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
         if ((refParamList != null) && (!refParamList.isEmpty())) {
             for (RefRealRegexParam refRRParam : refParamList) {
                 if (RefType.REMOVE.equals(refRRParam.getType())) {
-                    if (refRRParam.getValue() != null) {
+                    if (refRRParam.getValue() == null) {
                         log.error("removeParameters null value for ref(cannot process this param)\n" + refRRParam);
                         continue;
                     }
                     if (refRRParam.getPosition() != null) {
                         log.warn("removeParameters position is ignored for real regex params");
                     }
-                    obj.removeParameter(refRRParam.getValue().getName(), refRRParam.getValue().getType());
-                    count++;
+                    for (IRealRegexParam<?> rParam : refRRParam.getValue()) {
+                        if (obj.getParameter(rParam.getName()) != null) {
+                            obj.removeParameter(rParam.getName(), rParam.getType());
+                            count++;
+                        } else {
+                            log.error("removeParameters trying to remove a non-existing param " + rParam);
+                        }
+                    }
                 }
             }
         }
-        if ((refRegexFlags != null) && (RefType.REMOVE.equals(refRegexFlags.getType()))
-                && (refRegexFlags.getValue() != null)) {
-            if (refRegexFlags.getValue() != null) {
-                if (obj.getRegexFlags() != null) {
-                    Integer resultFlags = obj.getRegexFlags() & (refRegexFlags.getValue() ^ Integer.MAX_VALUE);
-                    obj.setRegexFlags(resultFlags);
-                    count++;
-                } else {
-                    log.warn("removeParameters obj regex flags is null nothing to remove");
+        if ((refRegexFlags != null) && (!refRegexFlags.isEmpty())) {
+            for (RefParamInteger refRRFlag : refRegexFlags) {
+                if (RefType.REMOVE.equals(refRRFlag.getType())) {
+                    if (refRRFlag.getValue() == null) {
+                        log.error("removeParameters null value for ref(cannot process this param)\n" + refRRFlag);
+                        continue;
+                    }
+                    if (refRRFlag.getPosition() != null) {
+                        log.warn("removeParameters position is ignored for real regex params");
+                    }
+                    if (obj.getRegexFlags() != null) {
+                        Integer resultFlags = obj.getRegexFlags() & (refRRFlag.getValue() ^ Integer.MAX_VALUE);
+                        obj.setRegexFlags(resultFlags);
+                        count++;
+                    } else {
+                        log.warn("removeParameters obj regex flags is null nothing to remove");
+                    }
                 }
-            } else {
-                log.error("removeParameters param value is null " + refRegexFlags);
             }
         }
         return count;

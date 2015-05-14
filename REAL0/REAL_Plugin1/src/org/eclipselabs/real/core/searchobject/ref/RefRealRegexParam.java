@@ -1,27 +1,48 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
+import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.regex.IRealRegexParam;
 
-public class RefRealRegexParam extends RefSimpleImpl<IRealRegexParam<?>> {
+public class RefRealRegexParam extends RefSimpleImpl<List<IRealRegexParam<?>>> {
+    private static final Logger log = LogManager.getLogger(RefRealRegexParam.class);
 
-    protected Predicate<IRealRegexParam<?>> matchPredicate = new Predicate<IRealRegexParam<?>>() {
+    protected Predicate<List<IRealRegexParam<?>>> matchPredicate = new Predicate<List<IRealRegexParam<?>>>() {
 
         @Override
-        public boolean test(IRealRegexParam<?> obj) {
+        public boolean test(List<IRealRegexParam<?>> obj) {
             boolean result = true;
+            /*
+             * This is a simple ref it must have a value. If the value is null
+             * no match
+             */
             if (refValue != null) {
                 if (obj != null) {
-                    if (result && (refValue.getName() != null)) {
-                        result = refValue.getName().equals(obj.getName());
-                    }
-                    if (result && (refValue.getType() != null)) {
-                        result = refValue.getType().equals(obj.getType());
+                    for (IRealRegexParam<?> rpRef : refValue) {
+                        boolean currRefParamMatch = false;
+                        for (IRealRegexParam<?> rpObj : obj) {
+                            if ((rpRef != null) && (rpRef.getName() != null) && (rpObj != null)) {
+                                if (rpRef.getName().equals(rpObj.getName())) {
+                                    currRefParamMatch = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!currRefParamMatch) {
+                            result = false;
+                            log.debug("matchPredicate RealRegexParam not matched " + rpRef);
+                            break;
+                        }
                     }
                 } else {
                     result = false;
                 }
+            } else {
+                log.warn("Ref Replace Param list is null");
+                result = true;
             }
             return result;
         }
@@ -47,7 +68,7 @@ public class RefRealRegexParam extends RefSimpleImpl<IRealRegexParam<?>> {
     }
 
     @Override
-    public Predicate<IRealRegexParam<?>> getDefaultMatchPredicate() {
+    public Predicate<List<IRealRegexParam<?>>> getDefaultMatchPredicate() {
         return matchPredicate;
     }
 

@@ -1159,5 +1159,291 @@
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
+		<group name="RealRegexesSimple1">
+			<complexRegexes>
+				<complexRegex name="ResolveSource1">
+					<description>An interval in the available AML logs</description>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex1">
+							<regexLine>MLine1</regexLine>
+						</regex>
+						<regex name="MainRegex2">
+							<regexLine>MLine2</regexLine>
+						</regex>
+						<regex name="MainRegex3">
+							<regexLine>MLine3</regexLine>
+						</regex>
+						<regex name="MainRegex4">
+							<regexLine>MLine4</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestRegex name="ISR1" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+					<views>
+						<view name="View1">
+							<regex name="View1Regex1">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+						<view name="View2">
+							<regex name="View2Regex1">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
+				</complexRegex>
+				<refComplexRegex name="AddRegexes1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RealRegexesSimple1</refGroup>
+					<refRegexes>
+						<refRegex name="Added to position 0" type="ADD" position="0">
+							<regex name="Added to position 0">
+								<regexLine>Added0</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="NotAddedSame" type="ADD">
+							<regex name="MainRegex2">
+								<regexLine>NotAddedSame</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="AddedToEnd10" type="ADD" position="10">
+							<regex name="AddedToEnd10">
+								<regexLine>RegAddedToEnd10</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="AddedToEnd_End" type="ADD">
+							<regex name="AddedToEnd_End">
+								<regexLine>RegAddedToEnd_End</regexLine>
+							</regex>
+						</refRegex>
+					</refRegexes>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceAddRegexes1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RealRegexesSimple1</refGroup>
+					<refRegexes>
+						<refRegex name="Replaced at 0" type="REPLACE_ADD" position="0">
+							<regex name="ReplacedAt0">
+								<regexLine>Replaced0</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="ReplacedByName" type="REPLACE_ADD">
+							<regex name="MainRegex2">
+								<regexLine>ReplacedByName</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="AddedToEndIncorrect position" type="REPLACE_ADD" position="10">
+							<regex name="ReplAddedToEnd10">
+								<regexLine>RegReplAddedToEnd10</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="AddedToEnd_End" type="REPLACE_ADD">
+							<regex name="ReplAddedToEnd_End">
+								<regexLine>RegReplAddedToEnd_End</regexLine>
+							</regex>
+						</refRegex>
+					</refRegexes>
+				</refComplexRegex>
+				<refComplexRegex name="ReplaceRegexes1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RealRegexesSimple1</refGroup>
+					<refRegexes>
+						<refRegex name="Replaced at 0" type="REPLACE" position="0">
+							<regex name="ReplacedAt0">
+								<regexLine>Replaced0</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="ReplacedByName" type="REPLACE">
+							<regex name="MainRegex2">
+								<regexLine>ReplacedByName</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="Not replaced Incorrect position" type="REPLACE" position="10">
+							<regex name="NotReplaced10">
+								<regexLine>RegReplAddedToEnd10</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="Not replaced no match" type="REPLACE">
+							<regex name="NotReplaced_End">
+								<regexLine>RegReplAddedToEnd_End</regexLine>
+							</regex>
+						</refRegex>
+					</refRegexes>
+				</refComplexRegex>
+				<refComplexRegex name="RemoveRegexes1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RealRegexesSimple1</refGroup>
+					<refRegexes>
+						<refRegex name="Removed at 0" type="REMOVE" position="0">
+							<regex name="ReplacedAt0">
+								<regexLine>Replaced0</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="RemovedByName" type="REMOVE">
+							<regex name="MainRegex2">
+								<regexLine>ReplacedByName</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="Not removed Incorrect position" type="REMOVE" position="10">
+							<regex name="NotReplaced10">
+								<regexLine>RegReplAddedToEnd10</regexLine>
+							</regex>
+						</refRegex>
+						<refRegex name="Not removed no match" type="REMOVE">
+							<regex name="NotReplaced_End">
+								<regexLine>RegReplAddedToEnd_End</regexLine>
+							</regex>
+						</refRegex>
+					</refRegexes>
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
+		<group name="RealRegexesCompound1">
+			<complexRegexes>
+				<complexRegex name="ResolveSource1">
+					<description>An interval in the available AML logs</description>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex1">
+							<regexLine>MLine1</regexLine>
+						</regex>
+						<regex name="MainRegex2">
+							<regexParam name="instance" type="Integer">0</regexParam>
+							<regex_flags>
+								<regex_flag>CANON_EQ</regex_flag>
+								<regex_flag>COMMENTS</regex_flag>
+							</regex_flags>
+							<regexLine>MLine2</regexLine>
+						</regex>
+						<regex name="MainRegex3">
+							<regexParam name="instance" type="Integer">0</regexParam>
+							<regex_flags>
+								<regex_flag>CANON_EQ</regex_flag>
+								<regex_flag>COMMENTS</regex_flag>
+							</regex_flags>
+							<regexLine>MLine3</regexLine>
+						</regex>
+						<regex name="MainRegex4">
+							<regexParam name="instance" type="Integer">0</regexParam>
+							<regexParam name="instance2" type="Integer">2</regexParam>
+							<regex_flags>
+								<regex_flag>CANON_EQ</regex_flag>
+								<regex_flag>COMMENTS</regex_flag>
+							</regex_flags>
+							<regexLine>MLine4</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestRegex name="ISR1" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+					<views>
+						<view name="View1">
+							<regex name="View1Regex1">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+						<view name="View2">
+							<regex name="View2Regex1">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
+				</complexRegex>
+				<refComplexRegex name="CpAddRegexes1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RealRegexesCompound1</refGroup>
+					<refRegexes>
+						<refRegex name="MainRegex1" type="CP_ADD" position="0">
+							<refRegexParam name="AddParams" type="ADD">
+								<regexParam name="instance" type="Integer">0</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="AddFlags" type="ADD">
+								<regex_flags>
+									<regex_flag>CANON_EQ</regex_flag>
+									<regex_flag>COMMENTS</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+						<refRegex name="MainRegex2" type="CP_ADD" position="0">
+							<refRegexParam name="ReplaceAddParams" type="REPLACE_ADD">
+								<regexParam name="instance" type="Integer">1</regexParam>
+								<regexParam name="instance2" type="Integer">2</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="ReplaceAddFlags" type="REPLACE_ADD">
+								<regex_flags>
+									<regex_flag>CANON_EQ</regex_flag>
+									<regex_flag>COMMENTS</regex_flag>
+									<regex_flag>DOTALL</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+						<refRegex name="MainRegex3" type="CP_ADD" position="0">
+							<refRegexParam name="ReplaceParams" type="REPLACE">
+								<regexParam name="instance" type="Integer">1</regexParam>
+								<regexParam name="instance2" type="Integer">2</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="ReplaceFlags" type="REPLACE">
+								<regex_flags>
+									<regex_flag>LITERAL</regex_flag>
+									<regex_flag>MULTILINE</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+						<refRegex name="MainRegex4" type="CP_ADD" position="0">
+							<refRegexParam name="ReplaceParams" type="REMOVE">
+								<regexParam name="instance" type="Integer">1</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="ReplaceFlags" type="REMOVE">
+								<regex_flags>
+									<regex_flag>CANON_EQ</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+					</refRegexes>
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
 	</group>
 </regex_config>

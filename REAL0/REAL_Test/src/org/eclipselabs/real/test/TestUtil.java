@@ -7,12 +7,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 import org.eclipselabs.real.core.regex.IRealRegex;
+import org.eclipselabs.real.core.regex.IRealRegexParam;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
@@ -243,5 +246,100 @@ public class TestUtil {
             assertNull(existingView);
         }
     }
+
+    public static void assertSOMainRegexExists(String regexName, Integer pos, String patternString, ISOComplexRegex so) {
+        IRealRegex foundRegex = null;
+        if (pos != null) {
+            assertTrue(0 <= pos && pos < so.getMainRegexList().size());
+            foundRegex = so.getMainRegexList().get(pos);
+            assertEquals(regexName, foundRegex.getRegexName());
+        } else {
+            Optional<IRealRegex> optRegex = so.getMainRegexList().stream().
+                    filter(reg -> regexName.equals(reg.getRegexName())).findFirst();
+            assertTrue(optRegex.isPresent());
+            foundRegex = optRegex.get();
+        }
+        if ((patternString != null) && (foundRegex != null)) {
+            String regStr = foundRegex.getPatternString(new HashMap<String,String>());
+            assertEquals(patternString, regStr);
+        }
+    }
+
+    public static void assertSOMainRegexNotExists(String regexName, Integer pos, String patternString, ISOComplexRegex so) {
+        IRealRegex foundRegex = null;
+        if (pos != null) {
+            if (0 <= pos && pos < so.getMainRegexList().size() &&
+                    regexName.equals(so.getMainRegexList().get(pos).getRegexName())) {
+                foundRegex = so.getMainRegexList().get(pos);
+            }
+        } else {
+            Optional<IRealRegex> optRegex = so.getMainRegexList().stream().
+                    filter(reg -> regexName.equals(reg.getRegexName())).findFirst();
+            if (optRegex.isPresent()) {
+                foundRegex = optRegex.get();
+            }
+        }
+        if (foundRegex != null) {
+            if (patternString != null) {
+                String regStr = foundRegex.getPatternString(new HashMap<String,String>());
+                assertNotEquals(patternString, regStr);
+            } else{
+                assertFalse("Found the regex with name " + regexName, true);
+            }
+        }
+    }
+
+    public static void assertSOMainRegexExists(String regexName, Integer pos, List<IRealRegexParam<?>> paramList,
+            Integer regexFlags, ISOComplexRegex so) {
+        IRealRegex foundRegex = null;
+        if (pos != null) {
+            assertTrue(0 <= pos && pos < so.getMainRegexList().size());
+            foundRegex = so.getMainRegexList().get(pos);
+            assertEquals(regexName, foundRegex.getRegexName());
+        } else {
+            Optional<IRealRegex> optRegex = so.getMainRegexList().stream().
+                    filter(reg -> regexName.equals(reg.getRegexName())).findFirst();
+            assertTrue(optRegex.isPresent());
+            foundRegex = optRegex.get();
+        }
+        if (paramList != null) {
+            assertTrue(foundRegex.getParameters().containsAll(paramList));
+        }
+        if (regexFlags != null) {
+            assertTrue((foundRegex.getRegexFlags() & regexFlags) == regexFlags);
+        }
+    }
+
+    public static void assertSOMainRegexNotExists(String regexName, Integer pos, List<IRealRegexParam<?>> paramList,
+            Integer regexFlags, ISOComplexRegex so) {
+        IRealRegex foundRegex = null;
+        if (pos != null) {
+            if (0 <= pos && pos < so.getMainRegexList().size() &&
+                    regexName.equals(so.getMainRegexList().get(pos).getRegexName())) {
+                foundRegex = so.getMainRegexList().get(pos);
+            }
+        } else {
+            Optional<IRealRegex> optRegex = so.getMainRegexList().stream().
+                    filter(reg -> regexName.equals(reg.getRegexName())).findFirst();
+            if (optRegex.isPresent()) {
+                foundRegex = optRegex.get();
+            }
+        }
+        if (foundRegex != null) {
+            boolean match = true;
+            if (paramList != null) {
+                if (!foundRegex.getParameters().containsAll(paramList)) {
+                    match = false;
+                }
+            }
+            if (regexFlags != null) {
+                if ((foundRegex.getRegexFlags() & regexFlags) == regexFlags) {
+                    match = false;
+                }
+            }
+            assertFalse(match);
+        }
+    }
+
 
 }

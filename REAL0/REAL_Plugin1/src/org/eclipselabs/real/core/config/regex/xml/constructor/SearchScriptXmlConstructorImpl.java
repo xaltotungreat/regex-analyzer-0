@@ -65,7 +65,7 @@ public class SearchScriptXmlConstructorImpl implements ISearchScriptConstructor<
             }
 
              // collect refs
-            List<Node> refsNodes = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.REF_COMPLEX_REGEX, XmlConfigNodeType.REF_DISTINCT_COMPLEX_REGEX);
+            List<Node> refsNodes = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.REF_COMPLEX_REGEX);
             for (Node crNode : refsNodes) {
                 IRefConstructor<Node, ? extends RefKeyedSO<
                         ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> currConstr = constructFactory.getRefConstructor(crNode);

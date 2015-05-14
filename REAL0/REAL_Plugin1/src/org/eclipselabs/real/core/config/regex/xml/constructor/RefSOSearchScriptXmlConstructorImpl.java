@@ -36,7 +36,7 @@ import org.w3c.dom.Node;
 public class RefSOSearchScriptXmlConstructorImpl implements IRefSOSearchScriptConstructor<Node>, IConfigXmlConstants {
 
     private static final Logger log = LogManager.getLogger(RefSOSearchScriptXmlConstructorImpl.class);
-    
+
     @Override
     public RefSOSearchScript constructCO(IConstructionSource<Node> cSource) {
         RefSOSearchScript refSSResult = null;
@@ -52,7 +52,7 @@ public class RefSOSearchScriptXmlConstructorImpl implements IRefSOSearchScriptCo
             }
             refSSResult.setPosition(position);
             ConfigXmlUtil.constructRefKeyedSO((RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>)refSSResult, (Element)cSource.getSource());
-            
+
             List<Node> refStringNodes = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.REF_STRING);
             if ((refStringNodes != null) && (!refStringNodes.isEmpty())) {
                 Iterator<Node> refStrIter = refStringNodes.iterator();
@@ -62,14 +62,14 @@ public class RefSOSearchScriptXmlConstructorImpl implements IRefSOSearchScriptCo
                     if (currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_NAME) != null) {
                         refTextName = currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_NAME).getNodeValue();
                     }
-                    
+
                     RefType refTextType = null;
-                    if ((currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE) != null) 
+                    if ((currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE) != null)
                             && (currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue() != null)) {
                         try {
                             refTextType = RefType.valueOf(currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue().toUpperCase());
                         } catch (IllegalArgumentException iae) {
-                            log.error("No such element in RefType " + currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue() 
+                            log.error("No such element in RefType " + currNode.getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue()
                                     + " Cannot process this ref replace param " + refTextName, iae);
                             continue;
                         }
@@ -81,28 +81,28 @@ public class RefSOSearchScriptXmlConstructorImpl implements IRefSOSearchScriptCo
                         refSSResult.setRefScriptText(textParam);
                         break;
                     }
-                    
+
                 }
             }
-            
+
             // collect refs
-            List<Node> refsNodes = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.REF_COMPLEX_REGEX, XmlConfigNodeType.REF_DISTINCT_COMPLEX_REGEX);
+            List<Node> refsNodes = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.REF_COMPLEX_REGEX);
             for (Node crNode : refsNodes) {
                 IRefConstructor<Node, ? extends RefKeyedSO<
                         ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> currConstr = constructFactory.getRefConstructor(crNode);
                 if (currConstr != null) {
-                    RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> constructedSO 
+                    RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> constructedSO
                                 = currConstr.constructCO(new XmlDomConstructionSource(crNode));
                     if (constructedSO != null) {
-                        refSSResult.addMainRegex((RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
+                        refSSResult.addMainRegex((RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String,
                                 IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
+                                        ISRComplexRegexView, ISROComplexRegexView, String>,
+                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
                                     ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>)constructedSO);
                     }
                 }
             }
-            
+
             IRegexConstructorFactory<Node> factory = RegexXmlConstructorFactoryImpl.getInstance();
             List<Node> refValuesNodes = ConfigXmlUtil.collectChildNodes(cSource.getSource(), XmlConfigNodeType.SEARCH_SCRIPT);
             if ((refValuesNodes != null) && (!refValuesNodes.isEmpty())) {

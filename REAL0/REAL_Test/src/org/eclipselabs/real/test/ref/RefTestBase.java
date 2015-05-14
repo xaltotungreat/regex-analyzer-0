@@ -20,8 +20,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.config.IConfigReader;
 import org.eclipselabs.real.core.config.regex.xml.RegexXmlConfigFileReader;
+import org.eclipselabs.real.core.regex.IRealRegexParam;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.searchobject.SearchObjectController;
@@ -168,6 +170,36 @@ public abstract class RefTestBase {
                 (tags != null)?tags:(new HashMap<String, String>()));
         TestUtil.assertSOViewNotExists(viewName, pos, regexName,
                 (IKeyedComplexSearchObject<?, ?, ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)so);
+    }
+
+    public void assertSOMainRegexExists(String regexName, Integer pos, String pattern, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOMainRegexExists(regexName, pos, pattern,
+                (ISOComplexRegex)so);
+    }
+
+    public void assertSOMainRegexNotExists(String regexName, Integer pos, String pattern, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOMainRegexNotExists(regexName, pos, pattern,
+                (ISOComplexRegex)so);
+    }
+
+    public void assertSOMainRegexExists(String regexName, Integer pos, List<IRealRegexParam<?>> paramList,
+            Integer regexFlags, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOMainRegexExists(regexName, pos, paramList, regexFlags,
+                (ISOComplexRegex)so);
+    }
+
+    public void assertSOMainRegexNotExists(String regexName, Integer pos, List<IRealRegexParam<?>> paramList,
+            Integer regexFlags, String soName, String soGroup, Map<String,String> tags) {
+        IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> so = getFirstMatchingSO(soName, soGroup,
+                (tags != null)?tags:(new HashMap<String, String>()));
+        TestUtil.assertSOMainRegexNotExists(regexName, pos, paramList, regexFlags,
+                (ISOComplexRegex)so);
     }
 
 }
