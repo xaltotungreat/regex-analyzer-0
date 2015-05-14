@@ -47,6 +47,30 @@ public enum RefType {
      * the refs to parameters of this ref
      * 4. The resulting value is added (to the specified position or added to the end of the list)
      */
+    /*
+     * There is no type like CP_REPLACE_ADD for the following reasons.
+     * For example we have 2 parameters as part of a search object
+     *   Parameter1
+     *     Key11=Value11
+     *     Key12=Value12
+     *     Key13=Value13
+     *   Parameter2
+     *     Key21=Value21
+     *     Key22=Value22
+     *     Key23=Value23
+     *
+     *   And we have a ref for Parameter3 of the hypothetical type CP_REPLACE_ADD
+     *   This ref must be resolved to either Parameter1 or Parameter2. Then
+     *   after all the child refs have been handled it can either replace one of
+     *   the existing parameters or add the resolved value to the list. It is not possible
+     *   to add a completely new value to the list because CP_ADD is resolved within the list.
+     *   It means the key values of the ref (that define equality) cannot be changed
+     *   or "accidentally" be equal to an existing value in the list.
+     *   REPLACE_ADD allows one to replace if the value is equal (to avoid checking the whole hierarchy)
+     *   and add if it is not equal.
+     *   For the hypothetical CP_REPLACE_ADD the value cannot be accidentally equal.
+     *   It must be either designed to be equal or designed to be different.
+     */
     CP_ADD,
     /**
      * For compound refs (ref containing other refs as children) this type
