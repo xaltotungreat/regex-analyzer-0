@@ -14,6 +14,8 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
 public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTIntervalCriterion {
 
+
+
     private static final Logger log = LogManager.getLogger(DTIntervalCriterion.class);
     protected ReplaceParamKey lowBoundKey;
     protected ReplaceParamKey highBoundKey;
@@ -162,6 +164,12 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
     @Override
     public void setHighBound(LocalDateTime highBound) {
         this.highBound = highBound;
+    }
+
+    @Override
+    public String toString() {
+        return "DTIntervalCriterion [type=" + type + ", name=" + name + ", accumulating=" + accumulating +
+                "lowBoundKey=" + lowBoundKey + ", highBoundKey=" + highBoundKey + "]";
     }
 
 }
