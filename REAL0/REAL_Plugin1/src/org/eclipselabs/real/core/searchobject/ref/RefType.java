@@ -4,14 +4,19 @@ package org.eclipselabs.real.core.searchobject.ref;
  * This enum specifies the types of refs.
  * The type of the ref tell the framework what to do with it.
  * For example if the type of some ref is ADD and it has a value and a position
- * then the value of this ref will be added to he specified position
+ * then the value of this ref will be added to the specified position
+ *
  * @author Vadim Korkin
  *
  */
 public enum RefType {
 
     /**
-     * The ref with this type must be matched
+     * The ref with this type must be matched. This type is used when the default match for
+     * a compound ref is not enough. Then some parameters may be marked as MATCH.
+     * Then at the resolve stage among the matching objects the first object
+     * which parameters (acceptances, replace params) match the ones marked as MATCH in the ref is found.
+     * This found object is considered a match for the ref.
      */
     MATCH,
     /**
@@ -25,7 +30,8 @@ public enum RefType {
      * The value of the ref with this type must be added either to a specified position
      * or "simply" added/replaced (implementation is provided by the ref).
      * Usually it is assumed that this ref must replace the first matching value
-     * (details are implementation-specific)
+     * (details are implementation-specific). This type simplifies configuration.
+     *
      */
     REPLACE_ADD,
     /**

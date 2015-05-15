@@ -18,11 +18,25 @@ import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 
+/**
+ * This class represents a ref to a keyed search object. In REAL terminology
+ * a keyed SO (search object) is an independent unit in the configuration.
+ * It can be referenced. See also {@link IKeyedSearchObject}
+ *
+ * This reference handles all the common parameters for all keyed search objects:
+ *  - replace parameters
+ *  - acceptances,
+ *  - regex flags at the SO level
+ *  - date info
+ *
+ * @author Vadim Korkin
+ *
+ * @param <T> the type of the search object for this reference must extend IKeyedSearchObject
+ */
 public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> extends RefImpl<T> {
 
     private static final Logger log = LogManager.getLogger(RefKeyedSO.class);
     protected SearchObjectType refSearchObjectType;
-    //protected String name;
     protected ISearchObjectGroup<String> group;
     protected Map<String,String> tags;
     protected String description;

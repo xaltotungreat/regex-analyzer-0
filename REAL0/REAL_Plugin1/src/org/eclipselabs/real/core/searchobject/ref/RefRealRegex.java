@@ -11,6 +11,23 @@ import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.regex.IRealRegexParam;
 
+/**
+ * This class represents a ref to a IRealRegex.
+ * It differs from other ref because it can be either
+ * - a simple ref (the value and the type ADD,REMOVE etc) or
+ * - a compound ref (the type and internal parameters)
+ *
+ * If this ref is a compound ref it contains refs for regex params and
+ * regex flags.
+ *
+ * For the simple ref the default match occurs if the name of the VALUE (IRealRegex)
+ * matches the name of the passed object
+ * For the compound ref the default match occurs if the name of the REF
+ * matches the name of the passed object
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class RefRealRegex extends RefImpl<IRealRegex> {
     private static final Logger log = LogManager.getLogger(RefRealRegex.class);
 
@@ -20,7 +37,7 @@ public class RefRealRegex extends RefImpl<IRealRegex> {
     /*
      * This could be a simple ref with only the value and a compound ref
      * with more parameters.
-     * If this is a simple ref comare the name of the regex value with the object name
+     * If this is a simple ref compare the name of the regex value with the object name
      * If this is a compound ref then compare its name and the object name.
      */
     protected Predicate<IRealRegex> matchPredicate = new Predicate<IRealRegex>() {

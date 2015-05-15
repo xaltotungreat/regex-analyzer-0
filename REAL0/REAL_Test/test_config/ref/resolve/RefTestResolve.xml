@@ -1443,6 +1443,58 @@
 						</refRegex>
 					</refRegexes>
 				</refComplexRegex>
+				<refComplexRegex name="CpReplaceRegexes1">
+					<refName>ResolveSource1</refName>
+					<refGroup>GlobalTest.RealRegexesCompound1</refGroup>
+					<refRegexes>
+						<refRegex name="MainRegex1" type="CP_REPLACE" position="0">
+							<refRegexParam name="AddParams" type="ADD">
+								<regexParam name="instance" type="Integer">0</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="AddFlags" type="ADD">
+								<regex_flags>
+									<regex_flag>CANON_EQ</regex_flag>
+									<regex_flag>COMMENTS</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+						<refRegex name="MainRegex2" type="CP_REPLACE">
+							<refRegexParam name="ReplaceAddParams" type="REPLACE_ADD">
+								<regexParam name="instance" type="Integer">1</regexParam>
+								<regexParam name="instance2" type="Integer">2</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="ReplaceAddFlags" type="REPLACE_ADD">
+								<regex_flags>
+									<regex_flag>CANON_EQ</regex_flag>
+									<regex_flag>COMMENTS</regex_flag>
+									<regex_flag>DOTALL</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+						<refRegex name="MainRegex3" type="CP_REPLACE" position="2">
+							<refRegexParam name="ReplaceParams" type="REPLACE">
+								<regexParam name="instance" type="Integer">1</regexParam>
+								<regexParam name="instance2" type="Integer">2</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="ReplaceFlags" type="REPLACE">
+								<regex_flags>
+									<regex_flag>LITERAL</regex_flag>
+									<regex_flag>MULTILINE</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+						<refRegex name="MainRegex4" type="CP_REPLACE">
+							<refRegexParam name="ReplaceParams" type="REMOVE">
+								<regexParam name="instance" type="Integer">1</regexParam>
+							</refRegexParam>
+							<refRegexFlags name="ReplaceFlags" type="REMOVE">
+								<regex_flags>
+									<regex_flag>CANON_EQ</regex_flag>
+								</regex_flags>
+							</refRegexFlags>
+						</refRegex>
+					</refRegexes>
+				</refComplexRegex>
 			</complexRegexes>
 		</group>
 	</group>

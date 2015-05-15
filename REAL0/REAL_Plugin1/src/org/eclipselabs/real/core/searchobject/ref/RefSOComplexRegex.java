@@ -10,6 +10,14 @@ import org.eclipselabs.real.core.searchobject.SearchObjectType;
 import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 
+/**
+ * This class represents a ref to a ISOComplexRegex.
+ * This class handles ISOComplexRegex-specific parameters:
+ * - main regexes
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class RefSOComplexRegex extends RefKeyedComplexSO<
             ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String,
             ISOComplexRegex> {

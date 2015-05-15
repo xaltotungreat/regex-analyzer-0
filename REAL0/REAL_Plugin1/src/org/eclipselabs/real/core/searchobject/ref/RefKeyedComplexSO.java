@@ -14,6 +14,19 @@ import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
+/**
+ * This class represents a ref to a complex search object (has views)
+ * This ref handles parameters that are specific to complex search objects:
+ *  - views
+ *
+ * @author Vadim Korkin
+ *
+ * @param <V> the view class for the search object
+ * @param <W> the search result class for the view
+ * @param <X> the search result object class for the view
+ * @param <Q> the class for the view key
+ * @param <T> the search object class in this case must extend IKeyedComplexSearchObject
+ */
 public abstract class RefKeyedComplexSO<
             V extends ISearchObject<W,X>, W extends ISearchResult<X>, X extends ISearchResultObject, Q,
             T extends IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<W, X, Q>, W, X, Q>,

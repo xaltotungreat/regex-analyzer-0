@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
  * CP_REPLACE stands for "Change Parameters then Replace"
  *
  * defaultMatch uses the default match predicate (must be implemented by subclasses)
- * to return true if the passed object "matches" this match i.e. if this object
+ * to return true if the passed object "matches" this ref i.e. if this object
  * should be used to resolve this ref. The refs may use or not use this default matching
  * (may use some other methods for matching refs to objects). This method is provided
  * for convenience.

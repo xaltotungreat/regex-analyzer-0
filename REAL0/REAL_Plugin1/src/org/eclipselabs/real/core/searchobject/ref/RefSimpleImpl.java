@@ -3,7 +3,7 @@ package org.eclipselabs.real.core.searchobject.ref;
 /**
  * This class represents a simple ref i.e. it contains a value and
  * the instruction what to do with the value (ADD, REPLACE etc)
- * It shouldn't contain any other refs as children
+ * It mustn't contain any other refs as children
  * Refs that contain other refs as children should extend RefImpl
  *
  * @author Vadim Korkin
@@ -100,7 +100,7 @@ public abstract class RefSimpleImpl<T> extends RefImpl<T> implements IRefSimple<
 
     /**
      * For simple parameters (that contain no child parameters)
-     * this method returns 0 that means 0 parameters have been added
+     * this method returns 0 that means 0 parameters have been replaced
      */
     @Override
     protected Integer cpReplace(T obj) {

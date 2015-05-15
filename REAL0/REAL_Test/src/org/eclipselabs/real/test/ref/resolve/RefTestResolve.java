@@ -206,6 +206,15 @@ public class RefTestResolve extends RefTestBase {
                 "CpAddRegexes1", "GlobalTest.RealRegexesCompound1", null);
         assertSOMainRegexExists("MainRegex4", 0, Arrays.asList(intParam2), Pattern.COMMENTS,
                 "CpAddRegexes1", "GlobalTest.RealRegexesCompound1", null);
+
+        assertSOMainRegexExists("MainRegex1", 0, Arrays.asList(intParam0), Pattern.CANON_EQ | Pattern.COMMENTS,
+                "CpReplaceRegexes1", "GlobalTest.RealRegexesCompound1", null);
+        assertSOMainRegexExists("MainRegex2", 1, Arrays.asList(intParam1, intParam2), Pattern.CANON_EQ | Pattern.COMMENTS |Pattern.DOTALL,
+                "CpReplaceRegexes1", "GlobalTest.RealRegexesCompound1", null);
+        assertSOMainRegexExists("MainRegex3", 2, Arrays.asList(intParam1), Pattern.LITERAL | Pattern.MULTILINE,
+                "CpReplaceRegexes1", "GlobalTest.RealRegexesCompound1", null);
+        assertSOMainRegexExists("MainRegex4", 3, Arrays.asList(intParam2), Pattern.COMMENTS,
+                "CpReplaceRegexes1", "GlobalTest.RealRegexesCompound1", null);
     }
 
 }

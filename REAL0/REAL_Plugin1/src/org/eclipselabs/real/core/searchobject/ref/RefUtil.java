@@ -12,6 +12,12 @@ import org.eclipselabs.real.core.searchobject.SearchObjectController;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
+/**
+ * This class contains static utility methods for resolving and working with refs.
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class RefUtil {
 
     private static final Logger log = LogManager.getLogger(RefUtil.class);
