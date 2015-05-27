@@ -1,4 +1,4 @@
-package org.eclipselabs.real.core.searchobject.script;
+package org.eclipselabs.real.core.util;
 
 public class StringKVP {
 
