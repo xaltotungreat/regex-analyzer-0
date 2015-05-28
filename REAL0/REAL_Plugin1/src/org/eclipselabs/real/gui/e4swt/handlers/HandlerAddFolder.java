@@ -15,6 +15,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.DirectoryDialog;
@@ -22,34 +23,36 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipselabs.real.core.logfile.LogFileAggregateInfo;
 import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
+import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.eclipselabs.real.gui.e4swt.dialogs.LogFilesInfoDialog;
 
 public class HandlerAddFolder {
     private static final Logger log = LogManager.getLogger(HandlerAddFolder.class);
     // the static variable for the previously opened file
     // if the handler is recreated the value will not be changed
-    private static String prevPath;
 
     @Inject
     UISynchronize uiSynch;
 
     @Execute
     public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell parent,
-            final IEclipseContext ctxt, final MApplication application) {
+            final IEclipseContext ctxt, final MApplication application, MWindow window) {
         DirectoryDialog openDialog = new DirectoryDialog (parent, SWT.OPEN);
+        String prevPath = (String)ctxt.get(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH);
         if (prevPath == null) {
             prevPath = Platform.getInstallLocation().getURL().getFile();
             if (prevPath.startsWith("/")) {
                 prevPath = prevPath.substring(1);
             }
             prevPath = prevPath.replace("/", File.separator);
-
+            window.getContext().set(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH, prevPath);
+            window.getContext().declareModifiable(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH);
         }
         openDialog.setFilterPath(prevPath);
         openDialog.setMessage("Add folder");
         final String newFld = openDialog.open();
         if (newFld != null) {
-            prevPath = newFld;
+            window.getContext().modify(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH, newFld);
             CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> settableFutureList = LogFileControllerImpl.INSTANCE.addFolderListFutures(newFld);
             if (settableFutureList != null) {
                 settableFutureList.handle((final List<CompletableFuture<LogFileAggregateInfo>> arg0, Throwable t) -> {

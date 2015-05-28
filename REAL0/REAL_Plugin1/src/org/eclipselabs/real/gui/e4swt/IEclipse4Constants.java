@@ -39,6 +39,8 @@ public interface IEclipse4Constants {
     public static final String CONTEXT_LOCAL_BOOKMARKS_LIST = "LocalBookmarksList";
     public static final String CONTEXT_LOCAL_BOOKMARKS_LIST_CHANGED = "LocalBookmarksListChanged";
 
+    public static final String CONTEXT_ADD_FOLDER_PREV_PATH = "AddFolder.PrevPath";
+
     public static final String LOCAL_CONTEXT_SEARCH_RESULT_SEARCH_ID_KEY = "SearchID";
 
     public static final String STYLING_CLASS_SR_STYLED_TEXT = "SRStyledText";
