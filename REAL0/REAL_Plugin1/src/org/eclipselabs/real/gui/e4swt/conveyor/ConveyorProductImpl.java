@@ -39,7 +39,7 @@ public class ConveyorProductImpl implements IConveyorProduct {
         if (stageTreeBuilder == null) {
             return null;
         }
-        rootStage = stageTreeBuilder.buildStageTree(req);//prepareStages(req);
+        rootStage = stageTreeBuilder.buildStageTree(req);
         context = new ConvProductContext("Product");
         // unregister from the event bus after all the stages have completed
         CompletableFuture<Void> stagesFuture = rootStage.execute(req, context).whenComplete((a, ex) -> {
@@ -86,6 +86,12 @@ public class ConveyorProductImpl implements IConveyorProduct {
         rootStage.cancel(true);
     }
 
+    /**
+     * Handles the event when the part in GUI has been disposed while the product was not completed.
+     * It may happen if the search takes alot of time. In this case the product is canceled and all stages
+     * that haven't began will never begin. The working stages will finish gracefully without interruptions.
+     * @param event the event to handle
+     */
     @Subscribe
     public void handlePartDispose(SRPartDisposedEvent event) {
         if ((context != null) && (event.getSearchID().equals(context.getSearchID()))) {
@@ -96,6 +102,12 @@ public class ConveyorProductImpl implements IConveyorProduct {
         }
     }
 
+    /**
+     * Handles the event when the tab in GUI (for a search in current) has been disposed while the product was not completed.
+     * It may happen if the search takes a lot of time. In this case the product is canceled and all stages
+     * that haven't began will never begin. The working stages will finish gracefully without interruptions.
+     * @param event the event to handle
+     */
     @Subscribe
     public void handleTabDispose(SRTabDisposedEvent event) {
         /* also check that the tab disposed is not for the main search

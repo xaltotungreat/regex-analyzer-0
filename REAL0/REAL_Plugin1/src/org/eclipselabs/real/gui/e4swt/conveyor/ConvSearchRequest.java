@@ -20,6 +20,13 @@ import org.eclipselabs.real.gui.e4swt.NamedBookmark;
 import org.eclipselabs.real.gui.e4swt.OOIInfo;
 import org.eclipselabs.real.gui.e4swt.conveyor.stage.build.RequestInformationLevel;
 
+/**
+ * This is the main request class. It contains all the necessary information
+ * to begin a search.
+ *
+ * @author Vadim Korkin
+ *
+ */
 @Creatable
 public class ConvSearchRequest {
 
