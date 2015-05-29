@@ -29,12 +29,20 @@ import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultO
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
+/**
+ * This is the implementation of the search script. The methods of {@link IRefKeyedSOContainer} are not implemented directly
+ * but an internal (proxy) object is used that implements all the methods.
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript,
         IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
         ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> implements ISOSearchScript {
 
     private static final Logger log = LogManager.getLogger(SOSearchScript.class);
     protected String scriptText;
+    // the internal search objects list
     protected List<IKeyedComplexSearchObject<
                 ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
                     ISRComplexRegexView, ISROComplexRegexView, String>,
@@ -66,8 +74,38 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
             // do not load the cached replace table - it is used for fine tuning the tables in child complex regexes
             Map<String,String> cachedReplaceTable = new HashMap<>();
             Map<ReplaceParamKey, IReplaceParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
+            List<IKeyedComplexSearchObject<
+                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                        ISRComplexRegexView, ISROComplexRegexView, String>,
+                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>
+                clonedMainRegexes = Collections.synchronizedList(new ArrayList<IKeyedComplexSearchObject<
+                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                            ISRComplexRegexView, ISROComplexRegexView, String>,
+                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>());
+            for (IKeyedComplexSearchObject<
+                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                            ISRComplexRegexView, ISROComplexRegexView, String>,
+                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> iKeyedComplexSearchObject : mainRegexList) {
+                try {
+                    IKeyedComplexSearchObject<
+                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                            ISRComplexRegexView, ISROComplexRegexView, String>,
+                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> clonedMainSO = (IKeyedComplexSearchObject<
+                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                                        ISRComplexRegexView, ISROComplexRegexView, String>,
+                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
+                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)iKeyedComplexSearchObject.clone();
+                    clonedMainRegexes.add(clonedMainSO);
+                } catch (CloneNotSupportedException e) {
+                    log.error("performSearch ", e);
+                }
+            }
             ISRSearchScript result = new SRSearchScriptImpl(getSearchObjectName(), getCloneSortRequestList(),
-                    mainRegexList, cachedReplaceTable, request.getStaticReplaceParams(), allReplaceParams, getSearchObjectGroup(),
+                    clonedMainRegexes, cachedReplaceTable, request.getStaticReplaceParams(), allReplaceParams, getSearchObjectGroup(),
                     getSearchObjectTags(), request.getProgressMonitor());
             result.setViewOrder(viewOrder);
             if (request.getCustomRegexFlags() != null) {
@@ -117,12 +155,14 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
             if (request.getText() != null) {
                 result.setLogText(request.getText());
             }
-
+            // the Binding object keeps the references to the actual java objects
+            // in the script they can be referenced by these names
             Binding groovyBind = new Binding();
             groovyBind.setVariable("SearchScriptObject", this);
             groovyBind.setVariable("SearchScriptResult", result);
             groovyBind.setVariable("scriptResult", result);
             GroovyShell shell = new GroovyShell(groovyBind);
+            // execute the script
             shell.evaluate(scriptText);
             // return null if no objects found
             if (result.getSRObjects().isEmpty()) {
@@ -165,7 +205,7 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
     }
 
     @Override
-    public ISearchObject<ISRSearchScript, IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>> clone() throws CloneNotSupportedException {
+    public ISOSearchScript clone() throws CloneNotSupportedException {
         SOSearchScript cloneObj = (SOSearchScript)super.clone();
         if (viewMap != null) {
             Map<String, ISOComplexRegexView> newViewMap = new ConcurrentHashMap<>();

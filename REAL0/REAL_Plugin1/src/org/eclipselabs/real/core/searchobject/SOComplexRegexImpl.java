@@ -24,6 +24,24 @@ import org.eclipselabs.real.core.searchresult.resultobject.SROComplexRegexImpl;
 import org.eclipselabs.real.core.util.FindTextResult;
 import org.eclipselabs.real.core.util.PerformanceUtils;
 
+/**
+ * The implementation of the complex regex class. The main method that is implemented is performSearch.
+ *
+ * During search the following operations occur:
+ * - the replace table is calculated for this search (with values from groups up the hierarchy replaced correctly)
+ * - a new search result object {@link ISRComplexRegex} is created
+ * - the acceptance criteria list is cloned (some criteria may be modified during search)
+ * - it is verified that the search may proceed (with acceptance guesses at the moment)
+ * - the search loops through the main regexes, finds values and adds new search result objects
+ *
+ * This class uses manual garbage collection to reduce memory consumption. Search with regular expressions
+ * is very memory intensive and the JVM garbage collector is not fast enough therefore during search hundreds of megabytes
+ * can be consumed for the search alone.
+ * search memory consumption
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexRegex, ISROComplexRegex,
         ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> implements ISOComplexRegex {
     private static final Logger log = LogManager.getLogger(SOComplexRegexImpl.class);
@@ -161,7 +179,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
     }
 
     @Override
-    public ISearchObject<ISRComplexRegex, ISROComplexRegex> clone() throws CloneNotSupportedException {
+    public ISOComplexRegex clone() throws CloneNotSupportedException {
         SOComplexRegexImpl cloneObj = (SOComplexRegexImpl)super.clone();
         if (viewMap != null) {
             Map<String, ISOComplexRegexView> newViewMap = new ConcurrentHashMap<>();

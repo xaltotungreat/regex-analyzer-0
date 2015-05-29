@@ -12,6 +12,17 @@ import org.eclipselabs.real.core.searchresult.ISRSearchScript;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 
+/**
+ * This is a container for a search result.
+ * This container is necessary for 2 reasons:
+ * - the search object itself has a lot of generic parameters, these parameters are unwieldy to use in scripts
+ * - the container provides additional API to work with search object parameters.
+ * Among the most important API is the methods to add more result objects and update the replace map
+ * from the views.
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class SRContainer {
     private static final Logger log = LogManager.getLogger(SRContainer.class);
 
@@ -34,6 +45,10 @@ public class SRContainer {
         }
     }
 
+    /**
+     * This method returns true if this container contains a null result or no result objects
+     * @return true if this container contains a null result or no result objects false otherwise
+     */
     public boolean isEmpty() {
         boolean emptyRes = false;
         if ((searchResult == null) || (searchResult.getSRObjects() == null) || (searchResult.getSRObjects().isEmpty())) {
@@ -42,6 +57,12 @@ public class SRContainer {
         return emptyRes;
     }
 
+    /**
+     * Returns the view object for the specified position in the list of search result objects and the name.
+     * @param objNumber the position of the object in the list 0-based
+     * @param viewKey the "name" of the view
+     * @return the view object for the specified position in the list of search result objects and the name.
+     */
     public ISRComplexRegexView getView(int objNumber, String viewKey) {
         ISRComplexRegexView viewRes = null;
         if (viewKey != null) {
@@ -58,6 +79,12 @@ public class SRContainer {
         return viewRes;
     }
 
+    /**
+     * Adds a new view to the specified SRO (by position) with the specified key (viewKey)
+     * @param objNumber the position of the object in the list 0-based
+     * @param viewKey the "name" of the view
+     * @param newView the new view object
+     */
     public void addView(int objNumber, String viewKey, ISRComplexRegexView newView) {
         if ((viewKey != null) && (newView != null)) {
             if ((searchResult != null) && (searchResult.getSRObjects() != null)
@@ -72,6 +99,11 @@ public class SRContainer {
         }
     }
 
+    /**
+     * Returns the text of the specified SRO (by position in the list)
+     * @param objNumber the position of the object in the list 0-based
+     * @return the text of the specified SRO (by position in the list)
+     */
     public String getText(int objNumber) {
         String res = null;
         if ((searchResult != null) && (searchResult.getSRObjects() != null)
@@ -84,6 +116,11 @@ public class SRContainer {
         return res;
     }
 
+    /**
+     * Appends the specified text to the specified SRO (by position in the list)
+     * @param objNumber the position of the object in the list 0-based
+     * @param txt the text to append
+     */
     public void appendText(int objNumber, String txt) {
         if (txt != null) {
             if ((searchResult != null) && (searchResult.getSRObjects() != null)
@@ -96,6 +133,10 @@ public class SRContainer {
         }
     }
 
+    /**
+     * Returns the number of SR objects in this container
+     * @return the number of SR objects in this container
+     */
     public int getResultsCount() {
         int res = 0;
         if ((searchResult != null) && (searchResult.getSRObjects() != null)) {
@@ -106,6 +147,14 @@ public class SRContainer {
         return res;
     }
 
+    /**
+     * Updates the dynamic replace map (that is stored in the script result and has higher priority over the default calculated map).
+     * This method does the following:
+     * - obtains the search result object at the specified position in the list (0-based)
+     * - creates a Map<String,String> where the keys are view names from that SRO and values are view texts from that SRO
+     * - puts the values from the map to the dynamic replace table
+     * @param objNumber the position of the object in the list 0-based
+     */
     public void updateReplaceMap(int objNumber) {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty())) {
             if ((objNumber >= 0) && (objNumber < searchResult.getSRObjects().size())) {
@@ -119,6 +168,17 @@ public class SRContainer {
         }
     }
 
+    /**
+     * Updates the dynamic replace map (that is stored in the script result and has higher priority over the default calculated map).
+     * This method does the following:
+     * - obtains the search result object at the specified position in the list (0-based)
+     * - creates a Map<String,String> where the keys are view names from that SRO and values are view texts from that SRO. Only the views
+     * which names are in viewNames are selected
+     * - puts the values from the map to the dynamic replace table
+     * The method with varargs is provided for convenience in scripts
+     * @param objNumber the position of the object in the list 0-based
+     * @param viewNames the list of names which are selected to update the dynamic map
+     */
     public void updateReplaceMap(int objNumber, String...viewNames) {
         if (viewNames != null) {
             updateReplaceMap(objNumber, Arrays.asList(viewNames));
@@ -127,6 +187,16 @@ public class SRContainer {
         }
     }
 
+    /**
+     * Updates the dynamic replace map (that is stored in the script result and has higher priority over the default calculated map).
+     * This method does the following:
+     * - obtains the search result object at the specified position in the list (0-based)
+     * - creates a Map<String,String> where the keys are view names from that SRO and values are view texts from that SRO. Only the views
+     * which names are in viewNames are selected
+     * - puts the values from the map to the dynamic replace table
+     * @param objNumber the position of the object in the list 0-based
+     * @param viewNames the list of names which are selected to update the dynamic map
+     */
     public void updateReplaceMap(int objNumber, List<String> viewNames) {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty()) && (viewNames != null)) {
             log.debug("updateReplaceMap resNumber=" + objNumber + " viewNames=" + viewNames);
@@ -146,6 +216,10 @@ public class SRContainer {
         }
     }
 
+    /**
+     * This method pushes all the result objects from this search result to the script result. It means
+     * these SROs are added to the list of SROs in the script result.
+     */
     public void pushResultObjects() {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty())) {
             log.debug("pushResultObjects SOName=" + searchResult.getSearchObjectName() + " objCount=" + searchResult.getSRObjects().size());
@@ -161,6 +235,24 @@ public class SRContainer {
         }
     }
 
+    /**
+     * This method pushes all the SRO from this search result to the script result.
+     * But this method removes all the views which names are not in viewNames.
+     * For example:
+     * In this search result we have 3 SRO
+     * 1 SRO Views [AA, BB, CC]
+     * 2 SRO Views [AA, BB, CC]
+     * 3 SRO Views [AA, BB, CC]
+     *
+     * viewNames: [AA, BB]
+     * The existing SROs will be cloned and in the clones the views CC wil be removed. The following SROs
+     * will be pushed to the script result (added to the SRO in the script result):
+     * 1 SRO Views [AA, BB]
+     * 2 SRO Views [AA, BB]
+     * 3 SRO Views [AA, BB]
+     * The method with varargs is provided for convenience in scripts
+     * @param viewNames the names of the views to keep in the SROs
+     */
     public void pushResultObjects(String...viewNames) {
         if (viewNames != null) {
             pushResultObjects(Arrays.asList(viewNames));
@@ -169,6 +261,23 @@ public class SRContainer {
         }
     }
 
+    /**
+     * This method pushes all the SRO from this search result to the script result.
+     * But this method removes all the views which names are not in viewNames.
+     * For example:
+     * In this search result we have 3 SRO
+     * 1 SRO Views [AA, BB, CC]
+     * 2 SRO Views [AA, BB, CC]
+     * 3 SRO Views [AA, BB, CC]
+     *
+     * viewNames: [AA, BB]
+     * The existing SROs will be cloned and in the clones the views CC wil be removed. The following SROs
+     * will be pushed to the script result (added to the SRO in the script result):
+     * 1 SRO Views [AA, BB]
+     * 2 SRO Views [AA, BB]
+     * 3 SRO Views [AA, BB]
+     * @param viewNames the names of the views to keep in the SROs
+     */
     public void pushResultObjects(List<String> viewNames) {
         if (viewNames == null) {
             log.warn("pushResultObjects viewNames is null all views will be removed");
@@ -204,6 +313,12 @@ public class SRContainer {
         }
     }
 
+    /**
+     * This method does the following:
+     * - Obtains the SRO with the specified position (objNumber) in the list
+     * - pushes it the script results (adds to the SRO in the script result)
+     * @param objNumber the position of the object in the list 0-based
+     */
     public void pushResultObject(int objNumber) {
         if ((searchResult != null) && (searchResult.getSRObjects() != null) && (!searchResult.getSRObjects().isEmpty())) {
             log.debug("pushResultObject SOName=" + searchResult.getSearchObjectName() + " number=" + objNumber);
@@ -222,6 +337,15 @@ public class SRContainer {
         }
     }
 
+    /**
+     * This method does the following:
+     * - Obtains the SRO with the specified position (objNumber) in the list
+     * - clones it. Removes all the views which names are not in viewNames
+     * - pushes it the script results (adds to the SRO in the script result)
+     * The method with varargs is provided for convenience in scripts
+     * @param objNumber the position of the object in the list 0-based
+     * @param viewNames the list of names to keep in the current SRO other views are deleted
+     */
     public void pushResultObject(int objNumber, String...viewNames) {
         if (viewNames != null) {
             pushResultObject(objNumber, Arrays.asList(viewNames));
@@ -230,6 +354,14 @@ public class SRContainer {
         }
     }
 
+    /**
+     * This method does the following:
+     * - Obtains the SRO with the specified position (objNumber) in the list
+     * - clones it. Removes all the views which names are not in viewNames
+     * - pushes it the script results (adds to the SRO in the script result)
+     * @param objNumber the position of the object in the list 0-based
+     * @param viewNames the list of names to keep in the current SRO other views are deleted
+     */
     public void pushResultObject(int objNumber, List<String> viewNames) {
         if (viewNames == null) {
             log.warn("pushResultObjects viewNames is null all views will be removed");

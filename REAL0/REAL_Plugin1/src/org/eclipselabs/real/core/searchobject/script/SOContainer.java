@@ -19,6 +19,14 @@ import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultO
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 
+/**
+ * This is the container for a search object. This container is necessary for 2 reasons:
+ * - the search object itself has a lot of generic parameters, these parameters are unwieldy to use in scripts
+ * - the container provides additional API to work with search object parameters.
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class SOContainer {
 
     private static final Logger log = LogManager.getLogger(SOContainer.class);
@@ -46,10 +54,19 @@ public class SOContainer {
         logText = text;
     }
 
+    /**
+     * Is used in scripts to verify this object is not null. In case a returned container contains no search object.
+     * @return true if the search object in this container is null
+     */
     public boolean isNull() {
         return searchObject == null;
     }
 
+    /**
+     * Executes the search in the log files specified by the search object. For ease of use the result of this method
+     * is a {@link SRContainer} object. This may be a search in current or a search in the log files.
+     * @return the {@link SRContainer} object that contains the result of the search.
+     */
     public <R extends IKeyedComplexSearchResult<O, ISRComplexRegexView, ISROComplexRegexView, String>,
                 O extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>> SRContainer execute() {
         SRContainer resultContainer = null;
@@ -104,7 +121,7 @@ public class SOContainer {
         } else {
             // if logText is not null it is a search in current
             // it means only one file for every search.
-            // total So Files are set to 1 in the search task no need to reset
+            // total SO Files are set to 1 in the search task no need to reset
             // before a new search reset the completed SO Files
             scriptResult.getProgressMonitor().resetCompletedSOFiles();
             PerformSearchRequest req = new PerformSearchRequest(logText, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(),

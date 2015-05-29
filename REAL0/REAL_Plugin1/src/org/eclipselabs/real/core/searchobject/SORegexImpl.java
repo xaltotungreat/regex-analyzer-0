@@ -123,7 +123,7 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
     }
 
     @Override
-    public ISearchObject<ISRRegex, ISRORegex> clone() throws CloneNotSupportedException {
+    public ISORegex clone() throws CloneNotSupportedException {
         SORegexImpl cloneObj = (SORegexImpl)super.clone();
         if (theRegex != null) {
             cloneObj.setRegex(theRegex.clone());

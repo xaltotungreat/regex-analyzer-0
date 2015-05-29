@@ -112,7 +112,7 @@ public abstract class KeyedComplexSearchObjectImpl<R extends IKeyedComplexSearch
     }
 
     @Override
-    public ISearchObject<R, O> clone() throws CloneNotSupportedException {
+    public IKeyedComplexSearchObject<R, O, V, W, X, Q> clone() throws CloneNotSupportedException {
         KeyedComplexSearchObjectImpl<R, O, V, W, X, Q> cloneObj = (KeyedComplexSearchObjectImpl<R, O, V, W, X, Q>)super.clone();
         IKeyedSO cloneSODelegate = new KeyedSOImpl(cloneObj);
         if (keyedSODelegate.getSearchObjectGroup() != null) {
