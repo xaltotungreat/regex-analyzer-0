@@ -14,8 +14,6 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
 public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTIntervalCriterion {
 
-
-
     private static final Logger log = LogManager.getLogger(DTIntervalCriterion.class);
     protected ReplaceParamKey lowBoundKey;
     protected ReplaceParamKey highBoundKey;

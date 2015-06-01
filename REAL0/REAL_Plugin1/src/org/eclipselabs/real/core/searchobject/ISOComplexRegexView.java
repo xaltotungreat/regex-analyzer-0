@@ -13,7 +13,7 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
  * When calculating the result the String object is appended directly to the text while for the {@link IRealRegex}
  * object all the results are found and appended.
  * For example:
- * Text: John found 5 apples and 4 oranges
+ * Text: John found 5 apples and 4 oranges.
  * Objects:
  * 1. String "Apples - "
  * 2. IRealRegex "\d+(?=( apples))"

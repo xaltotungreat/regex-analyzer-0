@@ -5,6 +5,18 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
+/**
+ * This key is used to find the search objects in the repository.
+ * Actually this key contains a subset of the fields of the search object itself
+ * but this key needs to be separate because then this subset may be changed without
+ * changing the whole structure. A field may be added or removed from this key with minimal
+ * changes to existing code.
+ *
+ * This class defines hashcode and equals on all fields.
+ *
+ * @author Vadim Korkin
+ *
+ */
 public class SearchObjectKey {
 
     protected String soName;

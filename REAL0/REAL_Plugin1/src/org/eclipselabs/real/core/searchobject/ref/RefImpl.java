@@ -84,6 +84,8 @@ public abstract class RefImpl<T> implements IRef<T> {
         }
         return resolvedObj;
     }
+
+    // abstract methods to be implemented by subclasses
     protected abstract T getClone(T obj);
 
     protected abstract Integer addParameters(T obj);

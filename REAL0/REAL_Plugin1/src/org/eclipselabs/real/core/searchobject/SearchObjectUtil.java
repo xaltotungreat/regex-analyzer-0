@@ -46,7 +46,7 @@ public class SearchObjectUtil {
             }
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFtmStr, IRealCoreConstants.DEFAULT_DATE_LOCALE);
             try {
-                // do not parse completely because some important fields like the year may be
+                // do not parse completely because some important fields like the year may be unavailable
                 TemporalAccessor interimValue = dtf.parseUnresolved(sb.toString(), new ParsePosition(0));
                 // the default value as some log records may have no year at all
                 int year = ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR;
