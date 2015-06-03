@@ -43,10 +43,6 @@
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
 				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
-				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
@@ -93,9 +89,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -149,10 +147,12 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -160,10 +160,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -211,9 +207,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -267,10 +265,12 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -278,10 +278,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -329,9 +325,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -385,10 +383,12 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -396,10 +396,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -447,9 +443,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -503,10 +501,12 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -515,9 +515,123 @@
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
 				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+				<iconSet name="SEARCH_SCRIPT">
+					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+				<iconSet name="default">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+				</iconSet>
+			</iconSets>
+		</template>
+		<template name="CCMM_CMF" expanded="true">
+			<selector name="CCMM_CMF Intervals">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_CMF(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
+					</sortRequestKey>
+				</sortRequestKeys>
+				<iconSets>
+					<iconSet name="COMPLEX_REGEX">
+						<iconPath name="Tree">icons/16x16/I1.png</iconPath>
+						<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
+					</iconSet>
+					<iconSet name="SEARCH_SCRIPT">
+						<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+					<iconSet name="default">
+						<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+						<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
+					</iconSet>
+				</iconSets>
+			</selector>
+			<selector name="CCMM_CMF Default">
+				<name_regexes>
+					<regex>
+						<regexLine>.*</regexLine>
+					</regex>
+				</name_regexes>
+				<group_regexes>
+					<regex>
+						<regexLine>\AGlobal.CCMM_CMF(\..*)?</regexLine>
+					</regex>
+				</group_regexes>
+				<tag_regexes>
+					<tag_regex type="MATCH">
+						<regex name="Name">
+							<regexLine>Role</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>User Object</regexLine>
+						</regex>
+					</tag_regex>
+					<tag_regex type="NOT_MATCH">
+						<regex name="Name">
+							<regexLine>Interval</regexLine>
+						</regex>
+						<regex name="Value">
+							<regexLine>.*</regexLine>
+						</regex>
+					</tag_regex>
+				</tag_regexes>
+				<text_view></text_view>
+				<short_views>
+					<short_view name="Result1">.*</short_view>
+				</short_views>
+				<sortRequestKeys>
+					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
+					</sortRequestKey>
+				</sortRequestKeys>
+			</selector>
+			<iconSets>
+				<iconSet name="COMPLEX_REGEX">
+					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
+					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -565,9 +679,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -621,10 +737,12 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -632,10 +750,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -683,9 +797,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -739,9 +855,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -750,10 +868,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -801,9 +915,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -857,9 +973,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -868,10 +986,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -919,9 +1033,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -975,9 +1091,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -986,10 +1104,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1037,9 +1151,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1093,9 +1209,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1104,10 +1222,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1155,9 +1269,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1211,9 +1327,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1222,10 +1340,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1273,9 +1387,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1329,9 +1445,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1340,10 +1458,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1391,9 +1505,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1447,9 +1563,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">ALL</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1458,10 +1576,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1509,9 +1623,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1565,9 +1681,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1576,10 +1694,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1627,9 +1741,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1683,9 +1799,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1694,10 +1812,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1745,9 +1859,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1801,9 +1917,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1812,10 +1930,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1863,9 +1977,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1919,9 +2035,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -1930,10 +2048,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -1981,9 +2095,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -2037,9 +2153,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -2048,10 +2166,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -2099,9 +2213,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -2155,12 +2271,14 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
-						<sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Date_Time</sortRequestKeyParam>
+						<!-- <sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Date_Time</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
-						<sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Regex</sortRequestKeyParam>
+						<!-- <sortRequestKeyParam type="NAME" useType="INSTALL">Installed name Regex</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -2168,10 +2286,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -2219,9 +2333,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -2275,9 +2391,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -2286,10 +2404,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -2337,9 +2451,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -2393,10 +2509,12 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -2404,10 +2522,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>
@@ -2455,9 +2569,11 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!--  <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
+						<!-- do not remove to remember it is possible to change sort requests -->
 						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>  -->
 					</sortRequestKey>
 				</sortRequestKeys>
@@ -2511,10 +2627,12 @@
 				</short_views>
 				<sortRequestKeys>
 					<sortRequestKey type="DATE_TIME">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 					<sortRequestKey type="REGEX">
-						<sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam>
+						<!-- do not remove to remember it is possible to change sort requests -->
+						<!-- <sortRequestKeyParam type="SORT_APPLICABILITY" useType="INSTALL">MERGE_RESULTS</sortRequestKeyParam> -->
 					</sortRequestKey>
 				</sortRequestKeys>
 			</selector>
@@ -2522,10 +2640,6 @@
 				<iconSet name="COMPLEX_REGEX">
 					<iconPath name="Tree">icons/16x16/CR1.png</iconPath>
 					<iconPath name="Part">icons/24x24/mail-find.png</iconPath>
-				</iconSet>
-				<iconSet name="INTERVAL">
-					<iconPath name="Tree">icons/16x16/I1.png</iconPath>
-					<iconPath name="Part">icons/24x24/Letter-I-lg-icon24x24.png</iconPath>
 				</iconSet>
 				<iconSet name="SEARCH_SCRIPT">
 					<iconPath name="Tree">icons/16x16/SCR1.png</iconPath>

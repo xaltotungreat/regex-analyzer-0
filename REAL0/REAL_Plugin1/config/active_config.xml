@@ -18,6 +18,10 @@
             <value>true</value>
         </entry>
         <entry>
+            <key>CCMM_CMF</key>
+            <value>true</value>
+        </entry>
+        <entry>
             <key>CCMM_StarterService</key>
             <value>true</value>
         </entry>

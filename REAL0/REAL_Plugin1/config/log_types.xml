@@ -40,6 +40,12 @@
 			<filename_pattern>StarterService_\d+_\d+.log</filename_pattern>
 		</filename_patterns>
 	</log_type>
+	<log_type name="CCMM_CMF">
+		<filename_patterns>
+			<filename_pattern>CCMM_CMF_\d\.log</filename_pattern>
+			<filename_pattern>CCMM-CCMM_CMF(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
+		</filename_patterns>
+	</log_type>
 	<log_type name="EB">		<filename_patterns>
 			<filename_pattern>CCMS_EB(_\d)?\.log</filename_pattern>
 			<filename_pattern>CCMS-CCMS_EB(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>

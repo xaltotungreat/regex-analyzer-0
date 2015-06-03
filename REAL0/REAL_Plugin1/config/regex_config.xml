@@ -34,12 +34,16 @@
 			<replaceParam name="CMF_OI_TIME_FORMAT">yyyy-MM-dd HH:mm:ss,SSS</replaceParam>
 			<replaceParam name="CCMM_EmailManager_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CCMM_EmailManager_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
-			<replaceParam name="CCMM_MCMClient_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
+			<replaceParam name="CCMM_MCMClient_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)\d\d\d\d</replaceParam>
+			<replaceParam name="CCMM_MCMClient_TIME_REGEX_MATCH">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CCMM_MCMClient_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 			<replaceParam name="CCMM_OAMClient_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CCMM_OAMClient_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 			<replaceParam name="CCMM_StarterService_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CCMM_StarterService_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
+			<replaceParam name="CCMM_CMF_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d\d\d</replaceParam>
+			<replaceParam name="CCMM_CMF_TIME_REGEX_MATCH">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
+			<replaceParam name="CCMM_CMF_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 			<replaceParam name="CC_CacheResiliency_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CC_CacheResiliency_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 			<replaceParam name="AgentDesktop_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d:\d\d</replaceParam>
@@ -6280,11 +6284,35 @@
 								<regexLine>CCMM_EmailManager_TIME_REGEX</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Module">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX (\+|-)?\d\d\d\d\s{1,10}EmailManager:))\w+</regexLine>
+							</regex>
+						</view>
+						<view name="Process">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX (\+|-)?\d\d\d\d\s{1,10}EmailManager:\w{1,6}\s{1,10}))\d+(?=(:))</regexLine>
+							</regex>
+						</view>
+						<view name="Thread">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX (\+|-)?\d\d\d\d\s{1,10}EmailManager:\w{1,6}\s{1,10}\d{1,10}:))\d+</regexLine>
+							</regex>
+						</view>
+						<view name="Message">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX (\+|-)?\d\d\d\d\s{1,10}EmailManager:\w{1,6}\s{1,10}\d{1,10}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,7}\s{1,10}\w{1,10}\s{1,10}))\w.*</regexLine>
+							</regex>
+						</view>
+						<!-- <view name="FirstLine">
 							<regex>
 								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
 							</regex>
-						</view>
+						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="CCMM_EmailManager ANY RECORD Containing value">
@@ -6333,6 +6361,45 @@
 						</refAcceptance>
 					</refAcceptances>
 				</refComplexRegex>
+				<complexRegex name="!Files Analysis CCMM_EmailManager">
+					<tags>
+						<tag name="Role">User Object</tag>
+						<tag name="Interval">TRUE</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCMM_EmailManager</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACCMM_EmailManager_TIME_REGEX((?!(CCMM_EmailManager_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CCMM_EmailManager_TIME_REGEX((?!(CCMM_EmailManager_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCMM_EmailManager_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCMM_EmailManager_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_EmailManager_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="CCMM_MCMClient">
@@ -6368,7 +6435,7 @@
 						<regexes>
 							<regex name="Default">
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>CCMM_MCMClient_TIME_REGEX</regexLine>
+								<regexLine>CCMM_MCMClient_TIME_REGEX_MATCH</regexLine>
 							</regex>
 						</regexes>
 					</date_info>
@@ -6491,7 +6558,7 @@
 						<regexes>
 							<regex name="Default">
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>CCMM_MCMClient_TIME_REGEX</regexLine>
+								<regexLine>CCMM_MCMClient_TIME_REGEX_MATCH</regexLine>
 							</regex>
 						</regexes>
 					</date_info>
@@ -6499,12 +6566,37 @@
 						<view name="Time">
 							<regex>
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>CCMM_MCMClient_TIME_REGEX</regexLine>
+								<regexLine>CCMM_MCMClient_TIME_REGEX_MATCH</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Module">
 							<regex>
-								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}))\w+</regexLine>
+							</regex>
+						</view>
+						<view name="Process">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}\w{1,15}\s{1,10}))\d+(?=(:))</regexLine>
+							</regex>
+						</view>
+						<view name="Thread">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}\w{1,15}\s{1,10}\d{1,8}:))\d+</regexLine>
+							</regex>
+						</view>
+						<view name="Contact">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}\w{1,15}\s{1,10}\d{1,8}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,6}\s{1,10}))((\d+)|(\w+))</regexLine>
+							</regex>
+						</view>
+						<view name="Message">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}\w{1,15}\s{1,10}\d{1,8}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,6}\s{1,10}((\d{1,10})|(\w{1,10}))\s{1,10}))\w.*</regexLine>
 							</regex>
 						</view>
 					</views>
@@ -6554,6 +6646,50 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
+					<refViews>
+						<refView name="RemModule" type="REMOVE">
+							<view name="Module">
+								<regex>
+									<regexLine></regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RemProcess" type="REMOVE">
+							<view name="Process">
+								<regex>
+									<regexLine></regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RemThread" type="REMOVE">
+							<view name="Thread">
+								<regex>
+									<regexLine></regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RemContact" type="REMOVE">
+							<view name="Contact">
+								<regex>
+									<regexLine></regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RemMessage" type="REMOVE">
+							<view name="Message">
+								<regex>
+									<regexLine></regexLine>
+								</regex>
+							</view>
+						</refView>
+						<refView name="RefFirstLine" type="REPLACE_ADD">
+							<view name="FirstLine">
+								<regex>
+									<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+								</regex>
+							</view>
+						</refView>
+					</refViews>
 					<!-- <refViews>
 						<refView name="RefError" type="REPLACE_ADD" position="1">
 							<view name="Error">
@@ -7043,6 +7179,193 @@
 							</view>
 						</refView>
 					</refViews> -->
+				</refComplexRegex>
+			</complexRegexes>
+		</group>
+		<group name="CCMM_CMF">
+			<complexRegexes>
+				<complexRegex name="!I:LogInterval CCMM_CMF All">
+					<tags>
+						<tag name="Role">User Object</tag>
+						<tag name="Interval">TRUE</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCMM_CMF</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="MainRegex">
+							<regexLine>CCMM_CMF_TIME_REGEX((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCMM_CMF_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCMM_CMF_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_CMF_TIME_REGEX_MATCH</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
+				<refComplexRegex name="!I:LogInterval CCMM_CMF">
+					<tags>
+						<tag name="Role">User Object</tag>
+						<tag name="Interval">TRUE</tag>
+					</tags>
+					<refName>!I:LogInterval CCMM_CMF All</refName>
+					<refGroup>Global.CCMM_CMF</refGroup>
+					<refTags>
+						<tag name="Role">User Object</tag>
+					</refTags>
+					<refReplaceParams>
+						<refReplaceParam name="Datetime bounds" type="REPLACE_ADD">
+							<replaceParam name="LOW_BOUND" type="DATE">
+								<replaceName>LOW_BOUND</replaceName>
+								<description>Low bound</description>
+								<replaceValue>Today Start</replaceValue>
+							</replaceParam>
+							<replaceParam name="HIGH_BOUND" type="DATE">
+								<replaceName>HIGH_BOUND</replaceName>
+								<description>High bound</description>
+								<replaceValue>Today End</replaceValue>
+							</replaceParam>
+						</refReplaceParam>
+					</refReplaceParams>
+					<refAcceptances>
+						<refAcceptance name="Interval Acceptance" type="REPLACE_ADD">
+							<dtIntervalAcceptance name="MainInterval" type="INTERVAL">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\ACCMM_CMF_TIME_REGEX((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>CCMM_CMF_TIME_REGEX((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
+				<refComplexRegex name="CCMM_CMF Value Within Interval">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<refGroup>Global.CCMM_CMF</refGroup>
+					<refTags>
+						<tag name="Role">internal</tag>
+						<tag name="Function">any record</tag>
+					</refTags>
+					<refReplaceParams>
+						<refReplaceParam name="Datetime bounds" type="REPLACE_ADD">
+							<replaceParam name="LOW_BOUND" type="DATE">
+								<replaceName>LOW_BOUND</replaceName>
+								<description>Low bound</description>
+								<replaceValue>Today Start</replaceValue>
+							</replaceParam>
+							<replaceParam name="HIGH_BOUND" type="DATE">
+								<replaceName>HIGH_BOUND</replaceName>
+								<description>High bound</description>
+								<replaceValue>Today End</replaceValue>
+							</replaceParam>
+						</refReplaceParam>
+					</refReplaceParams>
+					<refAcceptances name="DT Interval">
+						<refAcceptance name="Interval Acceptance" type="REPLACE_ADD">
+							<dtIntervalAcceptance name="MainInterval" type="INTERVAL">
+								<lowBound>LOW_BOUND</lowBound>
+								<highBound>HIGH_BOUND</highBound>
+								<dtIntervalGuess>
+									<regex name="FirstRecord">
+										<regexLine>\ACCMM_CMF_TIME_REGEX((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*</regexLine>
+									</regex>
+									<regex name="LastRecord">
+										<regexLine>CCMM_CMF_TIME_REGEX((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+									</regex>
+								</dtIntervalGuess>
+							</dtIntervalAcceptance>
+						</refAcceptance>
+					</refAcceptances>
+				</refComplexRegex>
+				<complexRegex name="Internal ANY RECORD Containing value">
+					<tags>
+						<tag name="Role">internal</tag>
+						<tag name="Function">any record</tag>
+					</tags>
+					<replaceParams>
+						<replaceParam name="VALUE"></replaceParam>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCMM_CMF</log_type>
+					</required_log_types>
+					<regexes>
+						<regex>
+							<regex_flags>
+								<regex_flag>CASE_INSENSITIVE</regex_flag>
+								<regex_flag>UNICODE_CASE</regex_flag>
+							</regex_flags>
+							<regexLine>CCMM_CMF_TIME_REGEX</regexLine>
+							<regexLine>((?!((.*?VALUE)|(CCMM_CMF_TIME_REGEX))).*\r?\n)*(?!(CCMM_CMF_TIME_REGEX)).*?VALUE((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCMM_CMF_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCMM_CMF_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_CMF_TIME_REGEX_MATCH</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_CMF_TIME_REGEX_MATCH</regexLine>
+							</regex>
+						</view>
+						<view name="FirstLine">
+							<regex>
+								<regexLine>(?&lt;=(CCMM_CMF_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+							</regex>
+						</view>
+					</views>
+				</complexRegex>
+				<refComplexRegex name="CCMM_CMF ANY RECORD Containing value">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<description>This SO selects all log entries that contain the specified value</description>
+					<refGroup>Global.CCMM_CMF</refGroup>
+					<refTags>
+						<tag name="Role">internal</tag>
+						<tag name="Function">any record</tag>
+					</refTags>
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
@@ -7734,23 +8057,6 @@
 							<replaceParam name="NOT_CONTAINS_3"></replaceParam>
 						</refReplaceParam>
 					</refReplaceParams>
-					<refAcceptances>
-						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
-							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
-								<regexes>
-									<regex name="1">
-										<regexLine>NOT_CONTAINS_1</regexLine>
-									</regex>
-									<regex name="2">
-										<regexLine>NOT_CONTAINS_2</regexLine>
-									</regex>
-									<regex name="3">
-										<regexLine>NOT_CONTAINS_3</regexLine>
-									</regex>
-								</regexes>
-							</regexAcceptance>
-						</refAcceptance>
-					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7771,23 +8077,6 @@
 							<replaceParam name="NOT_CONTAINS_3"></replaceParam>
 						</refReplaceParam>
 					</refReplaceParams>
-					<refAcceptances>
-						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
-							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
-								<regexes>
-									<regex name="1">
-										<regexLine>NOT_CONTAINS_1</regexLine>
-									</regex>
-									<regex name="2">
-										<regexLine>NOT_CONTAINS_2</regexLine>
-									</regex>
-									<regex name="3">
-										<regexLine>NOT_CONTAINS_3</regexLine>
-									</regex>
-								</regexes>
-							</regexAcceptance>
-						</refAcceptance>
-					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7808,23 +8097,6 @@
 							<replaceParam name="NOT_CONTAINS_3"></replaceParam>
 						</refReplaceParam>
 					</refReplaceParams>
-					<refAcceptances>
-						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
-							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
-								<regexes>
-									<regex name="1">
-										<regexLine>NOT_CONTAINS_1</regexLine>
-									</regex>
-									<regex name="2">
-										<regexLine>NOT_CONTAINS_2</regexLine>
-									</regex>
-									<regex name="3">
-										<regexLine>NOT_CONTAINS_3</regexLine>
-									</regex>
-								</regexes>
-							</regexAcceptance>
-						</refAcceptance>
-					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
@@ -7845,23 +8117,6 @@
 							<replaceParam name="NOT_CONTAINS_3"></replaceParam>
 						</refReplaceParam>
 					</refReplaceParams>
-					<refAcceptances>
-						<refAcceptance name="Not Contains Acceptance" type="REPLACE_ADD">
-							<regexAcceptance name="Not Contains" type="NOT_FIND_NULLABLE">
-								<regexes>
-									<regex name="1">
-										<regexLine>NOT_CONTAINS_1</regexLine>
-									</regex>
-									<regex name="2">
-										<regexLine>NOT_CONTAINS_2</regexLine>
-									</regex>
-									<regex name="3">
-										<regexLine>NOT_CONTAINS_3</regexLine>
-									</regex>
-								</regexes>
-							</regexAcceptance>
-						</refAcceptance>
-					</refAcceptances>
 					<refViews>
 						<refView name="LogType" type="REPLACE_ADD" position="1">
 							<view name="LogType">
