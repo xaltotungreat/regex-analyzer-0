@@ -6,6 +6,7 @@
 		<regex_flag>CASE_INSENSITIVE</regex_flag>
 		<regex_flag>COMMENTS</regex_flag>
 		<regex_flag>DOTALL</regex_flag>
+		<regex_flag>MULTILINE</regex_flag>
 		<regex_flag>LITERAL</regex_flag>
 		<regex_flag>UNICODE_CASE</regex_flag>
 		<regex_flag>UNIX_LINES</regex_flag>
@@ -335,6 +336,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -584,6 +593,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>ASM_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<complexRegex name="TSMAPI">
 					<tags>
@@ -889,6 +906,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CMF_OAM_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<complexRegex name="SPACEUTIL Write/Update ALL">
 					<tags>
@@ -2064,6 +2089,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CMF_OAM32_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<refComplexRegex name="CMF_OAM32 Errors Exceptions">
 						<tags>
@@ -2559,6 +2592,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<complexRegex name="SGM start important">
 					<tags>
@@ -4060,6 +4101,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_AMLSP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<refComplexRegex name="SGM_AmlSp Errors Exceptions" type="REPLACE_ADD">
 						<tags>
@@ -4447,6 +4496,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPMESSAGES_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<complexRegex name="Events">
 					<tags>
@@ -4940,6 +4997,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_TAPIDMESSAGES_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -5207,6 +5272,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_XMPP_SERVICE_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -5474,6 +5547,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_XMPPMESSAGES_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -5743,6 +5824,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCT_SERVER_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -5990,6 +6079,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSPCPP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -6206,7 +6303,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis EB - Need to Fix">
+				<complexRegex name="!L:Files Analysis EB">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -6217,10 +6314,18 @@
 					</required_log_types>
 					<regexes>
 						<regex name="FirstRegex">
-							<regexLine>\AAML_TIME_REGEX((?!(AML_TIME_REGEX)).*\r?\n)*</regexLine>
+							<regex_flags>
+								<regex_flag>MULTILINE</regex_flag>
+							</regex_flags>
+							<regexParam name="instance" type="Integer">0</regexParam>
+							<regexLine>(^EB_TIME_REGEX(?!(\s*TimeZone)))|(---&gt; EB_TIME_REGEX)</regexLine>
 						</regex>
 						<regex name="LastRegex">
-							<regexLine>AML_TIME_REGEX((?!(AML_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+							<regex_flags>
+								<regex_flag>MULTILINE</regex_flag>
+							</regex_flags>
+							<regexParam name="last_instance" type="Integer">0</regexParam>
+							<regexLine>(^EB_TIME_REGEX(?!(\s*TimeZone)))|(---&gt; EB_TIME_REGEX)</regexLine>
 						</regex>
 					</regexes>
 					<sortRequests>
@@ -6229,20 +6334,28 @@
 							<regexes>
 								<regex name="Default">
 									<regexParam name="instance" type="Integer">0</regexParam>
-									<regexLine>AML_TIME_REGEX</regexLine>
+									<regexLine>EB_TIME_REGEX</regexLine>
 								</regex>
 							</regexes>
 						</sortRequestRegex>
 					</sortRequests>
 					<date_info>
-						<date_format>AML_TIME_FORMAT</date_format>
+						<date_format>EB_TIME_FORMAT</date_format>
 						<regexes>
 							<regex name="Default">
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>AML_TIME_REGEX</regexLine>
+								<regexLine>EB_TIME_REGEX</regexLine>
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>EB_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -6475,6 +6588,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPRVCPP_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -6700,6 +6821,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CMF_OI_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -6984,6 +7113,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_EmailManager_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -7234,6 +7371,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_MCMClient_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<refComplexRegex name="CCMM_MCMClient Errors Exceptions">
 					<tags>
@@ -7553,6 +7698,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_OAMClient_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<refComplexRegex name="CCMM_OAMClient Errors Exceptions">
 					<tags>
@@ -7828,6 +7981,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_StarterService_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<refComplexRegex name="CCMM_StarterService Errors Exceptions">
 					<tags>
@@ -8103,6 +8264,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_CMF_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 			</complexRegexes>
 		</group>
@@ -8328,6 +8497,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AgentDesktop_TIME_REGEX_MATCH</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<refComplexRegex name="AgentDesktop Errors Exceptions">
 					<tags>
@@ -8606,6 +8783,14 @@
 							</regex>
 						</regexes>
 					</date_info>
+					<views>
+						<view name="Time">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CC_CacheResiliency_TIME_REGEX</regexLine>
+							</regex>
+						</view>
+					</views>
 				</complexRegex>
 				<refComplexRegex name="CC_CacheResiliency Errors Exceptions">
 					<tags>

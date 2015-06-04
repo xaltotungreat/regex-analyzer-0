@@ -40,11 +40,15 @@ public class HandlerAddFolder {
         DirectoryDialog openDialog = new DirectoryDialog (parent, SWT.OPEN);
         String prevPath = (String)ctxt.get(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH);
         if (prevPath == null) {
-            prevPath = Platform.getInstallLocation().getURL().getFile();
-            if (prevPath.startsWith("/")) {
-                prevPath = prevPath.substring(1);
+            if (System.getProperty("REAL.work.folder") != null) {
+                prevPath = System.getProperty("REAL.work.folder");
+            } else {
+                prevPath = Platform.getInstallLocation().getURL().getFile();
+                if (prevPath.startsWith("/")) {
+                    prevPath = prevPath.substring(1);
+                }
+                prevPath = prevPath.replace("/", File.separator);
             }
-            prevPath = prevPath.replace("/", File.separator);
             window.getContext().set(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH, prevPath);
             window.getContext().declareModifiable(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH);
         }
