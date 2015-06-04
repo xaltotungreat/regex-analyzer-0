@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- possible parameters for the regex node: 
+	all the names are equal to corresponding Pattern constants
+	<regex_flags>
+		<regex_flag>CANON_EQ</regex_flag>
+		<regex_flag>CASE_INSENSITIVE</regex_flag>
+		<regex_flag>COMMENTS</regex_flag>
+		<regex_flag>DOTALL</regex_flag>
+		<regex_flag>LITERAL</regex_flag>
+		<regex_flag>UNICODE_CASE</regex_flag>
+		<regex_flag>UNIX_LINES</regex_flag>
+	</regex_flags>
+	selects the 5th (0-based 0th, 1st, 2nd, 3rd, 4th, 5th) found result
+	<regexParam name="instance" type="Integer">5</regexParam>
+	select the 5th (0-based 0th, 1st, 2nd, 3rd, 4th, 5th) found result from the end
+	<regexParam name="last_instance" type="Integer">5</regexParam>
+
+-->
 <regex_config>
 	<group name="Global">
 		<replaceParams>
@@ -281,6 +298,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis AML">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>AML</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\AAML_TIME_REGEX((?!(AML_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>AML_TIME_REGEX((?!(AML_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="ASM">
@@ -492,6 +547,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis ASM">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>ASM</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\AASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>ASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>ASM_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>ASM_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>ASM_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<complexRegex name="TSMAPI">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -759,6 +852,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CMF_OAM">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CMF_OAM</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CMF_OAM_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CMF_OAM_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CMF_OAM_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<complexRegex name="SPACEUTIL Write/Update ALL">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -1896,6 +2027,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CMF_OAM32">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CMF_OAM32</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACMF_OAM32_TIME_REGEX((?!(CMF_OAM32_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CMF_OAM32_TIME_REGEX((?!(CMF_OAM32_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CMF_OAM32_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CMF_OAM32_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CMF_OAM32_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<refComplexRegex name="CMF_OAM32 Errors Exceptions">
 						<tags>
 							<tag name="Role">User Object</tag>
@@ -2353,6 +2522,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SipSp">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_SipSp</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_SIPSP_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<complexRegex name="SGM start important">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -3816,6 +4023,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SGM_AmlSp">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_AmlSp</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_AMLSP_TIME_REGEX((?!(SGM_AMLSP_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_AMLSP_TIME_REGEX((?!(SGM_AMLSP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_AMLSP_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_AMLSP_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_AMLSP_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<refComplexRegex name="SGM_AmlSp Errors Exceptions" type="REPLACE_ADD">
 						<tags>
 							<tag name="Role">User Object</tag>
@@ -4165,6 +4410,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SGM_SipMessages">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_SipMessages</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_SIPMESSAGES_TIME_REGEX((?!(SGM_SIPMESSAGES_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_SIPMESSAGES_TIME_REGEX((?!(SGM_SIPMESSAGES_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_SIPMESSAGES_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_SIPMESSAGES_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPMESSAGES_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<complexRegex name="Events">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -4620,6 +4903,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SGM_TapidMessages">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_TapidMessages</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_TAPIDMESSAGES_TIME_REGEX((?!(SGM_TAPIDMESSAGES_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_TAPIDMESSAGES_TIME_REGEX((?!(SGM_TAPIDMESSAGES_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_TAPIDMESSAGES_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_TAPIDMESSAGES_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_TAPIDMESSAGES_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="SGM_XMPP_Service">
@@ -4849,6 +5170,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SGM_XMPP_Service">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_XMPP_Service</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_XMPP_SERVICE_TIME_REGEX((?!(SGM_XMPP_SERVICE_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_XMPP_SERVICE_TIME_REGEX((?!(SGM_XMPP_SERVICE_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_XMPP_SERVICE_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_XMPP_SERVICE_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_XMPP_SERVICE_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="SGM_XMPPMessages">
@@ -5078,6 +5437,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SGM_XMPPMessages">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_XMPPMessages</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_XMPPMESSAGES_TIME_REGEX((?!(SGM_XMPPMESSAGES_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_XMPPMESSAGES_TIME_REGEX((?!(SGM_XMPPMESSAGES_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_XMPPMESSAGES_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_XMPPMESSAGES_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_XMPPMESSAGES_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="CCT_SERVER">
@@ -5309,6 +5706,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CCT_SERVER">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCT_SERVER</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACCT_SERVER_TIME_REGEX((?!(CCT_SERVER_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CCT_SERVER_TIME_REGEX((?!(CCT_SERVER_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCT_SERVER_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCT_SERVER_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCT_SERVER_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="SGM_SipSpCpp">
@@ -5518,6 +5953,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SGM_SipSpCpp">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_SipSpCpp</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_SIPSPCPP_TIME_REGEX((?!(SGM_SIPSPCPP_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_SIPSPCPP_TIME_REGEX((?!(SGM_SIPSPCPP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_SIPSPCPP_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_SIPSPCPP_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPSPCPP_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="EB">
@@ -5733,6 +6206,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis EB - Need to Fix">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>EB</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\AAML_TIME_REGEX((?!(AML_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>AML_TIME_REGEX((?!(AML_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AML_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AML_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AML_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="SGM_SipRvCpp">
@@ -5927,6 +6438,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis SGM_SipRvCpp">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>SGM_SipRvCpp</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ASGM_SIPRVCPP_TIME_REGEX((?!(SGM_SIPRVCPP_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>SGM_SIPRVCPP_TIME_REGEX((?!(SGM_SIPRVCPP_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>SGM_SIPRVCPP_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>SGM_SIPRVCPP_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>SGM_SIPRVCPP_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="CMF_OI">
@@ -6114,7 +6663,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				
+				<complexRegex name="!L:Files Analysis CMF_OI">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CMF_OI</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACMF_OI_TIME_REGEX((?!(CMF_OI_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CMF_OI_TIME_REGEX((?!(CMF_OI_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CMF_OI_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CMF_OI_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CMF_OI_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="CCMM_EmailManager">
@@ -6361,10 +6947,9 @@
 						</refAcceptance>
 					</refAcceptances>
 				</refComplexRegex>
-				<complexRegex name="!Files Analysis CCMM_EmailManager">
+				<complexRegex name="!L:Files Analysis CCMM_EmailManager">
 					<tags>
 						<tag name="Role">User Object</tag>
-						<tag name="Interval">TRUE</tag>
 					</tags>
 					<replaceParams>
 					</replaceParams>
@@ -6612,6 +7197,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CCMM_MCMClient">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCMM_MCMClient</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACCMM_MCMClient_TIME_REGEX((?!(CCMM_MCMClient_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CCMM_MCMClient_TIME_REGEX((?!(CCMM_MCMClient_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCMM_MCMClient_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCMM_MCMClient_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_MCMClient_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<refComplexRegex name="CCMM_MCMClient Errors Exceptions">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -6893,6 +7516,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CCMM_OAMClient">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCMM_OAMClient</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACCMM_OAMClient_TIME_REGEX((?!(CCMM_OAMClient_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CCMM_OAMClient_TIME_REGEX((?!(CCMM_OAMClient_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCMM_OAMClient_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCMM_OAMClient_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_OAMClient_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<refComplexRegex name="CCMM_OAMClient Errors Exceptions">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -7130,6 +7791,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CCMM_StarterService">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCMM_StarterService</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACCMM_StarterService_TIME_REGEX((?!(CCMM_StarterService_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CCMM_StarterService_TIME_REGEX((?!(CCMM_StarterService_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCMM_StarterService_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCMM_StarterService_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_StarterService_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<refComplexRegex name="CCMM_StarterService Errors Exceptions">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -7367,6 +8066,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CCMM_CMF">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CCMM_CMF</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACCMM_CMF_TIME_REGEX((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CCMM_CMF_TIME_REGEX((?!(CCMM_CMF_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CCMM_CMF_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CCMM_CMF_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CCMM_CMF_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 			</complexRegexes>
 		</group>
 		<group name="AgentDesktop">
@@ -7554,7 +8291,45 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<refComplexRegex name="CCMM_StarterService Errors Exceptions">
+				<complexRegex name="!L:Files Analysis AgentDesktop">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>AgentDesktop</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\AAgentDesktop_TIME_REGEX((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>AgentDesktop_TIME_REGEX((?!(AgentDesktop_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>AgentDesktop_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>AgentDesktop_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>AgentDesktop_TIME_REGEX_MATCH</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
+				<refComplexRegex name="AgentDesktop Errors Exceptions">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -7569,7 +8344,7 @@
 						</refReplaceParam>
 					</refReplaceParams>
 					<refAcceptances>
-						<!-- may be necessary 
+						<!-- may be necessary to remember the syntax
 						<refAcceptance name="CMF error success" type="REPLACE_ADD">
 							<regexAcceptance name="No success" type="NOT_FIND">
 								<regexes>
@@ -7794,6 +8569,44 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
+				<complexRegex name="!L:Files Analysis CC_CacheResiliency">
+					<tags>
+						<tag name="Role">User Object</tag>
+					</tags>
+					<replaceParams>
+					</replaceParams>
+					<required_log_types>
+						<log_type>CC_CacheResiliency</log_type>
+					</required_log_types>
+					<regexes>
+						<regex name="FirstRegex">
+							<regexLine>\ACC_CacheResiliency_TIME_REGEX((?!(CC_CacheResiliency_TIME_REGEX)).*\r?\n)*</regexLine>
+						</regex>
+						<regex name="LastRegex">
+							<regexLine>CC_CacheResiliency_TIME_REGEX((?!(CC_CacheResiliency_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+						</regex>
+					</regexes>
+					<sortRequests>
+						<sortRequestDateTime name="Date_Time" applicability="MERGE_RESULTS"/>
+						<sortRequestRegex name="Regex_Time" applicability="MERGE_RESULTS">
+							<regexes>
+								<regex name="Default">
+									<regexParam name="instance" type="Integer">0</regexParam>
+									<regexLine>CC_CacheResiliency_TIME_REGEX</regexLine>
+								</regex>
+							</regexes>
+						</sortRequestRegex>
+					</sortRequests>
+					<date_info>
+						<date_format>CC_CacheResiliency_TIME_FORMAT</date_format>
+						<regexes>
+							<regex name="Default">
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>CC_CacheResiliency_TIME_REGEX</regexLine>
+							</regex>
+						</regexes>
+					</date_info>
+				</complexRegex>
 				<refComplexRegex name="CC_CacheResiliency Errors Exceptions">
 					<tags>
 						<tag name="Role">User Object</tag>
@@ -7847,7 +8660,9 @@
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
-		
+		<!-- ################################################
+		############### Search Scripts #################
+		################################################  -->
 		<searchScripts>
 			<searchScript name="Errors_Exceptions SGM+CMF">
 				<description>The main errors in SGM and CMF logs sorted by time</description>

@@ -8,7 +8,7 @@ import org.eclipselabs.real.core.util.FindTextResult;
 class FindStrategyOnePatternInstance extends FindStrategyInstanceImpl {
 
     protected Matcher oneMatcher;
-    
+
     public FindStrategyOnePatternInstance(Pattern pt, String text, Integer resNum) {
         super(FindStrategyType.ONE_PATTERN_INSTANCE, text, resNum);
         if (pt != null) {
@@ -18,25 +18,24 @@ class FindStrategyOnePatternInstance extends FindStrategyInstanceImpl {
 
     @Override
     public boolean find() {
-        boolean mainResult = false;
+        boolean booleanResult = false;
         while (oneMatcher.find()) {
             if (mainInstanceNumber != null) {
                 if (currentInstanceNumber == mainInstanceNumber) {
-                    mainResult = true;
+                    booleanResult = true;
                     currResult = new FindTextResult(oneMatcher.group(), oneMatcher.start(), oneMatcher.end());
                     currentInstanceNumber++;
                     break;
-                } else {
-                    currentInstanceNumber++;
                 }
+                currentInstanceNumber++;
             } else {
-                mainResult = true;
+                booleanResult = true;
                 currResult = new FindTextResult(oneMatcher.group(), oneMatcher.start(), oneMatcher.end());
                 currentInstanceNumber++;
                 break;
             }
         }
-        return mainResult;
+        return booleanResult;
     }
 
     @Override
@@ -50,9 +49,9 @@ class FindStrategyOnePatternInstance extends FindStrategyInstanceImpl {
 
     @Override
     public String toString() {
-        return "FindStrategyOnePatternInstance [oneMatcher=" + ((oneMatcher != null)?oneMatcher.pattern().pattern():("null")) 
-                + ", mainInstanceNumber=" + mainInstanceNumber 
-                + ", currentInstanceNumber=" + currentInstanceNumber 
+        return "FindStrategyOnePatternInstance [oneMatcher=" + ((oneMatcher != null)?oneMatcher.pattern().pattern():("null"))
+                + ", mainInstanceNumber=" + mainInstanceNumber
+                + ", currentInstanceNumber=" + currentInstanceNumber
                 + ", currResult=" + currResult + "]";
     }
 

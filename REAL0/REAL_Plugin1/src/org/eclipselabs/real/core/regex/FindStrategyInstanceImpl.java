@@ -4,10 +4,14 @@ abstract class FindStrategyInstanceImpl extends FindStrategyImpl {
 
     protected Integer mainInstanceNumber;
     protected int currentInstanceNumber = 0;
-    
+
     public FindStrategyInstanceImpl(FindStrategyType aType, String text, Integer inst) {
         super(aType, text);
-        mainInstanceNumber = inst;
+        if (inst != null) {
+            mainInstanceNumber = inst;
+        } else {
+            mainInstanceNumber = 0;
+        }
     }
 
     @Override

@@ -50,12 +50,11 @@ class SimpleRegexImpl extends RealRegexImpl implements ISimpleRegex {
             currPattern = Pattern.compile(getPatternString(replaceTable));
         }
         RealRegexParamInteger instNum = (RealRegexParamInteger)getParameter(PARAM_NAME_INSTANCE);
-        RealRegexParamInteger maxRegionSize = (RealRegexParamInteger)getParameter(PARAM_NAME_MAX_REGION_SIZE);
-        RealRegexParamIRealRegex regionRegex = (RealRegexParamIRealRegex)getParameter(PARAM_NAME_REGION_REGEX);
-        if ((instNum != null) && (maxRegionSize == null) && (regionRegex == null)) {
+        RealRegexParamInteger lastInstNum = (RealRegexParamInteger)getParameter(PARAM_NAME_LAST_INSTANCE);
+        if (instNum != null) {
             returnWrapper = new FindStrategyOnePatternInstance(currPattern, logText, instNum.getValue());
-        } else if ((instNum == null) && (maxRegionSize != null) && (regionRegex != null)) {
-            returnWrapper = new FindStrategyPtRegions(currPattern, logText, regionRegex.getValue(), replaceTable, maxRegionSize.getValue(), externalFlags);
+        } else if (lastInstNum != null) {
+            returnWrapper = new FindStrategyOnePatternLastInstance(currPattern, logText, lastInstNum.getValue());
         } else {
             returnWrapper = new FindStrategyOnePattern(currPattern, logText);
         }

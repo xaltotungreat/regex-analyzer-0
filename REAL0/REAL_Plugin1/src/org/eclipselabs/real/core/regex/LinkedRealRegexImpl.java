@@ -32,12 +32,8 @@ class LinkedRealRegexImpl extends RealRegexImpl implements ILinkedRealRegex {
             }
         }
         RealRegexParamInteger instNum = (RealRegexParamInteger)getParameter(PARAM_NAME_INSTANCE);
-        RealRegexParamInteger maxRegionSize = (RealRegexParamInteger)getParameter(PARAM_NAME_MAX_REGION_SIZE);
-        RealRegexParamIRealRegex regionRegex = (RealRegexParamIRealRegex)getParameter(PARAM_NAME_REGION_REGEX);
-        if ((instNum != null) && (maxRegionSize == null) && (regionRegex == null)) {
+        if (instNum != null) {
             returnWrapper = new FindStrategyManyPatternsInstance(ptList, logText, instNum.getValue());
-        } else if ((instNum == null) && (maxRegionSize != null) && (regionRegex != null)) {
-            returnWrapper = new FindStrategyMnPtRegions(ptList, logText, regionRegex.getValue(), replaceTable, maxRegionSize.getValue(), externalFlags);
         } else {
             returnWrapper = new FindStrategyManyPatterns(ptList, logText);
         }

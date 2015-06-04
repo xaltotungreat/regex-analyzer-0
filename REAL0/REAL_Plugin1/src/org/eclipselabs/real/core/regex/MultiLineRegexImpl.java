@@ -9,22 +9,22 @@ import java.util.regex.Pattern;
 class MultiLineRegexImpl extends RealRegexImpl implements IMultiLineRegex {
 
     protected List<String> regexStrings = new ArrayList<String>();
-    
+
     public MultiLineRegexImpl(String aName) {
         super(aName);
         type = RealRegexType.MULTILINE_REAL_REGEX;
     }
-    
+
     public MultiLineRegexImpl(String aName, Collection<String> regexLines) {
         this(aName);
         regexStrings.clear();
         regexStrings.addAll(regexLines);
     }
-    
+
     @Override
     public String toString() {
         StringBuilder lineRegexStr = new StringBuilder();
-        lineRegexStr.append("MultiLineRegexImpl [regexName=" + regexName + ", regexFlags=" + regexFlags 
+        lineRegexStr.append("MultiLineRegexImpl [regexName=" + regexName + ", regexFlags=" + regexFlags
                 + ", regexParamMap=" + regexParamMap);
         for (String regexLine : regexStrings) {
             lineRegexStr.append("\n ").append(regexLine);
@@ -41,7 +41,7 @@ class MultiLineRegexImpl extends RealRegexImpl implements IMultiLineRegex {
     public void setRegexStrings(List<String> regexStrings) {
         this.regexStrings = regexStrings;
     }
-    
+
     @Override
     public String getPatternString(Map<String, String> replaceTable) {
         StringBuilder regexStr = new StringBuilder();
@@ -79,12 +79,11 @@ class MultiLineRegexImpl extends RealRegexImpl implements IMultiLineRegex {
             currPattern = Pattern.compile(getPatternString(replaceTable));
         }
         RealRegexParamInteger instNum = (RealRegexParamInteger)getParameter(PARAM_NAME_INSTANCE);
-        RealRegexParamInteger maxRegionSize = (RealRegexParamInteger)getParameter(PARAM_NAME_MAX_REGION_SIZE);
-        RealRegexParamIRealRegex regionRegex = (RealRegexParamIRealRegex)getParameter(PARAM_NAME_REGION_REGEX);
-        if ((instNum != null) && (maxRegionSize == null) && (regionRegex == null)) {
+        RealRegexParamInteger lastInstNum = (RealRegexParamInteger)getParameter(PARAM_NAME_LAST_INSTANCE);
+        if (instNum != null) {
             returnWrapper = new FindStrategyOnePatternInstance(currPattern, logText, instNum.getValue());
-        } else if ((instNum == null) && (maxRegionSize != null) && (regionRegex != null)) {
-            returnWrapper = new FindStrategyPtRegions(currPattern, logText, regionRegex.getValue(), replaceTable, maxRegionSize.getValue(), externalFlags);
+        } else if (lastInstNum != null) {
+            returnWrapper = new FindStrategyOnePatternLastInstance(currPattern, logText, lastInstNum.getValue());
         } else {
             returnWrapper = new FindStrategyOnePattern(currPattern, logText);
         }
