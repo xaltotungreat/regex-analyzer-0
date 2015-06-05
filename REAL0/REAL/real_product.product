@@ -9,7 +9,7 @@
    <launcherArgs>
       <programArgs>-clearPersistedState
       </programArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Dlog4j.configurationFile=config/log4j2.xml -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=2 -XX:+UseG1GC
+      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Dlog4j.configurationFile=config/log4j2.xml -Dvisualvm.display.name=REAL -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=2 -XX:+UseG1GC
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
