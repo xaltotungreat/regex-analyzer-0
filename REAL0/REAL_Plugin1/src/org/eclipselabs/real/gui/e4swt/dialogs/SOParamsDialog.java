@@ -309,13 +309,13 @@ public class SOParamsDialog extends Dialog {
                             @Override
                             public void widgetSelected(SelectionEvent se) {
                                 DateTime source = (DateTime)se.getSource();
-                                IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
-                                if (calParam != null) {
-                                    LocalDateTime currDt = calParam.getValue();
+                                IReplaceParam<LocalDateTime> calParam1 = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
+                                if (calParam1 != null) {
+                                    LocalDateTime currDt = calParam1.getValue();
                                     // for the date picker the months are zero-based, the first month is 0 the last is 11
                                     // for LocalDateTime the months range 1-12
-                                    calParam.setValue(currDt.withYear(source.getYear()).withMonth(source.getMonth() + 1).withDayOfMonth(source.getDay()));
-                                    String resultText = dtFmt.format(calParam.getValue());
+                                    calParam1.setValue(currDt.withYear(source.getYear()).withMonth(source.getMonth() + 1).withDayOfMonth(source.getDay()));
+                                    String resultText = dtFmt.format(calParam1.getValue());
                                     log.debug("Result Text " + resultText);
                                     editor.getItem().setText(columnValueIndex, resultText);
                                 } else {
@@ -329,11 +329,11 @@ public class SOParamsDialog extends Dialog {
                             @Override
                             public void widgetSelected(SelectionEvent se) {
                                 DateTime source = (DateTime)se.getSource();
-                                IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
-                                if (calParam != null) {
-                                    LocalDateTime currDt = calParam.getValue();
-                                    calParam.setValue(currDt.withHour(source.getHours()).withMinute(source.getMinutes()).withSecond(source.getSeconds()));
-                                    String resultText = dtFmt.format(calParam.getValue());
+                                IReplaceParam<LocalDateTime> calParam1 = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
+                                if (calParam1 != null) {
+                                    LocalDateTime currDt = calParam1.getValue();
+                                    calParam1.setValue(currDt.withHour(source.getHours()).withMinute(source.getMinutes()).withSecond(source.getSeconds()));
+                                    String resultText = dtFmt.format(calParam1.getValue());
                                     log.debug("Result Text " + resultText);
                                     editor.getItem().setText(columnValueIndex, resultText);
                                 } else {

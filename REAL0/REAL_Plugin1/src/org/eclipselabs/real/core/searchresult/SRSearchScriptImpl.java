@@ -169,8 +169,8 @@ public class SRSearchScriptImpl extends KeyedComplexSearchResultImpl<
     }
 
     @Override
-    public SOContainer getByName(String soName) {
-        return new SOContainer(getInternalSOByName(soName), this, logText);
+    public SOContainer getByName(String soNamePar) {
+        return new SOContainer(getInternalSOByName(soNamePar), this, logText);
     }
 
     @Override

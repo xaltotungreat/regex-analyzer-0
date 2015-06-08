@@ -1,8 +1,8 @@
 package org.eclipselabs.real.core.searchobject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
@@ -77,12 +77,12 @@ public abstract class KeyedSearchObjectImpl<R extends IKeyedSearchResult<O>,O ex
     }
 
     @Override
-    public List<LogFileTypeKey> getRequiredLogTypes() {
+    public Set<LogFileTypeKey> getRequiredLogTypes() {
         return keyedSODelegate.getRequiredLogTypes();
     }
 
     @Override
-    public void setRequiredLogTypes(List<LogFileTypeKey> requiredLogFileTypes) {
+    public void setRequiredLogTypes(Set<LogFileTypeKey> requiredLogFileTypes) {
         keyedSODelegate.setRequiredLogTypes(requiredLogFileTypes);
     }
 
@@ -119,7 +119,7 @@ public abstract class KeyedSearchObjectImpl<R extends IKeyedSearchResult<O>,O ex
             cloneSODelegate.setSearchObjectTags(newTags);
         }
         if (keyedSODelegate.getRequiredLogTypes() != null) {
-            List<LogFileTypeKey> newReqLFT = new ArrayList<>();
+            Set<LogFileTypeKey> newReqLFT = new HashSet<>();
             for (LogFileTypeKey lftKey : getRequiredLogTypes()) {
                 newReqLFT.add(lftKey.clone());
             }

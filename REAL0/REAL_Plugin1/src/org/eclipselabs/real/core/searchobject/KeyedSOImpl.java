@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
 
     protected ISearchObjectGroup<String> soGroup;
     protected Map<String,String> soTags = new ConcurrentHashMap<String, String>();
-    protected List<LogFileTypeKey> requiredLogFileTypes;
+    protected Set<LogFileTypeKey> requiredLogFileTypes;
     protected ISearchObjectDateInfo dateInfo;
     protected IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject> parent;
 
@@ -35,7 +36,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     public LogFileTypeKey getLogFileType() {
         LogFileTypeKey returnKey = null;
         if ((requiredLogFileTypes != null) && (!requiredLogFileTypes.isEmpty())) {
-            returnKey = requiredLogFileTypes.get(0);
+            returnKey = requiredLogFileTypes.iterator().next();
         }
         return returnKey;
     }
@@ -253,12 +254,12 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     @Override
-    public List<LogFileTypeKey> getRequiredLogTypes() {
+    public Set<LogFileTypeKey> getRequiredLogTypes() {
         return requiredLogFileTypes;
     }
 
     @Override
-    public void setRequiredLogTypes(List<LogFileTypeKey> requiredLogFileTypes) {
+    public void setRequiredLogTypes(Set<LogFileTypeKey> requiredLogFileTypes) {
         this.requiredLogFileTypes = requiredLogFileTypes;
     }
 

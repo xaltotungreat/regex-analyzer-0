@@ -1,9 +1,8 @@
 package org.eclipselabs.real.gui.e4swt.handlers;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
 
 public class HandlerTest1 {
     @Execute

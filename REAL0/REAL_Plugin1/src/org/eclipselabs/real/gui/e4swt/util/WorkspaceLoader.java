@@ -336,11 +336,11 @@ public class WorkspaceLoader implements Runnable {
         return thisOOIList;
     }
 
-    protected void loadGlobalOOI(List<GlobalOOIPersist> globOOIPst, final MPartStack resultsStack, final MWindow mainWindow, final UISynchronize uiSynch) {
+    protected void loadGlobalOOI(List<GlobalOOIPersist> globOOIPst, final MPartStack resultsStack, final MWindow mainWindowPar, final UISynchronize uiSynchPar) {
         if ((globOOIPst != null) && (!globOOIPst.isEmpty())) {
             final List<GlobalOOIInfo> newGlobalOOI = new ArrayList<>();
             for (final GlobalOOIPersist pstInfo : globOOIPst) {
-                uiSynch.syncExec(new Runnable() {
+                uiSynchPar.syncExec(new Runnable() {
                     @Override
                     public void run() {
                         Font fnt = null;
@@ -365,11 +365,11 @@ public class WorkspaceLoader implements Runnable {
                 });
             }
             final CountDownLatch oneTimeLt = new CountDownLatch(1);
-            uiSynch.syncExec(new Runnable () {
+            uiSynchPar.syncExec(new Runnable () {
 
                 @Override
                 public void run() {
-                    CompletableFuture<Void> installGOOI = OOIHelper.installGlobalOOI(newGlobalOOI, mainWindow.getContext(), uiSynch, resultsStack);
+                    CompletableFuture<Void> installGOOI = OOIHelper.installGlobalOOI(newGlobalOOI, mainWindowPar.getContext(), uiSynchPar, resultsStack);
                     installGOOI.handle((Void arg0, Throwable t) ->
                     {
                         oneTimeLt.countDown();

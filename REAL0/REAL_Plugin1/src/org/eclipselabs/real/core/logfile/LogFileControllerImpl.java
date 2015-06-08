@@ -290,7 +290,7 @@ public enum LogFileControllerImpl {
         return getLogAggregate(type, new TimeUnitWrapper(controllerOperationTimeout, controllerOperationTimeUnit));
     }
 
-    public Boolean isLogFilesAvailable(List<LogFileTypeKey> typesList) {
+    public Boolean isLogFilesAvailable(Set<LogFileTypeKey> typesList) {
         Boolean available = true;
         if (typesList != null) {
             for (LogFileTypeKey lftKey : typesList) {

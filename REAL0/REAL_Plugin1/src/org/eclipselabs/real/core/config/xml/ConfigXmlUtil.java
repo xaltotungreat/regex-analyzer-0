@@ -2,9 +2,11 @@ package org.eclipselabs.real.core.config.xml;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
@@ -775,7 +777,7 @@ public class ConfigXmlUtil implements IConfigXmlConstants {
         }
 
         // required log types
-        List<LogFileTypeKey> logTypes = new ArrayList<>();
+        Set<LogFileTypeKey> logTypes = new HashSet<>();
         List<Node> allReqLogTypes = collectChildNodes(soNode, XmlConfigNodeType.REQUIRED_LOG_TYPES);
         for (Node rqLogTypeList : allReqLogTypes) {
             List<Node> ltList = collectChildNodes(rqLogTypeList, XmlConfigNodeType.LOG_TYPE);

@@ -10,6 +10,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
@@ -324,7 +325,7 @@ public class GUISearchObjectTree implements IEclipse4Constants {
             treeIcon = null;
             TreeItem ti = new TreeItem(parentItem, SWT.NONE);
             ti.setData(DATA_SEARCH_OBJECT_TREE_KEY, currDSO);
-            List<LogFileTypeKey> soLogTypes = currDSO.getSearchObject().getRequiredLogTypes();
+            Set<LogFileTypeKey> soLogTypes = currDSO.getSearchObject().getRequiredLogTypes();
             Map<LogFileTypeKey,LogTypeStateWrapper> reqTypesMap = new HashMap<>();
             TreeElementStyle currElemStyle = null;
             TreeElementState currElemState = null;
