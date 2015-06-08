@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,8 @@ public enum ConveyorMain {
     private OperationsCache opCache = new OperationsCache();
     // the executor for search operations
     private ExecutorService convExecutor;
+    // this semaphore limits the number of concurrently running requests
+    private Semaphore convSemaphore;
     // builder list
     private List<StageBuilderSelection> orderedBuilderList = new ArrayList<StageBuilderSelection>();
 
@@ -72,6 +75,7 @@ public enum ConveyorMain {
     private ConveyorMain() {
         int threadsNum = PerformanceUtils.getIntProperty(PERF_CONST_SIMULTANEOUS_OPERATIONS, 3);
         convExecutor = Executors.newFixedThreadPool(threadsNum, new NamedThreadFactory("Conveyor"));
+        convSemaphore = new Semaphore(threadsNum, true);
 
         // default stage builders
         orderedBuilderList.add(new StageBuilderSelection(new ComplexRegexStageBuilder(),
@@ -84,6 +88,10 @@ public enum ConveyorMain {
 
     public OperationsCache getOperationsCache() {
         return opCache;
+    }
+
+    public Semaphore getConvSemaphore() {
+        return convSemaphore;
     }
 
     /**

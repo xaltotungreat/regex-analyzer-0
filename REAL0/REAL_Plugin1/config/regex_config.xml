@@ -52,7 +52,7 @@
 			<replaceParam name="CMF_OI_TIME_FORMAT">yyyy-MM-dd HH:mm:ss,SSS</replaceParam>
 			<replaceParam name="CCMM_EmailManager_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CCMM_EmailManager_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
-			<replaceParam name="CCMM_MCMClient_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)\d\d\d\d</replaceParam>
+			<replaceParam name="CCMM_MCMClient_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d\d\d</replaceParam>
 			<replaceParam name="CCMM_MCMClient_TIME_REGEX_MATCH">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
 			<replaceParam name="CCMM_MCMClient_TIME_FORMAT">yyyy-MM-dd HH:mm:ss.SSS</replaceParam>
 			<replaceParam name="CCMM_OAMClient_TIME_REGEX">\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d</replaceParam>
@@ -299,7 +299,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis AML">
+				<complexRegex name="!L:Files Timespan AML">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -556,7 +556,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis ASM">
+				<complexRegex name="!L:Files Timespan ASM">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -869,7 +869,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CMF_OAM">
+				<complexRegex name="!L:Files Timespan CMF_OAM">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -2052,7 +2052,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CMF_OAM32">
+				<complexRegex name="!L:Files Timespan CMF_OAM32">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -2555,7 +2555,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SipSp">
+				<complexRegex name="!L:Files Timespan SipSp">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -4064,7 +4064,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SGM_AmlSp">
+				<complexRegex name="!L:Files Timespan SGM_AmlSp">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -4459,7 +4459,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SGM_SipMessages">
+				<complexRegex name="!L:Files Timespan SGM_SipMessages">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -4960,7 +4960,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SGM_TapidMessages">
+				<complexRegex name="!L:Files Timespan SGM_TapidMessages">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -5235,7 +5235,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SGM_XMPP_Service">
+				<complexRegex name="!L:Files Timespan SGM_XMPP_Service">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -5510,7 +5510,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SGM_XMPPMessages">
+				<complexRegex name="!L:Files Timespan SGM_XMPPMessages">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -5787,7 +5787,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CCT_SERVER">
+				<complexRegex name="!L:Files Timespan CCT_SERVER">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -6042,7 +6042,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SGM_SipSpCpp">
+				<complexRegex name="!L:Files Timespan SGM_SipSpCpp">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -6303,7 +6303,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis EB">
+				<complexRegex name="!L:Files Timespan EB">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -6551,7 +6551,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis SGM_SipRvCpp">
+				<complexRegex name="!L:Files Timespan SGM_SipRvCpp">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -6784,7 +6784,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CMF_OI">
+				<complexRegex name="!L:Files Timespan CMF_OI">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -7023,11 +7023,6 @@
 								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX (\+|-)?\d\d\d\d\s{1,10}EmailManager:\w{1,6}\s{1,10}\d{1,10}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,7}\s{1,10}\w{1,10}\s{1,10}))\w.*</regexLine>
 							</regex>
 						</view>
-						<!-- <view name="FirstLine">
-							<regex>
-								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
-							</regex>
-						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="CCMM_EmailManager ANY RECORD Containing value">
@@ -7076,7 +7071,7 @@
 						</refAcceptance>
 					</refAcceptances>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CCMM_EmailManager">
+				<complexRegex name="!L:Files Timespan CCMM_EmailManager">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -7294,7 +7289,11 @@
 						<view name="Module">
 							<regex>
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}))\w+</regexLine>
+								<regex_flags>
+									<regex_flag>CASE_INSENSITIVE</regex_flag>
+									<regex_flag>UNICODE_CASE</regex_flag>
+								</regex_flags>
+								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}))\w+(?=(\s{1,10}\d{1,8}:\d{1,4}))</regexLine>
 							</regex>
 						</view>
 						<view name="Process">
@@ -7317,8 +7316,13 @@
 						</view>
 						<view name="Message">
 							<regex>
+								<regex_flags>
+									<regex_flag>CASE_INSENSITIVE</regex_flag>
+									<regex_flag>UNICODE_CASE</regex_flag>
+								</regex_flags>
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}\w{1,15}\s{1,10}\d{1,8}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,6}\s{1,10}((\d{1,10})|(\w{1,10}))\s{1,10}))\w.*</regexLine>
+								<regexLine>((?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}MCMClient\s{1,10}\d{1,8}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,6}\s{1,10}(\w{1,10})\s{1,10}))\w.*)</regexLine>
+								<regexLine>|((?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}))(?!(MCMClient))\w.*)</regexLine>
 							</regex>
 						</view>
 					</views>
@@ -7334,7 +7338,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CCMM_MCMClient">
+				<complexRegex name="!L:Files Timespan CCMM_MCMClient">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -7414,50 +7418,6 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
-					<refViews>
-						<refView name="RemModule" type="REMOVE">
-							<view name="Module">
-								<regex>
-									<regexLine></regexLine>
-								</regex>
-							</view>
-						</refView>
-						<refView name="RemProcess" type="REMOVE">
-							<view name="Process">
-								<regex>
-									<regexLine></regexLine>
-								</regex>
-							</view>
-						</refView>
-						<refView name="RemThread" type="REMOVE">
-							<view name="Thread">
-								<regex>
-									<regexLine></regexLine>
-								</regex>
-							</view>
-						</refView>
-						<refView name="RemContact" type="REMOVE">
-							<view name="Contact">
-								<regex>
-									<regexLine></regexLine>
-								</regex>
-							</view>
-						</refView>
-						<refView name="RemMessage" type="REMOVE">
-							<view name="Message">
-								<regex>
-									<regexLine></regexLine>
-								</regex>
-							</view>
-						</refView>
-						<refView name="RefFirstLine" type="REPLACE_ADD">
-							<view name="FirstLine">
-								<regex>
-									<regexLine>(?&lt;=(CCMM_MCMClient_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
-								</regex>
-							</view>
-						</refView>
-					</refViews>
 					<!-- <refViews>
 						<refView name="RefError" type="REPLACE_ADD" position="1">
 							<view name="Error">
@@ -7643,9 +7603,10 @@
 								<regexLine>CCMM_OAMClient_TIME_REGEX</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Message">
 							<regex>
-								<regexLine>(?&lt;=(CCMM_OAMClient_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_OAMClient_TIME_REGEX\s{1,2}(\+|-)?\d\d:?\d\d\s{1,10}\w{1,12}\s{1,10}\w{1,6}\s{1,10}-?\d{1,10}\s{1,10}\w{1,8}\s{1,10}\w{1,7}\s{1,15}))\w.*</regexLine>
 							</regex>
 						</view>
 					</views>
@@ -7661,7 +7622,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CCMM_OAMClient">
+				<complexRegex name="!L:Files Timespan CCMM_OAMClient">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -7926,9 +7887,9 @@
 								<regexLine>CCMM_StarterService_TIME_REGEX</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Message">
 							<regex>
-								<regexLine>(?&lt;=(CCMM_StarterService_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+								<regexLine>(?&lt;=(CCMM_StarterService_TIME_REGEX\s{1,2}(\+|-)?\d\d:?\d\d\s{1,10}\w{1,12}\s{1,10}\w{1,6}\s{1,10}\d{1,6}\s{1,10}\w{1,8}\s{1,10}\w{1,7}\s{1,15}))\w.*</regexLine>
 							</regex>
 						</view>
 					</views>
@@ -7944,7 +7905,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CCMM_StarterService">
+				<complexRegex name="!L:Files Timespan CCMM_StarterService">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -8227,7 +8188,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CCMM_CMF">
+				<complexRegex name="!L:Files Timespan CCMM_CMF">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -8460,7 +8421,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis AgentDesktop">
+				<complexRegex name="!L:Files Timespan AgentDesktop">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -8746,7 +8707,7 @@
 						<tag name="Function">any record</tag>
 					</refTags>
 				</refComplexRegex>
-				<complexRegex name="!L:Files Analysis CC_CacheResiliency">
+				<complexRegex name="!L:Files Timespan CC_CacheResiliency">
 					<tags>
 						<tag name="Role">User Object</tag>
 					</tags>
@@ -9132,7 +9093,10 @@
 					<viewName>Time</viewName>
 					<viewName>LogType</viewName>
 					<!-- <viewName>Error</viewName> -->
-					<viewName>FirstLine</viewName>
+					<viewName>Module</viewName>
+					<viewName>Process</viewName>
+					<viewName>Thread</viewName>
+					<viewName>Message</viewName>
 				</viewNames>
 			</searchScript>
 		</searchScripts>

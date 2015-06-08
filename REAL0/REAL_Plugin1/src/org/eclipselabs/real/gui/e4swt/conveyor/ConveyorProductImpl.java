@@ -35,6 +35,13 @@ public class ConveyorProductImpl implements IConveyorProduct {
 
     @Override
     public ConvProductContext executeRequest(ConvSearchRequest req) {
+        // don't do anything until a permit is available
+        try {
+            ConveyorMain.INSTANCE.getConvSemaphore().acquire();
+        } catch (InterruptedException e1) {
+            log.error("executeRequest unable to acquire a permit",e1);
+        }
+
         CoreEventBus.INSTANCE.register(this);
         if (stageTreeBuilder == null) {
             return null;
@@ -46,6 +53,7 @@ public class ConveyorProductImpl implements IConveyorProduct {
                 // cleanup operations regardless of the result
                 CoreEventBus.INSTANCE.unregister(this);
                 context.cleanup();
+                ConveyorMain.INSTANCE.getConvSemaphore().release();
             });
         endFuture = stagesFuture.thenApply((a) -> context);
         // clients may want to wait indefinitely
