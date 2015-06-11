@@ -851,11 +851,35 @@
 								<regexLine>CMF_OAM_TIME_REGEX</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Thread">
 							<regex>
-								<regexLine>(?&lt;=(CMF_OAM_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]\s{1,10}))</regexLine>
 							</regex>
 						</view>
+						<view name="LogLevel">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}))\w+(?=(\s{1,10}))</regexLine>
+							</regex>
+						</view>
+						<view name="Class">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>((?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w$\.]{1,80}\.))[\w$]+(?=(\s{1,10}-)))</regexLine>
+								<regexLine>|((?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}))\w+(?=(\s{1,10}-)))</regexLine>
+							</regex>
+						</view>
+						<view name="FirstLineMsg">
+							<regex>
+								<regexLine>(?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w\.$]{1,90}\s{1,10}-\s{1,10}))\S.*</regexLine>
+							</regex>
+						</view>
+						<!-- <view name="FirstLine">
+							<regex>
+								<regexLine>(?&lt;=(CMF_OAM_TIME_REGEX)).*</regexLine>
+							</regex>
+						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="CMF_OAM/SP ANY RECORD Containing value">
@@ -2034,11 +2058,35 @@
 								<regexLine>CMF_OAM32_TIME_REGEX</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Thread">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]\s{1,10}))</regexLine>
+							</regex>
+						</view>
+						<view name="LogLevel">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}))\w+(?=(\s{1,10}))</regexLine>
+							</regex>
+						</view>
+						<view name="Class">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>((?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w$\.]{1,80}\.))[\w$]+(?=(\s{1,10}-)))</regexLine>
+								<regexLine>|((?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}))\w+(?=(\s{1,10}-)))</regexLine>
+							</regex>
+						</view>
+						<view name="FirstLineMsg">
+							<regex>
+								<regexLine>(?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w\.$]{1,90}\s{1,10}-\s{1,10}))\S.*</regexLine>
+							</regex>
+						</view>
+						<!-- <view name="FirstLine">
 							<regex>
 								<regexLine>(?&lt;=(CMF_OAM32_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
 							</regex>
-						</view>
+						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="CMF_OAM32 ANY RECORD Containing value">
@@ -2537,11 +2585,36 @@
 								<regexLine>SGM_SIPSP_TIME_REGEX</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Thread">
 							<regex>
-								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]))</regexLine>
 							</regex>
 						</view>
+						<view name="LogLevel">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}))[^\s]+(?=(\s{1,10}))</regexLine>
+							</regex>
+						</view>
+						<view name="Class">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<!-- <regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\.?))[\w$]+(?=(\s{1,10}-))</regexLine> -->
+								<regexLine>((?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,30}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{0,40}\.))[\w$]+(?=(\s{1,10}-)))</regexLine>
+								<regexLine>|((?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,30}\]\s{1,10}\S{1,7}\s{1,10}))[\w$]+(?=(\s{1,10}-)))</regexLine>
+							</regex>
+						</view>
+						<view name="FirstLineMsg">
+							<regex>
+								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\s{1,10}-\s{1,10}))\S.*</regexLine>
+							</regex>
+						</view>
+						<!-- <view name="FirstLine">
+							<regex>
+								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX)).*</regexLine>
+							</regex>
+						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="SipSp ANY RECORD Containing value">
@@ -4046,11 +4119,34 @@
 								<regexLine>SGM_AMLSP_TIME_REGEX</regexLine>
 							</regex>
 						</view>
-						<view name="FirstLine">
+						<view name="Thread">
 							<regex>
-								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]))</regexLine>
 							</regex>
 						</view>
+						<view name="LogLevel">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}))[^\s]+(?=(\s{1,10}))</regexLine>
+							</regex>
+						</view>
+						<view name="Class">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\.?))[\w$]+(?=(\s{1,10}-))</regexLine>
+							</regex>
+						</view>
+						<view name="FirstLineMsg">
+							<regex>
+								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\s{1,10}-\s{1,10}))\S.*</regexLine>
+							</regex>
+						</view>
+						<!-- <view name="FirstLine">
+							<regex>
+								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX)).*</regexLine>
+							</regex>
+						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="AmlSp ANY RECORD Containing value">
@@ -8949,8 +9045,11 @@
 				<viewNames>
 					<viewName>Time</viewName>
 					<viewName>LogType</viewName>
+					<viewName>Thread</viewName>
 					<viewName>Error</viewName>
-					<viewName>FirstLine</viewName>
+					<viewName>FirstLineMsg</viewName>
+					<viewName>LogLevel</viewName>
+					<viewName>Class</viewName>
 				</viewNames>
 			</searchScript>
 			<searchScript name="Errors_Exceptions CCMM">

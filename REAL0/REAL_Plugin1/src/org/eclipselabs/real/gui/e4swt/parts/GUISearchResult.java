@@ -470,6 +470,9 @@ public class GUISearchResult {
             final Integer sortColIndex = newSortColIndex;
             if (sortColIndex > 0) {
                 log.debug("sortColIndex " + sortColIndex + " sortDirection " + sortDirection);
+                /* using parallelStream for sorting doesn't name sense
+                 * because sort running time is small compared to disposing/creating table items.
+                 */
                 Collections.sort(rows, new Comparator<IDRViewItem>() {
 
                     @Override
