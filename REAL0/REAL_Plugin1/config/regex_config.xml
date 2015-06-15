@@ -7422,8 +7422,8 @@
 									<regex_flag>UNICODE_CASE</regex_flag>
 								</regex_flags>
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>((?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}MCMClient\s{1,10}\d{1,8}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,6}\s{1,10}(\w{1,10})\s{1,10}))\w.*)</regexLine>
-								<regexLine>|((?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}))(?!(MCMClient))\w.*)</regexLine>
+								<regexLine>((?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}MCMClient\s{1,10}\d{1,8}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,6}\s{1,10}(\w{1,10})\s{1,10}))\S.*)</regexLine>
+								<regexLine>|((?&lt;=(CCMM_MCMClient_TIME_REGEX\s{1,10}))(?!(MCMClient))\S.*)</regexLine>
 							</regex>
 						</view>
 					</views>
