@@ -1873,7 +1873,8 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
-					<refViews>
+					<!-- commented out was not very useful -->
+					<!-- <refViews>
 						<refView name="RefError" type="REPLACE_ADD" position="1">
 							<view name="Error">
 								<regex name="Error messsages">
@@ -1887,7 +1888,7 @@
 								</regex>
 							</view>
 						</refView>
-					</refViews>
+					</refViews> -->
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
@@ -2221,7 +2222,8 @@
 								</regexAcceptance>
 							</refAcceptance>
 						</refAcceptances>
-						<refViews>
+						<!-- commented out was not very useful -->
+						<!-- <refViews>
 							<refView name="RefError" type="REPLACE_ADD" position="1">
 								<view name="Error">
 									<regex name="Error messsages">
@@ -2233,7 +2235,7 @@
 									</regex>
 								</view>
 							</refView>
-						</refViews>
+						</refViews> -->
 					</refComplexRegex>
 			</complexRegexes>
 			<searchScripts>
@@ -2860,7 +2862,8 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
-					<refViews>
+					<!-- commented out was not very useful -->
+					<!-- <refViews>
 						<refView name="RefError" type="REPLACE_ADD" position="1">
 							<view name="Error">
 								<regex name="Error messsages">
@@ -2872,7 +2875,7 @@
 								</regex>
 							</view>
 						</refView>
-					</refViews>
+					</refViews> -->
 				</refComplexRegex>
 				<complexRegex name="BbuaConnection">
 					<tags>
@@ -4134,7 +4137,8 @@
 						<view name="Class">
 							<regex>
 								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\.?))[\w$]+(?=(\s{1,10}-))</regexLine>
+								<regexLine>((?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{1,30}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{0,40}\.))[\w$]+(?=(\s{1,10}-)))</regexLine>
+								<regexLine>|((?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{1,30}\]\s{1,10}\S{1,7}\s{1,10}))[\w$]+(?=(\s{1,10}-)))</regexLine>
 							</regex>
 						</view>
 						<view name="FirstLineMsg">
@@ -4240,7 +4244,8 @@
 								</regexAcceptance>
 							</refAcceptance>
 						</refAcceptances>
-						<refViews>
+						<!-- commented out was not very useful -->
+						<!-- <refViews>
 							<refView name="RefError" type="REPLACE_ADD" position="1">
 								<view name="Error">
 									<regex name="Error messsages">
@@ -4252,7 +4257,7 @@
 									</regex>
 								</view>
 							</refView>
-						</refViews>
+						</refViews> -->
 					</refComplexRegex>
 				<complexRegex name="MID:SgmAgentTN">
 					<tags>
@@ -7514,21 +7519,6 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
-					<!-- <refViews>
-						<refView name="RefError" type="REPLACE_ADD" position="1">
-							<view name="Error">
-								<regex name="Error messsages">
-									<regex_flags>
-										<regex_flag>CASE_INSENSITIVE</regex_flag>
-										<regex_flag>UNICODE_CASE</regex_flag>
-									</regex_flags>
-									<regexLine>(((?&lt;=(errorCode\[)).*?(\]))|((?&lt;=(ErrorCode\s{1,50}:\s{1,10})).*?(?=(\r?\n)))</regexLine>
-									<regexLine>|((?&lt;=(ErrorCode\s{1,50}=\s{1,10})).*?(?=(\r?\n)))|((?&lt;=(cmfError\[)).*?(\])) </regexLine>
-									<regexLine>|(((\w+\.)+)\w+Exception))</regexLine>
-								</regex>
-							</view>
-						</refView>
-					</refViews> -->
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
@@ -7798,21 +7788,6 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
-					<!-- <refViews>
-						<refView name="RefError" type="REPLACE_ADD" position="1">
-							<view name="Error">
-								<regex name="Error messsages">
-									<regex_flags>
-										<regex_flag>CASE_INSENSITIVE</regex_flag>
-										<regex_flag>UNICODE_CASE</regex_flag>
-									</regex_flags>
-									<regexLine>(((?&lt;=(errorCode\[)).*?(\]))|((?&lt;=(ErrorCode\s{1,50}:\s{1,10})).*?(?=(\r?\n)))</regexLine>
-									<regexLine>|((?&lt;=(ErrorCode\s{1,50}=\s{1,10})).*?(?=(\r?\n)))|((?&lt;=(cmfError\[)).*?(\])) </regexLine>
-									<regexLine>|(((\w+\.)+)\w+Exception))</regexLine>
-								</regex>
-							</view>
-						</refView>
-					</refViews> -->
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
@@ -8081,21 +8056,6 @@
 							</regexAcceptance>
 						</refAcceptance>
 					</refAcceptances>
-					<!-- <refViews>
-						<refView name="RefError" type="REPLACE_ADD" position="1">
-							<view name="Error">
-								<regex name="Error messsages">
-									<regex_flags>
-										<regex_flag>CASE_INSENSITIVE</regex_flag>
-										<regex_flag>UNICODE_CASE</regex_flag>
-									</regex_flags>
-									<regexLine>(((?&lt;=(errorCode\[)).*?(\]))|((?&lt;=(ErrorCode\s{1,50}:\s{1,10})).*?(?=(\r?\n)))</regexLine>
-									<regexLine>|((?&lt;=(ErrorCode\s{1,50}=\s{1,10})).*?(?=(\r?\n)))|((?&lt;=(cmfError\[)).*?(\])) </regexLine>
-									<regexLine>|(((\w+\.)+)\w+Exception))</regexLine>
-								</regex>
-							</view>
-						</refView>
-					</refViews> -->
 				</refComplexRegex>
 			</complexRegexes>
 		</group>
@@ -9046,7 +9006,6 @@
 					<viewName>Time</viewName>
 					<viewName>LogType</viewName>
 					<viewName>Thread</viewName>
-					<viewName>Error</viewName>
 					<viewName>FirstLineMsg</viewName>
 					<viewName>LogLevel</viewName>
 					<viewName>Class</viewName>
@@ -9191,7 +9150,6 @@
 				<viewNames>
 					<viewName>Time</viewName>
 					<viewName>LogType</viewName>
-					<!-- <viewName>Error</viewName> -->
 					<viewName>Module</viewName>
 					<viewName>Process</viewName>
 					<viewName>Thread</viewName>
