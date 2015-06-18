@@ -16,6 +16,19 @@ public enum AcceptanceCriterionType {
      */
     FIND,
     /**
+     * This is for regex criteria. If the specified regex IS found
+     * in the SRO text the criterion IS met.
+     * If more than one regex is specified all regex must BE found.
+     * If at least one IS NOT found the criterion IS NOT met, the SRO NOT accepted
+     *
+     * This is a special case of the more general FIND. If the pattern has zero length
+     * i.e. "" it is NEVER searched and this zero-length regex is satisfied. If all regexes of a criterion
+     * have zero length then this criterion is met no matter what the SRO text contains.
+     * If some regexes have zero length and others non-zero then the non-zero ones
+     * MUST BE FOUND in the SRO text.
+     */
+    FIND_NULLABLE,
+    /**
      * This is for regex criteria. If the SRO text IS a match for the pattern the criteria IS met.
      * If more than one regex is specified the SRO text must BE a match for all patterns.
      * If at least one IS NOT matched the criterion IS NOT met, the SRO NOT accepted
@@ -35,10 +48,10 @@ public enum AcceptanceCriterionType {
      * If at least one IS found the criterion IS NOT met, the SRO NOT accepted
      *
      * This is a special case of the more general NOT_FIND. If the pattern has zero length
-     * i.e. "" it is NEVER found and this zero-length regex is satisfied. If all regexes of a criterion
+     * i.e. "" it is NEVER searched and this zero-length regex is satisfied. If all regexes of a criterion
      * have zero length then this criterion is met no matter what the SRO text contains.
      * If some regexes have zero length and others non-zero then the non-zero ones
-     * must not be found in the SRO text.
+     * MUST NOT BE FOUND in the SRO text.
      */
     NOT_FIND_NULLABLE,
     /**

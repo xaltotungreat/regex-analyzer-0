@@ -51,6 +51,14 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
                         mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
                         result = mwr.find();
                         break;
+                    case FIND_NULLABLE:
+                        // for nullables if the pattern is 0-length after the parameter is replaced
+                        // the criterion is considered satisfied - special case
+                        if (!currAcceptRegex.getPatternString(sr.getCachedReplaceTable()).isEmpty()) {
+                            mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
+                            result = mwr.find();
+                        }
+                        break;
                     case MATCH:
                         mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
                         result = mwr.matches();
