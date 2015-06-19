@@ -8459,6 +8459,37 @@
 								<regexLine>AgentDesktop_TIME_REGEX</regexLine>
 							</regex>
 						</view>
+						<view name="Layer">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(AgentDesktop_TIME_REGEX\s{1,10}))\S.+?(?=(\s{1,5}\d{1,6}\s{1,5}\d{1,6}))</regexLine>
+							</regex>
+						</view>
+						<view name="LogLevel">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(AgentDesktop_TIME_REGEX\t.{1,50}?\s{1,5}?\d{1,6}\s{1,5}\d{1,6}\s{1,5}))\w+</regexLine>
+							</regex>
+						</view>
+						<view name="Smth">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(AgentDesktop_TIME_REGEX\t.{1,50}?\s{1,5}?\d{1,6}\s{1,5}\d{1,6}\s{1,5}\w{1,10}?\s{1,5}))(None|--&gt;|&lt;--)</regexLine>
+							</regex>
+						</view>
+						<view name="Message">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>((?&lt;=(AgentDesktop_TIME_REGEX\t.{1,50}?\s{1,5}?\d{1,6}\s{1,5}\d{1,6}\s{1,5}\w{1,10}?\s{1,5}(None|--&gt;|&lt;--)\s{1,15}))\S.*)</regexLine>
+								<regexLine>|((?&lt;=(AgentDesktop_TIME_REGEX\t.{1,50}?\s{1,5}?\d{1,6}\s{1,5}\d{1,6}\s{1,5}\w{1,10}?\s{1,5}(?!(None|--&gt;|&lt;--))))\S.*)</regexLine>
+							</regex>
+						</view>
+						<!-- <view name="Message">
+							<regex>
+								<regexParam name="instance" type="Integer">0</regexParam>
+								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX (\+|-)?\d\d\d\d\s{1,10}EmailManager:\w{1,6}\s{1,10}\d{1,10}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,7}\s{1,10}\w{1,10}\s{1,10}))\w.*</regexLine>
+							</regex>
+						</view> -->
 						<view name="FirstLine">
 							<regex>
 								<regexLine>(?&lt;=(AgentDesktop_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
