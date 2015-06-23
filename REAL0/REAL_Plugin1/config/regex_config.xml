@@ -2083,11 +2083,6 @@
 								<regexLine>(?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w\.$]{1,90}\s{1,10}-\s{1,10}))\S.*</regexLine>
 							</regex>
 						</view>
-						<!-- <view name="FirstLine">
-							<regex>
-								<regexLine>(?&lt;=(CMF_OAM32_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
-							</regex>
-						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="CMF_OAM32 ANY RECORD Containing value">
@@ -2612,11 +2607,6 @@
 								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\s{1,10}-\s{1,10}))\S.*</regexLine>
 							</regex>
 						</view>
-						<!-- <view name="FirstLine">
-							<regex>
-								<regexLine>(?&lt;=(SGM_SIPSP_TIME_REGEX)).*</regexLine>
-							</regex>
-						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="SipSp ANY RECORD Containing value">
@@ -4146,11 +4136,6 @@
 								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\s{1,10}-\s{1,10}))\S.*</regexLine>
 							</regex>
 						</view>
-						<!-- <view name="FirstLine">
-							<regex>
-								<regexLine>(?&lt;=(SGM_AMLSP_TIME_REGEX)).*</regexLine>
-							</regex>
-						</view> -->
 					</views>
 				</complexRegex>
 				<refComplexRegex name="AmlSp ANY RECORD Containing value">
@@ -8482,17 +8467,6 @@
 								<regexParam name="instance" type="Integer">0</regexParam>
 								<regexLine>((?&lt;=(AgentDesktop_TIME_REGEX\t.{1,50}?\s{1,5}?\d{1,6}\s{1,5}\d{1,6}\s{1,5}\w{1,10}?\s{1,5}(None|--&gt;|&lt;--)\s{1,15}))\S.*)</regexLine>
 								<regexLine>|((?&lt;=(AgentDesktop_TIME_REGEX\t.{1,50}?\s{1,5}?\d{1,6}\s{1,5}\d{1,6}\s{1,5}\w{1,10}?\s{1,5}(?!(None|--&gt;|&lt;--))))\S.*)</regexLine>
-							</regex>
-						</view>
-						<!-- <view name="Message">
-							<regex>
-								<regexParam name="instance" type="Integer">0</regexParam>
-								<regexLine>(?&lt;=(CCMM_EmailManager_TIME_REGEX (\+|-)?\d\d\d\d\s{1,10}EmailManager:\w{1,6}\s{1,10}\d{1,10}:\d{1,4}\s{1,10}\d{1,8}\s{1,10}\w{1,7}\s{1,10}\w{1,10}\s{1,10}))\w.*</regexLine>
-							</regex>
-						</view> -->
-						<view name="FirstLine">
-							<regex>
-								<regexLine>(?&lt;=(AgentDesktop_TIME_REGEX)).*?(?=(\r?\n))</regexLine>
 							</regex>
 						</view>
 					</views>
