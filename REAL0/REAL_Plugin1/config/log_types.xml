@@ -17,6 +17,7 @@
 			<filename_pattern>CCMM_EmailManager_\d\.log</filename_pattern>
 			<filename_pattern>CCMM-CCMM_EmailManager(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</filename_pattern>
 			<filename_pattern>EmailManager_\d+_\d+.log</filename_pattern>
+			<filename_pattern>CCMM_Emailservice_\d\.log</filename_pattern>
 		</filename_patterns>
 	</log_type>
 	<log_type name="CCMM_MCMClient">
