@@ -18,9 +18,11 @@ import com.google.common.eventbus.Subscribe;
 public class ConveyorProductImpl implements IConveyorProduct {
 
     private static final Logger log = LogManager.getLogger(ConveyorProductImpl.class);
-
+    // the first stage of this product. Because stages are organized in the tree form
+    // this is the root
     private volatile IConveyorStage rootStage;
-
+    // the context for this product. Volatile because it may be
+    // modified by different threads
     private volatile ConvProductContext context;
 
     private IStageTreeBuilder stageTreeBuilder;
@@ -41,7 +43,7 @@ public class ConveyorProductImpl implements IConveyorProduct {
         } catch (InterruptedException e1) {
             log.error("executeRequest unable to acquire a permit",e1);
         }
-
+        // register to receive events about a closed part/tab
         CoreEventBus.INSTANCE.register(this);
         if (stageTreeBuilder == null) {
             return null;
@@ -96,7 +98,7 @@ public class ConveyorProductImpl implements IConveyorProduct {
 
     /**
      * Handles the event when the part in GUI has been disposed while the product was not completed.
-     * It may happen if the search takes alot of time. In this case the product is canceled and all stages
+     * It may happen if the search takes a lot of time. In this case the product is canceled and all stages
      * that haven't began will never begin. The working stages will finish gracefully without interruptions.
      * @param event the event to handle
      */

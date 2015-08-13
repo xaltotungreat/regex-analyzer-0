@@ -86,10 +86,21 @@ public enum ConveyorMain {
         orderedBuilderList.sort((a, b) -> -a.getBuilder().getDetailLevel().compareTo(b.getBuilder().getDetailLevel()));
     }
 
+    /**
+     * Returns the cache of executed products parameters. Actually the cache contains
+     * a set of previously used parameters for every search object. The number of
+     * parameters for a search object is limited.
+     * @return the cache of executed products
+     */
     public OperationsCache getOperationsCache() {
         return opCache;
     }
 
+    /**
+     * Returns the semaphore that limits the number of concurrently processed products.
+     * All products must use this semaphore
+     * @return the semaphore that limits the number of concurrently processed products
+     */
     public Semaphore getConvSemaphore() {
         return convSemaphore;
     }
@@ -97,6 +108,9 @@ public enum ConveyorMain {
     /**
      * The main entry point for all search requests. The processing pipeline in this case the Conveyor
      * will take care of showing the parameters dialog, opening a new window etc.
+     * This method is not blocking. This method doesn't use the semaphore to avoid
+     * blocking the submitting thread. The semaphore is used in the product.
+     * This method only creates a product and begins its execution in another thread.
      * @param req the search request that is submitted to the conveyor
      * @return The future that will contain the context (all the values filled in) once this operation is complete
      */
