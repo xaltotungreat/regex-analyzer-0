@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
@@ -32,7 +32,7 @@ public abstract class KeyedComplexSearchObjectImpl<R extends IKeyedComplexSearch
     }
 
     @Override
-    public Map<String, String> getFinalReplaceTable(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams, Map<String,String> fineTuneReplaceTable) {
+    public Map<String, String> getFinalReplaceTable(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams, Map<String,String> fineTuneReplaceTable) {
         return keyedSODelegate.getFinalReplaceTable(customReplaceParams, fineTuneReplaceTable);
     }
 
@@ -42,12 +42,12 @@ public abstract class KeyedComplexSearchObjectImpl<R extends IKeyedComplexSearch
     }
 
     @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getAllReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getAllReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams) {
         return keyedSODelegate.getAllReplaceParams(customReplaceParams);
     }
 
     @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getParentReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getParentReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams) {
         return keyedSODelegate.getParentReplaceParams(customReplaceParams);
     }
 

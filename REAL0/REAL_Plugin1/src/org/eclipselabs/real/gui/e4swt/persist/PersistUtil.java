@@ -18,10 +18,10 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamImpl;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.osgi.framework.Bundle;
@@ -53,19 +53,19 @@ public class PersistUtil {
         return null;
     }
 
-    public static Map<ReplaceParamKey,IReplaceParam<?>> getReplaceMap(Map<ReplaceParamKeyPersist,ReplaceParamPersist<?>> persistMap) {
-        Map<ReplaceParamKey,IReplaceParam<?>> loadedMap = new HashMap<>();
+    public static Map<ReplaceableParamKey,IReplaceableParam<?>> getReplaceMap(Map<ReplaceableParamKeyPersist,ReplaceableParamPersist<?>> persistMap) {
+        Map<ReplaceableParamKey,IReplaceableParam<?>> loadedMap = new HashMap<>();
         if (persistMap != null) {
-            for (Map.Entry<ReplaceParamKeyPersist,ReplaceParamPersist<?>> currParam : persistMap.entrySet()) {
-                ReplaceParamKey key = new ReplaceParamKey(currParam.getKey().getName());
+            for (Map.Entry<ReplaceableParamKeyPersist,ReplaceableParamPersist<?>> currParam : persistMap.entrySet()) {
+                ReplaceableParamKey key = new ReplaceableParamKey(currParam.getKey().getName());
                 switch(currParam.getValue().getValueType()) {
                 case BOOLEAN:
-                    IReplaceParam<Boolean> rpBoolean = new ReplaceParamImpl<Boolean>(ReplaceParamValueType.BOOLEAN, key, currParam.getValue().getReplaceNames(),
+                    IReplaceableParam<Boolean> rpBoolean = new ReplaceableParamImpl<Boolean>(ReplaceableParamValueType.BOOLEAN, key, currParam.getValue().getReplaceNames(),
                             (Boolean)currParam.getValue().getValue());
                     loadedMap.put(key, rpBoolean);
                     break;
                 case INTEGER:
-                    IReplaceParam<Integer> rpInteger = new ReplaceParamImpl<Integer>(ReplaceParamValueType.INTEGER, key, currParam.getValue().getReplaceNames(),
+                    IReplaceableParam<Integer> rpInteger = new ReplaceableParamImpl<Integer>(ReplaceableParamValueType.INTEGER, key, currParam.getValue().getReplaceNames(),
                             (Integer)currParam.getValue().getValue());
                     loadedMap.put(key, rpInteger);
 
@@ -78,7 +78,7 @@ public class PersistUtil {
                     DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
                     try {
                         LocalDateTime localDT = LocalDateTime.parse((String)currParam.getValue().getValue(), fmt);
-                        IReplaceParam<LocalDateTime> rpCalendar = new ReplaceParamImpl<LocalDateTime>(ReplaceParamValueType.DATE, key, currParam.getValue().getReplaceNames(),
+                        IReplaceableParam<LocalDateTime> rpCalendar = new ReplaceableParamImpl<LocalDateTime>(ReplaceableParamValueType.DATE, key, currParam.getValue().getReplaceNames(),
                                 localDT);
                         loadedMap.put(key, rpCalendar);
                     } catch (DateTimeParseException e) {
@@ -87,7 +87,7 @@ public class PersistUtil {
                     break;
                 case STRING:
                 default:
-                    IReplaceParam<String> rpString = new ReplaceParamImpl<String>(ReplaceParamValueType.STRING, key, null,
+                    IReplaceableParam<String> rpString = new ReplaceableParamImpl<String>(ReplaceableParamValueType.STRING, key, null,
                             (String)currParam.getValue().getValue());
                     loadedMap.put(key, rpString);
                     break;

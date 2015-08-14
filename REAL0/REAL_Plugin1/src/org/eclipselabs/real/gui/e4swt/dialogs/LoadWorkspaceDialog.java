@@ -32,8 +32,8 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
-import org.eclipselabs.real.gui.e4swt.persist.ReplaceParamKeyPersist;
-import org.eclipselabs.real.gui.e4swt.persist.ReplaceParamPersist;
+import org.eclipselabs.real.gui.e4swt.persist.ReplaceableParamKeyPersist;
+import org.eclipselabs.real.gui.e4swt.persist.ReplaceableParamPersist;
 import org.eclipselabs.real.gui.e4swt.persist.SearchResultCurrentInfo;
 import org.eclipselabs.real.gui.e4swt.persist.SearchResultPartInfo;
 
@@ -319,7 +319,7 @@ public class LoadWorkspaceDialog extends Dialog {
         SimpleDateFormat fmt = new SimpleDateFormat(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
         sbPartText.append(fmt.format(partInfoWrapper.getObj().getSearchTime().getTime()) + "\n");
         if ((partInfoWrapper.getObj().getCustomReplaceTable() != null) && (!partInfoWrapper.getObj().getCustomReplaceTable().isEmpty())) {
-            for (Map.Entry<ReplaceParamKeyPersist, ReplaceParamPersist<?>> currParam : partInfoWrapper.getObj().getCustomReplaceTable().entrySet()) {
+            for (Map.Entry<ReplaceableParamKeyPersist, ReplaceableParamPersist<?>> currParam : partInfoWrapper.getObj().getCustomReplaceTable().entrySet()) {
                 sbPartText.append(currParam.getKey().getName() + "=" + currParam.getValue().getValue() + "\n");
             }
         }
@@ -383,7 +383,7 @@ public class LoadWorkspaceDialog extends Dialog {
             TableItem itemSOGroup = new TableItem(table, SWT.BOLD);
             itemSOGroup.setText(currInfoWrapper.getObj().getSearchObjectGroup().toString());
             if ((currInfoWrapper.getObj().getCustomReplaceTable() != null) && (!currInfoWrapper.getObj().getCustomReplaceTable().isEmpty())) {
-                for (Map.Entry<ReplaceParamKeyPersist, ReplaceParamPersist<?>> currParam : currInfoWrapper.getObj().getCustomReplaceTable().entrySet()) {
+                for (Map.Entry<ReplaceableParamKeyPersist, ReplaceableParamPersist<?>> currParam : currInfoWrapper.getObj().getCustomReplaceTable().entrySet()) {
                     TableItem newItem = new TableItem(table, SWT.BOLD);
                     newItem.setText(currParam.getKey().getName() + "=" + currParam.getValue().getValue() + "\n");
                 }

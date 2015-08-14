@@ -6,17 +6,17 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.searchobject.ISearchObjectConstants;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
 public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTIntervalCriterion {
 
     private static final Logger log = LogManager.getLogger(DTIntervalCriterion.class);
-    protected ReplaceParamKey lowBoundKey;
-    protected ReplaceParamKey highBoundKey;
+    protected ReplaceableParamKey lowBoundKey;
+    protected ReplaceableParamKey highBoundKey;
     protected LocalDateTime lowBound;
     protected LocalDateTime highBound;
 
@@ -67,19 +67,19 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
 
     @Override
     public void init(ISearchResult<? extends ISearchResultObject> sr) {
-        Map<ReplaceParamKey, IReplaceParam<?>> allReplaceParams = sr.getAllCachedReplaceParams();
+        Map<ReplaceableParamKey, IReplaceableParam<?>> allReplaceParams = sr.getAllCachedReplaceParams();
         if (allReplaceParams == null) {
             log.warn("loadParameters all replace params is null");
             return;
         }
         if (lowBoundKey != null) {
-            IReplaceParam<?> lowBoundParam = allReplaceParams.get(lowBoundKey);
+            IReplaceableParam<?> lowBoundParam = allReplaceParams.get(lowBoundKey);
             if (lowBoundParam != null) {
-                if ((ReplaceParamValueType.DATE.equals(lowBoundParam.getType()))) {
-                    IReplaceParam<LocalDateTime> lowBoundParamType = (IReplaceParam<LocalDateTime>)lowBoundParam;
+                if ((ReplaceableParamValueType.DATE.equals(lowBoundParam.getType()))) {
+                    IReplaceableParam<LocalDateTime> lowBoundParamType = (IReplaceableParam<LocalDateTime>)lowBoundParam;
                     lowBound = lowBoundParamType.getValue();
                 } else {
-                    log.error("init incorrect param type expected " + ReplaceParamValueType.DATE +
+                    log.error("init incorrect param type expected " + ReplaceableParamValueType.DATE +
                             " received " + lowBoundParam.getType());
                 }
             } else {
@@ -89,13 +89,13 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
             log.error("init lowBoundKey is null");
         }
         if (highBoundKey != null) {
-            IReplaceParam<?> highBoundParam = allReplaceParams.get(highBoundKey);
+            IReplaceableParam<?> highBoundParam = allReplaceParams.get(highBoundKey);
             if (highBoundParam != null) {
-                if ((ReplaceParamValueType.DATE.equals(highBoundParam.getType()))) {
-                    IReplaceParam<LocalDateTime> highBoundParamType = (IReplaceParam<LocalDateTime>)highBoundParam;
+                if ((ReplaceableParamValueType.DATE.equals(highBoundParam.getType()))) {
+                    IReplaceableParam<LocalDateTime> highBoundParamType = (IReplaceableParam<LocalDateTime>)highBoundParam;
                     highBound = highBoundParamType.getValue();
                 } else {
-                    log.error("init incorrect param type expected " + ReplaceParamValueType.DATE +
+                    log.error("init incorrect param type expected " + ReplaceableParamValueType.DATE +
                             " received " + highBoundParam.getType());
                 }
             } else {
@@ -125,22 +125,22 @@ public class DTIntervalCriterion extends AcceptanceCriterionImpl implements IDTI
     }
 
     @Override
-    public ReplaceParamKey getLowBoundKey() {
+    public ReplaceableParamKey getLowBoundKey() {
         return lowBoundKey;
     }
 
     @Override
-    public void setLowBoundKey(ReplaceParamKey lowBoundKey) {
+    public void setLowBoundKey(ReplaceableParamKey lowBoundKey) {
         this.lowBoundKey = lowBoundKey;
     }
 
     @Override
-    public ReplaceParamKey getHighBoundKey() {
+    public ReplaceableParamKey getHighBoundKey() {
         return highBoundKey;
     }
 
     @Override
-    public void setHighBoundKey(ReplaceParamKey highBoundKey) {
+    public void setHighBoundKey(ReplaceableParamKey highBoundKey) {
         this.highBoundKey = highBoundKey;
     }
 

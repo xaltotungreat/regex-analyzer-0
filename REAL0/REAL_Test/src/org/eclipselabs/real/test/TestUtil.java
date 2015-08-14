@@ -19,9 +19,9 @@ import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
@@ -31,26 +31,26 @@ import org.eclipselabs.real.core.searchresult.sort.SortingType;
 public class TestUtil {
 
     public static void assertSOParamNameExists(String paramName, IKeyedSearchObject<?, ?> so) {
-        assertTrue(so.getParam(new ReplaceParamKey(paramName)).isPresent());
+        assertTrue(so.getParam(new ReplaceableParamKey(paramName)).isPresent());
     }
 
     public static void assertSONotParamNameExists(String paramName, IKeyedSearchObject<?, ?> so) {
-        assertFalse(so.getParam(new ReplaceParamKey(paramName)).isPresent());
+        assertFalse(so.getParam(new ReplaceableParamKey(paramName)).isPresent());
     }
 
     public static void assertSOStrParamExists(String paramName, String paramValue, IKeyedSearchObject<?, ?> so) {
-        Optional<IReplaceParam<?>> optParam = so.getParam(new ReplaceParamKey(paramName));
+        Optional<IReplaceableParam<?>> optParam = so.getParam(new ReplaceableParamKey(paramName));
         assertTrue(optParam.isPresent());
-        if ((optParam.isPresent()) && (ReplaceParamValueType.STRING.equals(optParam.get().getType()))) {
-            IReplaceParam<String> param = (IReplaceParam<String>)optParam.get();
+        if ((optParam.isPresent()) && (ReplaceableParamValueType.STRING.equals(optParam.get().getType()))) {
+            IReplaceableParam<String> param = (IReplaceableParam<String>)optParam.get();
             assertEquals(paramValue, param.getValue());
         }
     }
 
     public static void assertSOStrParamNotExists(String paramName, String paramValue, IKeyedSearchObject<?, ?> so) {
-        Optional<IReplaceParam<?>> optParam = so.getParam(new ReplaceParamKey(paramName));
-        if ((optParam.isPresent()) && (ReplaceParamValueType.STRING.equals(optParam.get().getType()))) {
-            IReplaceParam<String> param = (IReplaceParam<String>)optParam.get();
+        Optional<IReplaceableParam<?>> optParam = so.getParam(new ReplaceableParamKey(paramName));
+        if ((optParam.isPresent()) && (ReplaceableParamValueType.STRING.equals(optParam.get().getType()))) {
+            IReplaceableParam<String> param = (IReplaceableParam<String>)optParam.get();
             assertNotEquals(paramValue, param.getValue());
         } else {
             assertFalse(optParam.isPresent());

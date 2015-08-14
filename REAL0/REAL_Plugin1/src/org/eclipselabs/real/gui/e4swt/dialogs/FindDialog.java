@@ -47,9 +47,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 import org.eclipselabs.real.gui.core.sotree.IDisplaySO;
 import org.eclipselabs.real.gui.e4swt.E4SwtSearchObjectHelper;
@@ -410,20 +410,20 @@ public class FindDialog extends SingleDialog {
                             anyRecDSO.getSearchObject().setRegexFlags(Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
                         }
                         anyRecDSO.setDisplayName("Any");
-                        Map<ReplaceParamKey, IReplaceParam<?>> replaceParams = new HashMap<>();
-                        List<IReplaceParam<?>> clonedParams = anyRecDSO.getSearchObject().getCloneParamList();
+                        Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParams = new HashMap<>();
+                        List<IReplaceableParam<?>> clonedParams = anyRecDSO.getSearchObject().getCloneParamList();
                         if (btncRegularExpressions.getSelection()) {
-                            for (IReplaceParam<?> rp : clonedParams) {
-                                if (ReplaceParamValueType.STRING.equals(rp.getType())) {
-                                    IReplaceParam<String> stringRp = (IReplaceParam<String>)rp;
+                            for (IReplaceableParam<?> rp : clonedParams) {
+                                if (ReplaceableParamValueType.STRING.equals(rp.getType())) {
+                                    IReplaceableParam<String> stringRp = (IReplaceableParam<String>)rp;
                                     stringRp.setValue(comboFindText.getText());
                                     replaceParams.put(stringRp.getKey(), stringRp);
                                 }
                             }
                         } else {
-                            for (IReplaceParam<?> rp : clonedParams) {
-                                if (ReplaceParamValueType.STRING.equals(rp.getType())) {
-                                    IReplaceParam<String> stringRp = (IReplaceParam<String>)rp;
+                            for (IReplaceableParam<?> rp : clonedParams) {
+                                if (ReplaceableParamValueType.STRING.equals(rp.getType())) {
+                                    IReplaceableParam<String> stringRp = (IReplaceableParam<String>)rp;
                                     stringRp.setValue(Pattern.quote(comboFindText.getText()));
                                     replaceParams.put(stringRp.getKey(), stringRp);
                                 }

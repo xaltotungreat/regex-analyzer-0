@@ -9,8 +9,8 @@ import java.util.function.Predicate;
 import org.eclipselabs.real.core.searchobject.ISearchObjectDateInfo;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 
@@ -58,13 +58,13 @@ public interface ISearchResult<O extends ISearchResultObject> extends Cloneable 
     public void putToReplaceTable(Map<String, String> cachedReplaceTable);
     public void putToReplaceTable(String newKey, String newValue);
 
-    public Map<ReplaceParamKey, IReplaceParam<?>> getCachedReplaceParams();
-    public void setCachedReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> replaceParams);
-    public Map<ReplaceParamKey, IReplaceParam<?>> getAllCachedReplaceParams();
-    public void setAllCachedReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> replaceParams);
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getCachedReplaceParams();
+    public void setCachedReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParams);
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getAllCachedReplaceParams();
+    public void setAllCachedReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParams);
 
-    public void setReplaceTables(Map<String, String> cachedReplaceTable, Map<ReplaceParamKey, IReplaceParam<?>> replParams,
-            Map<ReplaceParamKey, IReplaceParam<?>> allReplParams);
+    public void setReplaceTables(Map<String, String> cachedReplaceTable, Map<ReplaceableParamKey, IReplaceableParam<?>> replParams,
+            Map<ReplaceableParamKey, IReplaceableParam<?>> allReplParams);
 
     public String getSearchObjectName();
     public Integer getRegexFlags();

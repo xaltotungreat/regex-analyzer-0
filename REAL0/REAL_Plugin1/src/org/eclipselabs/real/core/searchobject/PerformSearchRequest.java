@@ -5,15 +5,15 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 
 public class PerformSearchRequest implements Cloneable {
 
     private static final Logger log = LogManager.getLogger(PerformSearchRequest.class);
     protected String text;
     protected Map<String, String> dynamicReplaceParams;
-    protected Map<ReplaceParamKey, IReplaceParam<?>> staticReplaceParams;
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> staticReplaceParams;
     protected ISearchProgressMonitor progMonitor;
     protected Integer customRegexFlags;
     
@@ -25,11 +25,11 @@ public class PerformSearchRequest implements Cloneable {
         this(logText, replTable, monitor, null);
     }
     
-    public PerformSearchRequest(String logText,  ISearchProgressMonitor monitor, Map<ReplaceParamKey, IReplaceParam<?>> replTable, Integer flags) {
+    public PerformSearchRequest(String logText,  ISearchProgressMonitor monitor, Map<ReplaceableParamKey, IReplaceableParam<?>> replTable, Integer flags) {
         this(logText, monitor, replTable, null, flags);
     }
     
-    public PerformSearchRequest(String logText,  ISearchProgressMonitor monitor, Map<ReplaceParamKey, IReplaceParam<?>> replParams, Map<String, String> replTable,
+    public PerformSearchRequest(String logText,  ISearchProgressMonitor monitor, Map<ReplaceableParamKey, IReplaceableParam<?>> replParams, Map<String, String> replTable,
               Integer flags) {
         text = logText;
         staticReplaceParams = replParams;
@@ -38,7 +38,7 @@ public class PerformSearchRequest implements Cloneable {
         customRegexFlags = flags;
     }
     
-    public PerformSearchRequest(String logText,  ISearchProgressMonitor monitor, Map<ReplaceParamKey, IReplaceParam<?>> replTable) {
+    public PerformSearchRequest(String logText,  ISearchProgressMonitor monitor, Map<ReplaceableParamKey, IReplaceableParam<?>> replTable) {
         this(logText,monitor, replTable, null);
     }
     
@@ -52,8 +52,8 @@ public class PerformSearchRequest implements Cloneable {
                 clonedObj.setDynamicReplaceParams(clonedReplaceTable);
             }
             if (staticReplaceParams != null) {
-                Map<ReplaceParamKey, IReplaceParam<?>> clonedParams = new HashMap<>();
-                for (Map.Entry<ReplaceParamKey, IReplaceParam<?>> currEntry : staticReplaceParams.entrySet()) {
+                Map<ReplaceableParamKey, IReplaceableParam<?>> clonedParams = new HashMap<>();
+                for (Map.Entry<ReplaceableParamKey, IReplaceableParam<?>> currEntry : staticReplaceParams.entrySet()) {
                     clonedParams.put(currEntry.getKey().clone(), currEntry.getValue().clone());
                 }
                 clonedObj.setStaticReplaceParams(clonedParams);
@@ -80,11 +80,11 @@ public class PerformSearchRequest implements Cloneable {
         this.dynamicReplaceParams = customReplaceTable;
     }
 
-    public Map<ReplaceParamKey, IReplaceParam<?>> getStaticReplaceParams() {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getStaticReplaceParams() {
         return staticReplaceParams;
     }
 
-    public void setStaticReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> replaceParams) {
+    public void setStaticReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParams) {
         this.staticReplaceParams = replaceParams;
     }
 

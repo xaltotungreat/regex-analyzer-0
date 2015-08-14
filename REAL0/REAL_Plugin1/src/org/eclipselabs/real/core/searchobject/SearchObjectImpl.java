@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
@@ -26,7 +26,7 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     protected Integer regexFlags;
     protected List<IInternalSortRequest> sortRequestList = Collections.synchronizedList(new ArrayList<IInternalSortRequest>());
     protected List<IAcceptanceCriterion> acceptanceList = Collections.synchronizedList(new ArrayList<IAcceptanceCriterion>());
-    protected List<IReplaceParam<?>> replaceParams = Collections.synchronizedList(new ArrayList<IReplaceParam<?>>());
+    protected List<IReplaceableParam<?>> replaceParams = Collections.synchronizedList(new ArrayList<IReplaceableParam<?>>());
 
     public SearchObjectImpl(SearchObjectType aType, String aName) {
         theType = aType;
@@ -60,10 +60,10 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     }
 
     @Override
-    public void addParam(IReplaceParam<?> newParam) {
+    public void addParam(IReplaceableParam<?> newParam) {
         synchronized(replaceParams) {
             // before adding a new param remove all params with the same name
-            List<IReplaceParam<?>> sameNameparams = replaceParams.stream()
+            List<IReplaceableParam<?>> sameNameparams = replaceParams.stream()
                     .filter(param -> param.getKey().equals(newParam.getKey()))
                     .collect(Collectors.toList());
             replaceParams.removeAll(sameNameparams);
@@ -72,8 +72,8 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     }
 
     @Override
-    public Optional<IReplaceParam<?>> getParam(ReplaceParamKey key) {
-        Optional<IReplaceParam<?>> result = Optional.empty();
+    public Optional<IReplaceableParam<?>> getParam(ReplaceableParamKey key) {
+        Optional<IReplaceableParam<?>> result = Optional.empty();
         synchronized(replaceParams) {
             result = replaceParams.stream().filter((rp) -> key.equals(rp.getKey())).findFirst();
         }
@@ -81,10 +81,10 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     }
 
     @Override
-    public boolean removeParam(ReplaceParamKey key) {
+    public boolean removeParam(ReplaceableParamKey key) {
         boolean result = false;
         synchronized(replaceParams) {
-            List<IReplaceParam<?>> toRemove = replaceParams.stream().filter((rp) -> key.equals(rp.getKey())).collect(Collectors.toList());
+            List<IReplaceableParam<?>> toRemove = replaceParams.stream().filter((rp) -> key.equals(rp.getKey())).collect(Collectors.toList());
             result = !toRemove.isEmpty();
             replaceParams.removeAll(toRemove);
         }
@@ -92,15 +92,15 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     }
 
     @Override
-    public boolean paramExists(ReplaceParamKey key) {
+    public boolean paramExists(ReplaceableParamKey key) {
         return replaceParams.stream().anyMatch((rp) -> key.equals(rp.getKey()));
     }
 
     @Override
-    public List<IReplaceParam<?>> getCloneParamList() {
-        List<IReplaceParam<?>> actualParams = replaceParams;
-        List<IReplaceParam<?>> cloneList = new ArrayList<>();
-        for (IReplaceParam<?> rp : actualParams) {
+    public List<IReplaceableParam<?>> getCloneParamList() {
+        List<IReplaceableParam<?>> actualParams = replaceParams;
+        List<IReplaceableParam<?>> cloneList = new ArrayList<>();
+        for (IReplaceableParam<?> rp : actualParams) {
             try {
                 cloneList.add(rp.clone());
             } catch (CloneNotSupportedException e) {

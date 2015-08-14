@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
@@ -41,10 +41,10 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
         return returnKey;
     }
 
-    public Map<String, String> getOneLevelReplaceTable(List<IReplaceParam<String>> replaceParamList, Map<String, String> customReplaceTable) {
+    public Map<String, String> getOneLevelReplaceTable(List<IReplaceableParam<String>> replaceParamList, Map<String, String> customReplaceTable) {
         Map<String, String> finalReplaceTable = new HashMap<String, String>();
         if (replaceParamList != null) {
-            for (IReplaceParam<String> rParam : replaceParamList) {
+            for (IReplaceableParam<String> rParam : replaceParamList) {
                 if (((rParam.getReplaceNames() == null) || (rParam.getReplaceNames().isEmpty()))) {
                     if ((customReplaceTable == null) || (!customReplaceTable.containsKey(rParam.getName()))) {
                         finalReplaceTable.put(rParam.getName(), rParam.getValue());
@@ -69,16 +69,16 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     protected Map<String, String> getReplaceTableUpstream(Map<String, String> customReplaceTable) {
-        List<IReplaceParam<String>> tmpParamList = new ArrayList<>();
+        List<IReplaceableParam<String>> tmpParamList = new ArrayList<>();
         Map<String,String> finalMap = new HashMap<>();
         // first get group params the lower group params replace the higher group params
         for (int i = 0; i < soGroup.getElementCount(); i++) {
             tmpParamList.clear();
             ISearchObjectGroup<String> currPath = soGroup.getSubGroup(i);
-            List<IReplaceParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
-                    new ReplaceParamKey.RPKGroupStartsWithPredicate(currPath), (new IReplaceParam.IRPTypePredicate(ReplaceParamValueType.STRING)));
-            for (IReplaceParam<?> rp : rpListGroup) {
-                tmpParamList.add((IReplaceParam<String>)rp);
+            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
+                    new ReplaceableParamKey.RPKGroupStartsWithPredicate(currPath), (new IReplaceableParam.IRPTypePredicate(ReplaceableParamValueType.STRING)));
+            for (IReplaceableParam<?> rp : rpListGroup) {
+                tmpParamList.add((IReplaceableParam<String>)rp);
             }
             if (!tmpParamList.isEmpty()) {
                 finalMap.putAll(getOneLevelReplaceTable(tmpParamList, customReplaceTable));
@@ -114,14 +114,14 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
                 soParams.putAll(parentParams);
             }
         }
-        List<IReplaceParam<?>> thisSOParams = keyedSO.getCloneParamList().stream().filter((a) -> ReplaceParamValueType.STRING.equals(a.getType())).collect(Collectors.toList());
+        List<IReplaceableParam<?>> thisSOParams = keyedSO.getCloneParamList().stream().filter((a) -> ReplaceableParamValueType.STRING.equals(a.getType())).collect(Collectors.toList());
         /*List<IReplaceParam<?>> thisSOParams = keyedSO.getValues(
                 new PredicateEqualAnyObject<ReplaceParamKey>(), (new IReplaceParam.IRPTypePredicate(ReplaceParamValueType.STRING)));*/
-        List<IReplaceParam<String>> tmpTable = new ArrayList<>();
+        List<IReplaceableParam<String>> tmpTable = new ArrayList<>();
         if ((thisSOParams != null) && (!thisSOParams.isEmpty())) {
             tmpTable.clear();
-            for (IReplaceParam<?> rp : thisSOParams) {
-                tmpTable.add((IReplaceParam<String>)rp);
+            for (IReplaceableParam<?> rp : thisSOParams) {
+                tmpTable.add((IReplaceableParam<String>)rp);
             }
             if (!tmpTable.isEmpty()) {
                 soParams.putAll(getOneLevelReplaceTable(tmpTable, customReplaceTable));
@@ -131,12 +131,12 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     @Override
-    public Map<String, String> getFinalReplaceTable(Map<ReplaceParamKey, IReplaceParam<?>> staticReplaceParams, Map<String,String> dynamicReplaceParams) {
+    public Map<String, String> getFinalReplaceTable(Map<ReplaceableParamKey, IReplaceableParam<?>> staticReplaceParams, Map<String,String> dynamicReplaceParams) {
         Map<String,String> stringParams = new HashMap<>();
         if (staticReplaceParams != null) {
-            for (Map.Entry<ReplaceParamKey, IReplaceParam<?>> currParam : staticReplaceParams.entrySet()) {
-                if (ReplaceParamValueType.STRING.equals(currParam.getValue().getType())) {
-                    String paramValue = ((IReplaceParam<String>)currParam.getValue()).getValue();
+            for (Map.Entry<ReplaceableParamKey, IReplaceableParam<?>> currParam : staticReplaceParams.entrySet()) {
+                if (ReplaceableParamValueType.STRING.equals(currParam.getValue().getType())) {
+                    String paramValue = ((IReplaceableParam<String>)currParam.getValue()).getValue();
                     if ((currParam.getValue().getReplaceNames() != null) && (!currParam.getValue().getReplaceNames().isEmpty())) {
                         String existingValue = paramValue;
                         // dynamic params are used by search scripts (maybe others)
@@ -167,17 +167,17 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getParentReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
-        Map<ReplaceParamKey, IReplaceParam<?>> soParams = new HashMap<>();
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getParentReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams) {
+        Map<ReplaceableParamKey, IReplaceableParam<?>> soParams = new HashMap<>();
         if (parent != null) {
-            Map<ReplaceParamKey, IReplaceParam<?>> parentParams = parent.getParentReplaceParams(customReplaceParams);
+            Map<ReplaceableParamKey, IReplaceableParam<?>> parentParams = parent.getParentReplaceParams(customReplaceParams);
             if ((parentParams != null) && (!parentParams.isEmpty())) {
                 soParams.putAll(parentParams);
             }
         }
-        List<IReplaceParam<?>> thisSOParams = keyedSO.getCloneParamList();
+        List<IReplaceableParam<?>> thisSOParams = keyedSO.getCloneParamList();
         if ((thisSOParams != null) && (!thisSOParams.isEmpty())) {
-            for (IReplaceParam<?> rp : thisSOParams) {
+            for (IReplaceableParam<?> rp : thisSOParams) {
                 soParams.put(rp.getKey(), rp);
             }
         }
@@ -185,19 +185,19 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getAllReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getAllReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams) {
         return getReplaceParamsUpstream(customReplaceParams);
     }
 
-    protected Map<ReplaceParamKey, IReplaceParam<?>> getReplaceParamsUpstream(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams) {
-        Map<ReplaceParamKey, IReplaceParam<?>> finalMap = new HashMap<>();
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> getReplaceParamsUpstream(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams) {
+        Map<ReplaceableParamKey, IReplaceableParam<?>> finalMap = new HashMap<>();
         // first get group params the lower group params replace the higher group params
         for (int i = 0; i < soGroup.getElementCount(); i++) {
             ISearchObjectGroup<String> currPath = soGroup.getSubGroup(i);
-            List<IReplaceParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
-                    new ReplaceParamKey.RPKGroupStartsWithPredicate(currPath));
+            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
+                    new ReplaceableParamKey.RPKGroupStartsWithPredicate(currPath));
             if (!rpListGroup.isEmpty()) {
-                for (IReplaceParam<?> rp : rpListGroup) {
+                for (IReplaceableParam<?> rp : rpListGroup) {
                     finalMap.put(rp.getKey(), rp);
                 }
             }
@@ -212,7 +212,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
          * SO3 EEE
          * In the end the value in the final map will be EEE
          */
-        Map<ReplaceParamKey, IReplaceParam<?>> soParams = getParentReplaceParams(customReplaceParams);
+        Map<ReplaceableParamKey, IReplaceableParam<?>> soParams = getParentReplaceParams(customReplaceParams);
         if ((soParams != null) && (!soParams.isEmpty())) {
             finalMap.putAll(soParams);
         }

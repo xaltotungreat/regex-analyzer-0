@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegex;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
@@ -24,7 +24,7 @@ public class SRComplexRegexImpl extends KeyedComplexSearchResultImpl<ISROComplex
     }
     
     public SRComplexRegexImpl(String aSOName, List<IInternalSortRequest> aSortRequestList,  
-            Map<String,String> aReplaceTable, Map<ReplaceParamKey, IReplaceParam<?>> customParams, Map<ReplaceParamKey, IReplaceParam<?>> allParams, 
+            Map<String,String> aReplaceTable, Map<ReplaceableParamKey, IReplaceableParam<?>> customParams, Map<ReplaceableParamKey, IReplaceableParam<?>> allParams, 
             ISearchObjectGroup<String> aGroup, Map<String,String> tagsMap) {
         super(aSOName, aSortRequestList, aReplaceTable, customParams, allParams, aGroup, tagsMap);
     }

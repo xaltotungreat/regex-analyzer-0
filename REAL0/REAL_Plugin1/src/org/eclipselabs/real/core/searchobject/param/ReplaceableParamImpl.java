@@ -8,15 +8,15 @@ import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 
 
-public class ReplaceParamImpl<T> implements IReplaceParam<T> {
+public class ReplaceableParamImpl<T> implements IReplaceableParam<T> {
 
-    protected ReplaceParamValueType type;
-    protected ReplaceParamKey theKey;
+    protected ReplaceableParamValueType type;
+    protected ReplaceableParamKey theKey;
     protected String description;
     protected Set<String> replaceNames;
     protected T paramValue;
 
-    public ReplaceParamImpl(ReplaceParamValueType aType, ReplaceParamKey aKey, String aDescr, Set<String> rns, T aValue) {
+    public ReplaceableParamImpl(ReplaceableParamValueType aType, ReplaceableParamKey aKey, String aDescr, Set<String> rns, T aValue) {
         type = aType;
         theKey = aKey;
         description = aDescr;
@@ -24,38 +24,38 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
         paramValue = aValue;
     }
 
-    public ReplaceParamImpl(ReplaceParamValueType aType, ReplaceParamKey aKey, Set<String> rns, T aValue) {
+    public ReplaceableParamImpl(ReplaceableParamValueType aType, ReplaceableParamKey aKey, Set<String> rns, T aValue) {
         this(aType, aKey, null, rns, aValue);
     }
 
-    public ReplaceParamImpl(ReplaceParamKey aKey, Set<String> rns) {
-        this(ReplaceParamValueType.STRING, aKey, rns, null);
+    public ReplaceableParamImpl(ReplaceableParamKey aKey, Set<String> rns) {
+        this(ReplaceableParamValueType.STRING, aKey, rns, null);
     }
 
-    public ReplaceParamImpl(ReplaceParamKey aKey, T aValue) {
-        this(ReplaceParamValueType.STRING, aKey, null, aValue);
+    public ReplaceableParamImpl(ReplaceableParamKey aKey, T aValue) {
+        this(ReplaceableParamValueType.STRING, aKey, null, aValue);
     }
 
-    public ReplaceParamImpl(ReplaceParamKey aKey, Set<String> rns, T aValue) {
-        this(ReplaceParamValueType.STRING, aKey, rns, aValue);
+    public ReplaceableParamImpl(ReplaceableParamKey aKey, Set<String> rns, T aValue) {
+        this(ReplaceableParamValueType.STRING, aKey, rns, aValue);
     }
 
-    public ReplaceParamImpl(ReplaceParamKey aKey, String aDescr, Set<String> rns, T aValue) {
-        this(ReplaceParamValueType.STRING, aKey, aDescr, rns, aValue);
+    public ReplaceableParamImpl(ReplaceableParamKey aKey, String aDescr, Set<String> rns, T aValue) {
+        this(ReplaceableParamValueType.STRING, aKey, aDescr, rns, aValue);
     }
 
     @Override
-    public ReplaceParamValueType getType() {
+    public ReplaceableParamValueType getType() {
         return type;
     }
 
     @Override
-    public ReplaceParamKey getKey() {
-        return new ReplaceParamKey(theKey);
+    public ReplaceableParamKey getKey() {
+        return new ReplaceableParamKey(theKey);
     }
 
     @Override
-    public void setKey(ReplaceParamKey aNewName) {
+    public void setKey(ReplaceableParamKey aNewName) {
         theKey = aNewName;
     }
 
@@ -116,7 +116,7 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ReplaceParamImpl<?> other = (ReplaceParamImpl<?>) obj;
+        ReplaceableParamImpl<?> other = (ReplaceableParamImpl<?>) obj;
         if (theKey == null) {
             if (other.theKey != null)
                 return false;
@@ -128,8 +128,8 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
     }
 
     @Override
-    public IReplaceParam<T> clone() throws CloneNotSupportedException {
-        ReplaceParamImpl<T> cloneObj = (ReplaceParamImpl<T>)super.clone();
+    public IReplaceableParam<T> clone() throws CloneNotSupportedException {
+        ReplaceableParamImpl<T> cloneObj = (ReplaceableParamImpl<T>)super.clone();
         if (theKey != null) {
             cloneObj.theKey = theKey.clone();
         }
@@ -143,7 +143,7 @@ public class ReplaceParamImpl<T> implements IReplaceParam<T> {
                 + replaceNames + ", paramValue=");
         // to avoid a NPE
         String paramValStr = "" + paramValue;
-        if ((ReplaceParamValueType.DATE.equals(type)) && (paramValue != null)) {
+        if ((ReplaceableParamValueType.DATE.equals(type)) && (paramValue != null)) {
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
             paramValStr = fmt.format((LocalDateTime)paramValue);
         }

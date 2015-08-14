@@ -8,30 +8,30 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 
 @XmlType(propOrder={"valueType","name","replaceNames","value"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ReplaceParamPersist<T> {
+public class ReplaceableParamPersist<T> {
 
-    protected ReplaceParamValueTypePersist valueType;
+    protected ReplaceableParamValueTypePersist valueType;
     protected String name;
     protected Set<String> replaceNames;
     protected T value;
 
-    public ReplaceParamPersist() {
+    public ReplaceableParamPersist() {
     }
 
-    public ReplaceParamPersist(String aName, T aValue) {
+    public ReplaceableParamPersist(String aName, T aValue) {
         name = aName;
         value = aValue;
     }
 
-    public ReplaceParamPersist(IReplaceParam<?> param) {
+    public ReplaceableParamPersist(IReplaceableParam<?> param) {
         name = param.getName();
         replaceNames = param.getReplaceNames();
-        valueType = ReplaceParamValueTypePersist.valueOf(param.getType().name());
+        valueType = ReplaceableParamValueTypePersist.valueOf(param.getType().name());
 
         /*
          * JAXB as of 2015-04-29 doesn't work with java.time classes
@@ -40,7 +40,7 @@ public class ReplaceParamPersist<T> {
         switch(param.getType()) {
         case DATE:
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
-            value = (T)fmt.format(((IReplaceParam<LocalDateTime>)param).getValue());
+            value = (T)fmt.format(((IReplaceableParam<LocalDateTime>)param).getValue());
             break;
         default:
             value = (T)param.getValue();
@@ -72,11 +72,11 @@ public class ReplaceParamPersist<T> {
         this.value = value;
     }
 
-    public ReplaceParamValueTypePersist getValueType() {
+    public ReplaceableParamValueTypePersist getValueType() {
         return valueType;
     }
 
-    public void setValueType(ReplaceParamValueTypePersist valueType) {
+    public void setValueType(ReplaceableParamValueTypePersist valueType) {
         this.valueType = valueType;
     }
 

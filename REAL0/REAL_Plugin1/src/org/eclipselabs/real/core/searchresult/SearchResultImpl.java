@@ -21,8 +21,8 @@ import org.eclipselabs.real.core.searchobject.ISearchObjectDateInfo;
 import org.eclipselabs.real.core.searchobject.SearchObjectUtil;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 import org.eclipselabs.real.core.searchresult.sort.SortingApplicability;
@@ -37,10 +37,10 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     // String replace table specifically for replacements in regexes
     protected Map<String,String> cachedReplaceTable;
     // the params for this SO specified by the user
-    protected Map<ReplaceParamKey, IReplaceParam<?>> customCachedParams;
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> customCachedParams;
     // this list includes not only the params specified by the user but also
     // params from up the group hierarchy and up the SO hierarchy
-    protected Map<ReplaceParamKey, IReplaceParam<?>> allCachedParams;
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> allCachedParams;
     // acceptance criteria for the merge phase
     protected List<IAcceptanceCriterion> acceptanceList = Collections.synchronizedList(new ArrayList<IAcceptanceCriterion>());
     // cloned sort requests from the search object
@@ -81,7 +81,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     }
 
     public SearchResultImpl(String aSOName, List<IInternalSortRequest> aSortRequestList, Map<String,String> aReplaceTable,
-            Map<ReplaceParamKey, IReplaceParam<?>> customParams, Map<ReplaceParamKey, IReplaceParam<?>> allParams) {
+            Map<ReplaceableParamKey, IReplaceableParam<?>> customParams, Map<ReplaceableParamKey, IReplaceableParam<?>> allParams) {
         soName = aSOName;
         if (aSortRequestList != null) {
             sortRequestList.addAll(aSortRequestList);
@@ -607,27 +607,27 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     }
 
     @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getCachedReplaceParams() {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getCachedReplaceParams() {
         return customCachedParams;
     }
 
     @Override
-    public void setCachedReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> replaceParams) {
+    public void setCachedReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParams) {
         customCachedParams = replaceParams;
     }
 
     @Override
-    public Map<ReplaceParamKey, IReplaceParam<?>> getAllCachedReplaceParams() {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getAllCachedReplaceParams() {
         return allCachedParams;
     }
 
     @Override
-    public void setAllCachedReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> replaceParams) {
+    public void setAllCachedReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParams) {
         allCachedParams = replaceParams;
     }
 
     @Override
-    public void setReplaceTables(Map<String, String> cachedReplaceTable, Map<ReplaceParamKey, IReplaceParam<?>> replParams, Map<ReplaceParamKey, IReplaceParam<?>> allReplParams) {
+    public void setReplaceTables(Map<String, String> cachedReplaceTable, Map<ReplaceableParamKey, IReplaceableParam<?>> replParams, Map<ReplaceableParamKey, IReplaceableParam<?>> allReplParams) {
         this.cachedReplaceTable = cachedReplaceTable;
         customCachedParams = replParams;
         allCachedParams = allReplParams;

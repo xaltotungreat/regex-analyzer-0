@@ -17,7 +17,7 @@ import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionType;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceGuess;
 import org.eclipselabs.real.core.searchobject.crit.IDTIntervalCriterion;
 import org.eclipselabs.real.core.searchobject.crit.IDTIntervalGuess;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.w3c.dom.Node;
 
 public class DTIntervalAcceptanceXmlConstructorImpl implements IDTIntervalAcceptanceConstructor<Node> {
@@ -57,7 +57,7 @@ public class DTIntervalAcceptanceXmlConstructorImpl implements IDTIntervalAccept
                 while (lowIter.hasNext()) {
                     Node lowNode = lowIter.next();
                     if ((lowNode.getTextContent() != null) && (!"".equals(lowNode.getTextContent()))) {
-                        crit.setLowBoundKey(new ReplaceParamKey(lowNode.getTextContent()));
+                        crit.setLowBoundKey(new ReplaceableParamKey(lowNode.getTextContent()));
                     }
                 }
             }
@@ -67,7 +67,7 @@ public class DTIntervalAcceptanceXmlConstructorImpl implements IDTIntervalAccept
                 while (highIter.hasNext()) {
                     Node highNode = highIter.next();
                     if ((highNode.getTextContent() != null) && (!"".equals(highNode.getTextContent()))) {
-                        crit.setHighBoundKey(new ReplaceParamKey(highNode.getTextContent()));
+                        crit.setHighBoundKey(new ReplaceableParamKey(highNode.getTextContent()));
                     }
                 }
             }

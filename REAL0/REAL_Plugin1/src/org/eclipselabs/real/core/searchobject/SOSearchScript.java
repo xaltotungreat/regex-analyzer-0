@@ -15,8 +15,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchobject.ref.IRefKeyedSOContainer;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSOContainerImpl;
@@ -73,7 +73,7 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
             // init the search result
             // do not load the cached replace table - it is used for fine tuning the tables in child complex regexes
             Map<String,String> cachedReplaceTable = new HashMap<>();
-            Map<ReplaceParamKey, IReplaceParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
+            Map<ReplaceableParamKey, IReplaceableParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
             List<IKeyedComplexSearchObject<
                     ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
                         ISRComplexRegexView, ISROComplexRegexView, String>,

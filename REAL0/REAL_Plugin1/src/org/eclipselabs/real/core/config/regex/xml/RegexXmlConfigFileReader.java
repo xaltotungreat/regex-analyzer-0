@@ -31,8 +31,8 @@ import org.eclipselabs.real.core.searchobject.ISOSearchScript;
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.searchobject.SearchObjectFactory;
 import org.eclipselabs.real.core.searchobject.SearchObjectKey;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchobject.ref.IRefKeyedSOContainer;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
@@ -61,7 +61,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
     public static final TimeUnit DEFAULT_REPOSITORY_LOCK_TIMEUNIT = TimeUnit.SECONDS;
     protected volatile Map<SearchObjectKey,
                 IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> soMap;
-    protected volatile Map<ReplaceParamKey,IReplaceParam<?>> rpMap;
+    protected volatile Map<ReplaceableParamKey,IReplaceableParam<?>> rpMap;
 
     protected volatile List<RefKeyedSO<
         ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> refList;
@@ -306,15 +306,15 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
         } else if ((XmlConfigNodeType.REPLACE_PARAMS.equalsNode(elem)) && (currentSOGroup.getElementCount() > 0)) {
             List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REPLACE_PARAM);
             for (final Node currNode : crNodes) {
-                CompletableFuture<IReplaceParam<?>> future = submitConstructionTask(
+                CompletableFuture<IReplaceableParam<?>> future = submitConstructionTask(
                         constructionFactory.getReplaceParamConstructor(), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
 
                 try {
-                    future.handle(new BiFunction<IReplaceParam<?>, Throwable, Void>() {
+                    future.handle(new BiFunction<IReplaceableParam<?>, Throwable, Void>() {
                         protected ISearchObjectGroup<String> configObjectGroup = currentSOGroup.clone();
                         @Override
-                        public Void apply(IReplaceParam<?> result, Throwable t) {
+                        public Void apply(IReplaceableParam<?> result, Throwable t) {
                             if (result != null) {
                                 result.setGroup(configObjectGroup);
                                 log.info("Future addReplaceParam key=" + result.getKey() + " value=" + result.getValue());
@@ -349,7 +349,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
     public CompletableFuture<Integer> read(InputStream configRI) {
         soMap = new ConcurrentHashMap<SearchObjectKey,
                 IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>();
-        rpMap = new ConcurrentHashMap<ReplaceParamKey,IReplaceParam<?>>();
+        rpMap = new ConcurrentHashMap<ReplaceableParamKey,IReplaceableParam<?>>();
         refList = Collections.synchronizedList(new ArrayList<RefKeyedSO<
                 ? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>>());
         refContainerList = Collections.synchronizedList(new ArrayList<IRefKeyedSOContainer>());

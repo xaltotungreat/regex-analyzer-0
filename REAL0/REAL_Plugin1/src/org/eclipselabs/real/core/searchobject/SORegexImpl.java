@@ -10,8 +10,8 @@ import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.ISRRegex;
 import org.eclipselabs.real.core.searchresult.SRRegex;
 import org.eclipselabs.real.core.searchresult.resultobject.ISRORegex;
@@ -43,7 +43,7 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
         request.getProgressMonitor().setCurrentSOName(getSearchObjectName());
         // init the search result
         Map<String,String> cachedReplaceTable = getFinalReplaceTable(request.getStaticReplaceParams(), request.getDynamicReplaceParams());
-        Map<ReplaceParamKey, IReplaceParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
+        Map<ReplaceableParamKey, IReplaceableParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
         Integer finalRegexFlags = regexFlags;
         if (request.getCustomRegexFlags() != null) {
             finalRegexFlags = request.getCustomRegexFlags();

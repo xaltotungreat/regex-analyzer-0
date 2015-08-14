@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 import org.eclipselabs.real.gui.e4swt.conveyor.ConvProductContext;
 import org.eclipselabs.real.gui.e4swt.conveyor.ConvSearchRequest;
@@ -35,13 +35,13 @@ public class ShowNewTabStage extends ConveyorStageBase {
         if ((params.getCurrentParamMap() == null) || (params.getCurrentParamMap().isEmpty())) {
             tabTooltip.append("Group=" + req.getDso().getSearchObject().getSearchObjectGroup());
         } else {
-            Iterator<Map.Entry<ReplaceParamKey, IReplaceParam<?>>> mapIter = params.getCurrentParamMap().entrySet().iterator();
+            Iterator<Map.Entry<ReplaceableParamKey, IReplaceableParam<?>>> mapIter = params.getCurrentParamMap().entrySet().iterator();
             while((tabTooltip.length() < 40) && (mapIter.hasNext())) {
-                Map.Entry<ReplaceParamKey, IReplaceParam<?>> currParam = mapIter.next();
+                Map.Entry<ReplaceableParamKey, IReplaceableParam<?>> currParam = mapIter.next();
                 String value = currParam.getValue().getValue().toString();
-                if (ReplaceParamValueType.DATE.equals(currParam.getValue().getType())) {
+                if (ReplaceableParamValueType.DATE.equals(currParam.getValue().getType())) {
                     DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
-                    value = fmt.format(((IReplaceParam<LocalDateTime>)currParam.getValue()).getValue());
+                    value = fmt.format(((IReplaceableParam<LocalDateTime>)currParam.getValue()).getValue());
                 }
                 tabTooltip.append(currParam.getKey().getRPName() + "=" + value + ",");
             }

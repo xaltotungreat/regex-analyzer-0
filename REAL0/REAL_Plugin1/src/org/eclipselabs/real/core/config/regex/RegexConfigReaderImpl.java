@@ -13,8 +13,8 @@ import org.eclipselabs.real.core.config.IConstructionSource;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
 import org.eclipselabs.real.core.searchobject.SearchObjectController;
 import org.eclipselabs.real.core.searchobject.SearchObjectKey;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchobject.ref.IRefKeyedSOContainer;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
@@ -52,7 +52,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
         }
 
         @Override
-        public void addReplaceParam(ReplaceParamKey rpKey, IReplaceParam<?> param) {
+        public void addReplaceParam(ReplaceableParamKey rpKey, IReplaceableParam<?> param) {
             SearchObjectController.INSTANCE.getReplaceParamRepository().add(rpKey, param);
         }
 
@@ -62,7 +62,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
         }
 
         @Override
-        public void addAllReplaceParam(Map<ReplaceParamKey, IReplaceParam<?>> replaceParamMap) {
+        public void addAllReplaceParam(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParamMap) {
             SearchObjectController.INSTANCE.getReplaceParamRepository().addAll(replaceParamMap);
         }
 

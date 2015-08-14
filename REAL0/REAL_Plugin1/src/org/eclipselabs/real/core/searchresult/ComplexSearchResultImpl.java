@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
@@ -37,7 +37,7 @@ public abstract class ComplexSearchResultImpl<O extends IComplexSearchResultObje
     }
 
     public ComplexSearchResultImpl(String aSOName, List<IInternalSortRequest> aSortRequestList, Map<String,String> aReplaceTable,
-            Map<ReplaceParamKey, IReplaceParam<?>> customParams, Map<ReplaceParamKey, IReplaceParam<?>> allParams) {
+            Map<ReplaceableParamKey, IReplaceableParam<?>> customParams, Map<ReplaceableParamKey, IReplaceableParam<?>> allParams) {
         super(aSOName, aSortRequestList, aReplaceTable, customParams, allParams);
     }
 

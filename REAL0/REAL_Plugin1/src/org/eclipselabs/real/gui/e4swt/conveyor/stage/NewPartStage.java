@@ -7,9 +7,9 @@ import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 import org.eclipselabs.real.gui.core.sotree.IDisplaySOConstants;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
@@ -47,11 +47,11 @@ public class NewPartStage extends ConveyorStageBase {
         if ((params.getCurrentParamMap() == null) || (params.getCurrentParamMap().isEmpty())) {
             tabTooltip.append("Group=" + req.getDso().getSearchObject().getSearchObjectGroup());
         } else {
-            for (Map.Entry<ReplaceParamKey, IReplaceParam<?>> currParam : params.getCurrentParamMap().entrySet()) {
+            for (Map.Entry<ReplaceableParamKey, IReplaceableParam<?>> currParam : params.getCurrentParamMap().entrySet()) {
                 String value = currParam.getValue().getValue().toString();
-                if (ReplaceParamValueType.DATE.equals(currParam.getValue().getType())) {
+                if (ReplaceableParamValueType.DATE.equals(currParam.getValue().getType())) {
                     DateTimeFormatter fmt = DateTimeFormatter.ofPattern(IRealCoreConstants.DEFAULT_FORMAT_DATE_LONG, IRealCoreConstants.DEFAULT_DATE_LOCALE);
-                    value = fmt.format(((IReplaceParam<LocalDateTime>)currParam.getValue()).getValue());
+                    value = fmt.format(((IReplaceableParam<LocalDateTime>)currParam.getValue()).getValue());
                 }
                 tabTooltip.append(currParam.getKey().getRPName() + "=" + value + ",");
             }

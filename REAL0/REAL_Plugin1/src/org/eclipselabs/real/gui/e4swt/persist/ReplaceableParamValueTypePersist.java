@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType
 @XmlEnum
-public enum ReplaceParamValueTypePersist {
+public enum ReplaceableParamValueTypePersist {
 
     STRING,
     INTEGER,

@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
@@ -25,7 +25,7 @@ public class ConvProductContext {
 
     protected SearchInfo searchInfo;
 
-    protected Map<ReplaceParamKey, IReplaceParam<?>> currentParamMap;
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> currentParamMap;
 
     protected volatile boolean proceed = true;
 
@@ -91,11 +91,11 @@ public class ConvProductContext {
         this.searchInfo = searchInfo;
     }
 
-    public Map<ReplaceParamKey, IReplaceParam<?>> getCurrentParamMap() {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getCurrentParamMap() {
         return currentParamMap;
     }
 
-    public void setCurrentParamMap(Map<ReplaceParamKey, IReplaceParam<?>> currentParamMap) {
+    public void setCurrentParamMap(Map<ReplaceableParamKey, IReplaceableParam<?>> currentParamMap) {
         this.currentParamMap = currentParamMap;
     }
 

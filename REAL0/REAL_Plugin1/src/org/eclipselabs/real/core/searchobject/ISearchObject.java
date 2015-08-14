@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
@@ -78,13 +78,13 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
     public R performSearch(PerformSearchRequest request);
 
     /**
-     * Adds a replace parameter {@link IReplaceParam} to this search object.
+     * Adds a replace parameter {@link IReplaceableParam} to this search object.
      * When a search is performed with this search object all params in regular expressions
      * are replaced with actual values.
      *
      * @param newParam the parameter to add
      */
-    public void addParam(IReplaceParam<?> newParam);
+    public void addParam(IReplaceableParam<?> newParam);
 
     /**
      * Returns the replace parameter if it exists. Here I used the new Optional
@@ -92,21 +92,21 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
      * @param key the key of the replace param
      * @return the replace param for this key
      */
-    public Optional<IReplaceParam<?>> getParam(ReplaceParamKey key);
+    public Optional<IReplaceableParam<?>> getParam(ReplaceableParamKey key);
 
     /**
      * Returns true if the param exists false otherwise
      * @param key the key of the replace param
      * @return true if the param exists false otherwise
      */
-    public boolean paramExists(ReplaceParamKey key);
+    public boolean paramExists(ReplaceableParamKey key);
 
     /**
      * Removes the replace param from this search object
      * @param key the key of the replace param
      * @return true if at least one parameter was removed false otherwise
      */
-    public boolean removeParam(ReplaceParamKey key);
+    public boolean removeParam(ReplaceableParamKey key);
 
     /**
      * As a usual search object should include regular expressions it can also declare parameters.
@@ -128,7 +128,7 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
      *
      * @return the list of clones of parameters for this search object
      */
-    public List<IReplaceParam<?>> getCloneParamList();
+    public List<IReplaceableParam<?>> getCloneParamList();
 
     /**
      * A search operation can be time consuming especially if many files need to be searched.

@@ -14,10 +14,10 @@ import org.eclipselabs.real.core.config.regex.constructor.IReplaceParamConstruct
 import org.eclipselabs.real.core.config.xml.ConfigXmlUtil;
 import org.eclipselabs.real.core.config.xml.IConfigXmlConstants;
 import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamImpl;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamValueType;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 import org.w3c.dom.Node;
 
@@ -26,8 +26,8 @@ public class ReplaceParamXmlConstructorImpl implements IReplaceParamConstructor<
     private static final Logger log = LogManager.getLogger(ReplaceParamXmlConstructorImpl.class);
 
     @Override
-    public IReplaceParam<?> constructCO(IConstructionSource<Node> cSource) {
-        IReplaceParam<?> rpResult = null;
+    public IReplaceableParam<?> constructCO(IConstructionSource<Node> cSource) {
+        IReplaceableParam<?> rpResult = null;
         if (XmlConfigNodeType.REPLACE_PARAM.equalsNode(cSource.getSource())) {
             String rpName = cSource.getSource().getAttributes().getNamedItem(IConfigXmlConstants.ATTRIBUTE_NAME_NAME).getNodeValue();
             String rpValueStr = cSource.getSource().getTextContent();
@@ -52,11 +52,11 @@ public class ReplaceParamXmlConstructorImpl implements IReplaceParamConstructor<
                     rpValueStr = replaceValueNodes.get(0).getTextContent();
                 }
             }
-            ReplaceParamValueType valType = null;
+            ReplaceableParamValueType valType = null;
             if ((cSource.getSource().getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE) != null)
                     && (cSource.getSource().getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue() != null)) {
                 try {
-                    valType = ReplaceParamValueType.valueOf(cSource.getSource().getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue().toUpperCase());
+                    valType = ReplaceableParamValueType.valueOf(cSource.getSource().getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue().toUpperCase());
                 } catch (IllegalArgumentException iae) {
                     log.error("getReplaceParamValueType No such element in ReplaceParamValueType "
                             + cSource.getSource().getAttributes().getNamedItem(ATTRIBUTE_NAME_TYPE).getNodeValue()
@@ -69,12 +69,12 @@ public class ReplaceParamXmlConstructorImpl implements IReplaceParamConstructor<
                     switch (valType) {
                     case BOOLEAN:
                         Boolean boolVal = Boolean.parseBoolean(rpValueStr);
-                        rpResult = new ReplaceParamImpl<Boolean>(valType, new ReplaceParamKey(rpName), rpDescr, replaceNameList, boolVal);
+                        rpResult = new ReplaceableParamImpl<Boolean>(valType, new ReplaceableParamKey(rpName), rpDescr, replaceNameList, boolVal);
                         break;
                     case INTEGER:
                         try {
                             Integer intVal = Integer.parseInt(rpValueStr);
-                            rpResult = new ReplaceParamImpl<Integer>(valType, new ReplaceParamKey(rpName), rpDescr, replaceNameList, intVal);
+                            rpResult = new ReplaceableParamImpl<Integer>(valType, new ReplaceableParamKey(rpName), rpDescr, replaceNameList, intVal);
                         } catch (NumberFormatException nfe) {
                             log.error("Incorrect number format " + rpValueStr + ". Omitting this replace param", nfe);
                         }
@@ -93,15 +93,15 @@ public class ReplaceParamXmlConstructorImpl implements IReplaceParamConstructor<
                                 cal = cal.withHour(23).withMinute(59).withSecond(59);
                             }
                         }
-                        rpResult = new ReplaceParamImpl<LocalDateTime>(valType, new ReplaceParamKey(rpName), rpDescr, replaceNameList, cal);
+                        rpResult = new ReplaceableParamImpl<LocalDateTime>(valType, new ReplaceableParamKey(rpName), rpDescr, replaceNameList, cal);
                         break;
                     case STRING:
                     default:
-                        rpResult = new ReplaceParamImpl<String>(new ReplaceParamKey(rpName), (rpDescr != null)?rpDescr:rpValueStr, replaceNameList, rpValueStr);
+                        rpResult = new ReplaceableParamImpl<String>(new ReplaceableParamKey(rpName), (rpDescr != null)?rpDescr:rpValueStr, replaceNameList, rpValueStr);
                         break;
                     }
                 } else {
-                    rpResult = new ReplaceParamImpl<String>(new ReplaceParamKey(rpName), rpValueStr, replaceNameList, rpValueStr);
+                    rpResult = new ReplaceableParamImpl<String>(new ReplaceableParamKey(rpName), rpValueStr, replaceNameList, rpValueStr);
                 }
             } else {
                 log.warn("constructCO Unable to construct param rpName=" + rpName + " rpValueStr=" + rpValueStr);

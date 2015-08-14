@@ -4,11 +4,11 @@ import java.util.function.Predicate;
 
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 
-public class ReplaceParamKey implements Cloneable {
+public class ReplaceableParamKey implements Cloneable {
     protected String rpName;
     protected ISearchObjectGroup<String> rpGroup;
 
-    public static class RPKNamePredicate implements Predicate<ReplaceParamKey> {
+    public static class RPKNamePredicate implements Predicate<ReplaceableParamKey> {
         String rpKeyName;
 
         public RPKNamePredicate(String aRPName) {
@@ -16,7 +16,7 @@ public class ReplaceParamKey implements Cloneable {
         }
 
         @Override
-        public boolean test(ReplaceParamKey t) {
+        public boolean test(ReplaceableParamKey t) {
             boolean returnVal = false;
             if ((rpKeyName != null) && (t != null) && (t.getRPName() != null)) {
                 returnVal = rpKeyName.equals(t.getRPName());
@@ -27,7 +27,7 @@ public class ReplaceParamKey implements Cloneable {
         }
     }
 
-    public static class RPKGroupStartsWithPredicate implements Predicate<ReplaceParamKey> {
+    public static class RPKGroupStartsWithPredicate implements Predicate<ReplaceableParamKey> {
         ISearchObjectGroup<String> rpKeyGroup;
 
         public RPKGroupStartsWithPredicate(ISearchObjectGroup<String> aRPName) {
@@ -35,7 +35,7 @@ public class ReplaceParamKey implements Cloneable {
         }
 
         @Override
-        public boolean test(ReplaceParamKey t) {
+        public boolean test(ReplaceableParamKey t) {
             boolean returnVal = false;
             if ((rpKeyGroup != null) && (t != null) && (t.getRPGroup() != null)) {
                 //returnVal = rpKeyGroup.equals(t.getRPGroup());
@@ -47,7 +47,7 @@ public class ReplaceParamKey implements Cloneable {
         }
     }
 
-    public static class RPKGroupEqualsPredicate implements Predicate<ReplaceParamKey> {
+    public static class RPKGroupEqualsPredicate implements Predicate<ReplaceableParamKey> {
         ISearchObjectGroup<String> rpKeyGroup;
 
         public RPKGroupEqualsPredicate(ISearchObjectGroup<String> aRPName) {
@@ -55,7 +55,7 @@ public class ReplaceParamKey implements Cloneable {
         }
 
         @Override
-        public boolean test(ReplaceParamKey t) {
+        public boolean test(ReplaceableParamKey t) {
             boolean returnVal = false;
             if ((rpKeyGroup != null) && (t != null) && (t.getRPGroup() != null)) {
                 //returnVal = rpKeyGroup.equals(t.getRPGroup());
@@ -67,16 +67,16 @@ public class ReplaceParamKey implements Cloneable {
         }
     }
 
-    public ReplaceParamKey(ReplaceParamKey otherKey) {
+    public ReplaceableParamKey(ReplaceableParamKey otherKey) {
         rpName = otherKey.getRPName();
         rpGroup = otherKey.getRPGroup();
     }
 
-    public ReplaceParamKey(String name) {
+    public ReplaceableParamKey(String name) {
         rpName = name;
     }
 
-    public ReplaceParamKey(String name, ISearchObjectGroup<String> path) {
+    public ReplaceableParamKey(String name, ISearchObjectGroup<String> path) {
         rpName = name;
         rpGroup = path;
     }
@@ -96,8 +96,8 @@ public class ReplaceParamKey implements Cloneable {
     }
 
     @Override
-    public ReplaceParamKey clone() throws CloneNotSupportedException {
-        ReplaceParamKey clonedObj = (ReplaceParamKey)super.clone();
+    public ReplaceableParamKey clone() throws CloneNotSupportedException {
+        ReplaceableParamKey clonedObj = (ReplaceableParamKey)super.clone();
         if (rpGroup != null) {
             clonedObj.setRPGroup(rpGroup.clone());
         }
@@ -126,7 +126,7 @@ public class ReplaceParamKey implements Cloneable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ReplaceParamKey other = (ReplaceParamKey) obj;
+        ReplaceableParamKey other = (ReplaceableParamKey) obj;
         if (rpName == null) {
             if (other.rpName != null)
                 return false;

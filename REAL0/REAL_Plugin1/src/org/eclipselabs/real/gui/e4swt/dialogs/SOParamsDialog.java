@@ -39,8 +39,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 
 public class SOParamsDialog extends Dialog {
@@ -50,15 +50,15 @@ public class SOParamsDialog extends Dialog {
     public static final String DATA_VALUE_INDEX = "DATA_VALUE_INDEX";
     public static final String DATA_VALUE_PARAM = "DATA_VALUE_PARAM";
 
-    protected DialogResult<Map<ReplaceParamKey, IReplaceParam<?>>> result = new DialogResult<Map<ReplaceParamKey,IReplaceParam<?>>>(SWT.CANCEL);
+    protected DialogResult<Map<ReplaceableParamKey, IReplaceableParam<?>>> result = new DialogResult<Map<ReplaceableParamKey,IReplaceableParam<?>>>(SWT.CANCEL);
     protected Shell shell;
 
     Map<String,String> initialParams;
     String soName;
 
     protected List<String[]> tableValues2;
-    protected List<IReplaceParam<?>> tableValues;
-    protected Map<ReplaceParamKey, IReplaceParam<?>> oldValues;
+    protected List<IReplaceableParam<?>> tableValues;
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> oldValues;
     protected String[] tableHeader;
     protected int columnValueIndex = 0;
 
@@ -90,19 +90,19 @@ public class SOParamsDialog extends Dialog {
         initialParams = iParams;
     }
 
-    public List<IReplaceParam<?>> getTableValues() {
+    public List<IReplaceableParam<?>> getTableValues() {
         return tableValues;
     }
 
-    public void setTableValues(List<IReplaceParam<?>> tableValues) {
+    public void setTableValues(List<IReplaceableParam<?>> tableValues) {
         this.tableValues = tableValues;
     }
 
-    public Map<ReplaceParamKey, IReplaceParam<?>> getOldValues() {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getOldValues() {
         return oldValues;
     }
 
-    public void setOldValues(Map<ReplaceParamKey, IReplaceParam<?>> oldValues) {
+    public void setOldValues(Map<ReplaceableParamKey, IReplaceableParam<?>> oldValues) {
         this.oldValues = oldValues;
     }
 
@@ -122,19 +122,19 @@ public class SOParamsDialog extends Dialog {
         this.columnValueIndex = columnValueIndex;
     }
 
-    protected Map<ReplaceParamKey, IReplaceParam<?>> getParamMap() {
-        Map<ReplaceParamKey, IReplaceParam<?>> resMap = new HashMap<ReplaceParamKey, IReplaceParam<?>>();
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> getParamMap() {
+        Map<ReplaceableParamKey, IReplaceableParam<?>> resMap = new HashMap<ReplaceableParamKey, IReplaceableParam<?>>();
         TableItem[] allTI = tableParams.getItems();
         for (TableItem ti : allTI) {
-            IReplaceParam<?> editedParam = (IReplaceParam<?>)ti.getData(DATA_VALUE_PARAM);
+            IReplaceableParam<?> editedParam = (IReplaceableParam<?>)ti.getData(DATA_VALUE_PARAM);
             switch (editedParam.getType()) {
             case BOOLEAN:
-                IReplaceParam<Boolean> booleanParam = (IReplaceParam<Boolean>)editedParam;
+                IReplaceableParam<Boolean> booleanParam = (IReplaceableParam<Boolean>)editedParam;
                 Boolean val = Boolean.parseBoolean(ti.getText(columnValueIndex));
                 booleanParam.setValue(val);
                 break;
             case DATE:
-                IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)editedParam;
+                IReplaceableParam<LocalDateTime> calParam = (IReplaceableParam<LocalDateTime>)editedParam;
                 try {
                     LocalDateTime locDT = LocalDateTime.parse(ti.getText(columnValueIndex), dtFmt);
                     if (locDT != null) {
@@ -145,7 +145,7 @@ public class SOParamsDialog extends Dialog {
                 }
                 break;
             case INTEGER:
-                IReplaceParam<Integer> intParam = (IReplaceParam<Integer>)editedParam;
+                IReplaceableParam<Integer> intParam = (IReplaceableParam<Integer>)editedParam;
                 try {
                     Integer intVal = Integer.parseInt(ti.getText(columnValueIndex));
                     intParam.setValue(intVal);
@@ -155,7 +155,7 @@ public class SOParamsDialog extends Dialog {
                 break;
             case STRING:
             default:
-                IReplaceParam<String> strParam = (IReplaceParam<String>)editedParam;
+                IReplaceableParam<String> strParam = (IReplaceableParam<String>)editedParam;
                 strParam.setValue(ti.getText(columnValueIndex));
                 break;
             }
@@ -168,7 +168,7 @@ public class SOParamsDialog extends Dialog {
      * Open the dialog.
      * @return the result
      */
-    public DialogResult<Map<ReplaceParamKey, IReplaceParam<?>>> open() {
+    public DialogResult<Map<ReplaceableParamKey, IReplaceableParam<?>>> open() {
         createContents();
         shell.open();
         shell.layout();
@@ -243,7 +243,7 @@ public class SOParamsDialog extends Dialog {
                 }
 
                 // The control that will be the editor must be a child of the Table
-                IReplaceParam<?> editedParam = (IReplaceParam<?>)item.getData(DATA_VALUE_PARAM);
+                IReplaceableParam<?> editedParam = (IReplaceableParam<?>)item.getData(DATA_VALUE_PARAM);
                 if (editedParam != null) {
                     // Clean up any previous editor control
                     Control oldEditor = editor.getEditor();
@@ -273,7 +273,7 @@ public class SOParamsDialog extends Dialog {
                         });
                         break;
                     case DATE:
-                        IReplaceParam<LocalDateTime> calParam = (IReplaceParam<LocalDateTime>)editedParam;
+                        IReplaceableParam<LocalDateTime> calParam = (IReplaceableParam<LocalDateTime>)editedParam;
                         LocalDateTime calToUse = calParam.getValue();
                         Composite dateAndTime = new Composite(tableParams, SWT.NONE);
                         RowLayout rl = new RowLayout();
@@ -309,7 +309,7 @@ public class SOParamsDialog extends Dialog {
                             @Override
                             public void widgetSelected(SelectionEvent se) {
                                 DateTime source = (DateTime)se.getSource();
-                                IReplaceParam<LocalDateTime> calParam1 = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
+                                IReplaceableParam<LocalDateTime> calParam1 = (IReplaceableParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
                                 if (calParam1 != null) {
                                     LocalDateTime currDt = calParam1.getValue();
                                     // for the date picker the months are zero-based, the first month is 0 the last is 11
@@ -329,7 +329,7 @@ public class SOParamsDialog extends Dialog {
                             @Override
                             public void widgetSelected(SelectionEvent se) {
                                 DateTime source = (DateTime)se.getSource();
-                                IReplaceParam<LocalDateTime> calParam1 = (IReplaceParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
+                                IReplaceableParam<LocalDateTime> calParam1 = (IReplaceableParam<LocalDateTime>)source.getData(DATA_VALUE_PARAM);
                                 if (calParam1 != null) {
                                     LocalDateTime currDt = calParam1.getValue();
                                     calParam1.setValue(currDt.withHour(source.getHours()).withMinute(source.getMinutes()).withSecond(source.getSeconds()));
@@ -403,7 +403,7 @@ public class SOParamsDialog extends Dialog {
         btnOK.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                result = new DialogResult<Map<ReplaceParamKey,IReplaceParam<?>>>(SWT.OK, getParamMap());
+                result = new DialogResult<Map<ReplaceableParamKey,IReplaceableParam<?>>>(SWT.OK, getParamMap());
                 shell.close();
             }
 
@@ -422,7 +422,7 @@ public class SOParamsDialog extends Dialog {
         btnCancel.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                result = new DialogResult<Map<ReplaceParamKey,IReplaceParam<?>>>(SWT.CANCEL, null);
+                result = new DialogResult<Map<ReplaceableParamKey,IReplaceableParam<?>>>(SWT.CANCEL, null);
                 shell.close();
             }
 
@@ -437,8 +437,8 @@ public class SOParamsDialog extends Dialog {
                 newCol.setText(currHeader);
             }
             for (int i = 0; i < tableValues.size(); i++) {
-                IReplaceParam<?> currRow = tableValues.get(i);
-                IReplaceParam<?> prevValue = null;
+                IReplaceableParam<?> currRow = tableValues.get(i);
+                IReplaceableParam<?> prevValue = null;
                 if ((oldValues != null) && (!oldValues.isEmpty())){
                     prevValue = oldValues.get(currRow.getKey());
                 }
@@ -449,32 +449,32 @@ public class SOParamsDialog extends Dialog {
                 String cellText = null;
                 switch (currRow.getType()) {
                 case BOOLEAN:
-                    cellText = ((IReplaceParam<Boolean>)currRow).getValue().toString();
+                    cellText = ((IReplaceableParam<Boolean>)currRow).getValue().toString();
                     if (prevValue != null) {
-                        cellText = ((IReplaceParam<Boolean>)prevValue).getValue().toString();
-                        ((IReplaceParam<Boolean>)currRow).setValue(((IReplaceParam<Boolean>)prevValue).getValue());
+                        cellText = ((IReplaceableParam<Boolean>)prevValue).getValue().toString();
+                        ((IReplaceableParam<Boolean>)currRow).setValue(((IReplaceableParam<Boolean>)prevValue).getValue());
                     }
                     break;
                 case INTEGER:
-                    cellText = ((IReplaceParam<Integer>)currRow).getValue().toString();
+                    cellText = ((IReplaceableParam<Integer>)currRow).getValue().toString();
                     if (prevValue != null) {
-                        cellText = ((IReplaceParam<Integer>)prevValue).getValue().toString();
-                        ((IReplaceParam<Integer>)currRow).setValue(((IReplaceParam<Integer>)prevValue).getValue());
+                        cellText = ((IReplaceableParam<Integer>)prevValue).getValue().toString();
+                        ((IReplaceableParam<Integer>)currRow).setValue(((IReplaceableParam<Integer>)prevValue).getValue());
                     }
                     break;
                 case DATE:
-                    cellText = dtFmt.format(((IReplaceParam<LocalDateTime>)currRow).getValue());
+                    cellText = dtFmt.format(((IReplaceableParam<LocalDateTime>)currRow).getValue());
                     if (prevValue != null) {
-                        cellText = dtFmt.format(((IReplaceParam<LocalDateTime>)prevValue).getValue());
-                        ((IReplaceParam<LocalDateTime>)currRow).setValue(((IReplaceParam<LocalDateTime>)prevValue).getValue());
+                        cellText = dtFmt.format(((IReplaceableParam<LocalDateTime>)prevValue).getValue());
+                        ((IReplaceableParam<LocalDateTime>)currRow).setValue(((IReplaceableParam<LocalDateTime>)prevValue).getValue());
                     }
                     break;
                 case STRING:
                 default:
-                    cellText = ((IReplaceParam<String>)currRow).getValue();
+                    cellText = ((IReplaceableParam<String>)currRow).getValue();
                     if (prevValue != null) {
-                        cellText = ((IReplaceParam<String>)prevValue).getValue();
-                        ((IReplaceParam<String>)currRow).setValue(((IReplaceParam<String>)prevValue).getValue());
+                        cellText = ((IReplaceableParam<String>)prevValue).getValue();
+                        ((IReplaceableParam<String>)currRow).setValue(((IReplaceableParam<String>)prevValue).getValue());
                     }
                     break;
                 }

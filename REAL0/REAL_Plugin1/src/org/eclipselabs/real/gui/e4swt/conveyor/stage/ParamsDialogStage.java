@@ -13,8 +13,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.SWT;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
 import org.eclipselabs.real.core.searchobject.SearchObjectKey;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.gui.core.util.SearchInfo;
 import org.eclipselabs.real.gui.e4swt.conveyor.ConvProductContext;
 import org.eclipselabs.real.gui.e4swt.conveyor.ConvSearchRequest;
@@ -36,15 +36,15 @@ public class ParamsDialogStage extends ConveyorStageBase {
         SearchObjectKey soKey = new SearchObjectKey(params.getSearchInfo().getSearchObjectName(),
                 params.getSearchInfo().getSearchObjectGroup(), params.getSearchInfo().getSearchObjectTags());
         Optional<SearchInfo> prevInfoOpt = ConveyorMain.INSTANCE.getOperationsCache().getLastExecutionParams(soKey);
-        final Map<ReplaceParamKey, IReplaceParam<?>> prevParamMap = new HashMap<>();
+        final Map<ReplaceableParamKey, IReplaceableParam<?>> prevParamMap = new HashMap<>();
         if ((prevInfoOpt.isPresent()) && (prevInfoOpt.get().getCustomReplaceTable() != null)) {
             prevParamMap.putAll(prevInfoOpt.get().getCustomReplaceTable());
         }
         final IKeyedSearchObject<?,?> currSO = req.getDso().getSearchObject();
-        final List<IReplaceParam<?>> allParams = currSO.getCloneParamList();
+        final List<IReplaceableParam<?>> allParams = currSO.getCloneParamList();
 
         if ((allParams != null) && (!allParams.isEmpty()) && (req.getPreparedParams() == null)) {
-            final DialogResult<Map<ReplaceParamKey, IReplaceParam<?>>> res = new DialogResult<Map<ReplaceParamKey, IReplaceParam<?>>>();
+            final DialogResult<Map<ReplaceableParamKey, IReplaceableParam<?>>> res = new DialogResult<Map<ReplaceableParamKey, IReplaceableParam<?>>>();
             req.getUiSynch().syncExec(new Runnable() {
 
                 @Override
@@ -58,7 +58,7 @@ public class ParamsDialogStage extends ConveyorStageBase {
                     // if previous searches exist for this SO load the latest param map
                     paramsDialog.setOldValues(prevParamMap);
                     paramsDialog.setTableValues(allParams);
-                    DialogResult<Map<ReplaceParamKey, IReplaceParam<?>>> intRes = paramsDialog.open();
+                    DialogResult<Map<ReplaceableParamKey, IReplaceableParam<?>>> intRes = paramsDialog.open();
                     res.setAction(intRes.getAction());
                     res.setResult(intRes.getResult());
                 }
@@ -67,7 +67,7 @@ public class ParamsDialogStage extends ConveyorStageBase {
                 params.setCurrentParamMap(res.getResult());
                 // put to the history table if the search is confirmed
                 ConveyorMain.INSTANCE.getOperationsCache().addExecutionParams(soKey, params.getSearchInfo());
-                params.getSearchInfo().setCustomReplaceTable(new HashMap<ReplaceParamKey, IReplaceParam<?>>(res.getResult()));
+                params.getSearchInfo().setCustomReplaceTable(new HashMap<ReplaceableParamKey, IReplaceableParam<?>>(res.getResult()));
             } else {
                 log.info("Search canceled name=" + currSO.getSearchObjectName());
                 params.setProceed(false);
@@ -77,7 +77,7 @@ public class ParamsDialogStage extends ConveyorStageBase {
             params.setCurrentParamMap(req.getPreparedParams());
             // put to the history table if the search is confirmed
             ConveyorMain.INSTANCE.getOperationsCache().addExecutionParams(soKey, params.getSearchInfo());
-            params.getSearchInfo().setCustomReplaceTable(new HashMap<ReplaceParamKey, IReplaceParam<?>>(req.getPreparedParams()));
+            params.getSearchInfo().setCustomReplaceTable(new HashMap<ReplaceableParamKey, IReplaceableParam<?>>(req.getPreparedParams()));
         }
         return CompletableFuture.completedFuture(null);
     }

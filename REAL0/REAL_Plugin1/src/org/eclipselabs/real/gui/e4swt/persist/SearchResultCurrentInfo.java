@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.gui.core.util.SearchInfo;
 
 /**
@@ -40,7 +40,7 @@ public class SearchResultCurrentInfo {
     @XmlElementWrapper(nillable=true)
     protected Map<String,String> searchObjectTags;
     @XmlElementWrapper(nillable=true)
-    protected Map<ReplaceParamKeyPersist,ReplaceParamPersist<?>> customReplaceTable;
+    protected Map<ReplaceableParamKeyPersist,ReplaceableParamPersist<?>> customReplaceTable;
 
     public SearchResultCurrentInfo() {  }
 
@@ -59,25 +59,25 @@ public class SearchResultCurrentInfo {
         }
         if (origInfo.getCustomReplaceTable() != null) {
             customReplaceTable = new HashMap<>();
-            for (Map.Entry<ReplaceParamKey, IReplaceParam<?>> currEntry : origInfo.getCustomReplaceTable().entrySet()) {
-                ReplaceParamPersist<?> rpp = null;
+            for (Map.Entry<ReplaceableParamKey, IReplaceableParam<?>> currEntry : origInfo.getCustomReplaceTable().entrySet()) {
+                ReplaceableParamPersist<?> rpp = null;
                 switch(currEntry.getValue().getType()) {
                 case BOOLEAN:
-                    rpp = new ReplaceParamPersist<Boolean>((IReplaceParam<Boolean>)currEntry.getValue());
+                    rpp = new ReplaceableParamPersist<Boolean>((IReplaceableParam<Boolean>)currEntry.getValue());
                     break;
                 case DATE:
                     //rpp = new DateReplaceParamPersist((IReplaceParam<Calendar>)currEntry.getValue());
-                    rpp = new ReplaceParamPersist<String>((IReplaceParam<LocalDateTime>)currEntry.getValue());
+                    rpp = new ReplaceableParamPersist<String>((IReplaceableParam<LocalDateTime>)currEntry.getValue());
                     break;
                 case INTEGER:
-                    rpp = new ReplaceParamPersist<Integer>((IReplaceParam<Integer>)currEntry.getValue());
+                    rpp = new ReplaceableParamPersist<Integer>((IReplaceableParam<Integer>)currEntry.getValue());
                     break;
                 case STRING:
                 default:
-                    rpp = new ReplaceParamPersist<String>((IReplaceParam<String>)currEntry.getValue());
+                    rpp = new ReplaceableParamPersist<String>((IReplaceableParam<String>)currEntry.getValue());
                     break;
                 }
-                customReplaceTable.put(new ReplaceParamKeyPersist(currEntry.getKey()), rpp);
+                customReplaceTable.put(new ReplaceableParamKeyPersist(currEntry.getKey()), rpp);
             }
         } else {
             customReplaceTable = new HashMap<>();
@@ -140,11 +140,11 @@ public class SearchResultCurrentInfo {
         this.searchObjectTags = searchObjectTags;
     }
 
-    public Map<ReplaceParamKeyPersist,ReplaceParamPersist<?>> getCustomReplaceTable() {
+    public Map<ReplaceableParamKeyPersist,ReplaceableParamPersist<?>> getCustomReplaceTable() {
         return customReplaceTable;
     }
 
-    public void setCustomReplaceTable(Map<ReplaceParamKeyPersist,ReplaceParamPersist<?>> customReplaceTable) {
+    public void setCustomReplaceTable(Map<ReplaceableParamKeyPersist,ReplaceableParamPersist<?>> customReplaceTable) {
         this.customReplaceTable = customReplaceTable;
     }
 

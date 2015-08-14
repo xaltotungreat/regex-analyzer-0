@@ -12,8 +12,8 @@ import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.searchobject.ISearchProgressMonitor;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchobject.script.SOContainer;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
@@ -76,7 +76,7 @@ public class SRSearchScriptImpl extends KeyedComplexSearchResultImpl<
                     ISRComplexRegexView, ISROComplexRegexView, String>,
                 ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
                 ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> execList,
-            Map<String,String> replaceTable, Map<ReplaceParamKey, IReplaceParam<?>> customParams, Map<ReplaceParamKey, IReplaceParam<?>> allParams,
+            Map<String,String> replaceTable, Map<ReplaceableParamKey, IReplaceableParam<?>> customParams, Map<ReplaceableParamKey, IReplaceableParam<?>> allParams,
             ISearchObjectGroup<String> aGroup, Map<String,String> soTags, ISearchProgressMonitor monitor) {
         super(aSOKey, aSortRequestList, replaceTable, customParams, allParams, aGroup, soTags);
         progressMonitor = monitor;

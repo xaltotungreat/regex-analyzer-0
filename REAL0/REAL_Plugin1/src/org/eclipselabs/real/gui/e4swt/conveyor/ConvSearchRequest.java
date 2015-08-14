@@ -12,8 +12,8 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 import org.eclipselabs.real.gui.core.sotree.IDisplaySO;
 import org.eclipselabs.real.gui.e4swt.NamedBookmark;
@@ -73,7 +73,7 @@ public class ConvSearchRequest {
 
     private boolean installGOSilently = false;
 
-    private Map<ReplaceParamKey,IReplaceParam<?>> preparedParams;
+    private Map<ReplaceableParamKey,IReplaceableParam<?>> preparedParams;
 
     @Inject
     public ConvSearchRequest() {
@@ -206,11 +206,11 @@ public class ConvSearchRequest {
         this.installGOSilently = installGOSilently;
     }
 
-    public Map<ReplaceParamKey, IReplaceParam<?>> getPreparedParams() {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getPreparedParams() {
         return preparedParams;
     }
 
-    public void setPreparedParams(Map<ReplaceParamKey, IReplaceParam<?>> preparedParams) {
+    public void setPreparedParams(Map<ReplaceableParamKey, IReplaceableParam<?>> preparedParams) {
         this.preparedParams = preparedParams;
     }
 

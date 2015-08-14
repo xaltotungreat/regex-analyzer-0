@@ -13,8 +13,8 @@ import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.ISRComplexRegex;
 import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
 import org.eclipselabs.real.core.searchresult.SRComplexRegexImpl;
@@ -67,7 +67,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
         request.getProgressMonitor().setCurrentSOName(getSearchObjectName());
         // init the search result
         Map<String,String> cachedReplaceTable = getFinalReplaceTable(request.getStaticReplaceParams(), request.getDynamicReplaceParams());
-        Map<ReplaceParamKey, IReplaceParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
+        Map<ReplaceableParamKey, IReplaceableParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
         ISRComplexRegex result = new SRComplexRegexImpl(getSearchObjectName(), getCloneSortRequestList(),
                 cachedReplaceTable, request.getStaticReplaceParams(), allReplaceParams, getSearchObjectGroup(), getSearchObjectTags());
         result.setViewOrder(viewOrder);
@@ -214,7 +214,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
         sb.append("\nSOComplexRegexImpl name=" + getSearchObjectName() + " group=" + getSearchObjectGroup() + " tags=" + getSearchObjectTags());
         sb.append("\nReplaceParams ");
         if (getCloneParamList() != null) {
-            for (IReplaceParam<?> currParam : getCloneParamList()) {
+            for (IReplaceableParam<?> currParam : getCloneParamList()) {
                 sb.append("\n").append(currParam);
             }
         }

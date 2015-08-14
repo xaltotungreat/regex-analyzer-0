@@ -1,12 +1,12 @@
 package org.eclipselabs.real.core.searchobject;
 
-import org.eclipselabs.real.core.searchobject.param.IReplaceParamRepository;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamRepositoryImpl;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParamRepository;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamRepositoryImpl;
 
 public enum SearchObjectController implements ISearchObjectController {
     INSTANCE;
     protected ISearchObjectRepository soRep = new SearchObjectRepositoryImpl();
-    protected IReplaceParamRepository rpRep = new ReplaceParamRepositoryImpl();
+    protected IReplaceableParamRepository rpRep = new ReplaceableParamRepositoryImpl();
     
     @Override
     public ISearchObjectRepository getSearchObjectRepository() {
@@ -14,7 +14,7 @@ public enum SearchObjectController implements ISearchObjectController {
     }
 
     @Override
-    public IReplaceParamRepository getReplaceParamRepository() {
+    public IReplaceableParamRepository getReplaceParamRepository() {
         return rpRep;
     }
     

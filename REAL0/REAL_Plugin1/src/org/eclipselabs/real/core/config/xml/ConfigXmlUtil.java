@@ -39,7 +39,7 @@ import org.eclipselabs.real.core.searchobject.SearchObjectFactory;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
 import org.eclipselabs.real.core.searchobject.crit.IDTIntervalCriterion;
 import org.eclipselabs.real.core.searchobject.crit.IRegexAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
 import org.eclipselabs.real.core.searchobject.ref.RefAcceptanceCriterion;
 import org.eclipselabs.real.core.searchobject.ref.RefDateInfo;
 import org.eclipselabs.real.core.searchobject.ref.RefInternalSortRequest;
@@ -73,13 +73,13 @@ public class ConfigXmlUtil implements IConfigXmlConstants {
 
     private ConfigXmlUtil() {}
 
-    public static List<IReplaceParam<?>> collectReplaceParams(Node elem) {
-        List<IReplaceParam<?>> result = new ArrayList<IReplaceParam<?>>();
+    public static List<IReplaceableParam<?>> collectReplaceParams(Node elem) {
+        List<IReplaceableParam<?>> result = new ArrayList<IReplaceableParam<?>>();
         List<Node> regNodeList = collectChildNodes(elem, XmlConfigNodeType.REPLACE_PARAM);
         if ((regNodeList != null) && (!regNodeList.isEmpty())) {
             for (Node currNode : regNodeList) {
                 if (XmlConfigNodeType.REPLACE_PARAM.equalsNode(currNode) && currNode.getParentNode().equals(elem)) {
-                    IReplaceParam<?> constructedParam = (new ReplaceParamXmlConstructorImpl()).constructCO(new XmlDomConstructionSource(currNode));
+                    IReplaceableParam<?> constructedParam = (new ReplaceParamXmlConstructorImpl()).constructCO(new XmlDomConstructionSource(currNode));
                     if (constructedParam != null) {
                         result.add(constructedParam);
                     }
@@ -101,12 +101,12 @@ public class ConfigXmlUtil implements IConfigXmlConstants {
             }
 
             RefReplaceParam newRefRP = new RefReplaceParam(rpRefType, refRPName);
-            List<IReplaceParam<?>> params = ConfigXmlUtil.collectReplaceParams(refRPNode);
+            List<IReplaceableParam<?>> params = ConfigXmlUtil.collectReplaceParams(refRPNode);
             if ((params != null) && (!params.isEmpty())) {
                 if (newRefRP.getValue() == null) {
-                    newRefRP.setValue(new ArrayList<IReplaceParam<?>>());
+                    newRefRP.setValue(new ArrayList<IReplaceableParam<?>>());
                 }
-                for (IReplaceParam<?> rp : params) {
+                for (IReplaceableParam<?> rp : params) {
                     newRefRP.addReplaceParam(rp);
                 }
                 allRefRPList.add(newRefRP);
@@ -770,8 +770,8 @@ public class ConfigXmlUtil implements IConfigXmlConstants {
         // replace params
         List<Node> rpAllNodeList = collectChildNodes(soNode, XmlConfigNodeType.REPLACE_PARAMS);
         for (Node rpListNode : rpAllNodeList) {
-            List<IReplaceParam<?>> params = ConfigXmlUtil.collectReplaceParams(rpListNode);
-            for (IReplaceParam<?> rp : params) {
+            List<IReplaceableParam<?>> params = ConfigXmlUtil.collectReplaceParams(rpListNode);
+            for (IReplaceableParam<?> rp : params) {
                 keyedSO.addParam(rp);
             }
         }

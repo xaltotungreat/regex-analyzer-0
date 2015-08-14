@@ -13,8 +13,8 @@ import org.eclipselabs.real.core.logfile.LogFileTypeKey;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.searchobject.SearchObjectType;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
@@ -29,7 +29,7 @@ public class SearchInfo implements Cloneable {
     protected String searchObjectName;
     protected ISearchObjectGroup<String> searchObjectGroup;
     protected Map<String,String> searchObjectTags;
-    protected Map<ReplaceParamKey, IReplaceParam<?>> customReplaceTable;
+    protected Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceTable;
     protected Integer foundObjects;
     protected Map<String,String> customProgressKeys;
     protected List<SearchInfo> children = new ArrayList<>();
@@ -160,11 +160,11 @@ public class SearchInfo implements Cloneable {
         this.searchObjectTags = searchObjectTags;
     }
 
-    public Map<ReplaceParamKey, IReplaceParam<?>> getCustomReplaceTable() {
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getCustomReplaceTable() {
         return customReplaceTable;
     }
 
-    public void setCustomReplaceTable(Map<ReplaceParamKey, IReplaceParam<?>> cachedReplaceTable) {
+    public void setCustomReplaceTable(Map<ReplaceableParamKey, IReplaceableParam<?>> cachedReplaceTable) {
         this.customReplaceTable = cachedReplaceTable;
     }
 

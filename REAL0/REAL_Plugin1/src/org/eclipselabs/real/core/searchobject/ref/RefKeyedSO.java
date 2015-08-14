@@ -13,7 +13,7 @@ import org.eclipselabs.real.core.searchobject.ISearchObjectRepository;
 import org.eclipselabs.real.core.searchobject.SearchObjectKey;
 import org.eclipselabs.real.core.searchobject.SearchObjectType;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
@@ -197,7 +197,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         // a ref to replace params contains a list of params -
         // need to handle them differently
         if (matches && (refReplaceParams != null) && (!refReplaceParams.isEmpty())) {
-            List<IReplaceParam<?>> allParams = obj.getCloneParamList();
+            List<IReplaceableParam<?>> allParams = obj.getCloneParamList();
             for (RefReplaceParam refRP : refReplaceParams) {
                 if (RefType.MATCH.equals(refRP.getType())) {
                     // check if the list contains some params before checking the main param list
@@ -211,9 +211,9 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         break;
                     }
                     boolean rpMatch = true;
-                    for (IReplaceParam<?> rpRef : refRP.getValue()) {
+                    for (IReplaceableParam<?> rpRef : refRP.getValue()) {
                         boolean currRefParamMatch = false;
-                        for (IReplaceParam<?> rpObj : allParams) {
+                        for (IReplaceableParam<?> rpObj : allParams) {
                             if ((rpObj.getName() != null) && (rpObj.getName().equals(rpRef.getName()))) {
                                 currRefParamMatch = true;
                                 break;
@@ -331,7 +331,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         log.error("addParameters null value for ref(cannot process this param)\n" + currRefRP);
                         continue;
                     }
-                    for (IReplaceParam<?> currParam : currRefRP.getValue()) {
+                    for (IReplaceableParam<?> currParam : currRefRP.getValue()) {
                         if (!obj.paramExists(currParam.getKey())) {
                             obj.addParam(currParam);
                             count++;
@@ -468,7 +468,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         log.error("replaceAddParameters null value for ref(cannot process this param)\n" + currRefRP);
                         continue;
                     }
-                    for (IReplaceParam<?> currParam : currRefRP.getValue()) {
+                    for (IReplaceableParam<?> currParam : currRefRP.getValue()) {
                         obj.addParam(currParam);
                         count++;
                     }
@@ -606,7 +606,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         log.error("replaceParameters null value for ref(cannot process this param)\n" + currRefRP);
                         continue;
                     }
-                    for (IReplaceParam<?> currParam : currRefRP.getValue()) {
+                    for (IReplaceableParam<?> currParam : currRefRP.getValue()) {
                         if (obj.paramExists(currParam.getKey())) {
                             obj.addParam(currParam);
                             count++;
@@ -728,7 +728,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
                         log.error("removeParameters null value for ref(cannot process this param)\n" + currRefRP);
                         continue;
                     }
-                    for (IReplaceParam<?> rp : currRefRP.getValue()) {
+                    for (IReplaceableParam<?> rp : currRefRP.getValue()) {
                         if (obj.removeParam(rp.getKey())) {
                             count++;
                         } else {

@@ -9,5 +9,5 @@ NamedBookmarkPersist
 FontPersist
 TextStylePersist
 SearchObjectGroupPersist
-ReplaceParamKeyPersist
-ReplaceParamPersist
+ReplaceableParamKeyPersist
+ReplaceableParamPersist

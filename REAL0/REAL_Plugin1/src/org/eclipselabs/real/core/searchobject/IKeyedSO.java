@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
-import org.eclipselabs.real.core.searchobject.param.IReplaceParam;
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 /**
@@ -129,11 +129,11 @@ public interface IKeyedSO {
      * Then a similar procedure is repeated if this SO is part of a hierarhy of SOs. The values of params
      * in the higher levels are replaced with the values from the lower levels.
      */
-    public Map<String,String> getFinalReplaceTable(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams, Map<String,String> fineTuneReplaceTable);
+    public Map<String,String> getFinalReplaceTable(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams, Map<String,String> fineTuneReplaceTable);
     public Map<String,String> getParentReplaceTable(Map<String, String> customReplaceTable);
 
-    public Map<ReplaceParamKey, IReplaceParam<?>> getAllReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams);
-    public Map<ReplaceParamKey, IReplaceParam<?>> getParentReplaceParams(Map<ReplaceParamKey, IReplaceParam<?>> customReplaceParams);
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getAllReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams);
+    public Map<ReplaceableParamKey, IReplaceableParam<?>> getParentReplaceParams(Map<ReplaceableParamKey, IReplaceableParam<?>> customReplaceParams);
 
     /**
      * Returns the date info for this keyed SO.

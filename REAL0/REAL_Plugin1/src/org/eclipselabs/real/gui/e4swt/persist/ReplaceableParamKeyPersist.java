@@ -4,18 +4,18 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import org.eclipselabs.real.core.searchobject.param.ReplaceParamKey;
+import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 
 @XmlType(propOrder={"name"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ReplaceParamKeyPersist {
+public class ReplaceableParamKeyPersist {
 
     String name;
 
-    public ReplaceParamKeyPersist() {
+    public ReplaceableParamKeyPersist() {
     }
 
-    public ReplaceParamKeyPersist(ReplaceParamKey aName) {
+    public ReplaceableParamKeyPersist(ReplaceableParamKey aName) {
         name = aName.getRPName();
     }
 

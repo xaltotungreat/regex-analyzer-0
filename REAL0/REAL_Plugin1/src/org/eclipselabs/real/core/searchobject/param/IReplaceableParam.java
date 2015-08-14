@@ -32,28 +32,28 @@ import org.eclipselabs.real.core.util.ITypedObject;
  *
  * @param <T> the type of the value of this replace parameter
  */
-public interface IReplaceParam<T> extends IKeyedObject<ReplaceParamKey>, ITypedObject<ReplaceParamValueType>, Cloneable {
+public interface IReplaceableParam<T> extends IKeyedObject<ReplaceableParamKey>, ITypedObject<ReplaceableParamValueType>, Cloneable {
 
-    public static class IRPTypePredicate implements Predicate<IReplaceParam<?>>{
-        ReplaceParamValueType tp;
+    public static class IRPTypePredicate implements Predicate<IReplaceableParam<?>>{
+        ReplaceableParamValueType tp;
 
-        public IRPTypePredicate(ReplaceParamValueType t) {
+        public IRPTypePredicate(ReplaceableParamValueType t) {
             tp = t;
         }
 
         @Override
-        public boolean test(IReplaceParam<?> t) {
+        public boolean test(IReplaceableParam<?> t) {
             if (t.getType().equals(tp)) {
                 return true;
             }
             return false;
         }
 
-        public ReplaceParamValueType getTp() {
+        public ReplaceableParamValueType getTp() {
             return tp;
         }
 
-        public void setTp(ReplaceParamValueType tp) {
+        public void setTp(ReplaceableParamValueType tp) {
             this.tp = tp;
         }
     }
@@ -68,5 +68,5 @@ public interface IReplaceParam<T> extends IKeyedObject<ReplaceParamKey>, ITypedO
     public void setDescription(String aDescr);
     public T getValue();
     public void setValue(T aValue);
-    public IReplaceParam<T> clone() throws CloneNotSupportedException;
+    public IReplaceableParam<T> clone() throws CloneNotSupportedException;
 }
