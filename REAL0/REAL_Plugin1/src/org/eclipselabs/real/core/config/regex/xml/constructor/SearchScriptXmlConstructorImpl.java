@@ -12,17 +12,12 @@ import org.eclipselabs.real.core.config.xml.ConfigXmlUtil;
 import org.eclipselabs.real.core.config.xml.IConfigXmlConstants;
 import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
 import org.eclipselabs.real.core.config.xml.XmlDomConstructionSource;
-import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
-import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOSearchScript;
 import org.eclipselabs.real.core.searchobject.SearchObjectFactory;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
-import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
-import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
-import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
-import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -55,11 +50,7 @@ public class SearchScriptXmlConstructorImpl implements ISearchScriptConstructor<
                     IKeyedSearchObject<?,?> constructedSO = currConstr.constructCO(new XmlDomConstructionSource(crNode));
                     if (constructedSO != null) {
                         constructedSO.setParent(ssResult);
-                        ssResult.getMainRegexList().add((IKeyedComplexSearchObject<
-                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)constructedSO);
+                        ssResult.getMainRegexList().add((ISOComplexRegex)constructedSO);
                     }
                 }
             }

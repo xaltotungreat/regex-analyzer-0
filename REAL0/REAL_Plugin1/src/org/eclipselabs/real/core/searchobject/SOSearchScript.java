@@ -1,8 +1,5 @@
 package org.eclipselabs.real.core.searchobject;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,6 +26,9 @@ import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultO
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
+
 /**
  * This is the implementation of the search script. The methods of {@link IRefKeyedSOContainer} are not implemented directly
  * but an internal (proxy) object is used that implements all the methods.
@@ -43,16 +43,7 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
     private static final Logger log = LogManager.getLogger(SOSearchScript.class);
     protected String scriptText;
     // the internal search objects list
-    protected List<IKeyedComplexSearchObject<
-                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>
-        mainRegexList = Collections.synchronizedList(new ArrayList<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>());
+    protected List<ISOComplexRegex> mainRegexList = Collections.synchronizedList(new ArrayList<ISOComplexRegex>());
 
     protected IRefKeyedSOContainer refContainer = new RefKeyedSOContainerImpl();
 
@@ -74,31 +65,10 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
             // do not load the cached replace table - it is used for fine tuning the tables in child complex regexes
             Map<String,String> cachedReplaceTable = new HashMap<>();
             Map<ReplaceableParamKey, IReplaceableParam<?>> allReplaceParams = getAllReplaceParams(request.getStaticReplaceParams());
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>
-                clonedMainRegexes = Collections.synchronizedList(new ArrayList<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>());
-            for (IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> iKeyedComplexSearchObject : mainRegexList) {
+            List<ISOComplexRegex> clonedMainRegexes = Collections.synchronizedList(new ArrayList<ISOComplexRegex>());
+            for (ISOComplexRegex iKeyedComplexSearchObject : mainRegexList) {
                 try {
-                    IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> clonedMainSO = (IKeyedComplexSearchObject<
-                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)iKeyedComplexSearchObject.clone();
+                    ISOComplexRegex clonedMainSO = (ISOComplexRegex)iKeyedComplexSearchObject.clone();
                     clonedMainRegexes.add(clonedMainSO);
                 } catch (CloneNotSupportedException e) {
                     log.error("performSearch ", e);
@@ -187,20 +157,12 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
     }
 
     @Override
-    public List<IKeyedComplexSearchObject<
-            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> getMainRegexList() {
+    public List<ISOComplexRegex> getMainRegexList() {
         return mainRegexList;
     }
 
     @Override
-    public void setMainRegexList(List<IKeyedComplexSearchObject<
-                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> mrList) {
+    public void setMainRegexList(List<ISOComplexRegex> mrList) {
         mainRegexList = mrList;
     }
 
@@ -220,30 +182,13 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
             cloneObj.viewOrder = newViewOrder;
         }
         if (mainRegexList != null) {
-            List<IKeyedComplexSearchObject<
-                        ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>
-                newMainRegexList = Collections.synchronizedList(new ArrayList<IKeyedComplexSearchObject<
-                            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>());
+            List<ISOComplexRegex> newMainRegexList = Collections.synchronizedList(new ArrayList<ISOComplexRegex>());
             // according to Java documentation for the synchronized list it is
             // "imperative that the user manually synchronize on the returned list
             // when iterating over it"
             synchronized(mainRegexList) {
-                for (IKeyedComplexSearchObject<
-                        ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currSO : mainRegexList) {
-                    newMainRegexList.add((IKeyedComplexSearchObject<
-                            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)currSO.clone());
+                for (ISOComplexRegex currSO : mainRegexList) {
+                    newMainRegexList.add((ISOComplexRegex)currSO.clone());
                 }
             }
             cloneObj.setMainRegexList(newMainRegexList);
@@ -252,28 +197,14 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
     }
 
     @Override
-    public IKeyedComplexSearchObject<
-                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>
-            getInternalSOByName(String complRegName) {
-        IKeyedComplexSearchObject<
-                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>
-            result = null;
+    public ISOComplexRegex getInternalSOByName(String complRegName) {
+        ISOComplexRegex result = null;
         if ((mainRegexList != null) && (!mainRegexList.isEmpty())) {
             // according to Java documentation for the synchronized list it is
             // "imperative that the user manually synchronize on the returned list
             // when iterating over it"
             synchronized(mainRegexList) {
-                for (IKeyedComplexSearchObject<
-                        ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currComplRegex : mainRegexList) {
+                for (ISOComplexRegex currComplRegex : mainRegexList) {
                     if ((currComplRegex.getSearchObjectName() != null) && (currComplRegex.getSearchObjectName().equals(complRegName))) {
                         result = currComplRegex;
                         break;
@@ -313,11 +244,7 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
                     log.error("resolveRefs ", e);
                 }
                 resolvedSO.setParent(this);
-                mainRegexList.add((IKeyedComplexSearchObject<
-                        ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)resolvedSO);
+                mainRegexList.add((ISOComplexRegex)resolvedSO);
             }
         }
         return resolvedSOList;

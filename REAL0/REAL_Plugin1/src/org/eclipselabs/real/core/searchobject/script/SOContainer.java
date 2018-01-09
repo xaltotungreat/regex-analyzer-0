@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
 import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
@@ -38,18 +39,12 @@ public class SOContainer {
     protected volatile ISRSearchScript scriptResult;
     protected volatile String logText;
 
-    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISRComplexRegexView, ISROComplexRegexView, String>,
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> containerSO, ISRSearchScript scrRes) {
+    public SOContainer(ISOComplexRegex containerSO, ISRSearchScript scrRes) {
         searchObject = containerSO;
         scriptResult = scrRes;
     }
 
-    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISRComplexRegexView, ISROComplexRegexView, String>,
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> containerSO, ISRSearchScript scrRes, String text) {
+    public SOContainer(ISOComplexRegex containerSO, ISRSearchScript scrRes, String text) {
         this(containerSO, scrRes);
         logText = text;
     }

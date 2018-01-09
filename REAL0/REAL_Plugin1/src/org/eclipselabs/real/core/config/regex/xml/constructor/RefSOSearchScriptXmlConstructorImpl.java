@@ -14,21 +14,15 @@ import org.eclipselabs.real.core.config.xml.ConfigXmlUtil;
 import org.eclipselabs.real.core.config.xml.IConfigXmlConstants;
 import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
 import org.eclipselabs.real.core.config.xml.XmlDomConstructionSource;
-import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
-import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.ISOSearchScript;
 import org.eclipselabs.real.core.searchobject.SearchObjectType;
-import org.eclipselabs.real.core.searchobject.ref.RefKeyedComplexSO;
 import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
 import org.eclipselabs.real.core.searchobject.ref.RefParamString;
+import org.eclipselabs.real.core.searchobject.ref.RefSOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ref.RefSOSearchScript;
 import org.eclipselabs.real.core.searchobject.ref.RefType;
-import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
-import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
-import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
-import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -94,11 +88,7 @@ public class RefSOSearchScriptXmlConstructorImpl implements IRefSOSearchScriptCo
                     RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> constructedSO
                                 = currConstr.constructCO(new XmlDomConstructionSource(crNode));
                     if (constructedSO != null) {
-                        refSSResult.addMainRegex((RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String,
-                                IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>)constructedSO);
+                        refSSResult.addMainRegex((RefSOComplexRegex)constructedSO);
                     }
                 }
             }
