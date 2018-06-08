@@ -20,8 +20,8 @@ import org.eclipselabs.real.core.searchresult.sort.SortingType;
 public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISearchResultObject>
         implements ISearchObject<R,O> {
     private static final Logger log = LogManager.getLogger(SearchObjectImpl.class);
-    protected String soName;
-    protected String soDescription;
+    protected String searchObjectName;
+    protected String searchObjectDescription;
     protected SearchObjectType theType;
     protected Integer regexFlags;
     protected List<IInternalSortRequest> sortRequestList = Collections.synchronizedList(new ArrayList<IInternalSortRequest>());
@@ -30,7 +30,7 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
 
     public SearchObjectImpl(SearchObjectType aType, String aName) {
         theType = aType;
-        soName = aName;
+        searchObjectName = aName;
     }
 
     @Override
@@ -40,23 +40,23 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
 
     @Override
     public String getSearchObjectName() {
-        return soName;
+        return searchObjectName;
     }
 
     @Override
     public void setSearchObjectName(String newName) {
-        soName = newName;
+        searchObjectName = newName;
     }
 
 
     @Override
     public String getSearchObjectDescription() {
-        return soDescription;
+        return searchObjectDescription;
     }
 
     @Override
     public void setSearchObjectDescription(String newDescription) {
-        soDescription = newDescription;
+        searchObjectDescription = newDescription;
     }
 
     @Override

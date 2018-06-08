@@ -20,7 +20,7 @@ import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
 
 /**
  * This class holds the result of the search script execution.
- * Currently is serves the context role keeping references to the search regexes,
+ * Currently it serves the context role keeping references to the search regexes,
  * result objects stored by the script etc.
  * The script is stored in a simple String.
  * This class also holds the link to the progress monitor for this script

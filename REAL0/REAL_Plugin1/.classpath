@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/spring-expression-5.0.6.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring-jcl-5.0.6.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring-beans-5.0.6.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring-context-5.0.6.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring-core-5.0.6.RELEASE.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/groovy-all-2.4.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-api-2.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-core-2.2.jar"/>

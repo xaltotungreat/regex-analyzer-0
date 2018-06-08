@@ -50,7 +50,7 @@ public class SOParamsDialog extends Dialog {
     public static final String DATA_VALUE_INDEX = "DATA_VALUE_INDEX";
     public static final String DATA_VALUE_PARAM = "DATA_VALUE_PARAM";
 
-    protected DialogResult<Map<ReplaceableParamKey, IReplaceableParam<?>>> result = new DialogResult<Map<ReplaceableParamKey,IReplaceableParam<?>>>(SWT.CANCEL);
+    protected DialogResult<Map<ReplaceableParamKey, IReplaceableParam<?>>> result = new DialogResult<>(SWT.CANCEL);
     protected Shell shell;
 
     Map<String,String> initialParams;
@@ -80,8 +80,7 @@ public class SOParamsDialog extends Dialog {
      */
     @Inject
     public SOParamsDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell parent, @Named("SearchObjectName") String soName) {
-        //super(parent, SWT.BORDER | SWT.CLOSE | SWT.RESIZE | SWT.APPLICATION_MODAL);
-        super(parent, SWT.BORDER | SWT.CLOSE | SWT.RESIZE);
+        super(parent, SWT.BORDER | SWT.CLOSE | SWT.RESIZE); // | SWT.APPLICATION_MODAL to make it modal for the application
         setText("Search Object Parameters");
         this.soName = soName;
     }
@@ -123,7 +122,7 @@ public class SOParamsDialog extends Dialog {
     }
 
     protected Map<ReplaceableParamKey, IReplaceableParam<?>> getParamMap() {
-        Map<ReplaceableParamKey, IReplaceableParam<?>> resMap = new HashMap<ReplaceableParamKey, IReplaceableParam<?>>();
+        Map<ReplaceableParamKey, IReplaceableParam<?>> resMap = new HashMap<>();
         TableItem[] allTI = tableParams.getItems();
         for (TableItem ti : allTI) {
             IReplaceableParam<?> editedParam = (IReplaceableParam<?>)ti.getData(DATA_VALUE_PARAM);
@@ -403,7 +402,7 @@ public class SOParamsDialog extends Dialog {
         btnOK.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                result = new DialogResult<Map<ReplaceableParamKey,IReplaceableParam<?>>>(SWT.OK, getParamMap());
+                result = new DialogResult<>(SWT.OK, getParamMap());
                 shell.close();
             }
 
@@ -422,7 +421,7 @@ public class SOParamsDialog extends Dialog {
         btnCancel.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                result = new DialogResult<Map<ReplaceableParamKey,IReplaceableParam<?>>>(SWT.CANCEL, null);
+                result = new DialogResult<>(SWT.CANCEL, null);
                 shell.close();
             }
 

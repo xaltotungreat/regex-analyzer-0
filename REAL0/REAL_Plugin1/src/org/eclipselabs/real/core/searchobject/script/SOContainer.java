@@ -114,7 +114,7 @@ public class SOContainer {
                 }
             }
         } else {
-            // if logText is not null it is a search in current
+            // if logText is not null it is a search in the current text
             // it means only one file for every search.
             // total SO Files are set to 1 in the search task no need to reset
             // before a new search reset the completed SO Files

@@ -142,7 +142,7 @@ public abstract class KeyedComplexSearchObjectImpl<R extends IKeyedComplexSearch
         final int prime = 31;
         int result = 1;
         result = prime * result + ((theType == null) ? 0 : theType.hashCode());
-        result = prime * result + ((soName == null) ? 0 : soName.hashCode());
+        result = prime * result + ((searchObjectName == null) ? 0 : searchObjectName.hashCode());
         result = prime * result + ((getSearchObjectGroup() == null) ? 0 : getSearchObjectGroup().hashCode());
         result = prime * result + ((getSearchObjectTags() == null) ? 0 : getSearchObjectTags().hashCode());
         return result;
@@ -168,11 +168,11 @@ public abstract class KeyedComplexSearchObjectImpl<R extends IKeyedComplexSearch
         if (theType != other.theType) {
             return false;
         }
-        if (soName == null) {
-            if (other.soName != null) {
+        if (searchObjectName == null) {
+            if (other.searchObjectName != null) {
                 return false;
             }
-        } else if (!soName.equals(other.soName)) {
+        } else if (!searchObjectName.equals(other.searchObjectName)) {
             return false;
         }
         if (getSearchObjectGroup() == null) {

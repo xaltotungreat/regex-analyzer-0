@@ -18,11 +18,11 @@ public abstract class RealRegexImpl implements IRealRegex {
     protected String regexGroup;
     protected Integer regexFlags;
     protected Map<String,IRealRegexParam<?>> regexParamMap = Collections.synchronizedMap(new HashMap<String,IRealRegexParam<?>>());
-    
+
     public RealRegexImpl(String aName) {
         regexName = aName;
     }
-    
+
     @Override
     public RealRegexType getType() {
         return type;
@@ -77,7 +77,7 @@ public abstract class RealRegexImpl implements IRealRegex {
             log.error("removeParameter null Key passed ");
         }
     }
-    
+
     @Override
     public IRealRegexParam<?> getParameter(String aName) {
         IRealRegexParam<?> returnVal = null;
@@ -95,6 +95,13 @@ public abstract class RealRegexImpl implements IRealRegex {
             return new ArrayList<>(regexParamMap.values());
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public void setParameters(Collection<IRealRegexParam<?>> params) {
+        for (IRealRegexParam<?> iRealRegexParam : params) {
+            regexParamMap.put(iRealRegexParam.getName(), iRealRegexParam);
         }
     }
 

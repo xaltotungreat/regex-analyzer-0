@@ -120,10 +120,10 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
             String lastFound = null;
             int gcCount = 0;
             // according to Java documentation for the synchronized list it is
-            // "imperative that the user manually synchronize on the returned list
-            // when iterating over it". But in this case the synchronization has been removed to make
-            // searches faster
-            //synchronized(mainRegexList) {
+            // "imperative that the user manually synchronize on the returned list when iterating over it"
+            // like this "synchronized(mainRegexList) {". But in this case the synchronization has been removed to make
+            // searches faster because the regexes are not modified in the loop and the list itself is not modified
+            // The speedup is noticeable because each file is processed in its own thread
             for (IRealRegex currRegex : mainRegexList) {
                 try {
                     IMatcherWrapper mtw = currRegex.getMatcherWrapper(request.getText(), cachedReplaceTable, finalRegexFlags);
@@ -146,7 +146,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                         }
                         lastFound = foundStr.getStrResult();
                         // manual GC is necessary to keep the heap size minimal
-                        // during search the garbage collector is not fast enough therefore
+                        // during a search the garbage collector is not fast enough therefore
                         // the heap may grow too large
                         if (gcCount > gcMaxCount) {
                             System.gc();
@@ -154,7 +154,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                         }
                         gcCount++;
                     }
-                } catch (Throwable e) {
+                } catch (Exception e) {
                     log.error("Caught exception last statement found " + lastFound
                             + " regex searched " + currRegex.getPatternString(cachedReplaceTable), e);
                     throw e;

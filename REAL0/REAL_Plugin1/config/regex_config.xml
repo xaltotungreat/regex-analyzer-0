@@ -11,11 +11,15 @@
 		<regex_flag>UNICODE_CASE</regex_flag>
 		<regex_flag>UNIX_LINES</regex_flag>
 	</regex_flags>
-	selects the 5th (0-based 0th, 1st, 2nd, 3rd, 4th, 5th) found result
+	selects the 5th (0-based 0th, 1st, 2nd, 3rd, 4th, 5th) found match
 	<regexParam name="instance" type="Integer">5</regexParam>
-	select the 5th (0-based 0th, 1st, 2nd, 3rd, 4th, 5th) found result from the end
+	name - 'instance' count from the beginning
+	5 - the number of the match
+	
+	select the 5th (0-based 0th, 1st, 2nd, 3rd, 4th, 5th) found match from the end
 	<regexParam name="last_instance" type="Integer">5</regexParam>
-
+	name - 'last_instance' count from the end
+	5 - the number of the match
 -->
 <regex_config>
 	<group name="Global">

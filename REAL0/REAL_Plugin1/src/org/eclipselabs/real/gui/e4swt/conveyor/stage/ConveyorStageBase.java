@@ -25,7 +25,7 @@ public abstract class ConveyorStageBase implements IConveyorStage {
 
     protected IConveyorStage parentStage;
 
-    protected volatile List<IConveyorStage> children = new ArrayList<IConveyorStage>();
+    protected volatile List<IConveyorStage> children = new ArrayList<>();
 
     protected volatile boolean canceled = false;
 
@@ -44,7 +44,7 @@ public abstract class ConveyorStageBase implements IConveyorStage {
         if (params.isProceed()) {
             if (executedStage == null) {
                 CompletableFuture<Void> currStage = executeInternal(req, params);
-                // set complete exactly after this stage executeInternal
+                // set complete exactly after this stage's executeInternal
                 if (completionPredicate != null) {
                     currStage = currStage.thenAccept((a) -> {
                         if (completionPredicate.test(this)) {
@@ -52,7 +52,7 @@ public abstract class ConveyorStageBase implements IConveyorStage {
                         }
                     });
                 }
-                List<CompletableFuture<Void>> allFs = new ArrayList<CompletableFuture<Void>>();
+                List<CompletableFuture<Void>> allFs = new ArrayList<>();
                 allFs.add(currStage);
                 if (children.size() == 1) {
                     IConveyorStage childStage = children.get(0);

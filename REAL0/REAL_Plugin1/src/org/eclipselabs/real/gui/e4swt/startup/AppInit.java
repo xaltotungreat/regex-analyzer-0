@@ -15,8 +15,12 @@ import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipselabs.real.core.config.ConfigurationController;
 import org.eclipselabs.real.core.config.IConfigurationConsts;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.osgi.framework.Bundle;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.core.io.InputStreamResource;
 
 public class AppInit {
     private static final Logger log = LogManager.getLogger(AppInit.class);
@@ -27,6 +31,25 @@ public class AppInit {
         Bundle plugBundle = Platform.getBundle(IEclipse4Constants.DEFINING_PLUGIN_NAME);
         if (plugBundle == null) {
             return;
+        }
+
+        /*
+         * This iss an example of loading a config from a Spring xml config instead of
+         * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
+         * TODO
+         */
+        try (InputStream springIS = FileLocator.openStream(
+                plugBundle, new Path("config/spring_regex_config.xml"), false)) {
+            GenericApplicationContext context = new GenericApplicationContext();
+            XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
+            reader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_XSD);
+            reader.loadBeanDefinitions(new InputStreamResource(springIS));
+            context.refresh();
+            //ISearchObjectGroup<String> tmpBean = context.getBean("test1", ISearchObjectGroup.class);
+            ISOComplexRegex compl1 = context.getBean("!I:LogInterval ASM All", ISOComplexRegex.class);
+            log.info("Spring loaded bean " + compl1.toString());
+        } catch (IOException e2) {
+            log.error("Init SPRING config error",e2);
         }
 
         try (InputStream perfIS = FileLocator.openStream(

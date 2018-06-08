@@ -156,7 +156,11 @@ public class SearchObjectGroupStrImpl implements ISearchObjectGroup<String> {
         return this;
     }
 
-    protected void setPathElements(List<String> newElemList) {
+    public List<String> getPathElements() {
+        return pathElements;
+    }
+
+    public void setPathElements(List<String> newElemList) {
         pathElements = newElemList;
     }
 

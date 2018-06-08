@@ -80,9 +80,9 @@ public interface ISearchResult<O extends ISearchResultObject> extends Cloneable 
 
     public <M extends ISearchResult<X>, X extends O> void merge(List<M> mergeList);
     public <M extends ISearchResult<X>, X extends O> void merge(List<M> mergeList, IInternalSortRequest mergeComp);
-    //public <M extends ISearchResult<X>, X extends O> void merge(M mergeObj);
+
     public <M extends ISearchResult<O>> void merge(M mergeObj);
-    //public <M extends ISearchResult<X>, X extends O> void merge(M mergeObj, IInternalSortRequest mergeComp);
+
     public <M extends ISearchResult<O>> void merge(M mergeObj, IInternalSortRequest mergeComp);
     public void mergeSRO(List<? extends O> sroList, IInternalSortRequest mergeReq);
 

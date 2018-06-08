@@ -42,7 +42,6 @@ public class OOIHelper {
             log.error("installGlobalOOI One of the arguments is null addInfo=" + addInfo + " globOOIContext=" + globOOIContext
                     + " uiSynch=" + uiSynch + " resultsStack=" + resultsStack);
             CompletableFuture<Void> rt = CompletableFuture.completedFuture(null);
-            //rt.set(null);
             return rt;
         }
         // get the map

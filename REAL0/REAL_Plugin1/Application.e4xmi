@@ -51,6 +51,7 @@
     <handlers xmi:id="_ml0zoE5aEeSLS9-xTX6kWQ" elementId="e4swt.handler.enable_log_type" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerEnableLogType" command="_cEj0UE5aEeSLS9-xTX6kWQ"/>
     <handlers xmi:id="_eZ1MUFhPEeSSP_sODfwkWg" elementId="e4swt.handler.custom_load_workspace" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerCustomLoadWorkspace" command="_WQ7ykFhPEeSSP_sODfwkWg"/>
     <handlers xmi:id="_LocyoO6JEeS4Tv9-O_tGEw" elementId="e4swt.handler.so_description" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerSODescription" command="_vZgQoO6IEeS4Tv9-O_tGEw"/>
+    <handlers xmi:id="_cNH_UAB-EeirQLM3OfXRXw" elementId="e4swt.handler.visual_config" contributionURI="bundleclass://REAL_Plugin1/org.eclipselabs.real.gui.e4swt.handlers.HandlerVisualConfig" command="_79SssAB7EeirQLM3OfXRXw"/>
     <mainMenu xmi:id="_6Czp4AX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu">
       <children xsi:type="menu:Menu" xmi:id="_67p9cAX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu.logfiles" label="Log Files">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_9cx2YAX5EeOj29n2JE-lug" elementId="e4swt.mainwindow.menu.logfiles.add_folder" label="Add Folder" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/list-add-3.png" command="_Q5mGUAX4EeOj29n2JE-lug"/>
@@ -65,6 +66,7 @@
       </children>
       <children xsi:type="menu:Menu" xmi:id="_sRa7oBcmEeOE8Y2FoiVRSQ" elementId="e4swt.mainwindow.menu.options" label="Options">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_u-C58BcmEeOE8Y2FoiVRSQ" elementId="e4swt.mainwindow.menu.options.set_title" label="Additional window title" command="_BLxHEBcFEeOGO5R7DhTg6g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_KX7mwAB7EeirQLM3OfXRXw" elementId="e4swt.mainwindow.menu.options.visual_config" label="Visual Config" iconURI="platform:/plugin/REAL_Plugin1/icons/24x24/view-list-tree-2.png" command="_79SssAB7EeirQLM3OfXRXw"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_i5VDACIrEeOKEPgxFo3M9w" elementId="e4swt.mainwindow.menu.help" label="Help">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_lp34ACIrEeOKEPgxFo3M9w" elementId="e4swt.mainwindow.menu.help.about" label="About" command="_5kyEECInEeOKEPgxFo3M9w"/>
@@ -187,6 +189,7 @@
   </commands>
   <commands xmi:id="_cEj0UE5aEeSLS9-xTX6kWQ" elementId="e4swt.command.enable_log_type" commandName="Enable/Disable Log Type"/>
   <commands xmi:id="_vZgQoO6IEeS4Tv9-O_tGEw" elementId="e4swt.command.so_description" commandName="Search Object Description"/>
+  <commands xmi:id="_79SssAB7EeirQLM3OfXRXw" elementId="e4swt.command.visual_config" commandName="Visual Config"/>
   <addons xmi:id="_DoWhgPtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_DoWhgftqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_DoWhgvtqEeKNE_0CMstYxA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

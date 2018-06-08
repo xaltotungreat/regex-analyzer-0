@@ -31,6 +31,7 @@ public interface IRealRegex extends Cloneable, ITypedObject<RealRegexType> {
     public void removeParameter(String aName, RealRegexParamType aType);
     public IRealRegexParam<?> getParameter(String aName);
     public Collection<IRealRegexParam<?>> getParameters();
+    public void setParameters(Collection<IRealRegexParam<?>> params);
 
     public Integer getRegexFlags();
     public void setRegexFlags(Integer flags);

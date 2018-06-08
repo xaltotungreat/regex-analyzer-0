@@ -862,21 +862,17 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         T matchedObj = null;
         if ((filteredList != null) && (!filteredList.isEmpty())) {
             Iterator<IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> filteredIter = filteredList.iterator();
-            while (matchedObj == null) {
-                if (filteredIter.hasNext()) {
-                    IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> currSO = filteredIter.next();
-                    if (currSO.getType().equals(refSearchObjectType)) {
-                        log.debug("CurrSo Type=" + currSO.getType() + " refSOType=" + refSearchObjectType);
-                        log.debug("CurrSo name=" + currSO.getSearchObjectName() + " group=" + currSO.getSearchObjectGroup());
-                        T currObj = (T)currSO;
-                        if (matchByParameters(currObj)) {
-                            log.debug("Ref \n" + this + "\nMatched \n" + currObj);
-                            matchedObj = currObj;
-                            break;
-                        }
+            while (filteredIter.hasNext()) {
+                IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> currSO = filteredIter.next();
+                if (currSO.getType().equals(refSearchObjectType)) {
+                    log.debug("CurrSo Type=" + currSO.getType() + " refSOType=" + refSearchObjectType);
+                    log.debug("CurrSo name=" + currSO.getSearchObjectName() + " group=" + currSO.getSearchObjectGroup());
+                    T currObj = (T)currSO;
+                    if (matchByParameters(currObj)) {
+                        log.debug("Ref \n" + this + "\nMatched \n" + currObj);
+                        matchedObj = currObj;
+                        break;
                     }
-                } else {
-                    break;
                 }
             }
             if (matchedObj != null) {
