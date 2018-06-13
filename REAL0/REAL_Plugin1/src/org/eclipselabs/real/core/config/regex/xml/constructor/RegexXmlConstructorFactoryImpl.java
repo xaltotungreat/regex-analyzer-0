@@ -11,7 +11,7 @@ import org.eclipselabs.real.core.config.regex.constructor.IRegexComplexSortReque
 import org.eclipselabs.real.core.config.regex.constructor.IRegexConstructor;
 import org.eclipselabs.real.core.config.regex.constructor.IRegexConstructorFactory;
 import org.eclipselabs.real.core.config.regex.constructor.IRegexSortRequestConstructor;
-import org.eclipselabs.real.core.config.regex.constructor.IReplaceParamConstructor;
+import org.eclipselabs.real.core.config.regex.constructor.IReplaceableParamConstructor;
 import org.eclipselabs.real.core.config.regex.constructor.ISOConstructor;
 import org.eclipselabs.real.core.config.regex.constructor.ISearchScriptConstructor;
 import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
@@ -32,8 +32,8 @@ public class RegexXmlConstructorFactoryImpl implements IRegexConstructorFactory<
     }
     
     @Override
-    public IReplaceParamConstructor<Node> getReplaceParamConstructor() {
-        return new ReplaceParamXmlConstructorImpl();
+    public IReplaceableParamConstructor<Node> getReplaceableParamConstructor() {
+        return new ReplaceableParamXmlConstructorImpl();
     }
 
     @Override

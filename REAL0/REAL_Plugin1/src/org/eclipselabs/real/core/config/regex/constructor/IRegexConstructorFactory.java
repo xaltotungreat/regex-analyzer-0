@@ -8,7 +8,7 @@ import org.w3c.dom.Node;
 
 public interface IRegexConstructorFactory<K> {
 
-    public IReplaceParamConstructor<K> getReplaceParamConstructor();
+    public IReplaceableParamConstructor<K> getReplaceableParamConstructor();
 
     public IRegexConstructor<K> getRegexConstructor();
 

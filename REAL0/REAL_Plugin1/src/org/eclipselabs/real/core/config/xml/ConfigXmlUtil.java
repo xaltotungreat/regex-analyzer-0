@@ -20,7 +20,7 @@ import org.eclipselabs.real.core.config.regex.xml.constructor.LinkedRealRegexXml
 import org.eclipselabs.real.core.config.regex.xml.constructor.RealRegexGroupXmlConstructorImpl;
 import org.eclipselabs.real.core.config.regex.xml.constructor.RealRegexXmlConstructorImpl;
 import org.eclipselabs.real.core.config.regex.xml.constructor.RegexXmlConstructorFactoryImpl;
-import org.eclipselabs.real.core.config.regex.xml.constructor.ReplaceParamXmlConstructorImpl;
+import org.eclipselabs.real.core.config.regex.xml.constructor.ReplaceableParamXmlConstructorImpl;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.regex.IRealRegexGroup;
@@ -79,7 +79,7 @@ public class ConfigXmlUtil implements IConfigXmlConstants {
         if ((regNodeList != null) && (!regNodeList.isEmpty())) {
             for (Node currNode : regNodeList) {
                 if (XmlConfigNodeType.REPLACE_PARAM.equalsNode(currNode) && currNode.getParentNode().equals(elem)) {
-                    IReplaceableParam<?> constructedParam = (new ReplaceParamXmlConstructorImpl()).constructCO(new XmlDomConstructionSource(currNode));
+                    IReplaceableParam<?> constructedParam = (new ReplaceableParamXmlConstructorImpl()).constructCO(new XmlDomConstructionSource(currNode));
                     if (constructedParam != null) {
                         result.add(constructedParam);
                     }

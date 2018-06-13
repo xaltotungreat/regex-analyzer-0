@@ -307,7 +307,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
             List<Node> crNodes = ConfigXmlUtil.collectChildNodes(elem, XmlConfigNodeType.REPLACE_PARAM);
             for (final Node currNode : crNodes) {
                 CompletableFuture<IReplaceableParam<?>> future = submitConstructionTask(
-                        constructionFactory.getReplaceParamConstructor(), new XmlDomConstructionSource(currNode));
+                        constructionFactory.getReplaceableParamConstructor(), new XmlDomConstructionSource(currNode));
                 watcher.incrementAndGetSubmitted();
 
                 try {
@@ -374,7 +374,7 @@ public class RegexXmlConfigFileReader extends RegexConfigReaderImpl<InputStream>
                 @Override
                 public void executionComplete() {
                     completionCallback.addAllSearchObject(soMap);
-                    completionCallback.addAllReplaceParam(rpMap);
+                    completionCallback.addAllReplaceableParam(rpMap);
                     completionCallback.resolveAllRefs(refList, refContainerList);
                     returnFuture.complete(soMap.size());
                 }

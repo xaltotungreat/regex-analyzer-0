@@ -15,11 +15,11 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 public interface IRegexConfigCompletionCallback {
     public void addSearchObject(SearchObjectKey soKey, 
             IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> param);
-    public void addReplaceParam(ReplaceableParamKey rpKey, IReplaceableParam<?> param);
+    public void addReplaceableParam(ReplaceableParamKey rpKey, IReplaceableParam<?> param);
     
     public void addAllSearchObject(Map<SearchObjectKey, 
             IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> searchObjMap);
-    public void addAllReplaceParam(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParamMap);
+    public void addAllReplaceableParam(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParamMap);
     
     public void resolveAllRefs(List<RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>> refsList,
             List<IRefKeyedSOContainer> refContainersList);

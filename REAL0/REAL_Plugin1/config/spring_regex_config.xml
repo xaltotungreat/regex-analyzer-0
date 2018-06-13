@@ -15,12 +15,20 @@
 		</property>
 		<!-- additional collaborators and configuration for this bean go here -->
 	</bean>
+	
+	<!-- Spring internal beans START -->
+	<!-- This bean registers and processes (among others) @PostConstruct and @PreDestroy -->
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+	<!-- Spring internal beans END -->
+	
+	<!-- COMMONLY USED BEANS START -->
+	
 	<bean id="rrparamInstance0" class="org.eclipselabs.real.core.regex.RealRegexParamInteger" scope="prototype">
 		<constructor-arg index="0" value="instance" />
 		<constructor-arg index="1" value="0" />
 	</bean>
 
-	<bean id="firstSimpleRegex" class="org.eclipselabs.real.core.regex.SimpleRegexImpl">
+	<bean id="firstSimpleRegex" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
 		<constructor-arg index="0" value="Default" />
 		<constructor-arg index="1" value="novalue" />
 		<property name="parameters">
@@ -28,8 +36,16 @@
 				<ref bean="rrparamInstance0" />
 			</list>
 		</property>
+	</bean> 
+	
+	<bean id="dateTimeSortRequest" class="org.eclipselabs.real.core.searchresult.sort.DateTimeSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1" value="Date_Time" />
 	</bean>
-
+	
+	<!-- COMMONLY USED BEANS END -->
+				
+	<!-- ASM BEANS START -->
 	<bean id="!I:LogInterval ASM All" class="org.eclipselabs.real.core.searchobject.SOComplexRegexImpl">
 		<constructor-arg index="0" value="!I:LogInterval ASM All"></constructor-arg>
 		<property name="searchObjectDescription" value="from Spring" />
@@ -54,10 +70,7 @@
 		</property>
 		<property name="sortRequestList">
 			<list>
-				<bean class="org.eclipselabs.real.core.searchresult.sort.DateTimeSortRequest">
-					<constructor-arg index="0" value="MERGE_RESULTS" />
-					<constructor-arg index="1" value="Date_Time" />
-				</bean>
+				<ref bean="dateTimeSortRequest"/>
 				<bean class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest">
 					<constructor-arg index="0" value="MERGE_RESULTS" />
 					<constructor-arg index="1">
@@ -84,7 +97,9 @@
 			</bean>
 		</property>
 	</bean>
-
+	
+	<!-- ASM BEANS END -->
+	
 	<!-- more bean definitions for services go here -->
 
 </beans>
