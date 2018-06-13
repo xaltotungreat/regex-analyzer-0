@@ -46,10 +46,12 @@
 	<!-- ASM BEANS START -->
 
 	<!-- Commonly used ASM beans START -->
+	<!-- the group bean -->
 	<bean id="groupASM" class="org.eclipselabs.real.core.searchobject.SearchObjectGroupStrImpl" scope="prototype">
 		<constructor-arg index="0" value="Global.ASM"/>
 		<constructor-arg index="1" value="."/>
 	</bean>
+	<!-- the regex sort request bean -->
 	<bean id="regexSortRequestASM" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
 		<constructor-arg index="0" value="MERGE_RESULTS" />
 		<constructor-arg index="1">
@@ -61,6 +63,7 @@
 		</constructor-arg>
 		<constructor-arg index="2" value="Regex_Time" />
 	</bean>
+	<!-- the date info bean -->
 	<bean id="dateInfoASM" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
 		<constructor-arg index="0" value="ASM_TIME_FORMAT" />
 		<constructor-arg index="1">
