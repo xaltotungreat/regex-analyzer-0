@@ -23,6 +23,10 @@
 	
 	<!-- COMMONLY USED BEANS START -->
 	
+	<bean id="dateTimeSortRequest" class="org.eclipselabs.real.core.searchresult.sort.DateTimeSortRequest" scope="prototype">
+					<constructor-arg index="0" value="MERGE_RESULTS" />
+					<constructor-arg index="1" value="Date_Time" />
+				</bean>
 	<bean id="rrparamInstance0" class="org.eclipselabs.real.core.regex.RealRegexParamInteger" scope="prototype">
 		<constructor-arg index="0" value="instance" />
 		<constructor-arg index="1" value="0" />
@@ -83,6 +87,8 @@
 					</constructor-arg>
 					<constructor-arg index="2" value="Regex_Time" />
 				</bean>
+				<ref bean="dateTimeSortRequest"/>
+				<ref bean="regexSortRequestASM"/>
 			</list>
 		</property>
 		<property name="dateInfo">
