@@ -4,8 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- services -->
-
 	<bean id="test1" class="org.eclipselabs.real.core.searchobject.SearchObjectGroupStrImpl">
 		<property name="pathElements">
 			<list>
@@ -16,20 +14,24 @@
 		<!-- additional collaborators and configuration for this bean go here -->
 	</bean>
 	
-	<!-- Spring internal beans START -->
+	<!-- SPRING INTERNAL BEANS START -->
+	
 	<!-- This bean registers and processes (among others) @PostConstruct and @PreDestroy -->
 	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
-	<!-- Spring internal beans END -->
 	
+	<!-- SPRING INTERNAL BEANS END -->
+
+
 	<!-- COMMONLY USED BEANS START -->
 	
-	<bean id="dateTimeSortRequest" class="org.eclipselabs.real.core.searchresult.sort.DateTimeSortRequest" scope="prototype">
-					<constructor-arg index="0" value="MERGE_RESULTS" />
-					<constructor-arg index="1" value="Date_Time" />
-				</bean>
 	<bean id="rrparamInstance0" class="org.eclipselabs.real.core.regex.RealRegexParamInteger" scope="prototype">
 		<constructor-arg index="0" value="instance" />
 		<constructor-arg index="1" value="0" />
+	</bean>
+	
+	<bean id="simpleRegexNoName" class="org.eclipselabs.real.core.regex.SimpleRegexImpl">
+		<constructor-arg index="0" value="No Name" />
+		<constructor-arg index="1" value="this value must be replaced" />
 	</bean>
 
 	<bean id="firstSimpleRegex" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
@@ -48,11 +50,40 @@
 	</bean>
 	
 	<!-- COMMONLY USED BEANS END -->
-				
+
+
 	<!-- ASM BEANS START -->
+
+	<!-- Commonly used ASM beans START -->
+	<bean id="groupASM" class="org.eclipselabs.real.core.searchobject.SearchObjectGroupStrImpl" scope="prototype">
+		<constructor-arg index="0" value="Global.ASM"/>
+		<constructor-arg index="1" value="."/>
+	</bean>
+	<bean id="regexSortRequestASM" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl" parent="firstSimpleRegex" >
+					<constructor-arg index="1" value="ASM_TIME_REGEX" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<bean id="dateInfoASM" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="ASM_TIME_FORMAT" />
+		<constructor-arg index="1">
+			<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl" parent="firstSimpleRegex" >
+				<constructor-arg index="1" value="ASM_TIME_REGEX" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<!-- Commonly used ASM beans END -->
+
 	<bean id="!I:LogInterval ASM All" class="org.eclipselabs.real.core.searchobject.SOComplexRegexImpl">
 		<constructor-arg index="0" value="!I:LogInterval ASM All"></constructor-arg>
 		<property name="searchObjectDescription" value="from Spring" />
+		<property name="searchObjectGroup" ref="groupASM"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />
@@ -66,8 +97,7 @@
 		</property>
 		<property name="mainRegexList">
 			<list>
-				<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl">
-					<constructor-arg index="0" value="No Name" />
+				<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl" parent="simpleRegexNoName" >
 					<constructor-arg index="1" value="ASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*" />
 				</bean>
 			</list>
@@ -75,38 +105,13 @@
 		<property name="sortRequestList">
 			<list>
 				<ref bean="dateTimeSortRequest"/>
-				<bean class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest">
-					<constructor-arg index="0" value="MERGE_RESULTS" />
-					<constructor-arg index="1">
-						<list>
-							<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl" 
-									parent="firstSimpleRegex" >
-								<constructor-arg index="1" value="ASM_TIME_REGEX" />
-							</bean>
-						</list>
-					</constructor-arg>
-					<constructor-arg index="2" value="Regex_Time" />
-				</bean>
-				<ref bean="dateTimeSortRequest"/>
 				<ref bean="regexSortRequestASM"/>
 			</list>
 		</property>
-		<property name="dateInfo">
-			<bean class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl">
-				<constructor-arg index="0" value="ASM_TIME_FORMAT" />
-				<constructor-arg index="1">
-					<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl" 
-							parent="firstSimpleRegex" >
-						<constructor-arg index="1" value="ASM_TIME_REGEX" />
-					</bean>
-				</constructor-arg>
-			</bean>
-		</property>
+		<property name="dateInfo" ref="dateInfoASM"/>
 	</bean>
-	
+
 	<!-- ASM BEANS END -->
-	
-	<!-- more bean definitions for services go here -->
 
 </beans>
 
