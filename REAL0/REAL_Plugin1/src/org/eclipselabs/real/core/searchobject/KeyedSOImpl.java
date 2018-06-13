@@ -75,7 +75,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
         for (int i = 0; i < soGroup.getElementCount(); i++) {
             tmpParamList.clear();
             ISearchObjectGroup<String> currPath = soGroup.getSubGroup(i);
-            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
+            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceableParamRepository().getValues(
                     new ReplaceableParamKey.RPKGroupStartsWithPredicate(currPath), (new IReplaceableParam.IRPTypePredicate(ReplaceableParamValueType.STRING)));
             for (IReplaceableParam<?> rp : rpListGroup) {
                 tmpParamList.add((IReplaceableParam<String>)rp);
@@ -194,7 +194,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
         // first get group params the lower group params replace the higher group params
         for (int i = 0; i < soGroup.getElementCount(); i++) {
             ISearchObjectGroup<String> currPath = soGroup.getSubGroup(i);
-            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
+            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceableParamRepository().getValues(
                     new ReplaceableParamKey.RPKGroupStartsWithPredicate(currPath));
             if (!rpListGroup.isEmpty()) {
                 for (IReplaceableParam<?> rp : rpListGroup) {

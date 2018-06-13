@@ -10,7 +10,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.config.IConstructionSource;
-import org.eclipselabs.real.core.config.regex.constructor.IReplaceParamConstructor;
+import org.eclipselabs.real.core.config.regex.constructor.IReplaceableParamConstructor;
 import org.eclipselabs.real.core.config.xml.ConfigXmlUtil;
 import org.eclipselabs.real.core.config.xml.IConfigXmlConstants;
 import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
@@ -21,9 +21,9 @@ import org.eclipselabs.real.core.searchobject.param.ReplaceableParamValueType;
 import org.eclipselabs.real.core.util.IRealCoreConstants;
 import org.w3c.dom.Node;
 
-public class ReplaceParamXmlConstructorImpl implements IReplaceParamConstructor<Node>, IConfigXmlConstants {
+public class ReplaceableParamXmlConstructorImpl implements IReplaceableParamConstructor<Node>, IConfigXmlConstants {
 
-    private static final Logger log = LogManager.getLogger(ReplaceParamXmlConstructorImpl.class);
+    private static final Logger log = LogManager.getLogger(ReplaceableParamXmlConstructorImpl.class);
 
     @Override
     public IReplaceableParam<?> constructCO(IConstructionSource<Node> cSource) {

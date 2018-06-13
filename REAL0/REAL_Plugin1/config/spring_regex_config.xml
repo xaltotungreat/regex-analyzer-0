@@ -14,12 +14,16 @@
 		<!-- additional collaborators and configuration for this bean go here -->
 	</bean>
 	
+	<!-- SPRING INTERNAL BEANS START -->
+	
+	<!-- This bean registers and processes (among others) @PostConstruct and @PreDestroy -->
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+	
+	<!-- SPRING INTERNAL BEANS END -->
+
+
 	<!-- COMMONLY USED BEANS START -->
 	
-	<bean id="dateTimeSortRequest" class="org.eclipselabs.real.core.searchresult.sort.DateTimeSortRequest" scope="prototype">
-					<constructor-arg index="0" value="MERGE_RESULTS" />
-					<constructor-arg index="1" value="Date_Time" />
-				</bean>
 	<bean id="rrparamInstance0" class="org.eclipselabs.real.core.regex.RealRegexParamInteger" scope="prototype">
 		<constructor-arg index="0" value="instance" />
 		<constructor-arg index="1" value="0" />
@@ -38,6 +42,11 @@
 				<ref bean="rrparamInstance0" />
 			</list>
 		</property>
+	</bean> 
+	
+	<bean id="dateTimeSortRequest" class="org.eclipselabs.real.core.searchresult.sort.DateTimeSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1" value="Date_Time" />
 	</bean>
 	
 	<!-- COMMONLY USED BEANS END -->

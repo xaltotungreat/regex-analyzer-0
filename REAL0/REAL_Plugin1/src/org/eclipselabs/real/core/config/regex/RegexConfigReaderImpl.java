@@ -42,7 +42,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
         modificationLocks.add(
                 new NamedLock(SearchObjectController.INSTANCE.getSearchObjectRepository().getWriteLock(), "SearchObj repo write lock"));
         modificationLocks.add(
-                new NamedLock(SearchObjectController.INSTANCE.getReplaceParamRepository().getWriteLock(), "ReplaceParam repo write lock"));
+                new NamedLock(SearchObjectController.INSTANCE.getReplaceableParamRepository().getWriteLock(), "ReplaceParam repo write lock"));
     }
     public class AddSOCallback implements IRegexConfigCompletionCallback {
 
@@ -52,8 +52,8 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
         }
 
         @Override
-        public void addReplaceParam(ReplaceableParamKey rpKey, IReplaceableParam<?> param) {
-            SearchObjectController.INSTANCE.getReplaceParamRepository().add(rpKey, param);
+        public void addReplaceableParam(ReplaceableParamKey rpKey, IReplaceableParam<?> param) {
+            SearchObjectController.INSTANCE.getReplaceableParamRepository().add(rpKey, param);
         }
 
         @Override
@@ -62,8 +62,8 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
         }
 
         @Override
-        public void addAllReplaceParam(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParamMap) {
-            SearchObjectController.INSTANCE.getReplaceParamRepository().addAll(replaceParamMap);
+        public void addAllReplaceableParam(Map<ReplaceableParamKey, IReplaceableParam<?>> replaceParamMap) {
+            SearchObjectController.INSTANCE.getReplaceableParamRepository().addAll(replaceParamMap);
         }
 
         @Override
