@@ -53,6 +53,12 @@ public interface IAcceptanceCriterion extends Cloneable {
     public void setGuessList(List<IAcceptanceGuess> newList);
     public void addGuess(IAcceptanceGuess newGuess);
     public void addGuesses(List<IAcceptanceGuess> newGuesses);
+
+    /*
+     * If the criterion is created by means of injection the instance for the guessses
+     * must be set after the initialization in the init method.
+     */
+    public void updateCriterionReferences();
     /**
      * This method returns a list of results for every guess. All the results
      * must be true for the search to continue

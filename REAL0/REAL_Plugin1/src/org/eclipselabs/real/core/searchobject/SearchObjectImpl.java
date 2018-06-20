@@ -26,7 +26,7 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     protected Integer regexFlags;
     protected List<IInternalSortRequest> sortRequestList = Collections.synchronizedList(new ArrayList<IInternalSortRequest>());
     protected List<IAcceptanceCriterion> acceptanceList = Collections.synchronizedList(new ArrayList<IAcceptanceCriterion>());
-    protected List<IReplaceableParam<?>> replaceParams = Collections.synchronizedList(new ArrayList<IReplaceableParam<?>>());
+    protected List<IReplaceableParam<?>> replaceableParams = Collections.synchronizedList(new ArrayList<IReplaceableParam<?>>());
 
     public SearchObjectImpl(SearchObjectType aType, String aName) {
         theType = aType;
@@ -61,21 +61,21 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
 
     @Override
     public void addParam(IReplaceableParam<?> newParam) {
-        synchronized(replaceParams) {
+        synchronized(replaceableParams) {
             // before adding a new param remove all params with the same name
-            List<IReplaceableParam<?>> sameNameparams = replaceParams.stream()
+            List<IReplaceableParam<?>> sameNameparams = replaceableParams.stream()
                     .filter(param -> param.getKey().equals(newParam.getKey()))
                     .collect(Collectors.toList());
-            replaceParams.removeAll(sameNameparams);
-            replaceParams.add(newParam);
+            replaceableParams.removeAll(sameNameparams);
+            replaceableParams.add(newParam);
         }
     }
 
     @Override
     public Optional<IReplaceableParam<?>> getParam(ReplaceableParamKey key) {
         Optional<IReplaceableParam<?>> result = Optional.empty();
-        synchronized(replaceParams) {
-            result = replaceParams.stream().filter((rp) -> key.equals(rp.getKey())).findFirst();
+        synchronized(replaceableParams) {
+            result = replaceableParams.stream().filter((rp) -> key.equals(rp.getKey())).findFirst();
         }
         return result;
     }
@@ -83,22 +83,32 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
     @Override
     public boolean removeParam(ReplaceableParamKey key) {
         boolean result = false;
-        synchronized(replaceParams) {
-            List<IReplaceableParam<?>> toRemove = replaceParams.stream().filter((rp) -> key.equals(rp.getKey())).collect(Collectors.toList());
+        synchronized(replaceableParams) {
+            List<IReplaceableParam<?>> toRemove = replaceableParams.stream().filter((rp) -> key.equals(rp.getKey())).collect(Collectors.toList());
             result = !toRemove.isEmpty();
-            replaceParams.removeAll(toRemove);
+            replaceableParams.removeAll(toRemove);
         }
         return result;
     }
 
     @Override
     public boolean paramExists(ReplaceableParamKey key) {
-        return replaceParams.stream().anyMatch((rp) -> key.equals(rp.getKey()));
+        return replaceableParams.stream().anyMatch((rp) -> key.equals(rp.getKey()));
+    }
+
+    /**
+     * This method does not allow for setting the collection reference.
+     * It clears the internal collection and adds the new replaceable params
+     * @param replaceParams
+     */
+    public void setReplaceableParams(List<IReplaceableParam<?>> replaceParams) {
+        this.replaceableParams.clear();
+        this.replaceableParams.addAll(replaceParams);
     }
 
     @Override
     public List<IReplaceableParam<?>> getCloneParamList() {
-        List<IReplaceableParam<?>> actualParams = replaceParams;
+        List<IReplaceableParam<?>> actualParams = replaceableParams;
         List<IReplaceableParam<?>> cloneList = new ArrayList<>();
         for (IReplaceableParam<?> rp : actualParams) {
             try {
@@ -238,7 +248,7 @@ public abstract class SearchObjectImpl<R extends ISearchResult<O>,O extends ISea
             cloneObj.setAcceptanceList(clonedList);
         }
         //replace params
-        cloneObj.replaceParams = getCloneParamList();
+        cloneObj.replaceableParams = getCloneParamList();
         return cloneObj;
     }
 

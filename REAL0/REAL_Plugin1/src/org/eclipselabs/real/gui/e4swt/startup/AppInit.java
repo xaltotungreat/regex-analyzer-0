@@ -46,8 +46,11 @@ public class AppInit {
             reader.loadBeanDefinitions(new InputStreamResource(springIS));
             context.refresh();
             //ISearchObjectGroup<String> tmpBean = context.getBean("test1", ISearchObjectGroup.class);
-            ISOComplexRegex compl1 = context.getBean("!I:LogInterval ASM All", ISOComplexRegex.class);
+            ISOComplexRegex compl1 = context.getBean("!I:LogInterval ASM", ISOComplexRegex.class);
             log.info("Spring loaded bean " + compl1.toString());
+
+            ISOComplexRegex compl2 = context.getBean("ASM Value Within Interval", ISOComplexRegex.class);
+            log.info("Spring loaded bean " + compl2.toString());
         } catch (IOException e2) {
             log.error("Init SPRING config error",e2);
         }

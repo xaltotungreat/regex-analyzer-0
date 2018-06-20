@@ -39,7 +39,7 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
             proceed = false;
         }
         if (proceed) {
-            IDTIntervalCriterion currCriterion = (IDTIntervalCriterion)criterion;
+            IDTIntervalCriterion currCriterion = (IDTIntervalCriterion)acceptanceCriterion;
             result = new AcceptanceGuessResult(currCriterion.getName(), currCriterion.getType());
             LocalDateTime lowBound = currCriterion.getLowBound();
             LocalDateTime highBound = currCriterion.getHighBound();
