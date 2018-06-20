@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry exported="true" kind="lib" path="lib/spring/spring-jcl-5.0.6.RELEASE.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/spring/spring-expression-5.0.6.RELEASE.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/spring/spring-core-5.0.6.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring/spring-core-5.0.6.RELEASE.jar" sourcepath="lib/spring/spring-core-5.0.6.RELEASE-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/spring/spring-context-5.0.6.RELEASE.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/spring/spring-beans-5.0.6.RELEASE.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring/spring-beans-5.0.6.RELEASE.jar" sourcepath="lib/spring/spring-beans-5.0.6.RELEASE-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/spring/spring-aop-5.0.6.RELEASE.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/groovy-all-2.4.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-api-2.2.jar"/>
