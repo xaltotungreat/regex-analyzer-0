@@ -14,6 +14,7 @@
 
 
 	<!-- COMMONLY USED BEANS START -->
+	<!-- This file must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
 	<bean id="searchObjectParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexImpl" abstract="true">
 		<constructor-arg index="0" value="No name SO"/>
 	</bean>

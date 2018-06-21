@@ -32,9 +32,9 @@ import org.eclipselabs.real.core.util.NamedLock;
  *
  * @param <U> the type of the source (InputStream for a file, JDBC conn for a DB etc.)
  */
-public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
+public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U, Integer> {
 
-    protected List<NamedLock> modificationLocks = new ArrayList<NamedLock>();
+    protected List<NamedLock> modificationLocks = new ArrayList<>();
     protected ExecutorService configReaderExecutor;
 
     public RegexConfigReaderImpl(ExecutorService executor) {
@@ -128,7 +128,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U> {
     protected <K, V> CompletableFuture<V> submitConstructionTask(
             IConfigObjectConstructor<K, V> coConstructor,
             IConstructionSource<K> aSource) {
-        ConstructionTask<K, V> newTask = new ConstructionTask<K, V>(
+        ConstructionTask<K, V> newTask = new ConstructionTask<>(
                 coConstructor, aSource);
         return CompletableFuture.supplyAsync(newTask, configReaderExecutor);//configReaderExecutor.submit(newTask);
     }

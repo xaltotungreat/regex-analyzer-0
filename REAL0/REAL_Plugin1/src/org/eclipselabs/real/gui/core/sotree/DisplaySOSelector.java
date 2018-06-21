@@ -23,7 +23,7 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
     protected List<TagRef> tagsRegexes = new ArrayList<TagRef>();
 
     protected String textViewName;
-    protected List<String> shortViewPatterns = new ArrayList<String>();
+    protected List<String> viewNamePatterns = new ArrayList<String>();
     protected List<SortRequestKey> sortRequestKeys;
 
 
@@ -111,7 +111,7 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
             if (matchesSearchObject(searchObj)) {
                 IDisplaySO displaySearchObj = new DisplaySOImpl(searchObj.getSearchObjectName(), searchObj, false);
                 displaySearchObj.setTextViewName(getTextViewName());
-                displaySearchObj.setViewNamePatterns(new ArrayList<String>(getViewPatterns()));
+                displaySearchObj.setViewNamePatterns(new ArrayList<String>(getViewNamePatterns()));
                 List<SortRequestKey> copyList = null;
                 if ((getSortRequestKeys() != null) && (!getSortRequestKeys().isEmpty())) {
                     copyList = new ArrayList<>();
@@ -188,8 +188,8 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
     }
 
     @Override
-    public List<String> getViewPatterns() {
-        return shortViewPatterns;
+    public List<String> getViewNamePatterns() {
+        return viewNamePatterns;
     }
 
     @Override
@@ -198,13 +198,13 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
     }
 
     @Override
-    public void setViewPatterns(List<String> shortViewNames) {
-        this.shortViewPatterns = shortViewNames;
+    public void setViewNamePatterns(List<String> shortViewNames) {
+        this.viewNamePatterns = shortViewNames;
     }
 
     @Override
-    public void addViewPattern(String aViewName) {
-        shortViewPatterns.add(aViewName);
+    public void addViewNamePattern(String aViewName) {
+        viewNamePatterns.add(aViewName);
     }
 
     @Override

@@ -22,6 +22,7 @@ import org.eclipselabs.real.core.config.xml.IConfigXmlConstants;
 import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
 import org.eclipselabs.real.core.logfile.LogFileTypeRepository;
+import org.springframework.context.ApplicationContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -51,6 +52,17 @@ public enum LogFileTypes {
             }
         } catch (IOException | SAXException | ParserConfigurationException e) {
             log.error("Parsing log types Exception", e);
+        }
+    }
+
+    public void initFromApplicationContext(ApplicationContext context, InputStream activationIS) {
+        Map<String,LogFileType> allLogTypes = context.getBeansOfType(LogFileType.class);
+        allLogTypes.entrySet().stream().map(ent -> (LogFileType)ent.getValue())
+                .forEach(lft -> logFileTypeRep.add(new LogFileTypeKey(lft.getLogTypeName()), lft));
+        if (activationIS != null) {
+            loadActiveStates(activationIS);
+        } else {
+            log.info("startup No active configuration found - loading default (all active)");
         }
     }
 

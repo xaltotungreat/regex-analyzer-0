@@ -4,6 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!-- This file should contain only imports. Other xml files should contain bean definitions -->
+    <import resource="logtypes_beans.xml"/>
     <import resource="common_beans.xml"/>
+    <import resource="gui_beans.xml"/>
     <import resource="ASM_beans.xml"/>
 </beans>

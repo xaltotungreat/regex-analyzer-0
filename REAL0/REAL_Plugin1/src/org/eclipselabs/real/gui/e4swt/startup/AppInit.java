@@ -2,6 +2,7 @@ package org.eclipselabs.real.gui.e4swt.startup;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -13,11 +14,16 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipselabs.real.core.config.ConfigurationController;
+import org.eclipselabs.real.core.config.IConfigReader;
 import org.eclipselabs.real.core.config.IConfigurationConsts;
+import org.eclipselabs.real.core.config.spring.GUITemplateStore;
+import org.eclipselabs.real.core.config.spring.SpringConfigReader;
+import org.eclipselabs.real.core.logtype.LogFileType;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.osgi.framework.Bundle;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class AppInit {
@@ -31,16 +37,12 @@ public class AppInit {
             return;
         }
         // put it here for testing
-        initSpringConfig();
+        initSpringConfigTest(plugBundle);
         // use the old config for now
-        initFromOldXMLConfig();
+        initFromOldXMLConfig(plugBundle);
     }
 
-    private void initFromOldXMLConfig() {
-        Bundle plugBundle = Platform.getBundle(IEclipse4Constants.DEFINING_PLUGIN_NAME);
-        if (plugBundle == null) {
-            return;
-        }
+    private void initFromOldXMLConfig(Bundle plugBundle) {
 
         try (InputStream perfIS = FileLocator.openStream(
                 plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
@@ -111,7 +113,7 @@ public class AppInit {
         log.info("Finished Loading the config files");
     }
 
-    private void initSpringConfig() {
+    private void initSpringConfigTest(Bundle plugBundle) {
         /*
          * This is an example of loading a config from a Spring xml config instead of
          * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
@@ -127,13 +129,59 @@ public class AppInit {
             XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
             reader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_XSD);
             reader.loadBeanDefinitions("config/spring/main_beans.xml");*/
-            context.refresh();
+            //context.refresh();
+            Map<String,LogFileType> allLogTypes = context.getBeansOfType(LogFileType.class);
+            log.info("All Lag TYPES \n" + allLogTypes);
             ISOComplexRegex compl1 = context.getBean("!I:LogInterval ASM", ISOComplexRegex.class);
             log.info("Spring loaded bean " + compl1.toString());
 
             ISOComplexRegex compl2 = context.getBean("ASM Value Within Interval", ISOComplexRegex.class);
             log.info("Spring loaded bean " + compl2.toString());
 
+            GUITemplateStore ts = context.getBean(GUITemplateStore.class);
+            log.info("Spring GUI " + ts.toString());
+
+        }
+    }
+
+    private void initSpringConfig(Bundle plugBundle) {
+        /*
+         * This is an example of loading a config from a Spring xml config instead of
+         * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
+         * TODO
+         */
+        String configName = System.getProperty("real.config");
+        if ((configName == null) || (configName.isEmpty())) {
+            log.error("The name of the spring config not found real.config");
+            return;
+        }
+
+        InputStream logActivationIS = null;
+        try (ClassPathXmlApplicationContext context
+                    = new ClassPathXmlApplicationContext("config/spring/" + configName + "/main_beans.xml")) {
+
+            if (FileLocator.findEntries(plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
+                logActivationIS = FileLocator.openStream(
+                        plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
+            }
+            if (logActivationIS != null) {
+                context.getBeanFactory().registerSingleton("logActivationInputStream", logActivationIS);
+            }
+
+            IConfigReader<ApplicationContext, Integer> springConfigReader = new SpringConfigReader();
+
+            springConfigReader.read(context);
+
+        } catch (IOException e) {
+            log.error("Init logs error", e);
+        } finally {
+            if (logActivationIS != null) {
+                try {
+                    logActivationIS.close();
+                } catch (IOException e) {
+                    log.error("startup",e);
+                }
+            }
         }
     }
 }

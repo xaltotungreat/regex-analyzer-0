@@ -14,8 +14,8 @@ import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.gui.core.GUIConfigController;
 import org.eclipselabs.real.gui.core.GUIConfigKey;
 
-public abstract class GUIConfigReaderImpl<U> implements IConfigReader<U> {
-    protected List<NamedLock> modificationLocks = new ArrayList<NamedLock>();
+public abstract class GUIConfigReaderImpl<U> implements IConfigReader<U, Integer> {
+    protected List<NamedLock> modificationLocks = new ArrayList<>();
     protected ExecutorService configReaderExecutor;
 
     public class GUICompletionCallback implements IGUIConfigCompletionCallback {
@@ -36,7 +36,7 @@ public abstract class GUIConfigReaderImpl<U> implements IConfigReader<U> {
     protected <K, V> CompletableFuture<V> submitConstructionTask(
             IConfigObjectConstructor<K, V> coConstructor,
             IConstructionSource<K> aSource) {
-        ConstructionTask<K, V> newTask = new ConstructionTask<K, V>(
+        ConstructionTask<K, V> newTask = new ConstructionTask<>(
                 coConstructor, aSource);
         return CompletableFuture.supplyAsync(newTask, configReaderExecutor);//configReaderExecutor.submit(newTask);
     }

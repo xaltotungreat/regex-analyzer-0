@@ -7,6 +7,7 @@
     <!-- ASM BEANS START -->
 
 	<!-- Commonly used ASM beans START -->
+	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
 	<!-- the group bean -->
 	<bean id="groupASM" class="org.eclipselabs.real.core.searchobject.SearchObjectGroupStrImpl" scope="prototype">
 		<constructor-arg index="0" value="Global.ASM"/>
@@ -70,7 +71,7 @@
 	<!-- Commonly used ASM beans END -->
 	<!-- Normal ASM beans start -->
 	<bean id="!I:LogInterval ASM All" parent="searchObjectParentASM">
-		<constructor-arg index="0" value="!I:LogInterval ASM All"></constructor-arg>
+		<constructor-arg index="0" value="!I:LogInterval ASM All"/>
 		<property name="searchObjectDescription" value="Finds all records" />
 		<property name="searchObjectTags">
 			<map>
@@ -88,7 +89,7 @@
 	</bean>
 	
 	<bean id="!I:LogInterval ASM" parent="!I:LogInterval ASM All">
-		<constructor-arg index="0" value="!I:LogInterval ASM"></constructor-arg>
+		<constructor-arg index="0" value="!I:LogInterval ASM"/>
 		<property name="replaceableParams">
 			<list>
 				<ref bean="paramLowBoundDate"/>
@@ -109,7 +110,7 @@
 	</bean>
 	
 	<bean id="Internal ANY RECORD Containing value ASM"  parent="searchObjectParentASM">
-		<constructor-arg index="0" value="Internal ANY RECORD Containing value ASM"></constructor-arg>
+		<constructor-arg index="0" value="Internal ANY RECORD Containing value ASM"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="internal" />
@@ -159,7 +160,7 @@
 	</bean>
 	
 	<bean id="ASM Value Within Interval"  parent="Internal ANY RECORD Containing value ASM">
-		<constructor-arg index="0" value="ASM Value Within Interval"></constructor-arg>
+		<constructor-arg index="0" value="ASM Value Within Interval"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />
@@ -185,7 +186,7 @@
 	</bean>
 	
 	<bean id="ASM ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value ASM">
-		<constructor-arg index="0" value="ASM ANY RECORD Containing value"></constructor-arg>
+		<constructor-arg index="0" value="ASM ANY RECORD Containing value"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />
@@ -194,7 +195,7 @@
 	</bean>
 	
 	<bean id="!L:Files Timespan ASM"  parent="searchObjectParentASM">
-		<constructor-arg index="0" value="!L:Files Timespan ASM"></constructor-arg>
+		<constructor-arg index="0" value="!L:Files Timespan ASM"/>
 		<property name="mainRegexList">
 			<list>
 				<bean parent="simpleRegexNoName" >
@@ -226,7 +227,7 @@
 	</bean>
 	
 	<bean id="TSMAPI"  parent="searchObjectParentASM">
-		<constructor-arg index="0" value="TSMAPI"></constructor-arg>
+		<constructor-arg index="0" value="TSMAPI"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />

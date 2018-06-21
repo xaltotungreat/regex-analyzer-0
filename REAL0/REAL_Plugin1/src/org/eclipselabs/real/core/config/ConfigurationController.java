@@ -16,12 +16,12 @@ public enum ConfigurationController {
             new NamedThreadFactory("ReadConfigThread"));
 
     public CompletableFuture<Integer> initXmlRegexConfiguration(InputStream configFileStream) {
-        IConfigReader<InputStream> regexCFReader = new RegexXmlConfigFileReader(configReaderExecutor);
+        IConfigReader<InputStream, Integer> regexCFReader = new RegexXmlConfigFileReader(configReaderExecutor);
         return regexCFReader.read(configFileStream);
     }
 
     public CompletableFuture<Integer> initXmlGUIConfiguration(InputStream configFileStream) {
-        IConfigReader<InputStream> guiCFReader = new GUIXmlConfigFileReader(configReaderExecutor);
+        IConfigReader<InputStream, Integer> guiCFReader = new GUIXmlConfigFileReader(configReaderExecutor);
         return guiCFReader.read(configFileStream);
     }
 

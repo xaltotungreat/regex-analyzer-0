@@ -81,7 +81,7 @@ public class DisplaySOSelectorXmlConstructor implements IDisplaySOSelectorConstr
         for (Node node : shortViews) {
             List<Node> shortViewItems = ConfigXmlUtil.collectChildNodes(node, XmlConfigNodeType.SHORT_VIEW);
             for (Node node2 : shortViewItems) {
-                newSelector.addViewPattern(node2.getTextContent());
+                newSelector.addViewNamePattern(node2.getTextContent());
             }
         }
         
