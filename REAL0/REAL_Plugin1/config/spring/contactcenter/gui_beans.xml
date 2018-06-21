@@ -866,33 +866,6 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCC_CacheResiliency" parent="templateComplexRegexDefault">
-		<constructor-arg index="0" value="CC_CacheResiliency"/>
-		<property name="selectorList">
-			<list>
-				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CC_CacheResiliency Intervals"/>
-					<constructor-arg index="2">
-						<list>
-							<bean parent="simpleRegexNoName">
-								<constructor-arg index="1" value="\AGlobal.CC_CacheResiliency(\..*)?" />
-							</bean>
-						</list>
-					</constructor-arg>
-				</bean>
-				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CC_CacheResiliency Default"/>
-					<constructor-arg index="2">
-						<list>
-							<bean parent="simpleRegexNoName">
-								<constructor-arg index="1" value="\AGlobal.CC_CacheResiliency(\..*)?" />
-							</bean>
-						</list>
-					</constructor-arg>
-				</bean>
-			</list>
-		</property>
-	</bean>
 	
 	<!-- GUI beans END -->
 	

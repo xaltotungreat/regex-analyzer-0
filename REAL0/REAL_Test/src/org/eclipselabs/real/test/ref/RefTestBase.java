@@ -53,7 +53,7 @@ public abstract class RefTestBase {
 
     @Before
     public void setUp() {
-        IConfigReader<InputStream> regexCFReader = new RegexXmlConfigFileReader(fixedPool);
+        IConfigReader<InputStream, Integer> regexCFReader = new RegexXmlConfigFileReader(fixedPool);
         try {
             CompletableFuture<Integer> future = regexCFReader.read(Files.newInputStream(Paths.get(configName), StandardOpenOption.READ));
             // wait until the config is read

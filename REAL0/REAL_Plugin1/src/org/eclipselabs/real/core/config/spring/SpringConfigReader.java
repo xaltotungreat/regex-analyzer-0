@@ -32,7 +32,7 @@ public class SpringConfigReader implements IConfigReader<ApplicationContext, Int
                 Collectors.toMap(
                         entr -> new SearchObjectKey(entr.getValue().getSearchObjectName(),
                                 entr.getValue().getSearchObjectGroup(), entr.getValue().getSearchObjectTags()),
-                        entr -> entr.getValue()));
+                        Map.Entry::getValue));
         SearchObjectController.INSTANCE.getSearchObjectRepository().addAll(allSo);
 
         return null;
