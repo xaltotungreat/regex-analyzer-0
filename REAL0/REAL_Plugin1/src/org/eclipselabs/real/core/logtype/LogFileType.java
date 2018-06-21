@@ -85,6 +85,11 @@ public class LogFileType {
         stateInfo = stateInf;
     }
 
+    public LogFileType(String typeName, Set<String> ptns) {
+        this(typeName);
+        this.setFilePatterns(ptns);
+    }
+
     public String getLogTypeName() {
         return logTypeName;
     }
@@ -94,7 +99,8 @@ public class LogFileType {
     }
 
     public void setFilePatterns(Set<String> filePatterns) {
-        this.filePatterns = filePatterns;
+        this.filePatterns.clear();
+        this.filePatterns.addAll(filePatterns);
     }
 
     public void addPattern(String newPattern) {

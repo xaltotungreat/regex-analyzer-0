@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="generalLogType" class="org.eclipselabs.real.core.logtype.LogFileType">
+	</bean>
+	
+	<bean id="logTypeAML" parent="generalLogType">
+		<constructor-arg index="0" value="AML"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_AML(\.\d+)*\.log</value>
+				<value>CCMS_AML(_\d)?\.log</value>
+				<value>CCMS-CCMS_AML(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeASM" parent="generalLogType">
+		<constructor-arg index="0" value="ASM"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_ASM(_\d)?\.log</value>
+				<value>CCMS-CCMS_ASM(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>ASM_\d+_\d+.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCCMM_EmailManager" parent="generalLogType">
+		<constructor-arg index="0" value="CCMM_EmailManager"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMM_EmailManager_\d\.log</value>
+				<value>CCMM-CCMM_EmailManager(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>EmailManager_\d+_\d+.log</value>
+				<value>CCMM_Emailservice_\d\.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCCMM_MCMClient" parent="generalLogType">
+		<constructor-arg index="0" value="CCMM_MCMClient"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMM_MCMClient_\d\.log</value>
+				<value>CCMM-CCMM_MCMClient(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>MCMClient_\d+_\d+.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCCMM_OAMClient" parent="generalLogType">
+		<constructor-arg index="0" value="CCMM_OAMClient"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMM_OAMClient_\d\.log</value>
+				<value>CCMM-CCMM_OAMClient(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>OAMClient_\d+_\d+.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCCMM_StarterService" parent="generalLogType">
+		<constructor-arg index="0" value="CCMM_StarterService"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMM_StarterService_\d\.log</value>
+				<value>CCMM-CCMM_StarterService(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>StarterService_\d+_\d+.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCCMM_CMF" parent="generalLogType">
+		<constructor-arg index="0" value="CCMM_CMF"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMM_CMF_\d\.log</value>
+				<value>CCMM-CCMM_CMF(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeEB" parent="generalLogType">
+		<constructor-arg index="0" value="EB"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_EB(_\d)?\.log</value>
+				<value>CCMS-CCMS_EB(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_SipSp" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_SipSp"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_SipSp.log(\.\d+)?</value>
+				<value>CCMS-CCMS_SGM_SipSp.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_AmlSp" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_AmlSp"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_AmlSp.log(\.\d+)?</value>
+				<value>CCMS-CCMS_SGM_AmlSp.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_SipSpCpp" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_SipSpCpp"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_SipSpCpp\d?.log</value>
+				<value>CCMS-CCMS_SGM_SipSpCpp\d-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_SipRvCpp" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_SipRvCpp"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_SipRvCpp\d?\.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_XMPP_Service" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_XMPP_Service"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_XMPP_Service.log(\.\d+)?</value>
+				<value>CCMS-CCMS_SGM_XMPP_Service.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_XMPPMessages" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_XMPPMessages"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_XMPPMessages.log(\.\d+)?</value>
+				<value>CCMS-CCMS_SGM_XMPPMessages.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCMF_OAM" parent="generalLogType">
+		<constructor-arg index="0" value="CMF_OAM"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CMF_OAM(_\d+)?\.log</value>
+				<value>CMF_OAM.log(\.\d+)?</value>
+				<value>CCMS-CMF_OAM(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>CMF_\d+_\d+\.log</value>
+				<value>CMF_SP(_\d+)?\.log</value>
+				<value>CCT-CMF_SP(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCMF_OAM32" parent="generalLogType">
+		<constructor-arg index="0" value="CMF_OAM32"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CMF_OAM32(_\d+)?\.log</value>
+				<value>CCMS-CMF_OAM32(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCMF_OI" parent="generalLogType">
+		<constructor-arg index="0" value="CMF_OI"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CMF_OI(_\d+)?\.log</value>
+				<value>CCT-CMF_OI(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_SipMessages" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_SipMessages"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_SipMessages\d?\.log</value>
+				<value>CCMS-CCMS_SGM_SipMessages(\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>SipMsg_\d+_\d+\.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeSGM_TapidMessages" parent="generalLogType">
+		<constructor-arg index="0" value="SGM_TapidMessages"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMS_SGM_TapidMessages.log(\.\d+)?</value>
+				<value>CCMS-CCMS_SGM_TapidMessages.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCCT_SERVER" parent="generalLogType">
+		<constructor-arg index="0" value="CCT_SERVER"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCT_SERVER_\d\.log</value>
+				<value>CCT-CCT_SERVER(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>CCT_\d+_\d+\.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCCT_SERVER" parent="generalLogType">
+		<constructor-arg index="0" value="CCT_SERVER"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCT_SERVER_\d\.log</value>
+				<value>CCT-CCT_SERVER(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+				<value>CCT_\d+_\d+\.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeCC_CacheResiliency" parent="generalLogType">
+		<constructor-arg index="0" value="CC_CacheResiliency"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CC_CacheResiliency(_\d)?\.log</value>
+				<value>Common-CC_CacheResiliency(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="logTypeAgentDesktop" parent="generalLogType">
+		<constructor-arg index="0" value="AgentDesktop"></constructor-arg>
+		<constructor-arg index="1">
+			<set>
+				<value>CCMM_AgentDesktop(_\d)?\.log</value>
+			</set>
+		</constructor-arg>
+	</bean>
+</beans>

@@ -18,8 +18,7 @@ import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.osgi.framework.Bundle;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class AppInit {
     private static final Logger log = LogManager.getLogger(AppInit.class);
@@ -31,22 +30,17 @@ public class AppInit {
         if (plugBundle == null) {
             return;
         }
+        // put it here for testing
+        initSpringConfig();
+        // use the old config for now
+        initFromOldXMLConfig();
+    }
 
-        /*
-         * This is an example of loading a config from a Spring xml config instead of
-         * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
-         * TODO
-         */
-        GenericApplicationContext context = new GenericApplicationContext();
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
-        reader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_XSD);
-        reader.loadBeanDefinitions("config/spring/main_beans.xml");
-        context.refresh();
-        ISOComplexRegex compl1 = context.getBean("!I:LogInterval ASM", ISOComplexRegex.class);
-        log.info("Spring loaded bean " + compl1.toString());
-
-        ISOComplexRegex compl2 = context.getBean("ASM Value Within Interval", ISOComplexRegex.class);
-        log.info("Spring loaded bean " + compl2.toString());
+    private void initFromOldXMLConfig() {
+        Bundle plugBundle = Platform.getBundle(IEclipse4Constants.DEFINING_PLUGIN_NAME);
+        if (plugBundle == null) {
+            return;
+        }
 
         try (InputStream perfIS = FileLocator.openStream(
                 plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
@@ -115,5 +109,31 @@ public class AppInit {
         }
 
         log.info("Finished Loading the config files");
+    }
+
+    private void initSpringConfig() {
+        /*
+         * This is an example of loading a config from a Spring xml config instead of
+         * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
+         * TODO
+         */
+        String configName = System.getProperty("real.config");
+        if ((configName == null) || (configName.isEmpty())) {
+            log.error("The name of the spring config not found real.config");
+            return;
+        }
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("config/spring/" + configName + "/main_beans.xml")) {
+            /*GenericApplicationContext context = new GenericApplicationContext();
+            XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
+            reader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_XSD);
+            reader.loadBeanDefinitions("config/spring/main_beans.xml");*/
+            context.refresh();
+            ISOComplexRegex compl1 = context.getBean("!I:LogInterval ASM", ISOComplexRegex.class);
+            log.info("Spring loaded bean " + compl1.toString());
+
+            ISOComplexRegex compl2 = context.getBean("ASM Value Within Interval", ISOComplexRegex.class);
+            log.info("Spring loaded bean " + compl2.toString());
+
+        }
     }
 }

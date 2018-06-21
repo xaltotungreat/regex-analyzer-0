@@ -4,7 +4,7 @@
 	<!-- The number of search operations (with GUI) that can be performed simultaneously -->
 	<entry key="org.eclipselabs.real.gui.e4swt.conveyor.SimultaneousConveyorOperationsNumber">4</entry>
 	
-	<!-- The maximum size of the aggregate in megabytes -->
+	<!-- The maximum size of the log aggregate in megabytes -->
 	<entry key="org.eclipselabs.real.core.logfile.AggregateSizeLimit">20</entry>
 	
 	<!-- The number of the threads that actually perform search in log files. For example if the number if 2
@@ -28,7 +28,7 @@
 	<entry key="org.eclipselabs.real.core.MaxGCCount">1000</entry>
 	
 	<!-- Max GUI operations (for example coloring a word when installing a OOI) before running a GC. 
-	It helps keep the heap size small enough. Every search operation uses regular expressions 
+	It helps keep the heap size small enough. Every GUI operation uses regular expressions 
 	and leaves a lot of garbage -->
 	<entry key="org.eclipselabs.real.gui.e4swt.parts.GUISearchResult.MaxGCCount">100</entry>
 	
