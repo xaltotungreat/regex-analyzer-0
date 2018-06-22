@@ -867,38 +867,142 @@
 		</property>
 	</bean>
 	
+	<!-- The tree beans START -->
+	<bean id="searchObjectTreeNodeDefault" abstract="true" class="org.eclipselabs.real.core.util.ExtendedMutableTreeNode" />
+	<bean id="folderDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySOFolderImpl"/>
+	<bean id="rootDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySORoot"/>
+	
+	<bean id="searchObjectTree" parent="searchObjectTreeNodeDefault">
+		<constructor-arg index="0">
+			<bean parent="rootDefault">
+				<constructor-arg index="0" value="Search Object Tree"/>
+				<constructor-arg index="1" value="true"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<list>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateGlobal"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<!-- This is an example of folders -->
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0">
+						<bean parent="folderDefault">
+							<constructor-arg index="0" value="test folder"/>
+							<constructor-arg index="1" value="true"/>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="1">
+						<list>
+							<bean parent="searchObjectTreeNodeDefault">
+								<constructor-arg index="0">
+									<bean parent="folderDefault">
+										<constructor-arg index="0" value="test folder 2"/>
+										<constructor-arg index="1" value="true"/>
+									</bean>
+								</constructor-arg>
+								<constructor-arg index="1">
+									<list>
+										<bean parent="searchObjectTreeNodeDefault">
+											<constructor-arg index="0" ref="templateCCMM_EmailManager"/>
+											<constructor-arg index="1"><list/></constructor-arg>
+										</bean>
+									</list>
+								</constructor-arg>
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_MCMClient"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_StarterService"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_OAMClient"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_CMF"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateAgentDesktop"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_SipSp"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_AmlSp"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_SipMessages"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_TapidMessages"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_XMPP_Service"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCMF_OAM_SP"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCMF_OAM32"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateASM"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCT_SERVER"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateAML"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_SipSpCpp"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateEB"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_SipRvCpp"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCMF_OI"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCC_CacheResiliency"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+	<!-- The tree beans END -->
 	<!-- GUI beans END -->
 	
 	<!-- This object contains all beans in the correct order -->
-	<bean id="allGUITemplates" class="org.eclipselabs.real.core.config.spring.GUITemplateStore">
+	<bean id="allGUIProperties" class="org.eclipselabs.real.core.config.spring.GUIPropertiesStore">
 		<constructor-arg index="0">
-			<list>
-				<ref bean="templateGlobal"/>
-				<ref bean="templateCCMM_EmailManager"/>
-				<ref bean="templateCCMM_MCMClient"/>
-				<ref bean="templateCCMM_StarterService"/>
-				<ref bean="templateCCMM_OAMClient"/>
-				<ref bean="templateCCMM_CMF"/>
-				<ref bean="templateAgentDesktop"/>
-				<ref bean="templateSGM_SipSp"/>
-				<ref bean="templateSGM_AmlSp"/>
-				<ref bean="templateSGM_SipMessages"/>
-				<ref bean="templateSGM_TapidMessages"/>
-				<ref bean="templateSGM_XMPP_Service"/>
-				<ref bean="templateSGM_XMPPMessages"/>
-				<ref bean="templateCMF_OAM_SP"/>
-				<ref bean="templateCMF_OAM32"/>
-				<ref bean="templateASM"/>
-				<ref bean="templateCCT_SERVER"/>
-				<ref bean="templateAML"/>
-				<ref bean="templateSGM_SipSpCpp"/>
-				<ref bean="templateEB"/>
-				<ref bean="templateSGM_SipRvCpp"/>
-				<ref bean="templateCMF_OI"/>
-				<ref bean="templateCC_CacheResiliency"/>
-			</list>
-		</constructor-arg>
-		<constructor-arg index="1">
 			<list>
 				<bean parent="guiPropertyDefault">
 					<constructor-arg index="0" value="TextReadOnly"/>
@@ -908,5 +1012,7 @@
 		</constructor-arg>
 	</bean>
 </beans>
+
+
 
 

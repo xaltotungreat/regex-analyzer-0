@@ -16,7 +16,7 @@ import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipselabs.real.core.config.ConfigurationController;
 import org.eclipselabs.real.core.config.IConfigReader;
 import org.eclipselabs.real.core.config.IConfigurationConsts;
-import org.eclipselabs.real.core.config.spring.GUITemplateStore;
+import org.eclipselabs.real.core.config.spring.GUIPropertiesStore;
 import org.eclipselabs.real.core.config.spring.SpringConfigReader;
 import org.eclipselabs.real.core.logtype.LogFileType;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
@@ -37,9 +37,10 @@ public class AppInit {
             return;
         }
         // put it here for testing
-        initSpringConfigTest(plugBundle);
+        //initSpringConfigTest(plugBundle);
         // use the old config for now
-        initFromOldXMLConfig(plugBundle);
+        //initFromOldXMLConfig(plugBundle);
+        initSpringConfig(plugBundle);
     }
 
     private void initFromOldXMLConfig(Bundle plugBundle) {
@@ -138,7 +139,7 @@ public class AppInit {
             ISOComplexRegex compl2 = context.getBean("ASM Value Within Interval", ISOComplexRegex.class);
             log.info("Spring loaded bean " + compl2.toString());
 
-            GUITemplateStore ts = context.getBean(GUITemplateStore.class);
+            GUIPropertiesStore ts = context.getBean(GUIPropertiesStore.class);
             log.info("Spring GUI " + ts.toString());
 
         }
@@ -154,6 +155,19 @@ public class AppInit {
         if ((configName == null) || (configName.isEmpty())) {
             log.error("The name of the spring config not found real.config");
             return;
+        }
+
+        /*
+         * Initialize the performance values first
+         */
+        try (InputStream perfIS = FileLocator.openStream(
+                plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
+            Properties perfProp = new Properties();
+            perfProp.loadFromXML(perfIS);
+            perfProp.forEach((Object key, Object value) -> System.setProperty((String)key, (String)value));
+            log.info("startup Performance properties loaded");
+        } catch (IOException e1) {
+            log.error("Init performance config error",e1);
         }
 
         InputStream logActivationIS = null;

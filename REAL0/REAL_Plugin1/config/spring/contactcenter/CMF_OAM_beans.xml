@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- CMF_OAM BEANS START -->
+
+	<!-- Commonly used CMF_OAM beans START -->
+	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<!-- the group bean -->
+	<bean id="groupCMF_OAM" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global.CMF_OAM"/>
+	</bean>
+	<!-- The parent of all CMF_OAM complex regexes -->
+	<bean id="searchObjectParentCMF_OAM" parent="searchObjectParent" abstract="true">
+		<property name="searchObjectGroup" ref="groupCMF_OAM"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="requiredLogTypes">
+			<set>
+				<value>CMF_OAM</value>
+			</set>
+		</property>
+		<property name="sortRequestList">
+			<list>
+				<ref bean="sortRequestDateTime"/>
+				<ref bean="sortRequestRegexCMF_OAM"/>
+			</list>
+		</property>
+		<property name="dateInfo" ref="dateInfoCMF_OAM"/>
+	</bean>
+	
+	<!-- the regex sort request bean -->
+	<bean id="sortRequestRegexCMF_OAM" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<!-- the date info bean -->
+	<bean id="dateInfoCMF_OAM" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="CMF_OAM_TIME_FORMAT" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="CMF_OAM_TIME_REGEX" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="regexFirstRecordCMF_OAM" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="FirstRecord" />
+		<constructor-arg index="1" value="\ACMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+	</bean>
+	<bean id="regexLastRecordCMF_OAM" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="LastRecord" />
+		<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*\Z" />
+	</bean>
+	<bean id="guessIntervalCMF_OAM" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
+		<property name="firstRecord">
+			<ref bean="regexFirstRecordCMF_OAM"></ref>
+		</property>
+		<property name="lastRecord">
+			<ref bean="regexLastRecordCMF_OAM"></ref>
+		</property>
+	</bean>
+	<!-- Commonly used CMF_OAM beans END -->
+	<!-- Normal CMF_OAM beans START -->
+	<bean id="!I:LogInterval CMF_OAM All" parent="searchObjectParentCMF_OAM">
+		<constructor-arg index="0" value="!I:LogInterval CMF_OAM All"/>
+		<property name="searchObjectDescription" value="Finds all records" />
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Interval" value="TRUE" />
+			</map>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="!I:LogInterval CMF_OAM" parent="!I:LogInterval CMF_OAM All">
+		<constructor-arg index="0" value="!I:LogInterval CMF_OAM"/>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalCMF_OAM"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="Internal ANY RECORD Containing value CMF_OAM"  parent="searchObjectParentCMF_OAM">
+		<constructor-arg index="0" value="Internal ANY RECORD Containing value CMF_OAM"/>
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Role" value="internal" />
+				<entry key="Function" value="any record" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramStringValue"/>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexCaseInsensitive" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((?!((.*?VALUE)|(CMF_OAM_TIME_REGEX))).*\r?\n)*(?!(CMF_OAM_TIME_REGEX)).*?VALUE((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Time"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="CMF_OAM_TIME_REGEX" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Thread">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Thread"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]\s{1,10}))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="LogLevel">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="LogLevel"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}))\w+(?=(\s{1,10}))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Class">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Class"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w$\.]{1,80}\.))[\w$]+(?=(\s{1,10}-)))|((?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}))\w+(?=(\s{1,10}-)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="FirstLineMsg">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="FirstLineMsg"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(CMF_OAM_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w\.$]{1,90}\s{1,10}-\s{1,10}))\S.*" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="CMF_OAM Value Within Interval"  parent="Internal ANY RECORD Containing value CMF_OAM">
+		<constructor-arg index="0" value="CMF_OAM Value Within Interval"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list merge="true">
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalCMF_OAM"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="CMF_OAM ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value CMF_OAM">
+		<constructor-arg index="0" value="CMF_OAM ANY RECORD Containing value"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+	</bean>
+	<bean id="!L:Files Timespan CMF_OAM"  parent="searchObjectParentCMF_OAM">
+		<constructor-arg index="0" value="!L:Files Timespan CMF_OAM"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="0" value="FirstRegex"/>
+					<constructor-arg index="1" value="\ACMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="0" value="LastRegex"/>
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*\Z" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Time"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="CMF_OAM_TIME_REGEX" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="SPACEUTIL Write/Update ALL"  parent="searchObjectParentCMF_OAM">
+		<constructor-arg index="0" value="SPACEUTIL Write/Update ALL"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX.*?SpaceUtil - \[((Write(Multiple)?)|(Update))\]((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Time"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="CMF_OAM_TIME_REGEX" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="FirstLine">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="FirstLine"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(CMF_OAM_TIME_REGEX)).*?(?=(\r?\n))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="CONTACT Create All"  parent="searchObjectParentCMF_OAM">
+		<constructor-arg index="0" value="CONTACT Create All"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX.*Provider(Base)?Impl - \r?\n.*((createContact\(\):)|(createContact\(OpenQ\):))((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Time"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="CMF_OAM_TIME_REGEX" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ContactID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ContactID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(contactId\[)).*(?=(\]))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ContactExternalId">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ContactExternalId"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(contactExternalId\[)).*?(?=(\]))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="CcmID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="CcmID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(ccmId\[)).*?(?=(\]))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ContactCode">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ContactCode"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(contactCode\[)).*?(?=(\]))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ProviderName">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ProviderName"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(providerName\[)).*?(?=(\]))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="CONTACT Create CONTACT_ID"  parent="CONTACT Create All">
+		<constructor-arg index="0" value="CONTACT Create CONTACT_ID"/>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="CONTACT_ID"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="3">
+						<set>
+							<value>CONTACT_ID</value>
+						</set>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX.*Provider(Base)?Impl - \r?\n.*((createContact\(\):)|(createContact\(OpenQ\):))((?!((CMF_OAM_TIME_REGEX)|(contactId\[CONTACT_ID))).*\r?\n)*(?!(CMF_OAM_TIME_REGEX)).*?CONTACT_ID((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="CMF Start"  parent="searchObjectParentCMF_OAM">
+		<constructor-arg index="0" value="CMF Start"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX
+													.*CmfProperties - init\(\):\n\t null null version\[null\]
+													((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX
+													.*CmfProperties - \n\t CmfProperties.init
+													((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Time"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="CMF_OAM_TIME_REGEX" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="CCMS Hostname">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="CCMS Hostname"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(CCMS Hostname\s{1,20}=\s)).*?(?=(\r?\n))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="CCT Hostname">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="CCT Hostname"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(CCT Hostname\s{1,20}=\s)).*?(?=(\r?\n))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<!-- Normal CMF_OAM beans END -->
+</beans>

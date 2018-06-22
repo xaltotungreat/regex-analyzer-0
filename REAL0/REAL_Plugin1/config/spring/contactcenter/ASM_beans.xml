@@ -9,13 +9,17 @@
 	<!-- Commonly used ASM beans START -->
 	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
 	<!-- the group bean -->
-	<bean id="groupASM" class="org.eclipselabs.real.core.searchobject.SearchObjectGroupStrImpl" scope="prototype">
+	<bean id="groupASM" parent="groupDefault" scope="prototype">
 		<constructor-arg index="0" value="Global.ASM"/>
-		<constructor-arg index="1" value="."/>
 	</bean>
 	<!-- The parent of all ASM complex regexes -->
 	<bean id="searchObjectParentASM" parent="searchObjectParent" abstract="true">
 		<property name="searchObjectGroup" ref="groupASM"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
 		<property name="requiredLogTypes">
 			<set>
 				<value>ASM</value>
@@ -35,7 +39,7 @@
 		<constructor-arg index="0" value="MERGE_RESULTS" />
 		<constructor-arg index="1">
 			<list>
-				<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl" parent="simpleRegexFirst" >
+				<bean parent="simpleRegexFirst" >
 					<constructor-arg index="1" value="ASM_TIME_REGEX" />
 				</bean>
 			</list>
@@ -46,7 +50,7 @@
 	<bean id="dateInfoASM" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
 		<constructor-arg index="0" value="ASM_TIME_FORMAT" />
 		<constructor-arg index="1">
-			<bean class="org.eclipselabs.real.core.regex.SimpleRegexImpl" parent="simpleRegexFirst" >
+			<bean parent="simpleRegexFirst" >
 				<constructor-arg index="1" value="ASM_TIME_REGEX" />
 			</bean>
 		</constructor-arg>
@@ -69,13 +73,12 @@
 		</property>
 	</bean>
 	<!-- Commonly used ASM beans END -->
-	<!-- Normal ASM beans start -->
+	<!-- Normal ASM beans START -->
 	<bean id="!I:LogInterval ASM All" parent="searchObjectParentASM">
 		<constructor-arg index="0" value="!I:LogInterval ASM All"/>
 		<property name="searchObjectDescription" value="Finds all records" />
 		<property name="searchObjectTags">
-			<map>
-				<entry key="Role" value="User Object" />
+			<map merge="true">
 				<entry key="Interval" value="TRUE" />
 			</map>
 		</property>
@@ -92,8 +95,8 @@
 		<constructor-arg index="0" value="!I:LogInterval ASM"/>
 		<property name="replaceableParams">
 			<list>
-				<ref bean="paramLowBoundDate"/>
-				<ref bean="paramHighBoundDate"/>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
 			</list>
 		</property>
 		<property name="acceptanceList">
@@ -112,14 +115,14 @@
 	<bean id="Internal ANY RECORD Containing value ASM"  parent="searchObjectParentASM">
 		<constructor-arg index="0" value="Internal ANY RECORD Containing value ASM"/>
 		<property name="searchObjectTags">
-			<map>
+			<map merge="true">
 				<entry key="Role" value="internal" />
 				<entry key="Function" value="any record" />
 			</map>
 		</property>
 		<property name="replaceableParams">
 			<list>
-				<ref bean="paramValueString"/>
+				<ref bean="paramStringValue"/>
 			</list>
 		</property>
 		<property name="mainRegexList">
@@ -167,9 +170,9 @@
 			</map>
 		</property>
 		<property name="replaceableParams">
-			<list>
-				<ref bean="paramLowBoundDate"/>
-				<ref bean="paramHighBoundDate"/>
+			<list merge="true">
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
 			</list>
 		</property>
 		<property name="acceptanceList">
@@ -228,11 +231,6 @@
 	
 	<bean id="TSMAPI"  parent="searchObjectParentASM">
 		<constructor-arg index="0" value="TSMAPI"/>
-		<property name="searchObjectTags">
-			<map>
-				<entry key="Role" value="User Object" />
-			</map>
-		</property>
 		<property name="mainRegexList">
 			<list>
 				<bean parent="simpleRegexNoName" >

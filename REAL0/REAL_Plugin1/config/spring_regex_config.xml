@@ -59,7 +59,7 @@
 		<constructor-arg index="1" value="Date_Time" />
 	</bean>
 	
-	<bean id="paramLowBoundDate" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
+	<bean id="paramDateLowBound" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
 		<constructor-arg index="0" value="DATE"/>
 		<constructor-arg index="1">
 			<bean class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey">
@@ -74,7 +74,7 @@
 		</constructor-arg>
 		<constructor-arg index="4" value="#{T(java.time.LocalDateTime).now().withNano(0).withHour(0).withMinute(0).withSecond(0)}"/>
 	</bean>
-	<bean id="paramHighBoundDate" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
+	<bean id="paramDateHighBound" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
 		<constructor-arg index="0" value="DATE"/>
 		<constructor-arg index="1">
 			<bean class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey">
@@ -89,7 +89,7 @@
 		</constructor-arg>
 		<constructor-arg index="4" value="#{T(java.time.LocalDateTime).now().withNano(0).withHour(23).withMinute(59).withSecond(59)}"/>
 	</bean>
-	<bean id="paramValueString" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
+	<bean id="paramStringValue" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
 		<constructor-arg index="0" value="STRING"/>
 		<constructor-arg index="1">
 			<bean class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey">
@@ -201,8 +201,8 @@
 		<constructor-arg index="0" value="!I:LogInterval ASM"></constructor-arg>
 		<property name="replaceableParams">
 			<list>
-				<ref bean="paramLowBoundDate"/>
-				<ref bean="paramHighBoundDate"/>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
 			</list>
 		</property>
 		<property name="acceptanceList">
@@ -228,7 +228,7 @@
 		</property>
 		<property name="replaceableParams">
 			<list>
-				<ref bean="paramValueString"/>
+				<ref bean="paramStringValue"/>
 			</list>
 		</property>
 		<property name="mainRegexList">
@@ -277,8 +277,8 @@
 		</property>
 		<property name="replaceableParams">
 			<list>
-				<ref bean="paramLowBoundDate"/>
-				<ref bean="paramHighBoundDate"/>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
 			</list>
 		</property>
 		<property name="acceptanceList">

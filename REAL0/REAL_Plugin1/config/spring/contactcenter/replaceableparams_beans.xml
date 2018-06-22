@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="replaceableParamGlobalDefault" parent="replaceableParamDefault" abstract="true">
+		<!-- The type of the parameter -->
+		<constructor-arg index="0" value="STRING"/>
+	</bean>
+	
+	<bean id="replaceableParamKeyGlobal" parent="replaceableParamKeyDefault" abstract="true">
+		<constructor-arg index="1" ref="groupGlobal"/>
+	</bean>
+	
+	<bean id="AML_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="AML_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="AML_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\w{3} \d\d \d\d:\d\d:\d\d\.\d\d\d \d\d\d\d"/>
+	</bean>
+	<bean id="AML_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="AML_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="AML_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="MMM dd HH:mm:ss.SSS yyyy"/>
+	</bean>
+	
+	<bean id="ASM_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="ASM_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="ASM_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="ASM_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="ASM_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="ASM_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="CMF_OAM_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CMF_OAM_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CMF_OAM_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d,\d\d\d"/>
+	</bean>
+	<bean id="CMF_OAM_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CMF_OAM_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CMF_OAM_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss,SSS"/>
+	</bean>
+	
+	<bean id="CMF_OAM32_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CMF_OAM32_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CMF_OAM32_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d,\d\d\d"/>
+	</bean>
+	<bean id="CMF_OAM32_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CMF_OAM32_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CMF_OAM32_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss,SSS"/>
+	</bean>
+	
+	<bean id="SGM_SIPSP_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPSP_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPSP_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d/\d\d \d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="SGM_SIPSP_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPSP_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPSP_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="dd/MM HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="SGM_AMLSP_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_AMLSP_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_AMLSP_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d/\d\d \d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="SGM_AMLSP_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_AMLSP_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_AMLSP_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="dd/MM HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="SGM_SIPMESSAGES_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPMESSAGES_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPMESSAGES_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d/\d\d/\d\d\d\d-\d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="SGM_SIPMESSAGES_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPMESSAGES_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPMESSAGES_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="dd/MM/yyyy-HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="SGM_TAPIDMESSAGES_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_TAPIDMESSAGES_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_TAPIDMESSAGES_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d/\d\d/\d\d\d\d-\d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="SGM_TAPIDMESSAGES_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_TAPIDMESSAGES_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_TAPIDMESSAGES_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="dd/MM/yyyy-HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="SGM_XMPP_SERVICE_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_XMPP_SERVICE_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_XMPP_SERVICE_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\,\d\d\d"/>
+	</bean>
+	<bean id="SGM_XMPP_SERVICE_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_XMPP_SERVICE_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_XMPP_SERVICE_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss,SSS"/>
+	</bean>
+	
+	<bean id="SGM_XMPPMESSAGES_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_XMPPMESSAGES_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_XMPPMESSAGES_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d/\d\d/\d\d\d\d-\d\d:\d\d:\d\d\,\d\d\d"/>
+	</bean>
+	<bean id="SGM_XMPPMESSAGES_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_XMPPMESSAGES_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_XMPPMESSAGES_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="dd/MM/yyyy-HH:mm:ss,SSS"/>
+	</bean>
+	
+	<bean id="CCT_SERVER_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCT_SERVER_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCT_SERVER_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="CCT_SERVER_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCT_SERVER_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCT_SERVER_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="SGM_SIPSPCPP_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPSPCPP_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPSPCPP_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d/\d\d \d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="SGM_SIPSPCPP_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPSPCPP_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPSPCPP_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="dd/MM HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="EB_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="EB_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="EB_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="EB_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="EB_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="EB_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="SGM_SIPRVCPP_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPRVCPP_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPRVCPP_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d/\d\d \d\d:\d\d:\d\d\.\d\d\d"/>
+	</bean>
+	<bean id="SGM_SIPRVCPP_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="SGM_SIPRVCPP_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="SGM_SIPRVCPP_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="dd/MM HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="CMF_OI_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CMF_OI_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CMF_OI_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d,\d\d\d"/>
+	</bean>
+	<bean id="CMF_OI_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CMF_OI_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CMF_OI_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss,SSS"/>
+	</bean>
+	
+	<bean id="CCMM_EmailManager_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_EmailManager_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_EmailManager_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="CCMM_EmailManager_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_EmailManager_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_EmailManager_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="CCMM_MCMClient_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_MCMClient_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_MCMClient_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d\d\d"/>
+	</bean>
+	<bean id="CCMM_MCMClient_TIME_REGEX_MATCH" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_MCMClient_TIME_REGEX_MATCH"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_MCMClient_TIME_REGEX_MATCH"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="CCMM_MCMClient_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_MCMClient_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_MCMClient_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="CCMM_OAMClient_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_OAMClient_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_OAMClient_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="CCMM_OAMClient_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_OAMClient_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_OAMClient_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="CCMM_StarterService_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_StarterService_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_StarterService_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="CCMM_StarterService_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_StarterService_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_StarterService_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="CCMM_CMF_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_CMF_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_CMF_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d\d\d"/>
+	</bean>
+	<bean id="CCMM_CMF_TIME_REGEX_MATCH" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_CMF_TIME_REGEX_MATCH"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_CMF_TIME_REGEX_MATCH"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="CCMM_CMF_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CCMM_CMF_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CCMM_CMF_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="CC_CacheResiliency_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CC_CacheResiliency_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CC_CacheResiliency_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="CC_CacheResiliency_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="CC_CacheResiliency_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="CC_CacheResiliency_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+	
+	<bean id="AgentDesktop_TIME_REGEX" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="AgentDesktop_TIME_REGEX"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="AgentDesktop_TIME_REGEX"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d (\+|-)?\d\d:\d\d"/>
+	</bean>
+	<bean id="AgentDesktop_TIME_REGEX_MATCH" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="AgentDesktop_TIME_REGEX_MATCH"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="AgentDesktop_TIME_REGEX_MATCH"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d.\d\d\d"/>
+	</bean>
+	<bean id="AgentDesktop_TIME_FORMAT" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="AgentDesktop_TIME_FORMAT"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="AgentDesktop_TIME_FORMAT"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+	</bean>
+</beans>

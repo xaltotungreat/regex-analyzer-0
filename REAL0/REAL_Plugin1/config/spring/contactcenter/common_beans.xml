@@ -15,10 +15,13 @@
 
 	<!-- COMMONLY USED BEANS START -->
 	<!-- This file must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<bean id="groupDefault" abstract="true" class="org.eclipselabs.real.core.searchobject.SearchObjectGroupStrImpl" >
+		<constructor-arg index="1" value="."/>
+	</bean>
 	<bean id="searchObjectParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexImpl" abstract="true">
 		<constructor-arg index="0" value="No name SO"/>
 	</bean>
-	<bean id="searchObjectViewParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexViewImpl">
+	<bean id="searchObjectViewParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexViewImpl" abstract="true">
 		<constructor-arg index="0" value="No name view"/>
 	</bean>
 	
@@ -50,10 +53,13 @@
 		<constructor-arg index="1" value="Date_Time" />
 	</bean>
 	
-	<bean id="paramLowBoundDate" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
+	<bean id="replaceableParamDefault" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" abstract="true"/>
+	<bean id="replaceableParamKeyDefault" abstract="true" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey"/>
+	
+	<bean id="paramDateLowBound" parent="replaceableParamDefault" scope="prototype">
 		<constructor-arg index="0" value="DATE"/>
 		<constructor-arg index="1">
-			<bean class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey">
+			<bean parent="replaceableParamKeyDefault">
 				<constructor-arg index="0" value="LOW_BOUND"></constructor-arg>
 			</bean>
 		</constructor-arg>
@@ -65,25 +71,25 @@
 		</constructor-arg>
 		<constructor-arg index="4" value="#{T(java.time.LocalDateTime).now().withNano(0).withHour(0).withMinute(0).withSecond(0)}"/>
 	</bean>
-	<bean id="paramHighBoundDate" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
+	<bean id="paramDateHighBound" parent="replaceableParamDefault" scope="prototype">
 		<constructor-arg index="0" value="DATE"/>
 		<constructor-arg index="1">
-			<bean class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey">
+			<bean parent="replaceableParamKeyDefault">
 				<constructor-arg index="0" value="HIGH_BOUND"></constructor-arg>
 			</bean>
 		</constructor-arg>
 		<constructor-arg index="2" value="High Bound"/>
 		<constructor-arg index="3">
 			<set>
-				<value>LOW_BOUND</value>
+				<value>HIGH_BOUND</value>
 			</set>
 		</constructor-arg>
 		<constructor-arg index="4" value="#{T(java.time.LocalDateTime).now().withNano(0).withHour(23).withMinute(59).withSecond(59)}"/>
 	</bean>
-	<bean id="paramValueString" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" scope="prototype">
+	<bean id="paramStringValue" parent="replaceableParamDefault" scope="prototype">
 		<constructor-arg index="0" value="STRING"/>
 		<constructor-arg index="1">
-			<bean class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey">
+			<bean parent="replaceableParamKeyDefault">
 				<constructor-arg index="0" value="VALUE"></constructor-arg>
 			</bean>
 		</constructor-arg>
@@ -102,5 +108,8 @@
 		<property name="highBoundKey" value="HIGH_BOUND"/>
 	</bean>
 	
+	<bean id="groupGlobal" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global"/>
+	</bean>
 	<!-- COMMONLY USED BEANS END -->
 </beans>
