@@ -3,8 +3,6 @@ package org.eclipselabs.real.core.regex;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.annotation.PostConstruct;
-
 class SimpleRegexImpl extends RealRegexImpl implements ISimpleRegex {
     //private static final Logger log = LogManager.getLogger(SimpleRegexImpl.class);
     protected String regexStr;
@@ -72,11 +70,6 @@ class SimpleRegexImpl extends RealRegexImpl implements ISimpleRegex {
     public String toString() {
         return "SimpleRegexImpl [regexName=" + regexName + ", regexFlags=" + regexFlags
                 + ", regexParamMap=" + regexParamMap + " regexStr=" + regexStr + "]";
-    }
-
-    @PostConstruct
-    public void testPostConstruct() {
-        System.out.println("PostConstruct worked");
     }
 
 }

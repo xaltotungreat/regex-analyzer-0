@@ -99,7 +99,7 @@
 				<value>VALUE</value>
 			</set>
 		</constructor-arg>
-		<constructor-arg index="4" value="Today End"/>
+		<constructor-arg index="4" value="?"/>
 	</bean>
 	<bean id="acceptInterval" init-method="updateCriterionReferences" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalCriterion" abstract="true">
 		<constructor-arg index="0" value="INTERVAL"/>

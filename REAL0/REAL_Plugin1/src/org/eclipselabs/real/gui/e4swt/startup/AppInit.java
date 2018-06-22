@@ -1,8 +1,8 @@
 package org.eclipselabs.real.gui.e4swt.startup;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -16,11 +16,8 @@ import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipselabs.real.core.config.ConfigurationController;
 import org.eclipselabs.real.core.config.IConfigReader;
 import org.eclipselabs.real.core.config.IConfigurationConsts;
-import org.eclipselabs.real.core.config.spring.GUIPropertiesStore;
 import org.eclipselabs.real.core.config.spring.SpringConfigReader;
-import org.eclipselabs.real.core.logtype.LogFileType;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
-import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.osgi.framework.Bundle;
 import org.springframework.context.ApplicationContext;
@@ -114,46 +111,15 @@ public class AppInit {
         log.info("Finished Loading the config files");
     }
 
-    private void initSpringConfigTest(Bundle plugBundle) {
-        /*
-         * This is an example of loading a config from a Spring xml config instead of
-         * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
-         * TODO
-         */
-        String configName = System.getProperty("real.config");
-        if ((configName == null) || (configName.isEmpty())) {
-            log.error("The name of the spring config not found real.config");
-            return;
-        }
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("config/spring/" + configName + "/main_beans.xml")) {
-            /*GenericApplicationContext context = new GenericApplicationContext();
-            XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(context);
-            reader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_XSD);
-            reader.loadBeanDefinitions("config/spring/main_beans.xml");*/
-            //context.refresh();
-            Map<String,LogFileType> allLogTypes = context.getBeansOfType(LogFileType.class);
-            log.info("All Lag TYPES \n" + allLogTypes);
-            ISOComplexRegex compl1 = context.getBean("!I:LogInterval ASM", ISOComplexRegex.class);
-            log.info("Spring loaded bean " + compl1.toString());
-
-            ISOComplexRegex compl2 = context.getBean("ASM Value Within Interval", ISOComplexRegex.class);
-            log.info("Spring loaded bean " + compl2.toString());
-
-            GUIPropertiesStore ts = context.getBean(GUIPropertiesStore.class);
-            log.info("Spring GUI " + ts.toString());
-
-        }
-    }
-
     private void initSpringConfig(Bundle plugBundle) {
         /*
          * This is an example of loading a config from a Spring xml config instead of
          * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
          * TODO
          */
-        String configName = System.getProperty("real.config");
+        String configName = System.getProperty(IConfigurationConsts.CONFIG_SYSPROP_PRODUCT);
         if ((configName == null) || (configName.isEmpty())) {
-            log.error("The name of the spring config not found real.config");
+            log.error("The value for the product config not found " + IConfigurationConsts.CONFIG_SYSPROP_PRODUCT);
             return;
         }
 
@@ -171,8 +137,11 @@ public class AppInit {
         }
 
         InputStream logActivationIS = null;
+        String pathToMainBeans = IConfigurationConsts.CONFIG_FOLDER + File.separator
+                + IConfigurationConsts.CONFIG_SPRING_FOLDER + File.separator
+                + configName + File.separator + IConfigurationConsts.CONFIG_SPRING_MAIN_FILE;
         try (ClassPathXmlApplicationContext context
-                    = new ClassPathXmlApplicationContext("config/spring/" + configName + "/main_beans.xml")) {
+                    = new ClassPathXmlApplicationContext(pathToMainBeans)) {
 
             if (FileLocator.findEntries(plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
                 logActivationIS = FileLocator.openStream(
