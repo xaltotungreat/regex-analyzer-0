@@ -20,7 +20,7 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
 
     private static final Logger log = LogManager.getLogger(RegexAcceptanceCriterion.class);
     protected List<IRealRegex> acceptanceRegexList = Collections.synchronizedList(new ArrayList<IRealRegex>());
-    protected Map<IRealRegex, Set<String>> distinctResultsMap = new ConcurrentHashMap<IRealRegex, Set<String>>();
+    protected Map<IRealRegex, Set<String>> distinctResultsMap = new ConcurrentHashMap<>();
 
     public RegexAcceptanceCriterion(AcceptanceCriterionType aType) {
         this(aType, null);
@@ -119,12 +119,12 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
     }
 
     @Override
-    public List<IRealRegex> getAcceptanceRegex() {
+    public List<IRealRegex> getAcceptanceRegexList() {
         return acceptanceRegexList;
     }
 
     @Override
-    public void setAcceptanceRegex(List<IRealRegex> acceptanceRegex) {
+    public void setAcceptanceRegexList(List<IRealRegex> acceptanceRegex) {
         this.acceptanceRegexList = acceptanceRegex;
     }
 
@@ -143,7 +143,7 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
             List<IRealRegex> clonedList = Collections.synchronizedList(new ArrayList<IRealRegex>());
             Map<IRealRegex, Set<String>> clonedDistinctResultsMap = null;
             if (distinctResultsMap != null) {
-                clonedDistinctResultsMap = new ConcurrentHashMap<IRealRegex, Set<String>>();
+                clonedDistinctResultsMap = new ConcurrentHashMap<>();
             }
             synchronized (acceptanceRegexList) {
                 for (IRealRegex currRegex : acceptanceRegexList) {
@@ -159,7 +159,7 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
                     }
                 }
             }
-            cloneObj.setAcceptanceRegex(clonedList);
+            cloneObj.setAcceptanceRegexList(clonedList);
             cloneObj.distinctResultsMap = clonedDistinctResultsMap;
         }
 

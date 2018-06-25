@@ -45,7 +45,7 @@ public class RegexAcceptanceXmlConstructorImpl implements IRegexAcceptanceConstr
             for (Node node : regexesNodeList) {
                 tmpList.addAll(ConfigXmlUtil.collectAllRegex(node));
             }
-            crit.getAcceptanceRegex().addAll(tmpList);
+            crit.getAcceptanceRegexList().addAll(tmpList);
         }
         return crit;
     }

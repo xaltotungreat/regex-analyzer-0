@@ -107,6 +107,7 @@
 		<property name="lowBoundKey" value="LOW_BOUND"/>
 		<property name="highBoundKey" value="HIGH_BOUND"/>
 	</bean>
+	<bean id="acceptRegex" init-method="updateCriterionReferences" class="org.eclipselabs.real.core.searchobject.crit.RegexAcceptanceCriterion" abstract="true"/>
 	
 	<bean id="groupGlobal" parent="groupDefault" scope="prototype">
 		<constructor-arg index="0" value="Global"/>
