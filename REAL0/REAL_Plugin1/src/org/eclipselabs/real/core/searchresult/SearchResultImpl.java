@@ -105,8 +105,8 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
         if (copyObj.getAllSortRequests() != null) {
             sortRequestList.addAll(copyObj.getAllSortRequests());
         }
-        cachedReplaceTable = new HashMap<String,String>(copyObj.getCachedReplaceTable());
-        srObjectsList = new ArrayList<O>(copyObj.getSRObjects());
+        cachedReplaceTable = new HashMap<>(copyObj.getCachedReplaceTable());
+        srObjectsList = new ArrayList<>(copyObj.getSRObjects());
     }
 
     @Override
@@ -191,7 +191,10 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
         if ((sroList != null) && (!sroList.isEmpty())) {
             List<O> sroToMerge = getAcceptedMergeList(sroList);
             int positionToInsert = srObjectsList.size();
-            if ((comp != null) && (!srObjectsList.isEmpty())) {
+            /*
+             * sroToMerge may be empty after getAcceptedMergeList so check it again
+             */
+            if ((comp != null) && (!srObjectsList.isEmpty()) && (!sroToMerge.isEmpty())) {
                 O thisFirstSRO = srObjectsList.get(0);
                 O otherFirstSRO = sroToMerge.get(0);
                 O thisLastSRO = srObjectsList.get(srObjectsList.size() - 1);
@@ -455,7 +458,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
 
     @Override
     public List<String> getTextList() {
-        List<String> res = new ArrayList<String>();
+        List<String> res = new ArrayList<>();
         for (ISearchResultObject resObj : srObjectsList) {
             res.add(resObj.getText());
         }

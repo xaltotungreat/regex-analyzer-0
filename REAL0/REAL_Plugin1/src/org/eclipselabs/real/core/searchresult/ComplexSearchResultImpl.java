@@ -18,7 +18,7 @@ public abstract class ComplexSearchResultImpl<O extends IComplexSearchResultObje
 
     private static final Logger log = LogManager.getLogger(ComplexSearchResultImpl.class);
 
-    protected List<Q> viewOrder = new ArrayList<Q>();
+    protected List<Q> viewOrder = new ArrayList<>();
 
     public ComplexSearchResultImpl(String aSOName) {
         super(aSOName);
@@ -48,12 +48,12 @@ public abstract class ComplexSearchResultImpl<O extends IComplexSearchResultObje
 
     public ComplexSearchResultImpl(IComplexSearchResult<O,W,X,Q> copyObj) {
         super(copyObj);
-        viewOrder = new ArrayList<Q>(copyObj.getViewOrder());
+        viewOrder = new ArrayList<>(copyObj.getViewOrder());
     }
 
     @Override
     public List<String> getViewText(Q aViewName) {
-        List<String> viewText = new ArrayList<String>();
+        List<String> viewText = new ArrayList<>();
         for (O currSRO : srObjectsList) {
             viewText.add(currSRO.getViewText(aViewName));
         }
@@ -62,7 +62,7 @@ public abstract class ComplexSearchResultImpl<O extends IComplexSearchResultObje
 
     @Override
     public List<Map<Q,W>> getViews() {
-        List<Map<Q,W>> newList = new ArrayList<Map<Q,W>>();
+        List<Map<Q,W>> newList = new ArrayList<>();
         for (O currSRO : srObjectsList) {
             newList.add(currSRO.getViews());
         }
@@ -71,8 +71,8 @@ public abstract class ComplexSearchResultImpl<O extends IComplexSearchResultObje
 
     @Override
     public List<Q> getViewKeys() {
-        if (viewOrder != null) {
-            return new ArrayList<Q>(viewOrder);
+        if ((viewOrder != null) && (!viewOrder.isEmpty())) {
+            return new ArrayList<>(viewOrder);
         } else if ((srObjectsList != null) && (!srObjectsList.isEmpty())) {
             return srObjectsList.get(0).getViewKeys();
         } else {
@@ -82,7 +82,7 @@ public abstract class ComplexSearchResultImpl<O extends IComplexSearchResultObje
 
     @Override
     public List<Map<Q, String>> getViewsText() {
-        List<Map<Q, String>> newList = new ArrayList<Map<Q, String>>();
+        List<Map<Q, String>> newList = new ArrayList<>();
         for (O currSRO : srObjectsList) {
             newList.add(currSRO.getViewsText());
         }
@@ -93,7 +93,7 @@ public abstract class ComplexSearchResultImpl<O extends IComplexSearchResultObje
     public List<W> getView(Q aViewName) {
         List<W> viewText = null;
         if (aViewName != null) {
-            viewText = new ArrayList<W>();
+            viewText = new ArrayList<>();
             for (O currSRO : srObjectsList) {
                 viewText.add(currSRO.getView(aViewName));
             }

@@ -72,6 +72,16 @@
 			<ref bean="regexLastRecordASM"></ref>
 		</property>
 	</bean>
+	<bean id="searchObjectViewTimeASM" parent="searchObjectViewParent" scope="prototype">
+		<constructor-arg index="0" value="Time"/>
+		<property name="viewObjects">
+			<list>
+				<bean parent="simpleRegexFirst">
+					<constructor-arg index="1" value="ASM_TIME_REGEX" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- Commonly used ASM beans END -->
 	<!-- Normal ASM beans START -->
 	<bean id="!I:LogInterval ASM All" parent="searchObjectParentASM">
@@ -134,18 +144,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time">
-					<bean parent="searchObjectViewParent">
-						<constructor-arg index="0" value="Time"/>
-						<property name="viewObjects">
-							<list>
-								<bean parent="simpleRegexFirst">
-									<constructor-arg index="1" value="ASM_TIME_REGEX" />
-								</bean>
-							</list>
-						</property>
-					</bean>
-				</entry>
+				<entry key="Time" value-ref="searchObjectViewTimeASM"/>
 				<entry key="FirstLine">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="Time"/>
@@ -159,6 +158,12 @@
 					</bean>
 				</entry>
 			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>FirstLine</value>
+			</list>
 		</property>
 	</bean>
 	
@@ -213,18 +218,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time">
-					<bean parent="searchObjectViewParent">
-						<constructor-arg index="0" value="Time"/>
-						<property name="viewObjects">
-							<list>
-								<bean parent="simpleRegexFirst">
-									<constructor-arg index="1" value="ASM_TIME_REGEX" />
-								</bean>
-							</list>
-						</property>
-					</bean>
-				</entry>
+				<entry key="Time" value-ref="searchObjectViewTimeASM"/>
 			</map>
 		</property>
 	</bean>
@@ -241,18 +235,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time">
-					<bean parent="searchObjectViewParent">
-						<constructor-arg index="0" value="Time"/>
-						<property name="viewObjects">
-							<list>
-								<bean parent="simpleRegexFirst">
-									<constructor-arg index="1" value="ASM_TIME_REGEX" />
-								</bean>
-							</list>
-						</property>
-					</bean>
-				</entry>
+				<entry key="Time" value-ref="searchObjectViewTimeASM"/>
 				<entry key="Dev ID">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="Dev ID"/>
@@ -290,6 +273,14 @@
 					</bean>
 				</entry>
 			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>Dev ID</value>
+				<value>Call ID</value>
+				<value>Reason</value>
+			</list>
 		</property>
 	</bean>
 	<!-- Normal ASM beans end -->

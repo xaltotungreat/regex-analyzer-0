@@ -72,7 +72,7 @@
 			<ref bean="regexLastRecordCMF_OAM"></ref>
 		</property>
 	</bean>
-	<bean id="searchObjectViewTime" parent="searchObjectViewParent" scope="prototype">
+	<bean id="searchObjectViewTimeCMF_OAM" parent="searchObjectViewParent" scope="prototype">
 		<constructor-arg index="0" value="Time"/>
 		<property name="viewObjects">
 			<list>
@@ -142,7 +142,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="Thread">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="Thread"/>
@@ -192,6 +192,15 @@
 					</bean>
 				</entry>
 			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>Thread</value>
+				<value>LogLevel</value>
+				<value>Class</value>
+				<value>FirstLineMsg</value>
+			</list>
 		</property>
 	</bean>
 	<bean id="CMF_OAM Value Within Interval"  parent="Internal ANY RECORD Containing value CMF_OAM">
@@ -243,7 +252,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 			</map>
 		</property>
 	</bean>
@@ -258,7 +267,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="FirstLine">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="FirstLine"/>
@@ -273,6 +282,12 @@
 				</entry>
 			</map>
 		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>FirstLine</value>
+			</list>
+		</property>
 	</bean>
 	<bean id="CONTACT Create All"  parent="searchObjectParentCMF_OAM">
 		<constructor-arg index="0" value="CONTACT Create All"/>
@@ -285,7 +300,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="ContactID">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="ContactID"/>
@@ -348,6 +363,16 @@
 				</entry>
 			</map>
 		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>ContactID</value>
+				<value>ContactExternalId</value>
+				<value>CcmID</value>
+				<value>ContactCode</value>
+				<value>ProviderName</value>
+			</list>
+		</property>
 	</bean>
 	<bean id="CONTACT Create CONTACT_ID"  parent="CONTACT Create All">
 		<constructor-arg index="0" value="CONTACT Create CONTACT_ID"/>
@@ -389,7 +414,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="CCMS Hostname">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="CCMS Hostname"/>
@@ -416,6 +441,13 @@
 				</entry>
 			</map>
 		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>CCMS Hostname</value>
+				<value>CCT Hostname</value>
+			</list>
+		</property>
 	</bean>
 	<bean id="MID:AgentAddress"  parent="searchObjectParentCMF_OAM">
 		<constructor-arg index="0" value="MID:AgentAddress"/>
@@ -428,7 +460,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="AddressID">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="AddressID"/>
@@ -455,6 +487,13 @@
 				</entry>
 			</map>
 		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>AddressID</value>
+				<value>AddressName</value>
+			</list>
+		</property>
 	</bean>
 	<bean id="MID:AgentTerminal"  parent="searchObjectParentCMF_OAM">
 		<constructor-arg index="0" value="MID:AgentTerminal"/>
@@ -467,7 +506,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="TerminalID">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="TerminalID"/>
@@ -518,6 +557,15 @@
 				</entry>
 			</map>
 		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>TerminalID</value>
+				<value>TerminalName</value>
+				<value>TerminalState</value>
+				<value>Provider</value>
+			</list>
+		</property>
 	</bean>
 	<bean id="MID:AgentAddress getTerminals"  parent="searchObjectParentCMF_OAM">
 		<constructor-arg index="0" value="MID:AgentAddress getTerminals"/>
@@ -545,7 +593,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="AddressID">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="AddressID"/>
@@ -584,6 +632,14 @@
 				</entry>
 			</map>
 		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>AddressID</value>
+				<value>AddressName</value>
+				<value>Provider ID</value>
+			</list>
+		</property>
 	</bean>
 	<bean id="CONNECTION Create_SetState Passive All"  parent="searchObjectParentCMF_OAM">
 		<constructor-arg index="0" value="CONNECTION Create_SetState Passive All"/>
@@ -596,7 +652,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTime"/>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
 				<entry key="OperationType">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="OperationType"/>
@@ -688,6 +744,317 @@
 					</bean>
 				</entry>
 			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>OperationType</value>
+				<value>ConnectionType</value>
+				<value>Change</value>
+				<value>ReasonCode</value>
+				<value>ContactID</value>
+				<value>ConnectionExternalId</value>
+				<value>ConnectionID</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="CONNECTION Create_SetState Passive with VALUE"  parent="CONNECTION Create_SetState Passive All">
+		<constructor-arg index="0" value="CONNECTION Create_SetState Passive with VALUE"/>
+		<property name="replaceableParams">
+			<list merge="true">
+				<ref bean="paramStringValue"/>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((.*ConnectionImpl - (execute)?[Ss]etState\(\)((?!((.*?VALUE)|(CMF_OAM_TIME_REGEX))).*\r?\n)*(?!(CMF_OAM_TIME_REGEX)).*?VALUE((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*)|(.*\n\t create([Tt]erminal)?Connection((WithoutUpdate\(\))|( \(\)))((?!((.*?VALUE)|(CMF_OAM_TIME_REGEX))).*\r?\n)*(?!(CMF_OAM_TIME_REGEX)).*?VALUE((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*))" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="CONNECTION Create_SetState Active All"  parent="searchObjectParentCMF_OAM">
+		<constructor-arg index="0" value="CONNECTION Create_SetState Active All"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((.*\n\t create(Terminal)?ConnectionWithoutUpdate\(\)((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*)|(.*active\..*?ConnectionImpl.*?Connection((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*))" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
+				<entry key="OperationType">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="OperationType"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((create([Tt]erminal)?Connection(?=((WithoutUpdate|( \(\))))))|((execute)?[Ss]etState(?=((\(\) :)|(\(\)\r?\n)))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ConnectionType">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ConnectionType"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((((?&lt;=(create([Tt]erminal)?ConnectionWithoutUpdate\(\):)).*?(?=(\r?\n)))|((?&lt;=(setState\(\) : )).*?(?=(\r?\n))))|(((?&lt;=(cmf\.sp\.))TerminalConnection(?=(Impl - setState)))|((?&lt;=(ConnectionBaseImpl - create)).*?(?=( \(\))))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Change">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Change"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(((?&lt;=(\t state\[))).*?(?=((\])|(\r?\n)))|((?&lt;=(\t CurrentState\s{1,15}= )).*?(?=(\r?\n))))" />
+								</bean>
+								<bean class="java.lang.String">
+									<constructor-arg index="0" value="-"/>
+								</bean>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(((?&lt;=( NewState\[))).*?(?=(\]))|((?&lt;=(\t NewState\s{1,15}= )).*?(?=(\r?\n))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ReasonCode">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ReasonCode"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(((?&lt;=(ReasonCode\[)).*?(?=(\])))|((?&lt;=(ReasonCode\s{1,15}= )).*?(?=(\r?\n))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ContactID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ContactID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(contactId\[)).*(?=(\])))|((?&lt;=(ContactId\s{1,15}= )).*(?=(\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ConnectionExternalId">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ConnectionExternalId"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(((connection)|(termConn))ExternalId\[)).*(?=(\]))|((?&lt;=(ExternalId\s{1,15}= )).*?(?=(\r?\n))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ConnectionID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ConnectionID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(((?&lt;=(connectionId\[)).*(?=(\])))|((?&lt;=(ConnectionId = )).*?(?=(\r?\n))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>OperationType</value>
+				<value>ConnectionType</value>
+				<value>Change</value>
+				<value>ReasonCode</value>
+				<value>ContactID</value>
+				<value>ConnectionExternalId</value>
+				<value>ConnectionID</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="CONNECTION Create_SetState Active with VALUE"  parent="CONNECTION Create_SetState Active All">
+		<constructor-arg index="0" value="CONNECTION Create_SetState Active with VALUE"/>
+		<property name="replaceableParams">
+			<list merge="true">
+				<ref bean="paramStringValue"/>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((.*\n\t create(Terminal)?ConnectionWithoutUpdate\(\)((?!((.*?VALUE)|(CMF_OAM_TIME_REGEX))).*\r?\n)*(?!(CMF_OAM_TIME_REGEX)).*?VALUE((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*)|(.*active\..*?ConnectionImpl.*Connection((?!((.*?VALUE)|(CMF_OAM_TIME_REGEX))).*\r?\n)*(?!(CMF_OAM_TIME_REGEX)).*?VALUE((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*))" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="Lock on DEBUG"  parent="Internal ANY RECORD Containing value CMF_OAM">
+		<constructor-arg index="0" value="Lock on DEBUG"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="4" value="((SpaceUtil\.fetchLock)|(Lock\.release))"/>
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM"/>
+				<entry key="Operation">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Operation"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexCaseInsensitive">
+									<constructor-arg index="1" value="((Seeking)|(obtained)|(released))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Thread">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Thread"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(CMF_OAM_TIME_REGEX\s{1,4}\[)).*?(?=(\s*\]))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="UID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Change"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexCaseInsensitive">
+									<constructor-arg index="1" value="((?&lt;=(Lock being released\s{1,15}=\s{1,5})).*?(?=(\r?\n)))|((?&lt;=(Seeking to lock UID\s{1,15}=\s{1,5})).*?(?=(\r?\n)))|((?&lt;=(Lock obtained for UID\s{1,15}=\s{1,5})).*?(?=(\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>Operation</value>
+				<value>Thread</value>
+				<value>UID</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="CMF_OAM Errors Exceptions"  parent="Internal ANY RECORD Containing value CMF_OAM">
+		<constructor-arg index="0" value="CMF_OAM Errors Exceptions"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="4" value="((Error)|(Exception))"/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_1"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_2"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_3"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptRegex">
+					<constructor-arg index="0" value="NOT_FIND"/>
+					<constructor-arg index="1" value="No success"/>
+					<property name="acceptanceRegexList">
+						<list>
+							<bean parent="simpleRegexCaseInsensitive" >
+								<constructor-arg index="1" value="((errorCode\[0\])|(ErrorCode\s*:\s*0)|(ErrorCode\s*=\s*Success)|(errorCode\[null\])|(cmfError\[Success.\]))" />
+							</bean>
+							<bean parent="simpleRegexCaseInsensitive" >
+								<constructor-arg index="1" value="Adding listener to Contact Manager" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+				<bean parent="acceptRegex">
+					<constructor-arg index="0" value="NOT_FIND"/>
+					<constructor-arg index="1" value="TAPI Passive providers"/>
+					<property name="acceptanceRegexList">
+						<list>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="only supported for TAPIpassive providers" />
+							</bean>
+							<bean parent="simpleRegexCaseInsensitive" >
+								<constructor-arg index="1" value="InvalidStateException.*Capabilities for.*false.*((Connection State)|(Terminal Connection State))" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+				<bean parent="acceptRegex">
+					<constructor-arg index="0" value="NOT_FIND_NULLABLE"/>
+					<constructor-arg index="1" value="Not Contains"/>
+					<property name="acceptanceRegexList">
+						<list>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_1" />
+							</bean>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_2" />
+							</bean>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_3" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
 		</property>
 	</bean>
 	<!-- Normal CMF_OAM beans END -->
