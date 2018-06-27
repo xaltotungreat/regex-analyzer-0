@@ -23,10 +23,6 @@ import org.springframework.context.ApplicationContext;
 
 public class SpringConfigReader implements IConfigReader<ApplicationContext, Integer> {
 
-    public SpringConfigReader() {
-        // TODO Auto-generated constructor stub
-    }
-
     @Override
     public CompletableFuture<Integer> read(ApplicationContext configRI) {
         // initialize the log types
@@ -37,7 +33,7 @@ public class SpringConfigReader implements IConfigReader<ApplicationContext, Int
         Map<ReplaceableParamKey, IReplaceableParam<?>> allGlobalparams =
                 allGPBeans.entrySet().stream().collect(Collectors.toMap(
                         e1 -> (ReplaceableParamKey)e1.getValue().getKey(),
-                        e1 -> e1.getValue()));
+                        Map.Entry::getValue));
         SearchObjectController.INSTANCE.getReplaceableParamRepository().addAll(allGlobalparams);
 
         // init the search objects

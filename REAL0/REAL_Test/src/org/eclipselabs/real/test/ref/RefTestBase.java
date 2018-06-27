@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.config.IConfigReader;
-import org.eclipselabs.real.core.config.regex.xml.RegexXmlConfigFileReader;
+import org.eclipselabs.real.core.config.ml.regex.xml.RegexXmlConfigFileReader;
 import org.eclipselabs.real.core.regex.IRealRegexParam;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;

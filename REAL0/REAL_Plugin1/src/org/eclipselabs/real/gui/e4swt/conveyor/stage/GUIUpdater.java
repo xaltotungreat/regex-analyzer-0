@@ -25,7 +25,7 @@ public class GUIUpdater implements Runnable {
     private IStatusFormatter statusFormatter;
 
     public interface IStatusFormatter {
-        public void updateStatus(GUISearchResult partSRObj, ISearchProgressMonitor searchMonitor, String searchID);
+        void updateStatus(GUISearchResult partSRObj, ISearchProgressMonitor searchMonitor, String searchID);
     }
 
     public static class StatusFormatter implements IStatusFormatter {
@@ -58,7 +58,6 @@ public class GUIUpdater implements Runnable {
             log.error("UI update error", e1);
         }
         final GUISearchResult partSRObj = (GUISearchResult) prodContext.getSearchPart().getObject();
-        //statusFormatter.setSearchMonitor(prodContext.getSearchRequest().getProgressMonitor());
         while ((!prodContext.isComplete()) && (prodContext.isProceed())
                     && (!SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState()))
                     && (partSRObj.isSearchTabAvailable(prodContext.getSearchID()))) {

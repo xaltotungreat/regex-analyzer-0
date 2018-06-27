@@ -39,14 +39,14 @@ public abstract class ConveyorStageBase implements IConveyorStage {
     }
 
     @Override
-    public synchronized CompletableFuture<Void> execute(ConvSearchRequest req, ConvProductContext params) {
+    public final synchronized CompletableFuture<Void> execute(ConvSearchRequest req, ConvProductContext params) {
         CompletableFuture<Void> result;
         if (params.isProceed()) {
             if (executedStage == null) {
                 CompletableFuture<Void> currStage = executeInternal(req, params);
                 // set complete exactly after this stage's executeInternal
                 if (completionPredicate != null) {
-                    currStage = currStage.thenAccept((a) -> {
+                    currStage = currStage.thenAccept(a -> {
                         if (completionPredicate.test(this)) {
                             params.setComplete(true);
                         }
@@ -83,7 +83,7 @@ public abstract class ConveyorStageBase implements IConveyorStage {
 
 
     @Override
-    public synchronized void cancel(boolean mayInterrupt) {
+    public final synchronized void cancel(boolean mayInterrupt) {
         if (executedStage != null) {
             if (!executedStage.isDone()) {
                 log.debug("cancel EXECUTED");
@@ -99,7 +99,7 @@ public abstract class ConveyorStageBase implements IConveyorStage {
     public abstract void cancelInternal(boolean mayInterrupt);
 
     @Override
-    public IConveyorStage addChild(IConveyorStage st) {
+    public final IConveyorStage addChild(IConveyorStage st) {
         children.add(st);
         st.setParent(this);
         return st;

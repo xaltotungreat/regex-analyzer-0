@@ -37,7 +37,7 @@ public interface IConveyorStage {
      */
     CompletableFuture<Void> execute(ConvSearchRequest req, ConvProductContext params);
     /**
-     * Cancel this future. This operation is applicable only to long-running stages when there is
+     * Interrupt and abort execution. This operation is applicable only to long-running stages when there is
      * some mechanism to cancel in the middle of execution.
      * @param mayInterrupt if it is possible to interrupt running tasks or have to cancel gracefully
      */

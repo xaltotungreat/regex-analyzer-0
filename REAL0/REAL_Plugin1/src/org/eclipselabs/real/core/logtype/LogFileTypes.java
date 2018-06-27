@@ -18,8 +18,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.config.xml.IConfigXmlConstants;
-import org.eclipselabs.real.core.config.xml.XmlConfigNodeType;
+import org.eclipselabs.real.core.config.ml.xml.IConfigXmlConstants;
+import org.eclipselabs.real.core.config.ml.xml.XmlConfigNodeType;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
 import org.eclipselabs.real.core.logfile.LogFileTypeRepository;
 import org.springframework.context.ApplicationContext;

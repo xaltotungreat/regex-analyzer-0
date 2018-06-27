@@ -13,9 +13,10 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
-import org.eclipselabs.real.core.config.ConfigurationController;
 import org.eclipselabs.real.core.config.IConfigReader;
-import org.eclipselabs.real.core.config.IConfigurationConsts;
+import org.eclipselabs.real.core.config.ml.ConfigurationController;
+import org.eclipselabs.real.core.config.ml.IConfigurationMLConsts;
+import org.eclipselabs.real.core.config.spring.IConfigurationSpringConsts;
 import org.eclipselabs.real.core.config.spring.SpringConfigReader;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
@@ -33,8 +34,6 @@ public class AppInit {
         if (plugBundle == null) {
             return;
         }
-        // put it here for testing
-        //initSpringConfigTest(plugBundle);
         // use the old config for now
         //initFromOldXMLConfig(plugBundle);
         initSpringConfig(plugBundle);
@@ -43,7 +42,7 @@ public class AppInit {
     private void initFromOldXMLConfig(Bundle plugBundle) {
 
         try (InputStream perfIS = FileLocator.openStream(
-                plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
+                plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
             Properties perfProp = new Properties();
             perfProp.loadFromXML(perfIS);
             perfProp.forEach((Object key, Object value) -> System.setProperty((String)key, (String)value));
@@ -55,10 +54,10 @@ public class AppInit {
         // load the log types
         InputStream logActivationIS = null;
         try (InputStream logsIS = FileLocator.openStream(
-                    plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES), false)) {
-            if (FileLocator.findEntries(plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
+                    plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES), false)) {
+            if (FileLocator.findEntries(plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
                 logActivationIS = FileLocator.openStream(
-                        plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
+                        plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
             }
             LogFileTypes.INSTANCE.initXml(logsIS, logActivationIS);
         } catch (IOException e) {
@@ -76,7 +75,7 @@ public class AppInit {
         // load the regex configuration
         CompletableFuture<Integer> regexConfigFuture = null;
         try (InputStream regexIS = FileLocator.openStream(
-                plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_REGEX_CONFIG), false)) {
+                plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_REGEX_CONFIG), false)) {
             log.info("Loading the regex configuration");
             regexConfigFuture = ConfigurationController.INSTANCE.initXmlRegexConfiguration(regexIS);
         } catch (IOException e) {
@@ -86,7 +85,7 @@ public class AppInit {
         // load the gui configuration
         CompletableFuture<Integer> guiConfigFuture = null;
         try (InputStream guiIS = FileLocator.openStream(
-                plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_GUI_CONFIG), false)) {
+                plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_GUI_CONFIG), false)) {
             log.info("Loading the GUI configuration");
             guiConfigFuture = ConfigurationController.INSTANCE.initXmlGUIConfiguration(guiIS);
         } catch (IOException e) {
@@ -117,9 +116,9 @@ public class AppInit {
          * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
          * TODO
          */
-        String configName = System.getProperty(IConfigurationConsts.CONFIG_SYSPROP_PRODUCT);
+        String configName = System.getProperty(IConfigurationSpringConsts.CONFIG_SYSPROP_PRODUCT);
         if ((configName == null) || (configName.isEmpty())) {
-            log.error("The value for the product config not found " + IConfigurationConsts.CONFIG_SYSPROP_PRODUCT);
+            log.error("The value for the product config not found " + IConfigurationSpringConsts.CONFIG_SYSPROP_PRODUCT);
             return;
         }
 
@@ -127,7 +126,7 @@ public class AppInit {
          * Initialize the performance values first
          */
         try (InputStream perfIS = FileLocator.openStream(
-                plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
+                plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
             Properties perfProp = new Properties();
             perfProp.loadFromXML(perfIS);
             perfProp.forEach((Object key, Object value) -> System.setProperty((String)key, (String)value));
@@ -137,15 +136,15 @@ public class AppInit {
         }
 
         InputStream logActivationIS = null;
-        String pathToMainBeans = IConfigurationConsts.CONFIG_FOLDER + File.separator
-                + IConfigurationConsts.CONFIG_SPRING_FOLDER + File.separator
-                + configName + File.separator + IConfigurationConsts.CONFIG_SPRING_MAIN_FILE;
+        String pathToMainBeans = IConfigurationMLConsts.CONFIG_FOLDER + File.separator
+                + IConfigurationSpringConsts.CONFIG_SPRING_FOLDER + File.separator
+                + configName + File.separator + IConfigurationSpringConsts.CONFIG_SPRING_MAIN_FILE;
         try (ClassPathXmlApplicationContext context
                     = new ClassPathXmlApplicationContext(pathToMainBeans)) {
 
-            if (FileLocator.findEntries(plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
+            if (FileLocator.findEntries(plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
                 logActivationIS = FileLocator.openStream(
-                        plugBundle, new Path(IConfigurationConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
+                        plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
             }
             if (logActivationIS != null) {
                 context.getBeanFactory().registerSingleton("logActivationInputStream", logActivationIS);
