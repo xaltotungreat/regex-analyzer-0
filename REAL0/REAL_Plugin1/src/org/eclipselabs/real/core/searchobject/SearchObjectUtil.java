@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceGuessResult;
@@ -28,7 +29,7 @@ public class SearchObjectUtil {
     private SearchObjectUtil() {}
 
     public static LocalDateTime parseDate(ISearchObjectDateInfo dateInfo, String dateStr, Map<String,String> replaceTable,
-            Integer regexFlags) {
+            Integer regexFlags) throws IncorrectPatternException {
         LocalDateTime cald = null;
         if (dateInfo != null) {
             StringBuilder sb = new StringBuilder();
@@ -87,7 +88,7 @@ public class SearchObjectUtil {
     }
 
     public static boolean isSearchProceed(String logText, List<IAcceptanceCriterion> acceptanceLst,
-            ISearchResult<? extends ISearchResultObject> sr) {
+            ISearchResult<? extends ISearchResultObject> sr) throws IncorrectPatternException {
         boolean result = true;
         if ((acceptanceLst != null) && (!acceptanceLst.isEmpty())) {
             for (IAcceptanceCriterion ac : acceptanceLst) {

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
@@ -30,7 +31,7 @@ public abstract class AcceptanceCriterionImpl implements IAcceptanceCriterion {
     }
 
     @Override
-    public List<AcceptanceGuessResult> getGuessResults(String logText, ISearchResult<? extends ISearchResultObject> sr) {
+    public List<AcceptanceGuessResult> getGuessResults(String logText, ISearchResult<? extends ISearchResultObject> sr) throws IncorrectPatternException {
         List<AcceptanceGuessResult> results = null;
         if (guessList != null) {
             init(sr);

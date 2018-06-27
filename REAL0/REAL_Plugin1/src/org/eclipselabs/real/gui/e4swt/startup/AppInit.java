@@ -146,6 +146,10 @@ public class AppInit {
                 logActivationIS = FileLocator.openStream(
                         plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
             }
+            /*
+             * If the file with active log types is present add a bean with the input stream
+             * to the context. It will be used by the Spring configuration reader.
+             */
             if (logActivationIS != null) {
                 context.getBeanFactory().registerSingleton("logActivationInputStream", logActivationIS);
             }

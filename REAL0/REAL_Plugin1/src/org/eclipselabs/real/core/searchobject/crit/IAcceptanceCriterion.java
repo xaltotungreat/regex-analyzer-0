@@ -3,6 +3,7 @@ package org.eclipselabs.real.core.searchobject.crit;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
@@ -66,7 +67,7 @@ public interface IAcceptanceCriterion extends Cloneable {
      * @param sr the search result
      * @return a list of results for every guess
      */
-    public List<AcceptanceGuessResult> getGuessResults(String logText, ISearchResult<? extends ISearchResultObject> sr);
+    public List<AcceptanceGuessResult> getGuessResults(String logText, ISearchResult<? extends ISearchResultObject> sr) throws IncorrectPatternException;
 
     /**
      * Some acceptance criteria may contain parameters (replaceable parameters)

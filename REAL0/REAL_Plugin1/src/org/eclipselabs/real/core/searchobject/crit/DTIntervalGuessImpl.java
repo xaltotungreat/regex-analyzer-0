@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchobject.ISearchObjectConstants;
@@ -26,7 +27,7 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
     }
 
     @Override
-    public AcceptanceGuessResult getGuessResult(String logText, ISearchResult<? extends ISearchResultObject> sr) {
+    public AcceptanceGuessResult getGuessResult(String logText, ISearchResult<? extends ISearchResultObject> sr) throws IncorrectPatternException {
         AcceptanceGuessResult result = null;
         boolean proceed = true;
         if (proceed && ((firstRecord == null) || (lastRecord == null))) {

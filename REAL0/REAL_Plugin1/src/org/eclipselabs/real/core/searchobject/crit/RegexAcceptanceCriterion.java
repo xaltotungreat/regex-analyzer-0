@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
@@ -46,45 +47,50 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
             if (acceptanceRegexList != null) {
                 for (IRealRegex currAcceptRegex : acceptanceRegexList) {
                     IMatcherWrapper mwr = null;
-                    switch(type) {
-                    case FIND:
-                        mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
-                        result = mwr.find();
-                        break;
-                    case FIND_NULLABLE:
-                        // for nullables if the pattern is 0-length after the parameter is replaced
-                        // the criterion is considered satisfied - special case
-                        if (!currAcceptRegex.getPatternString(sr.getCachedReplaceTable()).isEmpty()) {
+                    try {
+                        switch(type) {
+                        case FIND:
                             mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
                             result = mwr.find();
-                        }
-                        break;
-                    case MATCH:
-                        mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
-                        result = mwr.matches();
-                        break;
-                    case NOT_FIND:
-                        mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
-                        result = !mwr.find();
-                        break;
-                    case NOT_FIND_NULLABLE:
-                        // for nullables if the pattern is 0-length after the parameter is replaced
-                        // the criterion is considered satisfied - special case
-                        if (!currAcceptRegex.getPatternString(sr.getCachedReplaceTable()).isEmpty()) {
+                            break;
+                        case FIND_NULLABLE:
+                            // for nullables if the pattern is 0-length after the parameter is replaced
+                            // the criterion is considered satisfied - special case
+                            if (!currAcceptRegex.getPatternString(sr.getCachedReplaceTable()).isEmpty()) {
+                                mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
+                                result = mwr.find();
+                            }
+                            break;
+                        case MATCH:
+                            mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
+                            result = mwr.matches();
+                            break;
+                        case NOT_FIND:
                             mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
                             result = !mwr.find();
+                            break;
+                        case NOT_FIND_NULLABLE:
+                            // for nullables if the pattern is 0-length after the parameter is replaced
+                            // the criterion is considered satisfied - special case
+                            if (!currAcceptRegex.getPatternString(sr.getCachedReplaceTable()).isEmpty()) {
+                                mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
+                                result = !mwr.find();
+                            }
+                            break;
+                        case NOT_MATCH:
+                            mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
+                            result = !mwr.matches();
+                            break;
+                        case DISTINCT:
+                            result = verifyDistinct(sro, sr, currAcceptRegex);
+                            break;
+                        default:
+                            log.error("test IncorrectType " + type + " for a regex criterion");
+                            break;
                         }
-                        break;
-                    case NOT_MATCH:
-                        mwr = currAcceptRegex.getMatcherWrapper(sro.getText(), sr.getCachedReplaceTable(), sr.getRegexFlags());
-                        result = !mwr.matches();
-                        break;
-                    case DISTINCT:
-                        result = verifyDistinct(sro, sr, currAcceptRegex);
-                        break;
-                    default:
-                        log.error("test IncorrectType " + type + " for a regex criterion");
-                        break;
+                    } catch (IncorrectPatternException ipe) {
+                        log.error("INcorrect pattern for " + currAcceptRegex + " the result is NOT ACCEPTED", ipe);
+                        result = false;
                     }
                     if (!result) {
                         break;
@@ -99,7 +105,7 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
         return result;
     }
 
-    protected boolean verifyDistinct(ISearchResultObject sro, ISearchResult<? extends ISearchResultObject> sr, IRealRegex currRegex) {
+    protected boolean verifyDistinct(ISearchResultObject sro, ISearchResult<? extends ISearchResultObject> sr, IRealRegex currRegex) throws IncorrectPatternException {
         boolean result = false;
             Set<String> regexDistinctResults = distinctResultsMap.get(currRegex);
             if (regexDistinctResults == null) {

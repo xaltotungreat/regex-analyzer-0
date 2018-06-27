@@ -130,7 +130,7 @@ public abstract class RegexConfigReaderImpl<U> implements IConfigReader<U, Integ
             IConstructionSource<K> aSource) {
         ConstructionTask<K, V> newTask = new ConstructionTask<>(
                 coConstructor, aSource);
-        return CompletableFuture.supplyAsync(newTask, configReaderExecutor);//configReaderExecutor.submit(newTask);
+        return CompletableFuture.supplyAsync(newTask, configReaderExecutor);
     }
 
 }

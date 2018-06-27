@@ -37,7 +37,7 @@ public class SubmitSearchCurrentStage extends ConveyorStageBase {
         params.getSearchRequest().getProgressMonitor().incrementCompletedSOFiles();
         params.getSearchRequest().getProgressMonitor().incrementCompletedWork();
         if (res != null) {
-            Map<String, R> tmpMap = new HashMap<String, R>();
+            Map<String, R> tmpMap = new HashMap<>();
             tmpMap.put("SearchInCurrent", res);
             params.setResult((Map<String, IKeyedComplexSearchResult<? extends
                     IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
