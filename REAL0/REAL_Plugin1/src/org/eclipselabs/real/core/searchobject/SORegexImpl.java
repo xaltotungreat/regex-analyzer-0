@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
@@ -33,7 +34,7 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
     }
 
     @Override
-    public ISRRegex performSearch(PerformSearchRequest request) {
+    public ISRRegex performSearch(PerformSearchRequest request) throws IncorrectPatternException {
         log.debug("performSearch " + this);
         log.info("performSearch request " + request);
         if (request == null) {

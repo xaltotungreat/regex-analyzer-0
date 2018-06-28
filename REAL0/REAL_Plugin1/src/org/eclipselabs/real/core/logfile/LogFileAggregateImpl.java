@@ -108,13 +108,12 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                 return mainResult;
             }
         };
-        LogFileAggregateTaskReloadFolders<LogFileAggregateInfo> newTask = new LogFileAggregateTaskReloadFolders<LogFileAggregateInfo>(
+        LogFileAggregateTaskReloadFolders<LogFileAggregateInfo> newTask = new LogFileAggregateTaskReloadFolders<>(
                 filesDirs, this, currAddResult,
                 new TimeUnitWrapper(currReadWaitTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()),
                 new TimeUnitWrapper(currReadTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
         log.debug("LogFileAggregateTaskReloadFolders added task for " + this.getType());
         return CompletableFuture.supplyAsync(newTask, logFileAggregateExecutor);
-        //return logFileAggregateExecutor.submit(newTask);
     }
 
     @Override
@@ -138,7 +137,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
     public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String, R>> submitSearch(ISearchObject<R, O> so,
             PerformSearchRequest searchRequest, TimeUnitWrapper submitTimeout) {
         CompletableFuture<ConcurrentHashMap<String, R>> returnFuture = null;
-        List<LogFileTaskSearch<R, ConcurrentHashMap<String, R>>> taskList = new ArrayList<LogFileTaskSearch<R, ConcurrentHashMap<String, R>>>();
+        List<LogFileTaskSearch<R, ConcurrentHashMap<String, R>>> taskList = new ArrayList<>();
         List<ILogFile> allLogFiles = getAllValues();
         Long cumulativeSearchWaitTimeout = (long) 0;
         Long cumulativeSearchTimeout = (long) 0;
@@ -160,7 +159,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                         return mainResult;
                     }
                 };
-                LogFileTaskSearch<R, ConcurrentHashMap<String, R>> newTask = new LogFileTaskSearch<R, ConcurrentHashMap<String, R>>(
+                LogFileTaskSearch<R, ConcurrentHashMap<String, R>> newTask = new LogFileTaskSearch<>(
                         currAddResult, currLogFile, so, searchRequest.getSharedMonitorCopy(),
                         new TimeUnitWrapper(currSearchWaitTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()),
                         new TimeUnitWrapper(currSearchTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
@@ -168,11 +167,11 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                 cumulativeSearchWaitTimeout += currSearchWaitTimeout;
                 cumulativeSearchTimeout += currSearchTimeout;
             }
-            List<NamedLock> locks = new ArrayList<NamedLock>();
+            List<NamedLock> locks = new ArrayList<>();
             locks.add(new NamedLock(getReadLock(), "LogAggregate read lock"));
             locks.add(new NamedLock(contrReadLock, "LogController read lock"));
-            returnFuture = new CompletableFuture<ConcurrentHashMap<String, R>>();
-            LogFileTaskExecutor<R, ConcurrentHashMap<String, R>> theTaskExecutor = new LogFileTaskExecutor<R, ConcurrentHashMap<String, R>>("LogSearch-" + lfTypeKey.getLogTypeName(),
+            returnFuture = new CompletableFuture<>();
+            LogFileTaskExecutor<R, ConcurrentHashMap<String, R>> theTaskExecutor = new LogFileTaskExecutor<>("LogSearch-" + lfTypeKey.getLogTypeName(),
                     logFileAggregateExecutor, taskList, returnFuture, new ConcurrentHashMap<String, R>(), locks, new TimeUnitWrapper(2 * putTimeout, putTimeUnit),
                     new TimeUnitWrapper(cumulativeSearchWaitTimeout + cumulativeSearchTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
             theTaskExecutor.execute();
@@ -193,7 +192,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
         try {
             if (operationPendingLock.tryLock() || operationPendingLock.tryLock(submitTimeout.getTimeout(), submitTimeout.getTimeUnit())) {
                 log.debug("ReadFiles operationpending LOCK");
-                List<LogFileTaskRead<LogFileAggregateInfo>> taskList = new ArrayList<LogFileTaskRead<LogFileAggregateInfo>>();
+                List<LogFileTaskRead<LogFileAggregateInfo>> taskList = new ArrayList<>();
                 Long cumulativeReadWaitTimeout = (long)0;
                 Long cumulativeReadTimeout = (long)0;
                 for (ILogFile currLogFile : files) {
@@ -207,17 +206,17 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                             return mainResult;
                         }
                     };
-                    LogFileTaskRead<LogFileAggregateInfo> newTask = new LogFileTaskRead<LogFileAggregateInfo>(currAddResult, currLogFile,
+                    LogFileTaskRead<LogFileAggregateInfo> newTask = new LogFileTaskRead<>(currAddResult, currLogFile,
                             new TimeUnitWrapper(currReadWaitTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()),
                             new TimeUnitWrapper(currReadTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
                     taskList.add(newTask);
                     log.debug("LogReadTask added file=" + currLogFile.getFilePath());
                 }
-                List<NamedLock> locks = new ArrayList<NamedLock>();
+                List<NamedLock> locks = new ArrayList<>();
                 locks.add(new NamedLock(getWriteLock(), "LogAggregate write lock"));
-                returnFuture = new CompletableFuture<LogFileAggregateInfo>();
+                returnFuture = new CompletableFuture<>();
                 LogFileTaskExecutor<LogFileInfo, LogFileAggregateInfo> theTaskExecutor
-                        = new LogFileTaskExecutor<LogFileInfo, LogFileAggregateInfo>(
+                        = new LogFileTaskExecutor<>(
                         "LogRead-" + lfTypeKey.getLogTypeName(), logFileAggregateExecutor,taskList, returnFuture,
                         res, locks, new TimeUnitWrapper(2*getTimeout, getTimeUnit),
                         new TimeUnitWrapper(cumulativeReadWaitTimeout + cumulativeReadTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));

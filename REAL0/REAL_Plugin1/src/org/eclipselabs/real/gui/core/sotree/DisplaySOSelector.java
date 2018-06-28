@@ -53,7 +53,9 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
                         break;
                     }
                 } catch (IncorrectPatternException e) {
-                    log.error("Incorrect pattern for " + nameReg, e);
+                    log.error("Incorrect pattern for " + nameReg + ". An incorrect pattern canont match anything - the result is false", e);
+                    soMatches = false;
+                    break;
                 }
 
             }
@@ -68,7 +70,9 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
                         break;
                     }
                 } catch (IncorrectPatternException e) {
-                    log.error("Incorrect pattern for " + groupReg, e);
+                    log.error("Incorrect pattern for " + groupReg + ". An incorrect pattern canont match anything - the result is false", e);
+                    soMatches = false;
+                    break;
                 }
 
             }
@@ -95,7 +99,9 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
                             }
                         }
                     } catch (IncorrectPatternException ipe) {
-                        log.error("Incorrect pattern for tagref " + tagReg, ipe);
+                        log.error("Incorrect pattern for tagref " + tagReg + ". An incorrect pattern canont match anything - the result is false", ipe);
+                        soMatches = false;
+                        break;
                     }
                 }
                 switch(tagReg.getType()) {

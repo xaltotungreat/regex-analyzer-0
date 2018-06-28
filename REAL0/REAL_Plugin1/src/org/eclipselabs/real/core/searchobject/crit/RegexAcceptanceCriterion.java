@@ -89,7 +89,7 @@ public class RegexAcceptanceCriterion extends AcceptanceCriterionImpl implements
                             break;
                         }
                     } catch (IncorrectPatternException ipe) {
-                        log.error("INcorrect pattern for " + currAcceptRegex + " the result is NOT ACCEPTED", ipe);
+                        log.error("Incorrect pattern for " + currAcceptRegex + " the result is NOT ACCEPTED", ipe);
                         result = false;
                     }
                     if (!result) {

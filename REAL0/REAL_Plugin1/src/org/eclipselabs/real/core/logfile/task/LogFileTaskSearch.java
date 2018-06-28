@@ -1,6 +1,8 @@
 package org.eclipselabs.real.core.logfile.task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
+import org.eclipselabs.real.core.exception.IncorrectPatternExceptionRT;
 import org.eclipselabs.real.core.logfile.ILogFile;
 import org.eclipselabs.real.core.logfile.LogFileInfo;
 import org.eclipselabs.real.core.searchobject.ISearchObject;
@@ -57,20 +59,29 @@ public class LogFileTaskSearch<R extends ISearchResult<?>,M> extends LogFileTask
         R result = null;
         if ((searchRequest.getProgressMonitor() != null) && (!searchRequest.getProgressMonitor().isSearchCancelled())) {
             log.debug("LogFileSearchTask LogFile " + taskLogFile);
-            if (taskLogFile.isRead()) {
-                searchRequest.setText(taskLogFile.getFileText(false));
-                result = theSearchObject.performSearch(searchRequest);
-            } else {
-                LogFileInfo currRes = taskLogFile.readFile();
-                if (currRes.getLastReadSuccessful()) {
-                    searchRequest.setText(taskLogFile.getFileText(true));
+            /*
+             * In this case the exception won't go up in the hierarchy because this is a separate thread
+             * Log it is all that can be done
+             */
+            try {
+                if (taskLogFile.isRead()) {
+                    searchRequest.setText(taskLogFile.getFileText(false));
                     result = theSearchObject.performSearch(searchRequest);
-                    searchRequest.setText(null);
-                    taskLogFile.cleanFile();
-                    System.gc();
                 } else {
-                    log.error("Unable to read file returning null search result", currRes.getLastReadException());
+                    LogFileInfo currRes = taskLogFile.readFile();
+                    if (currRes.getLastReadSuccessful()) {
+                        searchRequest.setText(taskLogFile.getFileText(true));
+                        result = theSearchObject.performSearch(searchRequest);
+                        searchRequest.setText(null);
+                        taskLogFile.cleanFile();
+                        System.gc();
+                    } else {
+                        log.error("Unable to read file returning null search result", currRes.getLastReadException());
+                    }
                 }
+            } catch (IncorrectPatternException e) {
+                log.error("Incorrect pattern exception for file " + taskLogFile.getFilePath(), e);
+                throw new IncorrectPatternExceptionRT(e);
             }
             searchRequest.getProgressMonitor().incrementCompletedSOFiles();
         } else {

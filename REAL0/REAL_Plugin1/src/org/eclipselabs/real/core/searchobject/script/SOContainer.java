@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
@@ -63,7 +64,7 @@ public class SOContainer {
      * @return the {@link SRContainer} object that contains the result of the search.
      */
     public <R extends IKeyedComplexSearchResult<O, ISRComplexRegexView, ISROComplexRegexView, String>,
-                O extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>> SRContainer execute() {
+                O extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>> SRContainer execute() throws IncorrectPatternException {
         SRContainer resultContainer = null;
         if (searchObject == null) {
             log.error("execute SO is null returning empty container");

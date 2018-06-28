@@ -159,8 +159,8 @@ public enum ConveyorMain {
         Optional<IStageTreeBuilder> result = Optional.empty();
         if (req != null) {
             result = orderedBuilderList.stream().
-                    filter((bldSel) -> bldSel.getDsoPredicate().test(req)).
-                    map((builderSel1) -> builderSel1.getBuilder()).
+                    filter(bldSel -> bldSel.getDsoPredicate().test(req)).
+                    map(builderSel1 -> builderSel1.getBuilder()).
                     findFirst();
         }
         return result;

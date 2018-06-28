@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.LogFileSearchException;
 import org.eclipselabs.real.core.util.ITaskWatcherCallback;
 import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.TaskWatcher;
@@ -40,7 +41,8 @@ public class LogFileTaskExecutor<V,R> {
 
     public void execute() {
         if ((theLogTasks != null) && (!theLogTasks.isEmpty())) {
-            final TaskWatcher watcher = new TaskWatcher(operationName, theLocks, new ITaskWatcherCallback() {
+            TaskWatcher watcher = null;
+            watcher = new TaskWatcher(operationName, theLocks, new ITaskWatcherCallback() {
 
                 @Override
                 public void submitTasks(TaskWatcher watcher1) {
@@ -68,13 +70,15 @@ public class LogFileTaskExecutor<V,R> {
                 if (arg0 != null) {
                     logTask.getAddTaskResult().addResult(arg0, theResultAggregate);
                     log.debug("LogTaskFinished success submitted=" + watcher.getSubmitted() + " finished=" + watcher.getFinished());
+                    watcher.incrementAndGetFinished();
                 }
                 if (t != null) {
                     log.error("Future error", arg0);
                     log.debug("LogTaskFinished failure submitted=" + watcher.getSubmitted() + " finished=" + watcher.getFinished());
+                    watcher.incrementAndGetInError(new LogFileSearchException("file name will be added later", t));
                 }
                 // increment in any case
-                watcher.incrementAndGetFinished();
+                //watcher.incrementAndGetFinished();
                 return null;
             });
         }

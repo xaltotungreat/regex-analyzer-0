@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
 import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
 import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
@@ -74,8 +75,9 @@ public interface ISearchObject<R extends ISearchResult<O>,O extends ISearchResul
     /**
      * Perform the search with the parameters specified in the object {@link PerformSearchRequest}
      * @return The result of the search. Must be a descendant of ISearchResult
+     * @throws IncorrectPatternException
      */
-    public R performSearch(PerformSearchRequest request);
+    public R performSearch(PerformSearchRequest request) throws IncorrectPatternException;
 
     /**
      * Adds a replace parameter {@link IReplaceableParam} to this search object.

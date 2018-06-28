@@ -26,6 +26,9 @@ public class GUIUpdater implements Runnable {
 
     public interface IStatusFormatter {
         void updateStatus(GUISearchResult partSRObj, ISearchProgressMonitor searchMonitor, String searchID);
+        default void setErrorStatus(GUISearchResult partSRObj, String searchID, String errorMsg) {
+            partSRObj.setErrorStatus(searchID, errorMsg);
+        }
     }
 
     public static class StatusFormatter implements IStatusFormatter {
@@ -35,6 +38,11 @@ public class GUIUpdater implements Runnable {
             partSRObj.setSearchStatus(searchID, "Searched files " + searchMonitor.getCompletedSOFiles()
                     + "/" + searchMonitor.getTotalSOFiles() + " Found objects " + searchMonitor.getObjectsFound(),
                     searchMonitor.getCompletedSOFiles(), searchMonitor.getTotalSOFiles());
+        }
+
+        @Override
+        public void setErrorStatus(GUISearchResult partSRObj, String searchID, String errorMsg) {
+            partSRObj.setErrorStatus(searchID, errorMsg);
         }
     }
 
@@ -77,15 +85,26 @@ public class GUIUpdater implements Runnable {
         }
         if ((!SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState()))
                 && (partSRObj.isSearchTabAvailable(prodContext.getSearchID()))) {
-            uiSynch.syncExec(new Runnable() {
+            if (prodContext.getAbortMessage() == null) {
+                uiSynch.syncExec(new Runnable() {
 
-                @Override
-                public void run() {
-                    statusFormatter.updateStatus(partSRObj, prodContext.getSearchRequest().getProgressMonitor(),
-                            prodContext.getSearchID());
-                    partSRObj.stopProgress(prodContext.getSearchID());
-                }
-            });
+                    @Override
+                    public void run() {
+                        statusFormatter.updateStatus(partSRObj, prodContext.getSearchRequest().getProgressMonitor(),
+                                prodContext.getSearchID());
+                        partSRObj.stopProgress(prodContext.getSearchID());
+                    }
+                });
+            } else {
+                uiSynch.syncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        statusFormatter.setErrorStatus(partSRObj, prodContext.getSearchID(),
+                                prodContext.getAbortMessage());
+                    }
+                });
+            }
         }
         future.complete(null);
 
