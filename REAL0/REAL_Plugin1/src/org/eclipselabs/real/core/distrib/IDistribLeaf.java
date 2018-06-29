@@ -3,10 +3,13 @@ package org.eclipselabs.real.core.distrib;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
-public interface IDistribLeaf<R> extends IDistribAbstract<R> {
+public interface IDistribLeaf<R,A extends IDistribAccumulator<R,F,E>,F,E> {
 
-    @Override
-    public IDistribRoot<R> getRoot();
+    public default boolean isRoot() {
+        return false;
+    }
+
+    public IDistribRoot<R,A,F,E> getRoot();
 
     public CompletableFuture<R> execute();
 

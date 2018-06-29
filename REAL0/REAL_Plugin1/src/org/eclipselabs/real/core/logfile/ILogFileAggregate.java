@@ -10,6 +10,7 @@ import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.ITypedObject;
+import org.eclipselabs.real.core.util.LockWrapper;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 /**
@@ -47,4 +48,6 @@ public interface ILogFileAggregate extends ITypedObject<LogFileTypeKey> {
     public Long getAggregateFilesSize(List<ILogFile> logFiles);
 
     public Boolean isEmpty();
+
+    public List<LockWrapper> getLocksForOperation(LogOperationType lot);
 }

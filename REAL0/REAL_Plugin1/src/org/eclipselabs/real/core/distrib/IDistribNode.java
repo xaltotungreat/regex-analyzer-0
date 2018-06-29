@@ -1,16 +1,17 @@
 package org.eclipselabs.real.core.distrib;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
 
-public interface IDistribNode<R> extends IDistribAbstract<R> {
+public interface IDistribNode<R,A extends IDistribAccumulator<R,F,E>,F,E> extends
+        IDistribNodeFolder<R, A, F, E>,
+        IDistribLeafFolder<R, A, F, E> {
 
-    public List<IDistribNode<R>> getNodeChildren();
+    @Override
+    default boolean isRoot() {
+        return false;
+    }
 
-    public List<IDistribLeaf<R>> getLeafChildren();
+    public CompletableFuture<Void> executeChildren();
 
-    public CompletableFuture<List<R>> executeChildren();
 
-    public ExecutorService getExecutorService();
 }

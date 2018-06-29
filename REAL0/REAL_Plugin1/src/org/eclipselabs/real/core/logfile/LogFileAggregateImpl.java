@@ -28,6 +28,8 @@ import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.KeyedObjectRepositoryImpl;
+import org.eclipselabs.real.core.util.LockUtil;
+import org.eclipselabs.real.core.util.LockWrapper;
 import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.PerformanceUtils;
@@ -94,8 +96,8 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
 
     @Override
     public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs, TimeUnitWrapper submitTimeout) {
-        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ_WAIT, this).getTimeout();
-        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ, this).getTimeout();
+        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ_WAIT, this).getTimeout();
+        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ, this).getTimeout();
         AddLogFileAggregateTaskResult<LogFileAggregateInfo, LogFileAggregateInfo> currAddResult = new AddLogFileAggregateTaskResult<LogFileAggregateInfo, LogFileAggregateInfo>(this) {
 
             @Override
@@ -144,8 +146,8 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
         if ((allLogFiles != null) && (!allLogFiles.isEmpty())) {
             searchRequest.getProgressMonitor().setTotalSOFiles(allLogFiles.size());
             for (ILogFile currLogFile : allLogFiles) {
-                Long currSearchWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.SEARCH_WAIT, this, currLogFile).getTimeout();
-                Long currSearchTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.SEARCH, this, currLogFile).getTimeout();
+                Long currSearchWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.SEARCH_WAIT, this, currLogFile).getTimeout();
+                Long currSearchTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.SEARCH, this, currLogFile).getTimeout();
                 AddLogFileTaskResult<R, ConcurrentHashMap<String, R>> currAddResult = new AddLogFileTaskResult<R, ConcurrentHashMap<String, R>>(currLogFile) {
 
                     @Override
@@ -196,8 +198,8 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
                 Long cumulativeReadWaitTimeout = (long)0;
                 Long cumulativeReadTimeout = (long)0;
                 for (ILogFile currLogFile : files) {
-                    Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ_WAIT, this, currLogFile).getTimeout();
-                    Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ, this, currLogFile).getTimeout();
+                    Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ_WAIT, this, currLogFile).getTimeout();
+                    Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ, this, currLogFile).getTimeout();
                     AddLogFileTaskResult<LogFileInfo, LogFileAggregateInfo> currAddResult = new AddLogFileTaskResult<LogFileInfo, LogFileAggregateInfo>(currLogFile) {
 
                         @Override
@@ -312,6 +314,19 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
         }
 
         log.debug("handleSizeChange complete " + getType() + " old=" + rscEvent.getOldSize() + " new=" + rscEvent.getNewSize());
+    }
+
+    @Override
+    public List<LockWrapper> getLocksForOperation(LogOperationType lot) {
+        List<LockWrapper> lks = new ArrayList<>();
+        switch(lot) {
+        // other cases will be handled later
+        case SEARCH:
+            lks.add(LockUtil.getWrapper(contrReadLock, "Controller read lock"));
+            lks.add(LockUtil.getWrapper(getReadLock(), "Aggregate read lock"));
+            break;
+        }
+        return lks;
     }
 
 

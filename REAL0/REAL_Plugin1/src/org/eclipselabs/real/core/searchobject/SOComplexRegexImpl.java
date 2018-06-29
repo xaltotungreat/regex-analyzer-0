@@ -152,6 +152,15 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                         if (gcCount > gcMaxCount) {
                             System.gc();
                             gcCount = 0;
+                            /*
+                             * Also check if the thread is not interrupted. If interrupted this means
+                             * maybe the timeout for this operation has expired and the future has been canceled.
+                             * Anyway if the thread is interrupted exit immediately.
+                             */
+                            if (Thread.currentThread().isInterrupted()) {
+                                log.error("Thread interrupted for the search " + this.getSearchObjectName());
+                                return null;
+                            }
                         }
                         gcCount++;
                     }

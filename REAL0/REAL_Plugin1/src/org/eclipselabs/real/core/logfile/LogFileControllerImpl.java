@@ -121,8 +121,8 @@ public enum LogFileControllerImpl {
                         = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(true));
                     for (LogFileTypeKey currType : allTypes) {
                         ILogFileAggregateRep logAggr = getLogAggregateRep(currType);
-                        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ_WAIT, logAggr).getTimeout();
-                        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ, logAggr).getTimeout();
+                        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ_WAIT, logAggr).getTimeout();
+                        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ, logAggr).getTimeout();
                         cumulativeReadWaitTimeout += currReadWaitTimeout;
                         cumulativeReadTimeout += currReadTimeout;
                         AddLogFileAggregateTaskResult<LogFileAggregateInfo, List<LogFileAggregateInfo>> currAddResult = new AddLogFileAggregateTaskResult<LogFileAggregateInfo, List<LogFileAggregateInfo>>(logAggr) {
@@ -205,8 +205,8 @@ public enum LogFileControllerImpl {
                     Long cumulativeReadTimeout = (long) 0;
                     for (final LogFileTypeKey currType : allTypes) {
                         ILogFileAggregateRep logAggr = getLogAggregateRep(currType);
-                        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ_WAIT, logAggr).getTimeout();
-                        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogTimeoutPolicy.OperationType.LOG_FILE_READ, logAggr).getTimeout();
+                        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ_WAIT, logAggr).getTimeout();
+                        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ, logAggr).getTimeout();
                         cumulativeReadWaitTimeout += currReadWaitTimeout;
                         cumulativeReadTimeout += currReadTimeout;
                     }

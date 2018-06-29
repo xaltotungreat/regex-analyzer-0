@@ -81,7 +81,7 @@ public class LogFileTaskSearch<R extends ISearchResult<?>,M> extends LogFileTask
                 }
             } catch (IncorrectPatternException e) {
                 log.error("Incorrect pattern exception for file " + taskLogFile.getFilePath(), e);
-                throw new IncorrectPatternExceptionRT(e);
+                throw new IncorrectPatternExceptionRT(taskLogFile.getFilePath(), e);
             }
             searchRequest.getProgressMonitor().incrementCompletedSOFiles();
         } else {
