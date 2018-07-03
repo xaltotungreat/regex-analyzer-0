@@ -57,7 +57,7 @@ public class ConveyorProductImpl implements IConveyorProduct {
                 context.cleanup();
                 ConveyorMain.INSTANCE.getConvSemaphore().release();
             });
-        endFuture = stagesFuture.thenApply((a) -> context);
+        endFuture = stagesFuture.thenApply(a -> context);
         // clients may want to wait indefinitely
         if (req.getMaxWaitToComplete() == null) {
             try {

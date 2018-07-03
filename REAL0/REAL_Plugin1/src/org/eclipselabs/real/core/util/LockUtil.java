@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.LockTimeoutExceptionRT;
 
 public class LockUtil {
 
@@ -38,7 +39,7 @@ public class LockUtil {
                     } else {
                         log.error("Unable to obtain lock " + currLock.getLockName() + " timeout " + tuw.getTimeout() + tuw.getTimeUnit());
                         allLocked = false;
-                        break;
+                        throw new LockTimeoutExceptionRT("Unable to obtain lock " + currLock.getLockName() + " timeout " + tuw.getTimeout() + tuw.getTimeUnit());
                     }
                 }
             }

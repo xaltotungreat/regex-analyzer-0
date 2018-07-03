@@ -38,7 +38,7 @@ public class DBuilderSearch<R extends ISearchResult<?>> {
     public IDistribRoot<R, DAccumulatorSearchResult<R>, List<R>, GenericError> buildDistribSystem(
             int threadsNum) {
         DAccumulatorSearchResult<R> accum = new DAccumulatorSearchResult<>();
-        IDistribRoot<R, DAccumulatorSearchResult<R>, List<R>, GenericError> root = new DistribNodeRoot<>(accum, threadsNum, "d-" + logAggr.getType().getLogTypeName() + "-");
+        IDistribRoot<R, DAccumulatorSearchResult<R>, List<R>, GenericError> root = new DistribNodeRoot<>(accum, threadsNum, "d-" + logAggr.getType().getLogTypeName());
         // add configuration for the root
         List<LockWrapper> lockForOperation = logAggr.getLocksForOperation(LogOperationType.SEARCH);
 

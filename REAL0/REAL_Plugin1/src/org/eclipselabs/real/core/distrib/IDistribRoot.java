@@ -2,11 +2,13 @@ package org.eclipselabs.real.core.distrib;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.eclipselabs.real.core.exception.LockTimeoutException;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 public interface IDistribRoot<R, A extends IDistribAccumulator<R,F,E>, F, E> extends
         IDistribAbstractElement<R, A, F, E>,
-        IDistribNodeFolder<R, A, F, E> {
+        IDistribNodeFolder<R, A, F, E>,
+        AutoCloseable {
 
     @Override
     default boolean isRoot() {
@@ -24,6 +26,6 @@ public interface IDistribRoot<R, A extends IDistribAccumulator<R,F,E>, F, E> ext
 
     int getTotalTasks();
 
-    CompletableFuture<A> execute();
+    CompletableFuture<A> execute() throws LockTimeoutException;
 
 }

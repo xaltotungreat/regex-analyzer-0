@@ -16,6 +16,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.LockTimeoutException;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
@@ -36,7 +37,7 @@ public class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> impleme
 
     private ExecutorService lockingES = Executors.newSingleThreadExecutor(new NamedThreadFactory("DistribLockThread"));
 
-    public static class TimeRecorder {
+    public static class OperationRecorder {
         public static final String BEGIN = "BeginTime";
         public static final String AFTER_LOCK = "AfterLock";
         public static final String AFTER_TASKS_SUBMITTED = "AfterTasksSubmitted";
@@ -46,12 +47,32 @@ public class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> impleme
 
         private Map<String, Double> timeValues = new HashMap<>();
 
+        private boolean allLocked = false;
+
+        private Throwable execException;
+
         public void putTime(String key, Double val) {
             timeValues.put(key, val);
         }
 
         public Double getTime(String key) {
             return timeValues.get(key);
+        }
+
+        public boolean isAllLocked() {
+            return allLocked;
+        }
+
+        public void setAllLocked(boolean allLocked) {
+            this.allLocked = allLocked;
+        }
+
+        public Throwable getExecException() {
+            return execException;
+        }
+
+        public void setExecException(Throwable execException) {
+            this.execException = execException;
         }
     }
 
@@ -104,72 +125,83 @@ public class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> impleme
     }
 
     @Override
-    public CompletableFuture<A> execute() {
-        TimeRecorder recorder = new TimeRecorder();
+    public CompletableFuture<A> execute() throws LockTimeoutException {
+        OperationRecorder recorder = new OperationRecorder();
 
         CompletableFuture<Void> lockFT;
         if (lockTask != null) {
             lockFT = CompletableFuture.runAsync(() -> {
                         double beginTime = System.currentTimeMillis();
                         log.debug("Start time " + beginTime);
-                        recorder.putTime(TimeRecorder.BEGIN, beginTime);
+                        recorder.putTime(OperationRecorder.BEGIN, beginTime);
                     }, lockingES)
                 .thenRunAsync(lockTask, lockingES)
-                .thenRunAsync(() -> {
-                        double afterLockTime = System.currentTimeMillis();
-                        recorder.putTime(TimeRecorder.AFTER_LOCK, afterLockTime);
-                        log.debug("Time acquiring locks " + (afterLockTime - recorder.getTime(TimeRecorder.BEGIN))/1000);
-                });
+                .whenCompleteAsync((Void runbl, Throwable t) -> {
+                    double afterLockTime = System.currentTimeMillis();
+                    recorder.putTime(OperationRecorder.AFTER_LOCK, afterLockTime);
+                    if (t != null) {
+                        recorder.setAllLocked(false);
+                        recorder.setExecException(t);
+                        log.debug("Time locks not acquired " + (afterLockTime - recorder.getTime(OperationRecorder.BEGIN))/1000);
+                    } else {
+                        recorder.setAllLocked(true);
+                        log.debug("Time acquiring locks " + (afterLockTime - recorder.getTime(OperationRecorder.BEGIN))/1000);
+                    }
+                }, lockingES);
         } else {
-            lockFT = CompletableFuture.runAsync(() -> {} , lockingES);
+            lockFT = CompletableFuture.runAsync(() -> {}, lockingES);
         }
+
         CompletableFuture<Void> childrenExec = lockFT.thenRunAsync(new Runnable() {
             @Override
             public void run() {
-                CompletableFuture<Void>[] subFuturesNodes = new CompletableFuture[nodeChildren.size()];
-                for (int i = 0; i < nodeChildren.size(); i++) {
-                    subFuturesNodes[i] = nodeChildren.get(i).executeChildren();
-                }
-                CompletableFuture<Void> ftNodes = CompletableFuture.allOf(subFuturesNodes);
-                double afterSubmitTime = System.currentTimeMillis();
-                recorder.putTime(TimeRecorder.AFTER_TASKS_SUBMITTED, afterSubmitTime);
-                log.debug("Time submitting tasks " + (afterSubmitTime - recorder.getTime(TimeRecorder.AFTER_LOCK))/1000);
-                try {
-                    if (executionTimeout != null) {
-                        ftNodes.get(executionTimeout.getTimeout(), executionTimeout.getTimeUnit());
-                    } else {
-                        ftNodes.get();
+                if (recorder.isAllLocked()) {
+                    CompletableFuture<Void>[] subFuturesNodes = new CompletableFuture[nodeChildren.size()];
+                    for (int i = 0; i < nodeChildren.size(); i++) {
+                        subFuturesNodes[i] = nodeChildren.get(i).executeChildren();
                     }
-                } catch (InterruptedException | ExecutionException e) {
-                    log.error("Nodes future not executed", e);
-                } catch (TimeoutException e) {
-                    log.error("Execution not completed in time " + executionTimeout.getTimeout(), e);
-                    /*
-                     * Cancel all the futures that have not completed before the timeout
-                     */
-                    for (CompletableFuture<Void> ftr : subFuturesNodes) {
-                        if (!ftr.isDone()) {
-                            ftr.cancel(true);
+                    CompletableFuture<Void> ftNodes = CompletableFuture.allOf(subFuturesNodes);
+                    double afterSubmitTime = System.currentTimeMillis();
+                    recorder.putTime(OperationRecorder.AFTER_TASKS_SUBMITTED, afterSubmitTime);
+                    log.debug("Time submitting tasks " + (afterSubmitTime - recorder.getTime(OperationRecorder.AFTER_LOCK))/1000);
+                    try {
+                        if (executionTimeout != null) {
+                            ftNodes.get(executionTimeout.getTimeout(), executionTimeout.getTimeUnit());
+                        } else {
+                            ftNodes.get();
+                        }
+                    } catch (InterruptedException | ExecutionException e) {
+                        log.error("Nodes future not executed", e);
+                        recorder.setExecException(e);
+                    } catch (TimeoutException e) {
+                        log.error("Execution not completed in time " + executionTimeout.getTimeout(), e);
+                        /*
+                         * Cancel all the futures that have not completed before the timeout
+                         */
+                        recorder.setExecException(e);
+                        for (CompletableFuture<Void> ftr : subFuturesNodes) {
+                            if (!ftr.isDone()) {
+                                ftr.cancel(true);
+                            }
                         }
                     }
+                    double afterExecTime = System.currentTimeMillis();
+                    recorder.putTime(OperationRecorder.AFTER_EXECUTION, afterExecTime);
+                    log.debug("Time executing " + (afterExecTime - afterSubmitTime)/1000);
+                } else {
+                    log.error("Not finished execution", recorder.getExecException());
                 }
-                double afterExecTime = System.currentTimeMillis();
-                recorder.putTime(TimeRecorder.AFTER_EXECUTION, afterExecTime);
-                log.debug("Time executing " + (afterExecTime - afterSubmitTime)/1000);
             }
-        });
+        }, lockingES);
 
         CompletableFuture<Void> unlockFT;
         if (unlockTask != null) {
             // execute unlock even if the previous stage completed exceptionally
-            unlockFT = childrenExec.whenCompleteAsync((Void x, Throwable t) -> {
-                unlockTask.run();
-            });
+            unlockFT = childrenExec.whenCompleteAsync((Void x, Throwable t) -> unlockTask.run(), lockingES);
         } else {
-            unlockFT = childrenExec.thenRunAsync(() -> {});
+            unlockFT = childrenExec;
         }
-
-        return unlockFT.thenApplyAsync(t -> accumulator);
+        return unlockFT.thenApplyAsync(t -> accumulator, lockingES);
     }
 
     @Override
@@ -195,6 +227,12 @@ public class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> impleme
     @Override
     public void setExecutionTimeout(TimeUnitWrapper executionTimeout) {
         this.executionTimeout = executionTimeout;
+    }
+
+    @Override
+    public void close() throws Exception {
+        executorService.shutdown();
+        lockingES.shutdown();
     }
 
 

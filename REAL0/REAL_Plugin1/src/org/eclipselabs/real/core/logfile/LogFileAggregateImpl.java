@@ -54,7 +54,7 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
     protected MultiThreadingState theReadFilesState = MultiThreadingState.ALLOW_MULTITHREADING_READ;
 
     // performance property keys
-    protected static final String PERF_CONST_SEARCH_THREADS = "org.eclipselabs.real.core.logfile.SearchThreadsNumberPerAggregate";
+
     protected static final String PERF_CONST_AGGREGATE_SIZE_LIMIT = "org.eclipselabs.real.core.logfile.AggregateSizeLimit";
 
     protected LogFileTypeKey lfTypeKey;

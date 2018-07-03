@@ -78,7 +78,7 @@ public class DistribNodeImpl<R,A extends IDistribAccumulator<R,F,E>,F,E> impleme
             subFuturesNodes[i] = nodeChildren.get(i).executeChildren();
         }
         CompletableFuture<R>[] subFuturesLeaves = new CompletableFuture[leafChildren.size()];
-        for (int i = 0; i <= leafChildren.size(); i++) {
+        for (int i = 0; i < leafChildren.size(); i++) {
             subFuturesLeaves[i] = leafChildren.get(i).execute();
         }
         CompletableFuture<Void> ftNodes = CompletableFuture.allOf(subFuturesNodes);

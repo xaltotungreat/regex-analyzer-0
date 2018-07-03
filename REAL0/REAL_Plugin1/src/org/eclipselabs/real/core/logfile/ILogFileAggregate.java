@@ -28,6 +28,7 @@ public interface ILogFileAggregate extends ITypedObject<LogFileTypeKey> {
     }
 
     public static Integer FILE_SIZE_LIMIT = 51;
+    public static final String PERF_CONST_SEARCH_THREADS = "org.eclipselabs.real.core.logfile.SearchThreadsNumberPerAggregate";
 
     public ReentrantLock getReadFileLock();
     public MultiThreadingState getReadFilesState();
