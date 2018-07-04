@@ -20,7 +20,7 @@ import org.eclipselabs.real.core.exception.LockTimeoutException;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
-public class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDistribRoot<R, A, F, E> {
+class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDistribRoot<R, A, F, E> {
 
     private static final Logger log = LogManager.getLogger(DistribNodeRoot.class);
     private A accumulator;

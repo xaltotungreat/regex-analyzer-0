@@ -77,7 +77,7 @@ import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
  */
 public interface ISOSearchScript extends IKeyedComplexSearchObject<ISRSearchScript,
         IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-        ISOComplexRegexView,ISRComplexRegexView, ISROComplexRegexView,String>, IRefKeyedSOContainer {
+        ISOComplexRegexView,ISRComplexRegexView, ISROComplexRegexView,String> {
 
     /**
      * Returns the text of he script as a String

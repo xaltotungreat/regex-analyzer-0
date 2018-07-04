@@ -49,7 +49,7 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
             LocalDateTime fstDate = null;
             if (fstMwr.find()) {
                 FindTextResult fstRes = fstMwr.getResult();
-                fstDate = SearchObjectUtil.parseDate(sr.getDateInfo(), fstRes.getStrResult(),
+                fstDate = SearchObjectUtil.parseDate(sr.getDateInfos(), fstRes.getStrResult(),
                         sr.getCachedReplaceTable(), sr.getRegexFlags());
             }
 
@@ -57,7 +57,7 @@ public class DTIntervalGuessImpl extends AcceptanceGuessImpl implements IDTInter
             LocalDateTime lstDate = null;
             if (lstMwr.find()) {
                 FindTextResult lstRes = lstMwr.getResult();
-                lstDate = SearchObjectUtil.parseDate(sr.getDateInfo(), lstRes.getStrResult(),
+                lstDate = SearchObjectUtil.parseDate(sr.getDateInfos(), lstRes.getStrResult(),
                         sr.getCachedReplaceTable(), sr.getRegexFlags());
             }
             if ((fstDate != null) && (lstDate != null)) {

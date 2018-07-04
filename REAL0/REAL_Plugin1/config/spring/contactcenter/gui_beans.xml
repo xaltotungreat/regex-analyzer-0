@@ -240,7 +240,7 @@
 	<!-- Common beans END -->
 	
 	<!-- GUI beans START -->
-	<bean id="templateGlobal" parent="templateComplexRegexDefault">
+	<bean id="templateGlobal" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="global"/>
 		<property name="selectorList">
 			<list>
@@ -272,7 +272,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCCMM_EmailManager" parent="templateComplexRegexDefault">
+	<bean id="templateCCMM_EmailManager" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CCMM_EmailManager"/>
 		<property name="selectorList">
 			<list>
@@ -299,7 +299,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCCMM_MCMClient" parent="templateComplexRegexDefault">
+	<bean id="templateCCMM_MCMClient" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CCMM_MCMClient"/>
 		<property name="selectorList">
 			<list>
@@ -326,7 +326,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCCMM_StarterService" parent="templateComplexRegexDefault">
+	<bean id="templateCCMM_StarterService" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CCMM_StarterService"/>
 		<property name="selectorList">
 			<list>
@@ -353,7 +353,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCCMM_OAMClient" parent="templateComplexRegexDefault">
+	<bean id="templateCCMM_OAMClient" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CCMM_OAMClient"/>
 		<property name="selectorList">
 			<list>
@@ -380,7 +380,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCCMM_CMF" parent="templateComplexRegexDefault">
+	<bean id="templateCCMM_CMF" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CCMM_CMF"/>
 		<property name="selectorList">
 			<list>
@@ -407,7 +407,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateAgentDesktop" parent="templateComplexRegexDefault">
+	<bean id="templateAgentDesktop" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="AgentDesktop"/>
 		<property name="selectorList">
 			<list>
@@ -434,7 +434,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_SipSp" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_SipSp" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_SipSp"/>
 		<property name="selectorList">
 			<list>
@@ -461,7 +461,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_AmlSp" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_AmlSp" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_AmlSp"/>
 		<property name="selectorList">
 			<list>
@@ -488,7 +488,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_SipMessages" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_SipMessages" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_SipMessages"/>
 		<property name="selectorList">
 			<list>
@@ -515,7 +515,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_TapidMessages" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_TapidMessages" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_TapidMessages"/>
 		<property name="selectorList">
 			<list>
@@ -542,7 +542,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_XMPP_Service" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_XMPP_Service" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_XMPP_Service"/>
 		<property name="selectorList">
 			<list>
@@ -569,7 +569,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_XMPPMessages" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_XMPPMessages" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_XMPPMessages"/>
 		<property name="selectorList">
 			<list>
@@ -596,7 +596,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCMF_OAM_SP" parent="templateComplexRegexDefault">
+	<bean id="templateCMF_OAM_SP" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CMF_OAM_SP"/>
 		<property name="selectorList">
 			<list>
@@ -623,7 +623,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCMF_OAM32" parent="templateComplexRegexDefault">
+	<bean id="templateCMF_OAM32" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CMF_OAM32"/>
 		<property name="selectorList">
 			<list>
@@ -650,7 +650,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateASM" parent="templateComplexRegexDefault">
+	<bean id="templateASM" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="ASM"/>
 		<property name="selectorList">
 			<list>
@@ -677,7 +677,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCCT_SERVER" parent="templateComplexRegexDefault">
+	<bean id="templateCCT_SERVER" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CCT_SERVER"/>
 		<property name="selectorList">
 			<list>
@@ -704,7 +704,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateAML" parent="templateComplexRegexDefault">
+	<bean id="templateAML" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="AML"/>
 		<property name="selectorList">
 			<list>
@@ -731,7 +731,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_SipSpCpp" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_SipSpCpp" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_SipSpCpp"/>
 		<property name="selectorList">
 			<list>
@@ -758,7 +758,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateEB" parent="templateComplexRegexDefault">
+	<bean id="templateEB" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="EB"/>
 		<property name="selectorList">
 			<list>
@@ -785,7 +785,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateSGM_SipRvCpp" parent="templateComplexRegexDefault">
+	<bean id="templateSGM_SipRvCpp" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="SGM_SipRvCpp"/>
 		<property name="selectorList">
 			<list>
@@ -812,7 +812,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCMF_OI" parent="templateComplexRegexDefault">
+	<bean id="templateCMF_OI" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CMF_OI"/>
 		<property name="selectorList">
 			<list>
@@ -839,7 +839,7 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="templateCC_CacheResiliency" parent="templateComplexRegexDefault">
+	<bean id="templateCC_CacheResiliency" parent="templateComplexRegexDefault" scope="prototype">
 		<constructor-arg index="0" value="CC_CacheResiliency"/>
 		<property name="selectorList">
 			<list>

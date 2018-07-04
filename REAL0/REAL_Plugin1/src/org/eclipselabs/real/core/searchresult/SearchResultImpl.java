@@ -49,7 +49,7 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     // they will be copied to this field
     protected Integer regexFlags;
     // cloned date info from the search object
-    protected ISearchObjectDateInfo dateInfo;
+    protected List<ISearchObjectDateInfo> dateInfos;
     // this set is used in search results merging to guess the correct year
     // (mostly in search scripts) if for some result objects the year info is resent
     // and for some is not
@@ -647,13 +647,13 @@ public abstract class SearchResultImpl<O extends ISearchResultObject> implements
     }
 
     @Override
-    public ISearchObjectDateInfo getDateInfo() {
-        return dateInfo;
+    public List<ISearchObjectDateInfo> getDateInfos() {
+        return dateInfos;
     }
 
     @Override
-    public void setDateInfo(ISearchObjectDateInfo dateInfo) {
-        this.dateInfo = dateInfo;
+    public void setDateInfos(List<ISearchObjectDateInfo> dateInfos) {
+        this.dateInfos = dateInfos;
     }
 
     @Override

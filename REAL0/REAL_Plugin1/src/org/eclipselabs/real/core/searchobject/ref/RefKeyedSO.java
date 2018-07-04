@@ -440,8 +440,8 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
 
         // the date info is added if none existed before
         if ((refDateInfo != null) && (RefType.ADD.equals(refDateInfo.getType()))
-                && (obj.getDateInfo() == null) && (refDateInfo.getValue() != null)) {
-            obj.setDateInfo(refDateInfo.getValue());
+                && (obj.getDateInfos() == null) && (refDateInfo.getValue() != null)) {
+            obj.setDateInfos(refDateInfo.getValue());
             count++;
             if (refDateInfo.getValue() == null) {
                 log.warn("addParameters date info value is null " + refDateInfo);
@@ -583,7 +583,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         // the date info is replaced
         if ((refDateInfo != null) && (RefType.REPLACE_ADD.equals(refDateInfo.getType()))
                 && (refDateInfo.getValue() != null)) {
-            obj.setDateInfo(refDateInfo.getValue());
+            obj.setDateInfos(refDateInfo.getValue());
             count++;
             if (refDateInfo.getValue() == null) {
                 log.warn("replaceAddParameters date info value is null " + refDateInfo);
@@ -705,8 +705,8 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
 
         // the date info may be replaced
         if ((refDateInfo != null) && (RefType.REPLACE.equals(refDateInfo.getType()))) {
-            if (obj.getDateInfo() != null) {
-                obj.setDateInfo(refDateInfo.getValue());
+            if (obj.getDateInfos() != null) {
+                obj.setDateInfos(refDateInfo.getValue());
                 count++;
             } else {
                 log.warn("replaceParameters dateInfo doesn't exist cannot replace");
@@ -829,7 +829,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         // even though it may be unusual the date info may also be removed
         if ((refDateInfo != null) && (RefType.REMOVE.equals(refDateInfo.getType()))) {
             log.warn("removeParameters RefDateInfo with type REMOVE. Setting dateInfo to null");
-            obj.setDateInfo(null);
+            obj.setDateInfos(null);
             count++;
         }
         return count;
@@ -995,7 +995,7 @@ public abstract class RefKeyedSO<T extends IKeyedSearchObject<? extends IKeyedSe
         this.refRegexFlags = refRegexFlags;
     }
 
-    public RefDateInfo getRefDateInfo() {
+    public RefDateInfo getRefDateInfos() {
         return refDateInfo;
     }
 

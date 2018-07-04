@@ -1282,7 +1282,7 @@ public class GUISearchResult {
     */
     public void setSelectionWithStyles(Integer start, Integer end) {
         if ((start >= 0) && (start < styledText.getText().length())
-                && (end >= 0) && (end < styledText.getText().length())) {
+                && (end >= 0) && (end <= styledText.getText().length())) {
             // a trick to scroll the selection into view first select the text
             // to scroll in into view then put the selection at the beginning
             styledText.setSelection(start, end);

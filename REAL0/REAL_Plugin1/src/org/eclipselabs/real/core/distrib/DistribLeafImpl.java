@@ -3,7 +3,7 @@ package org.eclipselabs.real.core.distrib;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
-public class DistribLeafImpl<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDistribLeaf<R,A,F,E> {
+class DistribLeafImpl<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDistribLeaf<R,A,F,E> {
 
     private IDistribTask<R> task;
 
@@ -22,14 +22,14 @@ public class DistribLeafImpl<R,A extends IDistribAccumulator<R,F,E>,F,E> impleme
     }
 
     @Override
-    public CompletableFuture<R> execute() {
+    public CompletableFuture<IDistribTaskResultWrapper<R>> execute() {
         return execute(parent.getExecutorService());
     }
 
     @Override
-    public CompletableFuture<R> execute(ExecutorService es) {
-        CompletableFuture<R> execFuture = CompletableFuture.supplyAsync(task, es);
-        return execFuture.handle((R arg0, Throwable t) -> {
+    public CompletableFuture<IDistribTaskResultWrapper<R>> execute(ExecutorService es) {
+        CompletableFuture<IDistribTaskResultWrapper<R>> execFuture = CompletableFuture.supplyAsync(task, es);
+        return execFuture.handle((IDistribTaskResultWrapper<R> arg0, Throwable t) -> {
             if (arg0 != null) {
                 accumulator.addResult(arg0);
             }

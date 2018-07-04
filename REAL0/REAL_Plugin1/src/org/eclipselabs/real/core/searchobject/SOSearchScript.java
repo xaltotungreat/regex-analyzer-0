@@ -15,16 +15,12 @@ import org.eclipselabs.real.core.searchobject.crit.IAcceptanceCriterion;
 import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
 import org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey;
 import org.eclipselabs.real.core.searchobject.ref.IRefKeyedSOContainer;
-import org.eclipselabs.real.core.searchobject.ref.RefKeyedSO;
-import org.eclipselabs.real.core.searchobject.ref.RefKeyedSOContainerImpl;
 import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
-import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
 import org.eclipselabs.real.core.searchresult.ISRSearchScript;
 import org.eclipselabs.real.core.searchresult.SRSearchScriptImpl;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
-import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -44,8 +40,6 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
     protected String scriptText;
     // the internal search objects list
     protected List<ISOComplexRegex> mainRegexList = Collections.synchronizedList(new ArrayList<ISOComplexRegex>());
-
-    protected IRefKeyedSOContainer refContainer = new RefKeyedSOContainerImpl();
 
     public SOSearchScript(String aName) {
         super(SearchObjectType.SEARCH_SCRIPT, aName);
@@ -81,9 +75,13 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
             if (request.getCustomRegexFlags() != null) {
                 result.setRegexFlags(request.getCustomRegexFlags());
             }
-            if (getDateInfo() != null) {
+            if (getDateInfos() != null) {
                 try {
-                    result.setDateInfo(getDateInfo().clone());
+                    List<ISearchObjectDateInfo> newInfos = new ArrayList<>();
+                    for (ISearchObjectDateInfo di : getDateInfos()) {
+                        newInfos.add(di.clone());
+                    }
+                    result.setDateInfos(newInfos);
                 } catch (CloneNotSupportedException e) {
                     log.error("performSearch",e);
                 }
@@ -219,48 +217,6 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
     }
 
     @Override
-    public List<RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>> getRefList() {
-        return refContainer.getRefList();
-    }
-
-    @Override
-    public void setRefList(List<RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>> newRefList) {
-        refContainer.setRefList(newRefList);
-    }
-
-    @Override
-    public <F extends RefKeyedSO<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>>> void addRef(F newRef) {
-        refContainer.addRef(newRef);
-    }
-
-    @Override
-    public List<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> resolveRefs(ISearchObjectRepository rep) {
-        List<? extends IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> resolvedSOList = refContainer.resolveRefs(rep);
-        if (resolvedSOList != null) {
-            for (IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject> resolvedSO : resolvedSOList) {
-                try {
-                    resolvedSO.setSearchObjectGroup(getSearchObjectGroup().clone());
-                } catch (CloneNotSupportedException e) {
-                    log.error("resolveRefs ", e);
-                }
-                resolvedSO.setParent(this);
-                mainRegexList.add((ISOComplexRegex)resolvedSO);
-            }
-        }
-        return resolvedSOList;
-    }
-
-    @Override
-    public boolean isAllRefResolved() {
-        return refContainer.isAllRefResolved();
-    }
-
-    @Override
-    public boolean isContainRefs() {
-        return refContainer.isContainRefs();
-    }
-
-    @Override
     public void setSearchObjectGroup(ISearchObjectGroup<String> newGroup) {
         super.setSearchObjectGroup(newGroup);
         synchronized(mainRegexList) {
@@ -283,7 +239,7 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
         StringBuilder sb = new StringBuilder();
         sb.append("\nSOSearchScript name=").append(getSearchObjectName()).append(" group=").append(getSearchObjectGroup()).append(" tags=").append(getSearchObjectTags());
         sb.append("\nReplaceParams ").append(getCloneParamList());
-        sb.append("\nDate info ").append(getDateInfo());
+        sb.append("\nDate info ").append(getDateInfos());
         sb.append("\nScript text: \n").append(scriptText);
         sb.append("\nMain complex SO:");
         for (IKeyedComplexSearchObject<

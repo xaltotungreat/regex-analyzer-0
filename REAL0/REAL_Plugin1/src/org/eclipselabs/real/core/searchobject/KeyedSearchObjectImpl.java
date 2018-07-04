@@ -1,6 +1,8 @@
 package org.eclipselabs.real.core.searchobject;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -87,13 +89,13 @@ public abstract class KeyedSearchObjectImpl<R extends IKeyedSearchResult<O>,O ex
     }
 
     @Override
-    public ISearchObjectDateInfo getDateInfo() {
-        return keyedSODelegate.getDateInfo();
+    public List<ISearchObjectDateInfo> getDateInfos() {
+        return keyedSODelegate.getDateInfos();
     }
 
     @Override
-    public void setDateInfo(ISearchObjectDateInfo newDateInfo) {
-        keyedSODelegate.setDateInfo(newDateInfo);
+    public void setDateInfos(List<ISearchObjectDateInfo> newDateInfo) {
+        keyedSODelegate.setDateInfos(newDateInfo);
     }
 
     @Override
@@ -114,7 +116,7 @@ public abstract class KeyedSearchObjectImpl<R extends IKeyedSearchResult<O>,O ex
             cloneSODelegate.setSearchObjectGroup(keyedSODelegate.getSearchObjectGroup().clone());
         }
         if (keyedSODelegate.getSearchObjectTags() != null) {
-            Map<String,String> newTags = new ConcurrentHashMap<String, String>();
+            Map<String,String> newTags = new ConcurrentHashMap<>();
             newTags.putAll(keyedSODelegate.getSearchObjectTags());
             cloneSODelegate.setSearchObjectTags(newTags);
         }
@@ -125,8 +127,12 @@ public abstract class KeyedSearchObjectImpl<R extends IKeyedSearchResult<O>,O ex
             }
             cloneSODelegate.setRequiredLogTypes(newReqLFT);
         }
-        if (keyedSODelegate.getDateInfo() != null) {
-            cloneSODelegate.setDateInfo(getDateInfo().clone());
+        if (keyedSODelegate.getDateInfos() != null) {
+            List<ISearchObjectDateInfo> newInfos = new ArrayList<>();
+            for (ISearchObjectDateInfo di : keyedSODelegate.getDateInfos()) {
+                newInfos.add(di.clone());
+            }
+            cloneSODelegate.setDateInfos(newInfos);
         }
         cloneObj.keyedSODelegate = cloneSODelegate;
         return cloneObj;

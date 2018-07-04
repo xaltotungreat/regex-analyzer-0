@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
-public class DistribNodeImpl<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDistribNode<R, A, F, E> {
+class DistribNodeImpl<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDistribNode<R, A, F, E> {
 
     private IDistribNodeFolder<R, A, F, E> parent;
 
@@ -77,7 +77,7 @@ public class DistribNodeImpl<R,A extends IDistribAccumulator<R,F,E>,F,E> impleme
         for (int i = 0; i < nodeChildren.size(); i++) {
             subFuturesNodes[i] = nodeChildren.get(i).executeChildren();
         }
-        CompletableFuture<R>[] subFuturesLeaves = new CompletableFuture[leafChildren.size()];
+        CompletableFuture<IDistribTaskResultWrapper<R>>[] subFuturesLeaves = new CompletableFuture[leafChildren.size()];
         for (int i = 0; i < leafChildren.size(); i++) {
             subFuturesLeaves[i] = leafChildren.get(i).execute();
         }

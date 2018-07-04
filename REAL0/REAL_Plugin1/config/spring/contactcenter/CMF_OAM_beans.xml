@@ -31,7 +31,11 @@
 				<ref bean="sortRequestRegexCMF_OAM"/>
 			</list>
 		</property>
-		<property name="dateInfo" ref="dateInfoCMF_OAM"/>
+		<property name="dateInfos" >
+			<list>
+				<ref bean="dateInfoCMF_OAM" />
+			</list>
+		</property>
 	</bean>
 	
 	<!-- the regex sort request bean -->

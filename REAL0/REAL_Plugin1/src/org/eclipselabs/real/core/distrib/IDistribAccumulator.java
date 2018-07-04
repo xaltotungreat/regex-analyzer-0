@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface IDistribAccumulator<R, F, E> {
 
-    public void addResult(R newResult);
+    public void addResult(IDistribTaskResultWrapper<R> newResult);
 
-    public List<R> getAllResults();
+    public List<IDistribTaskResultWrapper<R>> getAllResults();
 
     public F getResult();
 

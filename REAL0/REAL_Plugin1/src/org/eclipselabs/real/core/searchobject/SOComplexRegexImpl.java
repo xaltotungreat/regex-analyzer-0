@@ -75,9 +75,13 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
         if (request.getCustomRegexFlags() != null) {
             result.setRegexFlags(request.getCustomRegexFlags());
         }
-        if (getDateInfo() != null) {
+        if (getDateInfos() != null) {
             try {
-                result.setDateInfo(getDateInfo().clone());
+                List<ISearchObjectDateInfo> newInfos = new ArrayList<>();
+                for (ISearchObjectDateInfo di : getDateInfos()) {
+                    newInfos.add(di.clone());
+                }
+                result.setDateInfos(newInfos);
             } catch (CloneNotSupportedException e) {
                 log.error("performSearch",e);
             }
@@ -131,7 +135,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                     while (mtw.find()) {
                         FindTextResult foundStr = mtw.getResult();
                         ISROComplexRegex newSR = new SROComplexRegexImpl(foundStr.getStrResult(),
-                                foundStr.getStartPos(), foundStr.getEndPos(), SearchObjectUtil.parseDate(getDateInfo(),
+                                foundStr.getStartPos(), foundStr.getEndPos(), SearchObjectUtil.parseDate(getDateInfos(),
                                         foundStr.getStrResult(), cachedReplaceTable, finalRegexFlags));
                         if (newSR.getDate() != null) {
                             result.getFoundYears().add(newSR.getDate().getYear());
@@ -228,7 +232,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                 sb.append("\n").append(currParam);
             }
         }
-        sb.append("\nDate info ").append(getDateInfo());
+        sb.append("\nDate info ").append(getDateInfos());
         sb.append("\nMain regexes:");
         for (IRealRegex currReg : mainRegexList) {
             sb.append("\n\t").append(currReg);

@@ -70,8 +70,8 @@ public interface ISearchResult<O extends ISearchResultObject> extends Cloneable 
     public Integer getRegexFlags();
     public void setRegexFlags(Integer newFlags);
 
-    public ISearchObjectDateInfo getDateInfo();
-    public void setDateInfo(ISearchObjectDateInfo dateInfo);
+    public List<ISearchObjectDateInfo> getDateInfos();
+    public void setDateInfos(List<ISearchObjectDateInfo> dateInfo);
 
     public List<String> getTextList();
     public String getTextConcat();

@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.distrib.GenericError;
 import org.eclipselabs.real.core.distrib.IDistribRoot;
+import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
 import org.eclipselabs.real.core.dlog.DAccumulatorSearchResult;
 import org.eclipselabs.real.core.dlog.DBuilderSearch;
 import org.eclipselabs.real.core.exception.LockTimeoutException;
@@ -103,16 +104,18 @@ public class SubmitSearchStageCR extends ConveyorStageBase {
         final IKeyedComplexSearchObject<R,O,V,W,X,String> currSO = (IKeyedComplexSearchObject<R,O,V,W,X,String>)req.getDso().getSearchObject();
         final GUISearchResult partSRObj = (GUISearchResult) params.getSearchPart().getObject();
         ILogFileAggregateRep logAggr = LogFileControllerImpl.INSTANCE.getLogAggregateRep(currSO.getLogFileType());
+        // fill in the total number of files
+        params.getSearchRequest().getProgressMonitor().setTotalSOFiles(logAggr.getCount());
         // create a distribution system for this search
         DBuilderSearch<R> dBuilder = new DBuilderSearch<>(logAggr, currSO, params.getSearchRequest());
         int threadsNumber = PerformanceUtils.getIntProperty(ILogFileAggregate.PERF_CONST_SEARCH_THREADS, 2);
-        final IDistribRoot<R, DAccumulatorSearchResult<R>, List<R>, GenericError> distribRoot = dBuilder.buildDistribSystem(threadsNumber);
+        final IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> distribRoot = dBuilder.buildDistribSystem(threadsNumber);
         // try to get the results from the distribution system
         try {
             finalFuture = distribRoot.execute().handleAsync((DAccumulatorSearchResult<R> accumResult, Throwable t) -> {
                 if ((accumResult != null) && (!accumResult.getResult().isEmpty())) {
                     /* for now convert the value to the old Map format.
-                     * If this is successful the olf format will be replaced
+                     * If this is successful the old format will be replaced
                      */
                     try {
                         distribRoot.close();
@@ -121,9 +124,9 @@ public class SubmitSearchStageCR extends ConveyorStageBase {
                     }
                     AtomicInteger tempCounter = new AtomicInteger(0);
                     String initValue = "oldFormat";
-                    Map<String, R> oldMapResults = accumResult.getResult().stream().collect(Collectors.toMap(
-                            (R forKey) -> initValue + tempCounter.incrementAndGet(),
-                            (R forValue) -> forValue));
+                    Map<String, R> oldMapResults = accumResult.getResult().stream().filter(tr -> tr.getActualResult() != null).collect(Collectors.toMap(
+                            (IDistribTaskResultWrapper<R> forKey) -> initValue + tempCounter.incrementAndGet(),
+                            (IDistribTaskResultWrapper<R> forValue) -> forValue.getActualResult()));
                     params.setResult((Map<String, IKeyedComplexSearchResult<? extends
                             IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
                                     ? extends ISearchResultObject, String>,

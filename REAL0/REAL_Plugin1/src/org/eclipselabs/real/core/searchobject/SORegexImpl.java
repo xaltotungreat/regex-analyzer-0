@@ -1,5 +1,6 @@
 package org.eclipselabs.real.core.searchobject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -54,9 +55,13 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
         if (request.getCustomRegexFlags() != null) {
             result.setRegexFlags(request.getCustomRegexFlags());
         }
-        if (getDateInfo() != null) {
+        if (getDateInfos() != null) {
             try {
-                result.setDateInfo(getDateInfo().clone());
+                List<ISearchObjectDateInfo> newInfos = new ArrayList<>();
+                for (ISearchObjectDateInfo di : getDateInfos()) {
+                    newInfos.add(di.clone());
+                }
+                result.setDateInfos(newInfos);
             } catch (CloneNotSupportedException e) {
                 log.error("performSearch",e);
             }
@@ -100,7 +105,7 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
             while (mwr.find()) {
                 FindTextResult res = mwr.getResult();
                 ISRORegex newSR = new SRORegexImpl(res.getStrResult(), res.getStartPos(), res.getEndPos(),
-                        SearchObjectUtil.parseDate(getDateInfo(), res.getStrResult(), cachedReplaceTable, finalRegexFlags));
+                        SearchObjectUtil.parseDate(getDateInfos(), res.getStrResult(), cachedReplaceTable, finalRegexFlags));
                 boolean acceptancePassed = SearchObjectUtil.accept(newSR, searchAC, result);
                 if (acceptancePassed) {
                     result.addSRObject(newSR);
@@ -137,7 +142,7 @@ public class SORegexImpl extends KeyedSearchObjectImpl<ISRRegex, ISRORegex> impl
         StringBuilder sb = new StringBuilder();
         sb.append("SORegexImpl name=").append(getSearchObjectName()).append(" group=").append(getSearchObjectGroup()).append(" tags=").append(getSearchObjectTags());
         sb.append("\nReplaceParams ").append(getCloneParamList());
-        sb.append("\nDate info ").append(getDateInfo());
+        sb.append("\nDate info ").append(getDateInfos());
         sb.append("\nMainRegex ").append(theRegex);
         sb.append("\nAcceptance:");
         for (IAcceptanceCriterion currCrit : acceptanceList) {

@@ -11,9 +11,9 @@ public interface IDistribLeaf<R,A extends IDistribAccumulator<R,F,E>,F,E> {
 
     public IDistribRoot<R,A,F,E> getRoot();
 
-    public CompletableFuture<R> execute();
+    public CompletableFuture<IDistribTaskResultWrapper<R>> execute();
 
-    public CompletableFuture<R> execute(ExecutorService es);
+    public CompletableFuture<IDistribTaskResultWrapper<R>> execute(ExecutorService es);
 
     public IDistribTask<R> getTask();
 }

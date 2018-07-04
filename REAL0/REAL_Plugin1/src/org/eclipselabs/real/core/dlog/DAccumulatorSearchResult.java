@@ -6,11 +6,12 @@ import java.util.List;
 
 import org.eclipselabs.real.core.distrib.GenericError;
 import org.eclipselabs.real.core.distrib.IDistribAccumulator;
+import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 
-public class DAccumulatorSearchResult<R extends ISearchResult<?>> implements IDistribAccumulator<R, List<R>, GenericError> {
+public class DAccumulatorSearchResult<R extends ISearchResult<?>> implements IDistribAccumulator<R, List<IDistribTaskResultWrapper<R>>, GenericError> {
 
-    private List<R> accumResults = Collections.synchronizedList(new ArrayList<>());
+    private List<IDistribTaskResultWrapper<R>> accumResults = Collections.synchronizedList(new ArrayList<>());
 
     private List<GenericError> accumErrors = Collections.synchronizedList(new ArrayList<>());
 
@@ -19,17 +20,17 @@ public class DAccumulatorSearchResult<R extends ISearchResult<?>> implements IDi
     }
 
     @Override
-    public void addResult(R newResult) {
+    public void addResult(IDistribTaskResultWrapper<R> newResult) {
         accumResults.add(newResult);
     }
 
     @Override
-    public List<R> getAllResults() {
+    public List<IDistribTaskResultWrapper<R>> getAllResults() {
         return accumResults;
     }
 
     @Override
-    public List<R> getResult() {
+    public List<IDistribTaskResultWrapper<R>> getResult() {
         return accumResults;
     }
 

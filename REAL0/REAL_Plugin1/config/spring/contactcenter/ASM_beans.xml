@@ -31,7 +31,11 @@
 				<ref bean="sortRequestRegexASM"/>
 			</list>
 		</property>
-		<property name="dateInfo" ref="dateInfoASM"/>
+		<property name="dateInfos">
+			<list>
+				<ref bean="dateInfoASM"/>
+			</list>
+		</property>
 	</bean>
 	
 	<!-- the regex sort request bean -->

@@ -1,13 +1,24 @@
 package org.eclipselabs.real.core.searchobject.script;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.distrib.GenericError;
+import org.eclipselabs.real.core.distrib.IDistribRoot;
+import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
+import org.eclipselabs.real.core.dlog.DAccumulatorSearchResult;
+import org.eclipselabs.real.core.dlog.DBuilderSearch;
 import org.eclipselabs.real.core.exception.IncorrectPatternException;
+import org.eclipselabs.real.core.exception.LockTimeoutException;
+import org.eclipselabs.real.core.logfile.ILogFileAggregate;
+import org.eclipselabs.real.core.logfile.ILogFileAggregateRep;
 import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
@@ -20,6 +31,7 @@ import org.eclipselabs.real.core.searchresult.SearchResultUtil;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
+import org.eclipselabs.real.core.util.PerformanceUtils;
 
 /**
  * This is the container for a search object. This container is necessary for 2 reasons:
@@ -86,10 +98,45 @@ public class SOContainer {
             scriptResult.getProgressMonitor().resetCompletedSOFiles();
             PerformSearchRequest req = new PerformSearchRequest(null, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(),
                     scriptResult.getCachedReplaceTable(), scriptResult.getRegexFlags());
-            final CompletableFuture<? extends Map<String, R>> future =
-                        LogFileControllerImpl.INSTANCE.getLogAggregate(searchObject.getLogFileType()).submitSearch(paramSO, req);
+            ILogFileAggregateRep logAggr = LogFileControllerImpl.INSTANCE.getLogAggregateRep(paramSO.getLogFileType());
+            // fill in the total number of files
+            req.getProgressMonitor().setTotalSOFiles(logAggr.getCount());
+            // create a distribution system for this search
+            DBuilderSearch<R> dBuilder = new DBuilderSearch<>(logAggr, paramSO, req);
+            int threadsNumber = PerformanceUtils.getIntProperty(ILogFileAggregate.PERF_CONST_SEARCH_THREADS, 2);
+            final IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> distribRoot = dBuilder.buildDistribSystem(threadsNumber);
+
+            CompletableFuture<? extends Map<String, R>> future = null;
+            try {
+                future = distribRoot.execute().handleAsync((DAccumulatorSearchResult<R> accumResult, Throwable t) -> {
+                    Map<String, R> oldMapResults = null;
+                    if ((accumResult != null) && (!accumResult.getResult().isEmpty())) {
+                        /* for now convert the value to the old Map format.
+                         * If this is successful the old format will be replaced
+                         */
+                        try {
+                            distribRoot.close();
+                        } catch (Exception e) {
+                            log.error("Exception shutting down distribution root " + distribRoot, e);
+                        }
+                        AtomicInteger tempCounter = new AtomicInteger(0);
+                        String initValue = "oldFormat";
+                        oldMapResults = accumResult.getResult().stream().filter(tr -> tr.getActualResult() != null).collect(Collectors.toMap(
+                                (IDistribTaskResultWrapper<R> forKey) -> initValue + tempCounter.incrementAndGet(),
+                                (IDistribTaskResultWrapper<R> forValue) -> forValue.getActualResult()));
+
+                    }
+                    return oldMapResults;
+                });
+            } catch (LockTimeoutException e1) {
+                log.error("", e1);
+                future = CompletableFuture.completedFuture(null);
+            }
+
+            /*final CompletableFuture<? extends Map<String, R>> future =
+                        LogFileControllerImpl.INSTANCE.getLogAggregate(paramSO.getLogFileType()).submitSearch(paramSO, req);*/
             if (future == null) {
-                log.warn("execute search nu log files null result");
+                log.warn("execute search no log files null result");
                 resultContainer = new SRContainer(null, scriptResult);
             } else {
                 try {

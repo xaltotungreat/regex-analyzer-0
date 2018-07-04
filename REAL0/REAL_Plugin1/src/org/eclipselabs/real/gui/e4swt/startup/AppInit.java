@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,11 +12,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
 import org.eclipselabs.real.core.config.IConfigReader;
-import org.eclipselabs.real.core.config.ml.ConfigurationController;
-import org.eclipselabs.real.core.config.ml.IConfigurationMLConsts;
 import org.eclipselabs.real.core.config.spring.IConfigurationSpringConsts;
 import org.eclipselabs.real.core.config.spring.SpringConfigReader;
-import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.osgi.framework.Bundle;
 import org.springframework.context.ApplicationContext;
@@ -39,7 +34,7 @@ public class AppInit {
         initSpringConfig(plugBundle);
     }
 
-    private void initFromOldXMLConfig(Bundle plugBundle) {
+    /*private void initFromOldXMLConfig(Bundle plugBundle) {
 
         try (InputStream perfIS = FileLocator.openStream(
                 plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
@@ -92,10 +87,10 @@ public class AppInit {
             log.error("Init GUI error", e);
         }
 
-        /*
+
          * The main thread needs to be blocked until the configuration is read.
          * Otherwise the GUI may start before the regex config and Gui config is read
-         */
+
         try {
             if (regexConfigFuture != null) {
                 regexConfigFuture.get();
@@ -108,7 +103,7 @@ public class AppInit {
         }
 
         log.info("Finished Loading the config files");
-    }
+    }*/
 
     private void initSpringConfig(Bundle plugBundle) {
         /*
@@ -126,7 +121,7 @@ public class AppInit {
          * Initialize the performance values first
          */
         try (InputStream perfIS = FileLocator.openStream(
-                plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
+                plugBundle, new Path(IConfigurationSpringConsts.CONFIG_PATH_PERFORMANCE_CONFIG), false)) {
             Properties perfProp = new Properties();
             perfProp.loadFromXML(perfIS);
             perfProp.forEach((Object key, Object value) -> System.setProperty((String)key, (String)value));
@@ -136,15 +131,15 @@ public class AppInit {
         }
 
         InputStream logActivationIS = null;
-        String pathToMainBeans = IConfigurationMLConsts.CONFIG_FOLDER + File.separator
+        String pathToMainBeans = IConfigurationSpringConsts.CONFIG_FOLDER + File.separator
                 + IConfigurationSpringConsts.CONFIG_SPRING_FOLDER + File.separator
                 + configName + File.separator + IConfigurationSpringConsts.CONFIG_SPRING_MAIN_FILE;
         try (ClassPathXmlApplicationContext context
                     = new ClassPathXmlApplicationContext(pathToMainBeans)) {
 
-            if (FileLocator.findEntries(plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
+            if (FileLocator.findEntries(plugBundle, new Path(IConfigurationSpringConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION)).length > 0) {
                 logActivationIS = FileLocator.openStream(
-                        plugBundle, new Path(IConfigurationMLConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
+                        plugBundle, new Path(IConfigurationSpringConsts.CONFIG_PATH_LOG_TYPES_ACTIVATION), false);
             }
             /*
              * If the file with active log types is present add a bean with the input stream

@@ -1,10 +1,11 @@
 package org.eclipselabs.real.core.searchobject.ref;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.eclipselabs.real.core.searchobject.ISearchObjectDateInfo;
 
-public class RefDateInfo extends RefSimpleImpl<ISearchObjectDateInfo> {
+public class RefDateInfo extends RefSimpleImpl<List<ISearchObjectDateInfo>> {
 
     //private static final Logger log = LogManager.getLogger(RefDateInfo.class);
 
@@ -22,7 +23,7 @@ public class RefDateInfo extends RefSimpleImpl<ISearchObjectDateInfo> {
      * a search object can have only one date info
      */
     @Override
-    public Predicate<ISearchObjectDateInfo> getDefaultMatchPredicate() {
+    public Predicate<List<ISearchObjectDateInfo>> getDefaultMatchPredicate() {
         return RefUtil.getAlwaysTruePredicate();
     }
 

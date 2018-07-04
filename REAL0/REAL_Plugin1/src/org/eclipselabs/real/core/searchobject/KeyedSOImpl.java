@@ -23,9 +23,9 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     protected IKeyedSearchObject<?, ?> keyedSO;
 
     protected ISearchObjectGroup<String> soGroup;
-    protected Map<String,String> soTags = new ConcurrentHashMap<String, String>();
+    protected Map<String,String> soTags = new ConcurrentHashMap<>();
     protected Set<LogFileTypeKey> requiredLogFileTypes;
-    protected ISearchObjectDateInfo dateInfo;
+    protected List<ISearchObjectDateInfo> dateInfos;
     protected IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject> parent;
 
     public KeyedSOImpl(IKeyedSearchObject<?, ?> aKeyedSO) {
@@ -42,7 +42,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     public Map<String, String> getOneLevelReplaceTable(List<IReplaceableParam<String>> replaceParamList, Map<String, String> customReplaceTable) {
-        Map<String, String> finalReplaceTable = new HashMap<String, String>();
+        Map<String, String> finalReplaceTable = new HashMap<>();
         if (replaceParamList != null) {
             for (IReplaceableParam<String> rParam : replaceParamList) {
                 if (((rParam.getReplaceNames() == null) || (rParam.getReplaceNames().isEmpty()))) {
@@ -245,7 +245,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
 
     @Override
     public Map<String, String> getSearchObjectTags() {
-        return new HashMap<String, String>(soTags);
+        return new HashMap<>(soTags);
     }
 
     @Override
@@ -264,13 +264,13 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     @Override
-    public ISearchObjectDateInfo getDateInfo() {
-        return dateInfo;
+    public List<ISearchObjectDateInfo> getDateInfos() {
+        return dateInfos;
     }
 
     @Override
-    public void setDateInfo(ISearchObjectDateInfo newDateInfo) {
-        dateInfo = newDateInfo;
+    public void setDateInfos(List<ISearchObjectDateInfo> newDateInfo) {
+        dateInfos = newDateInfo;
     }
 
     @Override

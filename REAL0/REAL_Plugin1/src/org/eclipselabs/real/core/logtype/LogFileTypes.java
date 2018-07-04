@@ -1,6 +1,5 @@
 package org.eclipselabs.real.core.logtype;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -12,22 +11,12 @@ import java.util.stream.Collectors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.config.ml.xml.IConfigXmlConstants;
-import org.eclipselabs.real.core.config.ml.xml.XmlConfigNodeType;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
 import org.eclipselabs.real.core.logfile.LogFileTypeRepository;
 import org.springframework.context.ApplicationContext;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public enum LogFileTypes {
     INSTANCE;
@@ -37,7 +26,7 @@ public enum LogFileTypes {
     LogFileTypeRepository logFileTypeRep = new LogFileTypeRepository();
     //private String xmlFileName;
 
-    public void initXml(InputStream aIS, InputStream activationIS) {
+    /*public void initXml(InputStream aIS, InputStream activationIS) {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
         final Document doc;
@@ -53,7 +42,7 @@ public enum LogFileTypes {
         } catch (IOException | SAXException | ParserConfigurationException e) {
             log.error("Parsing log types Exception", e);
         }
-    }
+    }*/
 
     public void initFromApplicationContext(ApplicationContext context, InputStream activationIS) {
         Map<String,LogFileType> allLogTypes = context.getBeansOfType(LogFileType.class);
@@ -66,7 +55,7 @@ public enum LogFileTypes {
         }
     }
 
-    public void initXml(String aXmlFileName) {
+    /*public void initXml(String aXmlFileName) {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
         final Document doc;
@@ -106,7 +95,7 @@ public enum LogFileTypes {
             }
         }
         logFileTypeRep.add(newKey, newType);
-    }
+    }*/
 
     protected void loadActiveStates(InputStream activationIS) {
         // load the active states

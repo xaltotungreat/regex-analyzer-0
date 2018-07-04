@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Zookeeper BEANS START -->
+
+	<!-- Commonly used Zookeeper beans START -->
+	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<!-- the group bean -->
+	<bean id="groupZookeeper" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global.Zookeeper"/>
+	</bean>
+	<!-- The parent of all Zookeeper complex regexes -->
+	<bean id="searchObjectParentZookeeper" parent="searchObjectParent" abstract="true">
+		<property name="searchObjectGroup" ref="groupZookeeper"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="requiredLogTypes">
+			<set>
+				<value>Zookeeper</value>
+			</set>
+		</property>
+		<property name="sortRequestList">
+			<list>
+				<ref bean="sortRequestDateTime"/>
+				<ref bean="sortRequestRegexZookeeper1"/>
+				<ref bean="sortRequestRegexZookeeper2"/>
+			</list>
+		</property>
+		<property name="dateInfos">
+			<list>
+				<ref bean="dateInfoGeneral1"/>
+				<ref bean="dateInfoGeneral2"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- the regex sort request bean -->
+	<bean id="sortRequestRegexZookeeper1" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="GENERAL_TIME_REGEX1" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<bean id="sortRequestRegexZookeeper2" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="GENERAL_TIME_REGEX2" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<!-- the date info bean -->
+	<bean id="dateInfoGeneral1" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="GENERAL_TIME_FORMAT1" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="GENERAL_TIME_REGEX1" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="dateInfoGeneral2" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="GENERAL_TIME_FORMAT2" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="GENERAL_TIME_REGEX2" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="regexFirstRecordZookeeper" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="FirstRecord" />
+		<constructor-arg index="1" value="\A((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*\r?\n)*" />
+	</bean>
+	<bean id="regexLastRecordZookeeper" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="LastRecord" />
+		<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2)))).*\r?\n)*\Z" />
+	</bean>
+	<bean id="guessIntervalZookeeper" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
+		<property name="firstRecord">
+			<ref bean="regexFirstRecordZookeeper"></ref>
+		</property>
+		<property name="lastRecord">
+			<ref bean="regexLastRecordZookeeper"></ref>
+		</property>
+	</bean>
+	<bean id="searchObjectViewTimeZookeeper" parent="searchObjectViewParent" scope="prototype">
+		<constructor-arg index="0" value="Time"/>
+		<property name="viewObjects">
+			<list>
+				<bean parent="simpleRegexFirst">
+					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Commonly used Zookeeper beans END -->
+	<!-- Normal Zookeeper beans START -->
+	<bean id="!I:LogInterval Zookeeper All" parent="searchObjectParentZookeeper">
+		<constructor-arg index="0" value="!I:LogInterval Zookeeper All"/>
+		<property name="searchObjectDescription" value="Finds all records" />
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Interval" value="TRUE" />
+			</map>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2)))).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="!I:LogInterval Zookeeper" parent="!I:LogInterval Zookeeper All">
+		<constructor-arg index="0" value="!I:LogInterval Zookeeper"/>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalZookeeper"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="Internal ANY RECORD Containing value Zookeeper"  parent="searchObjectParentZookeeper">
+		<constructor-arg index="0" value="Internal ANY RECORD Containing value Zookeeper"/>
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Role" value="internal" />
+				<entry key="Function" value="any record" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramStringValue"/>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexCaseInsensitive" >
+					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!((.*?VALUE)|((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2)))).*\r?\n)*(?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*?VALUE((?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeZookeeper"/>
+				<entry key="Thread">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Thread"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))\s{1,10}\S.{0,5}\s{1,10}))\S.+?(?=(\s{1,10}))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="LogLevel">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="LogLevel"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									
+									<constructor-arg index="1" value="(?&lt;=(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))\s{1,10}))\w+?(?=(\s{1,10}))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Class">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Class"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w$\.]{1,80}\.))[\w$]+(?=(\s{1,10}-)))|((?&lt;=(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}))\w+(?=(\s{1,10}-)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="FirstLineMsg">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="FirstLineMsg"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w\.$]{1,90}\s{1,10}-\s{1,10}))\S.*" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>Thread</value>
+				<value>LogLevel</value>
+				<value>Class</value>
+				<value>FirstLineMsg</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="Zookeeper Value Within Interval"  parent="Internal ANY RECORD Containing value Zookeeper">
+		<constructor-arg index="0" value="Zookeeper Value Within Interval"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list merge="true">
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalZookeeper"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="Zookeeper ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value Zookeeper">
+		<constructor-arg index="0" value="Zookeeper ANY RECORD Containing value"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+	</bean>
+	<bean id="!L:Files Timespan Zookeeper"  parent="searchObjectParentZookeeper">
+		<constructor-arg index="0" value="!L:Files Timespan Zookeeper"/>
+		<property name="mainRegexList">
+			<list>
+				<ref bean="regexFirstRecordZookeeper" />
+				<ref bean="regexLastRecordZookeeper"/>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeZookeeper"/>
+			</map>
+		</property>
+	</bean>
+	<bean id="Zookeeper Errors Exceptions"  parent="Internal ANY RECORD Containing value Zookeeper">
+		<constructor-arg index="0" value="Zookeeper Errors Exceptions"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="4" value="((Error)|(Exception))"/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_1"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_2"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_3"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptRegex">
+					<constructor-arg index="0" value="NOT_FIND_NULLABLE"/>
+					<constructor-arg index="1" value="Not Contains"/>
+					<property name="acceptanceRegexList">
+						<list>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_1" />
+							</bean>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_2" />
+							</bean>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_3" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Normal Zookeeper beans END -->
+</beans>

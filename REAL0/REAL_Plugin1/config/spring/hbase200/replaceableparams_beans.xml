@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="replaceableParamGlobalDefault" parent="replaceableParamDefault" abstract="true">
+		<!-- The type of the parameter -->
+		<constructor-arg index="0" value="STRING"/>
+	</bean>
+	
+	<bean id="replaceableParamKeyGlobal" parent="replaceableParamKeyDefault" abstract="true">
+		<constructor-arg index="1" ref="groupGlobal"/>
+	</bean>
+	
+	<bean id="GENERAL_TIME_REGEX1" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="GENERAL_TIME_REGEX1"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="GENERAL_TIME_REGEX1"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d,\d\d\d"/>
+	</bean>
+	<bean id="GENERAL_TIME_FORMAT1" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="GENERAL_TIME_FORMAT1"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="GENERAL_TIME_FORMAT1"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="yyyy-MM-dd HH:mm:ss,SSS"/>
+	</bean>
+	<bean id="GENERAL_TIME_REGEX2" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="GENERAL_TIME_REGEX2"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="GENERAL_TIME_REGEX2"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="\w{3} \w{3}\s{2}\d \d\d:\d\d:\d\d \w{3} \d{4}"/>
+	</bean>
+	<bean id="GENERAL_TIME_FORMAT2" parent="replaceableParamGlobalDefault">
+		<!-- The name of the parameter in the key form -->
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyGlobal">
+				<constructor-arg index="0" value="GENERAL_TIME_FORMAT2"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<!-- The description - defaults to the name -->
+		<constructor-arg index="2" value="GENERAL_TIME_FORMAT2"/>
+		<!-- The names to replace if more than one exists, if only one exists use the name of the parameter -->
+		<constructor-arg index="3"><null/></constructor-arg>
+		<!-- The value that is to be replaced -->
+		<constructor-arg index="4" value="EEE MMM  d HH:mm:ss z yyyy"/>
+	</bean>
+</beans>

@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipselabs.real.core.distrib.DistribLeafImpl;
-import org.eclipselabs.real.core.distrib.DistribNodeImpl;
-import org.eclipselabs.real.core.distrib.DistribNodeRoot;
+import org.eclipselabs.real.core.distrib.DistribFactoryMain;
 import org.eclipselabs.real.core.distrib.GenericError;
 import org.eclipselabs.real.core.distrib.IDistribLeaf;
 import org.eclipselabs.real.core.distrib.IDistribLeafFolder;
 import org.eclipselabs.real.core.distrib.IDistribNode;
 import org.eclipselabs.real.core.distrib.IDistribRoot;
 import org.eclipselabs.real.core.distrib.IDistribTask;
+import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
 import org.eclipselabs.real.core.logfile.ILogFile;
 import org.eclipselabs.real.core.logfile.ILogFileAggregateRep;
 import org.eclipselabs.real.core.logfile.LogOperationType;
@@ -35,10 +34,11 @@ public class DBuilderSearch<R extends ISearchResult<?>> {
         request = req;
     }
 
-    public IDistribRoot<R, DAccumulatorSearchResult<R>, List<R>, GenericError> buildDistribSystem(
+    public IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> buildDistribSystem(
             int threadsNum) {
         DAccumulatorSearchResult<R> accum = new DAccumulatorSearchResult<>();
-        IDistribRoot<R, DAccumulatorSearchResult<R>, List<R>, GenericError> root = new DistribNodeRoot<>(accum, threadsNum, "d-" + logAggr.getType().getLogTypeName());
+        IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> root =
+                DistribFactoryMain.INSTANCE.getDefaultFactory().getRoot(accum, threadsNum, "d-" + logAggr.getType().getLogTypeName());
         // add configuration for the root
         List<LockWrapper> lockForOperation = logAggr.getLocksForOperation(LogOperationType.SEARCH);
 
@@ -46,31 +46,36 @@ public class DBuilderSearch<R extends ISearchResult<?>> {
                 LockUtil.getLockRunnable(lockForOperation, LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.SEARCH, logAggr)),
                 LockUtil.getUnlockRunnable(lockForOperation));
 
-        IDistribNode<R, DAccumulatorSearchResult<R>, List<R>, GenericError> aggrNode = buildNode(root, accum, logAggr);
+        IDistribNode<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> aggrNode = buildNode(root, accum, logAggr);
         // add the only node for this log file aggregate
         root.addNodeChildren(Collections.singletonList(aggrNode));
         return root;
     }
 
-    private IDistribNode<R, DAccumulatorSearchResult<R>, List<R>, GenericError> buildNode(
-            IDistribRoot<R, DAccumulatorSearchResult<R>, List<R>, GenericError> root,
+    private IDistribNode<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> buildNode(
+            IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> root,
             DAccumulatorSearchResult<R> acc,
             ILogFileAggregateRep aggr) {
-        IDistribNode<R, DAccumulatorSearchResult<R>, List<R>, GenericError> newNode = new DistribNodeImpl<>(root);
+        IDistribNode<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> newNode =
+                DistribFactoryMain.INSTANCE.getDefaultFactory().getNode(root);
         List<ILogFile> allFiles = aggr.getAllValues();
-        List<IDistribLeaf<R, DAccumulatorSearchResult<R>, List<R>, GenericError>> leaves = new ArrayList<>();
+        List<IDistribLeaf<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError>> leaves = new ArrayList<>();
         allFiles.stream().forEach(lf -> leaves.add(this.buildLeaf(newNode, acc, lf)));
         newNode.addLeafChildren(leaves);
         return newNode;
     }
 
-    private IDistribLeaf<R, DAccumulatorSearchResult<R>, List<R>, GenericError> buildLeaf(
-            IDistribLeafFolder<R, DAccumulatorSearchResult<R>, List<R>, GenericError> pr,
+    private IDistribLeaf<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> buildLeaf(
+            IDistribLeafFolder<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> pr,
             DAccumulatorSearchResult<R> acc, ILogFile lf) {
-        return new DistribLeafImpl<>(pr, buildTask(lf), acc);
+        return DistribFactoryMain.INSTANCE.getDefaultFactory().getLeaf(pr, buildTask(lf), acc);
     }
 
     private IDistribTask<R> buildTask(ILogFile lf) {
-        return new DTaskLogFileSearch<>(lf, searchObject, request);
+        /* It is VERY IMPORTANT to have a clone of the search request with the same monitor
+         * Some parameters including replace tables are copied and therefore they can be modified
+         * by the search object. Only the monitor is shared to update the GUI
+         */
+        return new DTaskLogFileSearch<>(lf, searchObject, request.getSharedMonitorCopy());
     }
 }

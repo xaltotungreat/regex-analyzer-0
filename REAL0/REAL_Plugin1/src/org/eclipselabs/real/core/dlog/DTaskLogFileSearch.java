@@ -2,7 +2,9 @@ package org.eclipselabs.real.core.dlog;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.distrib.DistribFactoryMain;
 import org.eclipselabs.real.core.distrib.IDistribTask;
+import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
 import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.exception.IncorrectPatternExceptionRT;
 import org.eclipselabs.real.core.logfile.ILogFile;
@@ -25,8 +27,9 @@ public class DTaskLogFileSearch<R extends ISearchResult<?>> implements IDistribT
     }
 
     @Override
-    public R get() {
-        R result = null;
+    public IDistribTaskResultWrapper<R> get() {
+        IDistribTaskResultWrapper<R> result = DistribFactoryMain.INSTANCE.getDefaultFactory().getTaskResult();
+        result.putNVP("logFilePath", taskLogFile.getFilePath());
         if ((searchRequest.getProgressMonitor() != null) && (!searchRequest.getProgressMonitor().isSearchCancelled())) {
             log.debug("LogFile " + taskLogFile);
             /*
@@ -36,12 +39,12 @@ public class DTaskLogFileSearch<R extends ISearchResult<?>> implements IDistribT
             try {
                 if (taskLogFile.isRead()) {
                     searchRequest.setText(taskLogFile.getFileText(false));
-                    result = searchObject.performSearch(searchRequest);
+                    result.setActualResult(searchObject.performSearch(searchRequest));
                 } else {
                     LogFileInfo currRes = taskLogFile.readFile();
                     if (currRes.getLastReadSuccessful()) {
                         searchRequest.setText(taskLogFile.getFileText(true));
-                        result = searchObject.performSearch(searchRequest);
+                        result.setActualResult(searchObject.performSearch(searchRequest));
                         searchRequest.setText(null);
                         taskLogFile.cleanFile();
                         System.gc();
@@ -56,6 +59,7 @@ public class DTaskLogFileSearch<R extends ISearchResult<?>> implements IDistribT
             searchRequest.getProgressMonitor().incrementCompletedSOFiles();
         } else {
             log.debug("LogFileSearchTask canceled LogFile " + taskLogFile);
+            result.putNVP("canceled", true);
         }
 
         return result;

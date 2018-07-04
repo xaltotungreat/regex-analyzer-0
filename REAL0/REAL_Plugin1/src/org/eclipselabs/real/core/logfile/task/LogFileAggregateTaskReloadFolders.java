@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.logfile.ILogFile;
 import org.eclipselabs.real.core.logfile.ILogFileAggregate.MultiThreadingState;
 import org.eclipselabs.real.core.logfile.ILogFileAggregateRep;
-import org.eclipselabs.real.core.logfile.LogFile6Impl;
+import org.eclipselabs.real.core.logfile.LogFile8Impl;
 import org.eclipselabs.real.core.logfile.LogFileAggregateInfo;
 import org.eclipselabs.real.core.logfile.LogFileInfo;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
@@ -51,7 +51,7 @@ public class LogFileAggregateTaskReloadFolders<M> extends LogFileTask<LogFileAgg
                         if (!allFilesList.isEmpty()) {
                             for (File file : allFilesList) {
                                 if (aggregate.get(file.getAbsolutePath()) == null) {
-                                    ILogFile newLog = new LogFile6Impl(aggregate, file);
+                                    ILogFile newLog = new LogFile8Impl(aggregate, file);
                                     newFiles.add(newLog);
                                     aggregate.add(file.getAbsolutePath(), newLog);
                                 }
@@ -108,7 +108,7 @@ public class LogFileAggregateTaskReloadFolders<M> extends LogFileTask<LogFileAgg
                         if (!allFilesList.isEmpty()) {
                             for (File file : allFilesList) {
                                 if (aggregate.get(file.getAbsolutePath()) == null) {
-                                    ILogFile newLog = new LogFile6Impl(aggregate, file);
+                                    ILogFile newLog = new LogFile8Impl(aggregate, file);
                                     newFiles.add(newLog);
                                     aggregate.add(file.getAbsolutePath(), newLog);
                                 }
