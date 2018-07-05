@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.zip.ZipFile;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.logtype.LogFileType;
+import org.eclipselabs.real.core.logtype.LogFileTypes;
 
 public class LogFile8Impl implements ILogFile {
 
@@ -52,9 +55,12 @@ public class LogFile8Impl implements ILogFile {
         currReadResult.setFileFullName(getFilePath());
         currReadResult.setLastReadSuccessful(false);
         state = LogFileState.FILE_READING;
+        LogFileType thisType = LogFileTypes.INSTANCE.getLogFileType(parentAggregate.getType().getLogTypeName());
+
+        Charset readCharset = (thisType.getLogFileCharset() != null)?thisType.getLogFileCharset():Charset.defaultCharset();
         if (!fileZip) {
             try (FileInputStream fis = new FileInputStream(fileRef);
-                    InputStreamReader isr = new InputStreamReader(new FileInputStream(fileRef))) {
+                    InputStreamReader isr = new InputStreamReader(new FileInputStream(fileRef), readCharset)) {
                 logFileContents = new char[fis.available()];
                 int currCharsRead = 0;
                 int totalCharsRead = 0;
@@ -84,7 +90,7 @@ public class LogFile8Impl implements ILogFile {
                     log.debug("Processing zip entry name=" + currZipEntry.getName());
                     if (!currZipEntry.isDirectory()) {
                         try(InputStream currIS = thisZF.getInputStream(currZipEntry);
-                                InputStreamReader isr = new InputStreamReader(currIS)) {
+                                InputStreamReader isr = new InputStreamReader(currIS, readCharset)) {
                             char[] currBytes = new char[currIS.available()];
                             allFilesSize += currIS.available();
                             int currCharsRead = 0;
@@ -123,7 +129,19 @@ public class LogFile8Impl implements ILogFile {
     @Override
     public String getFileText(boolean cleanCharArray) {
         if ((logText == null) && (logFileContents != null)) {
-            logText = new String(logFileContents);
+            int textLength = logFileContents.length;
+            /*
+             * Some files have chars with the code \0 at the end.
+             * Yes the code is 0 char = 0; These symbols need to be removed
+             * for most regexes to work properly.
+             */
+            if (logFileContents[textLength - 1] == 0) {
+                while (logFileContents[textLength - 1] == 0) {
+                    textLength--;
+                }
+
+            }
+            logText = new String(logFileContents, 0, textLength);
             if (cleanCharArray) {
                 logFileContents = null;
                 System.gc();

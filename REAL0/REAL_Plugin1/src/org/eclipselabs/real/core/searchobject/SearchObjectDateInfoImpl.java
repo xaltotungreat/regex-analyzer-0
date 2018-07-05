@@ -2,20 +2,36 @@ package org.eclipselabs.real.core.searchobject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipselabs.real.core.regex.IRealRegex;
 
 public class SearchObjectDateInfoImpl implements ISearchObjectDateInfo {
 
-    //private static final Logger log = LogManager.getLogger(SearchObjectDateInfoImpl.class); 
+    //private static final Logger log = LogManager.getLogger(SearchObjectDateInfoImpl.class);
     protected String dateFormat;
     protected List<IRealRegex> regexList;
-    
+    protected List<Locale> possibleLocales;
+
     public SearchObjectDateInfoImpl() {}
-    
+
     public SearchObjectDateInfoImpl(String sdf, List<IRealRegex> regList) {
         dateFormat = sdf;
         regexList = regList;
+    }
+
+    public SearchObjectDateInfoImpl(String sdf, List<IRealRegex> regList, List<String> localeLanguages) {
+        this(sdf, regList);
+        if (localeLanguages != null) {
+            List<Locale> localeList = new ArrayList<>();
+            for (String langStr : localeLanguages) {
+                Locale newLoc = new Locale(langStr);
+                localeList.add(newLoc);
+            }
+            if (!localeList.isEmpty()) {
+                possibleLocales = localeList;
+            }
+        }
     }
 
     @Override
@@ -37,7 +53,16 @@ public class SearchObjectDateInfoImpl implements ISearchObjectDateInfo {
     public void setRegexList(List<IRealRegex> regexList) {
         this.regexList = regexList;
     }
-    
+
+    public List<Locale> getPossibleLocales() {
+        return possibleLocales;
+    }
+
+    public void setPossibleLocales(List<Locale> possibleLocales) {
+        this.possibleLocales = possibleLocales;
+    }
+
+    @Override
     public ISearchObjectDateInfo clone() throws CloneNotSupportedException {
         SearchObjectDateInfoImpl cloneObj = (SearchObjectDateInfoImpl)super.clone();
         if (regexList != null) {
@@ -51,7 +76,7 @@ public class SearchObjectDateInfoImpl implements ISearchObjectDateInfo {
         }
         return cloneObj;
     }
-    
+
     @Override
     public String toString() {
         return "SearchObjectDateInfoImpl [dateFormat=" + dateFormat + ", regexList=" + regexList + "]";

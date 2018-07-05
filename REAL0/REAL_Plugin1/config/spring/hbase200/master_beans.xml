@@ -12,6 +12,7 @@
 	<bean id="groupMaster" parent="groupDefault" scope="prototype">
 		<constructor-arg index="0" value="Global.Master"/>
 	</bean>
+	
 	<!-- The parent of all Master complex regexes -->
 	<bean id="searchObjectParentMaster" parent="searchObjectParent" abstract="true">
 		<property name="searchObjectGroup" ref="groupMaster"/>
@@ -28,8 +29,7 @@
 		<property name="sortRequestList">
 			<list>
 				<ref bean="sortRequestDateTime"/>
-				<ref bean="sortRequestRegexMaster1"/>
-				<ref bean="sortRequestRegexMaster2"/>
+				<ref bean="sortRequestRegex"/>
 			</list>
 		</property>
 		<property name="dateInfos">
@@ -40,73 +40,7 @@
 		</property>
 	</bean>
 	
-	<!-- the regex sort request bean -->
-	<bean id="sortRequestRegexMaster1" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
-		<constructor-arg index="0" value="MERGE_RESULTS" />
-		<constructor-arg index="1">
-			<list>
-				<bean parent="simpleRegexFirst" >
-					<constructor-arg index="1" value="GENERAL_TIME_REGEX1" />
-				</bean>
-			</list>
-		</constructor-arg>
-		<constructor-arg index="2" value="Regex_Time" />
-	</bean>
-	<bean id="sortRequestRegexMaster2" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
-		<constructor-arg index="0" value="MERGE_RESULTS" />
-		<constructor-arg index="1">
-			<list>
-				<bean parent="simpleRegexFirst" >
-					<constructor-arg index="1" value="GENERAL_TIME_REGEX2" />
-				</bean>
-			</list>
-		</constructor-arg>
-		<constructor-arg index="2" value="Regex_Time" />
-	</bean>
-	<!-- the date info bean -->
-	<bean id="dateInfoGeneral1" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
-		<constructor-arg index="0" value="GENERAL_TIME_FORMAT1" />
-		<constructor-arg index="1">
-			<bean parent="simpleRegexFirst" >
-				<constructor-arg index="1" value="GENERAL_TIME_REGEX1" />
-			</bean>
-		</constructor-arg>
-	</bean>
-	<bean id="dateInfoGeneral2" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
-		<constructor-arg index="0" value="GENERAL_TIME_FORMAT2" />
-		<constructor-arg index="1">
-			<bean parent="simpleRegexFirst" >
-				<constructor-arg index="1" value="GENERAL_TIME_REGEX2" />
-			</bean>
-		</constructor-arg>
-	</bean>
-	<bean id="regexFirstRecordMaster" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
-		<constructor-arg index="0" value="FirstRecord" />
-		<constructor-arg index="1" value="\A((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*\r?\n)*" />
-	</bean>
-	<bean id="regexLastRecordMaster" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
-		<constructor-arg index="0" value="LastRecord" />
-		<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!(((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2)))).*\r?\n)*\Z" />
-	</bean>
-	<bean id="guessIntervalMaster" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
-		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
-		<property name="firstRecord">
-			<ref bean="regexFirstRecordMaster"></ref>
-		</property>
-		<property name="lastRecord">
-			<ref bean="regexLastRecordMaster"></ref>
-		</property>
-	</bean>
-	<bean id="searchObjectViewTimeMaster" parent="searchObjectViewParent" scope="prototype">
-		<constructor-arg index="0" value="Time"/>
-		<property name="viewObjects">
-			<list>
-				<bean parent="simpleRegexFirst">
-					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))" />
-				</bean>
-			</list>
-		</property>
-	</bean>
+	
 	<!-- Commonly used Master beans END -->
 	<!-- Normal Master beans START -->
 	<bean id="!I:LogInterval Master All" parent="searchObjectParentMaster">
@@ -138,7 +72,7 @@
 				<bean parent="acceptInterval">
 					<property name="guessList">
 						<list>
-							<ref bean="guessIntervalMaster"/>
+							<ref bean="guessInterval"/>
 						</list>
 					</property>
 				</bean>
@@ -167,7 +101,7 @@
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTimeMaster"/>
+				<entry key="Time" value-ref="searchObjectViewTime"/>
 				<entry key="Thread">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="Thread"/>
@@ -247,7 +181,7 @@
 				<bean parent="acceptInterval">
 					<property name="guessList">
 						<list>
-							<ref bean="guessIntervalMaster"/>
+							<ref bean="guessInterval"/>
 						</list>
 					</property>
 				</bean>
@@ -266,13 +200,13 @@
 		<constructor-arg index="0" value="!L:Files Timespan Master"/>
 		<property name="mainRegexList">
 			<list>
-				<ref bean="regexFirstRecordMaster" />
-				<ref bean="regexLastRecordMaster"/>
+				<ref bean="regexFirstRecord" />
+				<ref bean="regexLastRecord"/>
 			</list>
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTimeMaster"/>
+				<entry key="Time" value-ref="searchObjectViewTime"/>
 			</map>
 		</property>
 	</bean>

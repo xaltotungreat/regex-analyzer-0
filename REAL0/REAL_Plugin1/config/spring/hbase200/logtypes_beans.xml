@@ -12,6 +12,7 @@
 				<value>hbase-.+?-master-.*?\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="UTF-8"/>
 	</bean>
 	<bean id="logTypeRegionServer" parent="generalLogType">
 		<constructor-arg index="0" value="RegionServer"/>
@@ -20,6 +21,7 @@
 				<value>hbase-.+?-regionserver-.*?\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="UTF-8"/>
 	</bean>
 	<bean id="logTypeZookeeper" parent="generalLogType">
 		<constructor-arg index="0" value="Zookeeper"/>
@@ -28,5 +30,6 @@
 				<value>hbase-.+?-zookeeper-.*?\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="UTF-8"/>
 	</bean>
 </beans>

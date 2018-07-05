@@ -1,10 +1,13 @@
 package org.eclipselabs.real.core.logtype;
 
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.event.CoreEventBus;
 import org.eclipselabs.real.core.event.logfile.LogFileTypeStateChangedEvent;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
@@ -19,9 +22,11 @@ import org.eclipselabs.real.core.logfile.LogFileTypeKey;
  */
 public class LogFileType {
 
+    private static final Logger log = LogManager.getLogger(LogFileType.class);
     protected String logTypeName;
     protected LogFileTypeState stateInfo = new LogFileTypeState(true, false);
     protected Set<String> filePatterns = Collections.synchronizedSet(new HashSet<String>());
+    protected Charset logFileCharset;
 
     public static class LFTNamePredicate implements Predicate<LogFileType> {
 
@@ -90,6 +95,15 @@ public class LogFileType {
         this.setFilePatterns(ptns);
     }
 
+    public LogFileType(String typeName, Set<String> ptns, String charsetName) {
+        this(typeName, ptns);
+        try {
+            logFileCharset = Charset.forName(charsetName);
+        } catch (IllegalArgumentException e) {
+            log.error("Unsupported charset " + charsetName + " for log " + typeName, e);
+        }
+    }
+
     public String getLogTypeName() {
         return logTypeName;
     }
@@ -118,6 +132,14 @@ public class LogFileType {
             CoreEventBus.INSTANCE.postAsync(newEvent);
         }
     }*/
+
+    public Charset getLogFileCharset() {
+        return logFileCharset;
+    }
+
+    public void setLogFileCharset(Charset logFileCharset) {
+        this.logFileCharset = logFileCharset;
+    }
 
     public LogFileTypeState getStateInfoCopy() {
         return new LogFileTypeState(stateInfo.isEnabled(), stateInfo.isAvailable());

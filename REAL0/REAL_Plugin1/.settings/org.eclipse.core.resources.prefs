@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//TestLogs/hbase_logs/hbase-hduser-master-vkorkin1-VirtualBox.log=UTF-8
+encoding//TestLogs/hbase_logs/hbase-hduser-regionserver-vkorkin1-VirtualBox.log=UTF-8
+encoding//TestLogs/hbase_logs/hbase-hduser-zookeeper-vkorkin1-VirtualBox.log=UTF-8

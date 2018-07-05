@@ -113,20 +113,24 @@ public class SubmitSearchStageCR extends ConveyorStageBase {
         // try to get the results from the distribution system
         try {
             finalFuture = distribRoot.execute().handleAsync((DAccumulatorSearchResult<R> accumResult, Throwable t) -> {
+                // close the distribution system anyway
+                try {
+                    distribRoot.close();
+                } catch (Exception e) {
+                    log.error("Exception shutting down distribution root " + distribRoot, e);
+                }
+                Map<String, R> oldMapResults = null;
                 if ((accumResult != null) && (!accumResult.getResult().isEmpty())) {
                     /* for now convert the value to the old Map format.
                      * If this is successful the old format will be replaced
                      */
-                    try {
-                        distribRoot.close();
-                    } catch (Exception e) {
-                        log.error("Exception shutting down distribution root " + distribRoot, e);
-                    }
                     AtomicInteger tempCounter = new AtomicInteger(0);
                     String initValue = "oldFormat";
-                    Map<String, R> oldMapResults = accumResult.getResult().stream().filter(tr -> tr.getActualResult() != null).collect(Collectors.toMap(
+                    oldMapResults = accumResult.getResult().stream().filter(tr -> tr.getActualResult() != null).collect(Collectors.toMap(
                             (IDistribTaskResultWrapper<R> forKey) -> initValue + tempCounter.incrementAndGet(),
                             (IDistribTaskResultWrapper<R> forValue) -> forValue.getActualResult()));
+                }
+                if (!oldMapResults.isEmpty()) {
                     params.setResult((Map<String, IKeyedComplexSearchResult<? extends
                             IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
                                     ? extends ISearchResultObject, String>,

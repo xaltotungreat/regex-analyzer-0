@@ -7,7 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -57,36 +59,46 @@ public class SearchObjectUtil {
                 }
             }
             if (sb.length() > 0) {
+                List<Locale> possibleLocaleValues = dateInfo.getPossibleLocales();
+                if ((possibleLocaleValues == null) || (possibleLocaleValues.isEmpty())) {
+                    possibleLocaleValues = Collections.singletonList(IRealCoreConstants.DEFAULT_DATE_LOCALE);
+                }
                 String dateFtmStr = dateInfo.getDateFormat();
                 if ((replaceTable != null) && (!replaceTable.isEmpty())) {
                     for (Map.Entry<String,String> currEntry : replaceTable.entrySet()) {
                         dateFtmStr = dateFtmStr.replace(currEntry.getKey(), currEntry.getValue());
                     }
                 }
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFtmStr, IRealCoreConstants.DEFAULT_DATE_LOCALE);
-                try {
-                    // do not parse completely because some important fields like the year may be unavailable
-                    TemporalAccessor interimValue = dtf.parseUnresolved(sb.toString(), new ParsePosition(0));
-                    // the default value as some log records may have no year at all
-                    int year = ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR;
+                for (Locale currLocale : possibleLocaleValues) {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFtmStr, currLocale);
                     try {
-                        year = interimValue.get(ChronoField.YEAR_OF_ERA);
-                    } catch (DateTimeException e) {
-                        // these errors may be common do not print them
+                        // do not parse completely because some important fields like the year may be unavailable
+                        TemporalAccessor interimValue = dtf.parseUnresolved(sb.toString(), new ParsePosition(0));
+                        if (interimValue == null) {
+                            continue;
+                        }
+                        // the default value as some log records may have no year at all
+                        int year = ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR;
+                        try {
+                            year = interimValue.get(ChronoField.YEAR_OF_ERA);
+                        } catch (DateTimeException e) {
+                            // these errors may be common do not print them
+                        }
+                        // the default value for the milliseconds as some log entries may have no milliseconds at all
+                        int nanoSecs = 0;
+                        try {
+                            nanoSecs = interimValue.get(ChronoField.NANO_OF_SECOND);
+                        } catch (DateTimeException e) {
+                            // these errors may be common do not print them
+                        }
+                        cald = LocalDateTime.of(year, interimValue.get(ChronoField.MONTH_OF_YEAR), interimValue.get(ChronoField.DAY_OF_MONTH),
+                                interimValue.get(ChronoField.HOUR_OF_DAY), interimValue.get(ChronoField.MINUTE_OF_HOUR),
+                                interimValue.get(ChronoField.SECOND_OF_MINUTE), nanoSecs);
+                    } catch (DateTimeParseException e) {
+                        log.error("Exception parsing date for text " + dateStr,e);
                     }
-                    // the default value for the milliseconds as some log entries may have no milliseconds at all
-                    int nanoSecs = 0;
-                    try {
-                        nanoSecs = interimValue.get(ChronoField.NANO_OF_SECOND);
-                    } catch (DateTimeException e) {
-                        // these errors may be common do not print them
-                    }
-                    cald = LocalDateTime.of(year, interimValue.get(ChronoField.MONTH_OF_YEAR), interimValue.get(ChronoField.DAY_OF_MONTH),
-                            interimValue.get(ChronoField.HOUR_OF_DAY), interimValue.get(ChronoField.MINUTE_OF_HOUR),
-                            interimValue.get(ChronoField.SECOND_OF_MINUTE), nanoSecs);
-                } catch (DateTimeParseException e) {
-                    log.error("Exception parsing date for text " + dateStr,e);
                 }
+
             }
         }
         return cald;

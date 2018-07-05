@@ -29,7 +29,7 @@
 		<constructor-arg index="0" value="instance" />
 		<constructor-arg index="1" value="0" />
 	</bean>
-	
+	<bean id="dateInfoDefault" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" abstract="true"/>
 	<bean id="simpleRegexNoName" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" abstract="true">
 		<constructor-arg index="0" value="No Name" />
 		<constructor-arg index="1" value="this value must be replaced" />
@@ -111,6 +111,70 @@
 	
 	<bean id="groupGlobal" parent="groupDefault" scope="prototype">
 		<constructor-arg index="0" value="Global"/>
+	</bean>
+	
+	<!-- the regex sort request bean -->
+	<bean id="sortRequestRegex" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<!-- the date info beans -->
+	
+	<bean id="dateInfoGeneral1" parent="dateInfoDefault" scope="prototype">
+		<constructor-arg index="0" value="GENERAL_TIME_FORMAT1" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="GENERAL_TIME_REGEX1" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="dateInfoGeneral2" parent="dateInfoDefault" scope="prototype">
+		<constructor-arg index="0" value="GENERAL_TIME_FORMAT2" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="GENERAL_TIME_REGEX2" />
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<list>
+				<value>en</value>
+				<value>ru</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="regexFirstRecord" parent="simpleRegexNoName" scope="prototype">
+		<constructor-arg index="0" value="FirstRecord" />
+		<constructor-arg index="1" value="\A((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*\r?\n)*" />
+	</bean>
+	<bean id="regexLastRecord" parent="simpleRegexNoName" scope="prototype">
+		<constructor-arg index="0" value="LastRecord" />
+		<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*\r?\n)*\Z" />
+	</bean>
+	<bean id="guessInterval" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
+		<property name="firstRecord">
+			<ref bean="regexFirstRecord"></ref>
+		</property>
+		<property name="lastRecord">
+			<ref bean="regexLastRecord"></ref>
+		</property>
+	</bean>
+	<bean id="searchObjectViewTime" parent="searchObjectViewParent" scope="prototype">
+		<constructor-arg index="0" value="Time"/>
+		<property name="viewObjects">
+			<list>
+				<bean parent="simpleRegexFirst">
+					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))" />
+				</bean>
+			</list>
+		</property>
 	</bean>
 	<!-- COMMONLY USED BEANS END -->
 </beans>
