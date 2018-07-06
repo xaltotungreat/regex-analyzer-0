@@ -1,20 +1,20 @@
 package org.eclipselabs.real.core.logfile.task;
 
-import org.eclipselabs.real.core.logfile.ILogFileAggregateRep;
+import org.eclipselabs.real.core.logfile.ILogFileAggregate;
 
 public abstract class AddLogFileAggregateTaskResult<V, R> implements IAddLogTaskResult<V, R> {
 
-    ILogFileAggregateRep logFileAggregate;
-    
-    public AddLogFileAggregateTaskResult(ILogFileAggregateRep aggr) {
+    ILogFileAggregate logFileAggregate;
+
+    public AddLogFileAggregateTaskResult(ILogFileAggregate aggr) {
         logFileAggregate = aggr;
     }
 
-    public ILogFileAggregateRep getLogFileAggregate() {
+    public ILogFileAggregate getLogFileAggregate() {
         return logFileAggregate;
     }
 
-    public void setLogFileAggregate(ILogFileAggregateRep logFileAggregate) {
+    public void setLogFileAggregate(ILogFileAggregate logFileAggregate) {
         this.logFileAggregate = logFileAggregate;
     }
 

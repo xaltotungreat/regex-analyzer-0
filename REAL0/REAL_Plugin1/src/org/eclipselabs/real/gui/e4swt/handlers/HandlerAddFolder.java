@@ -1,8 +1,6 @@
 package org.eclipselabs.real.gui.e4swt.handlers;
 
 import java.io.File;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,8 +19,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipselabs.real.core.logfile.LogFileAggregateInfo;
-import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
+import org.eclipselabs.real.core.logfile.LogFileController;
 import org.eclipselabs.real.gui.e4swt.IEclipse4Constants;
 import org.eclipselabs.real.gui.e4swt.dialogs.LogFilesInfoDialog;
 
@@ -57,7 +54,29 @@ public class HandlerAddFolder {
         final String newFld = openDialog.open();
         if (newFld != null) {
             window.getContext().modify(IEclipse4Constants.CONTEXT_ADD_FOLDER_PREV_PATH, newFld);
-            CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> settableFutureList = LogFileControllerImpl.INSTANCE.addFolderListFutures(newFld);
+            LogFileController.ReloadFoldersResult addResult = LogFileController.INSTANCE.addFolder(newFld);
+            if (addResult != null) {
+                uiSynch.asyncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        LogFilesInfoDialog rfDialog = application.getContext().get(LogFilesInfoDialog.class);
+                        if (rfDialog != null) {
+                            rfDialog.close();
+                        }
+                        rfDialog = ContextInjectionFactory.make(LogFilesInfoDialog.class, ctxt);
+                        rfDialog.setSingleScopeContext(application.getContext(), LogFilesInfoDialog.class, rfDialog);
+                        rfDialog.initWithAccumulator(addResult.getAccumulator(), addResult.getFuture());
+                        rfDialog.open();
+                    }
+                });
+            } else {
+                log.error("Null result returned");
+                MessageBox errorBox = new MessageBox(parent, SWT.CLOSE | SWT.BORDER | SWT.OK | SWT.ICON_ERROR);
+                errorBox.setMessage("No files have been added!");
+                errorBox.open();
+            }
+            /*CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> settableFutureList = LogFileControllerImpl.INSTANCE.addFolderListFutures(newFld);
             if (settableFutureList != null) {
                 settableFutureList.handle((final List<CompletableFuture<LogFileAggregateInfo>> arg0, Throwable t) -> {
                     if (arg0 != null) {
@@ -87,7 +106,7 @@ public class HandlerAddFolder {
                 MessageBox errorBox = new MessageBox(parent, SWT.CLOSE | SWT.BORDER | SWT.OK | SWT.ICON_ERROR);
                 errorBox.setMessage("No files have been added!");
                 errorBox.open();
-            }
+            }*/
         }
     }
 

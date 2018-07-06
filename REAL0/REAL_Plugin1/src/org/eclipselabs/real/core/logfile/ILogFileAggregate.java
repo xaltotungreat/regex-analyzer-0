@@ -1,16 +1,10 @@
 package org.eclipselabs.real.core.logfile;
 
+import java.io.File;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.locks.ReentrantLock;
 
-import org.eclipselabs.real.core.searchobject.ISearchObject;
-import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
-import org.eclipselabs.real.core.searchresult.ISearchResult;
-import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
-import org.eclipselabs.real.core.util.ITypedObject;
-import org.eclipselabs.real.core.util.LockWrapper;
+import org.eclipselabs.real.core.util.IKeyedObjectRepositoryWrite;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 /**
@@ -20,35 +14,33 @@ import org.eclipselabs.real.core.util.TimeUnitWrapper;
  * @author Vadim Korkin
  *
  */
-public interface ILogFileAggregate extends ITypedObject<LogFileTypeKey> {
+public interface ILogFileAggregate extends ILogFileAggregateRead, IKeyedObjectRepositoryWrite<String, ILogFile> {
 
-    public static enum MultiThreadingState {
+    public enum MultiThreadingState {
         ALLOW_MULTITHREADING_READ,
         DISALLOW_MULTITHREADING_READ;
     }
 
-    public static Integer FILE_SIZE_LIMIT = 51;
-    public static final String PERF_CONST_SEARCH_THREADS = "org.eclipselabs.real.core.logfile.SearchThreadsNumberPerAggregate";
-
-    public ReentrantLock getReadFileLock();
-    public MultiThreadingState getReadFilesState();
     public void setReadFilesState(MultiThreadingState newState);
-    public Integer getAggregateSizeLimit();
+    public Double getAggregateSizeLimit();
 
     public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs);
     public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs, TimeUnitWrapper submitTimeout);
 
     public void removeFolder(String filesDir);
 
-    public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String,R>> submitSearch(
+    /**
+     * This method creates a new log file object and adds it to this aggregate
+     * @param fl the file object that points to the log file
+     * @return the created log file in the full interface
+     */
+    public ILogFile createLogFile(File fl);
+
+    public void cleanAllFiles();
+
+    /*public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String,R>> submitSearch(
             ISearchObject<R,O> so, PerformSearchRequest searchRequest, TimeUnitWrapper submitTimeout);
     public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String,R>> submitSearch(
-            ISearchObject<R,O> so, PerformSearchRequest searchRequest);
+            ISearchObject<R,O> so, PerformSearchRequest searchRequest);*/
 
-    public LogFileAggregateInfo getInfo();
-    public Long getAggregateFilesSize(List<ILogFile> logFiles);
-
-    public Boolean isEmpty();
-
-    public List<LockWrapper> getLocksForOperation(LogOperationType lot);
 }

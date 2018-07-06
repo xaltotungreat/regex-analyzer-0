@@ -8,12 +8,12 @@ import java.util.List;
 public class LogFileAggregateInfo {
 
     LogFileTypeKey logAggregateType;
-    List<LogFileInfo> logFileInfos = new ArrayList<LogFileInfo>();
-    
+    List<LogFileInfo> logFileInfos = new ArrayList<>();
+
     public LogFileAggregateInfo(LogFileTypeKey type) {
         logAggregateType = type;
     }
-    
+
     public LogFileAggregateInfo(LogFileAggregateInfo copyObj) {
         logAggregateType = copyObj.getLogAggregateType();
         logFileInfos = copyObj.getLogFileInfos();
@@ -30,15 +30,19 @@ public class LogFileAggregateInfo {
     public List<LogFileInfo> getLogFileInfos() {
         return logFileInfos;
     }
-    
+
     public void addLogFileInfo(LogFileInfo logFileResult) {
         logFileInfos.add(logFileResult);
+    }
+
+    public void addAllLogFileInfo(List<LogFileInfo> logFileResults) {
+        logFileInfos.addAll(logFileResults);
     }
 
     public void setLogFileInfos(List<LogFileInfo> logFileResults) {
         this.logFileInfos = logFileResults;
     }
-    
+
     public void sortFileResults() {
         Collections.sort(logFileInfos, new Comparator<LogFileInfo>() {
 
@@ -59,11 +63,29 @@ public class LogFileAggregateInfo {
         });
     }
 
+    public static Comparator<LogFileAggregateInfo> getSortByTypeComparator() {
+        return new Comparator<LogFileAggregateInfo>() {
+
+            @Override
+            public int compare(LogFileAggregateInfo o1, LogFileAggregateInfo o2) {
+                if ((o1 != null) && (o2 != null)) {
+                    return o1.getLogAggregateType().compareTo(o2.getLogAggregateType());
+                } else if ((o1 != null) && (o2 == null)) {
+                    return 1;
+                } else if ((o1 == null) && (o2 != null)) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+    }
+
     @Override
     public String toString() {
         return "LogFileAggregateInfo [logAggregateType=" + logAggregateType + ", logFileInfos=" + logFileInfos
                 + "]";
     }
 
-    
+
 }

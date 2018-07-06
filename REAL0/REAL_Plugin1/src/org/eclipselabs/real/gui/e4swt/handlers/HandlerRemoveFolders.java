@@ -13,7 +13,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
+import org.eclipselabs.real.core.logfile.LogFileController;
 import org.eclipselabs.real.gui.e4swt.dialogs.DialogResult;
 import org.eclipselabs.real.gui.e4swt.dialogs.RemoveFoldersDialog;
 
@@ -28,11 +28,11 @@ public class HandlerRemoveFolders {
         if (remFld == null) {
             remFld = ContextInjectionFactory.make(RemoveFoldersDialog.class, ctxt);
             remFld.setSingleScopeContext(application.getContext(), RemoveFoldersDialog.class, remFld);
-            remFld.setAllFoldersList(LogFileControllerImpl.INSTANCE.getAllFolders());
+            remFld.setAllFoldersList(LogFileController.INSTANCE.getAllFolders());
             DialogResult<List<String>> dialogResult = remFld.open();
             if (dialogResult.getAction() == SWT.OK) {
                 for (String dirStr : dialogResult.getResult()) {
-                    LogFileControllerImpl.INSTANCE.removeFolder(dirStr);
+                    LogFileController.INSTANCE.removeFolder(dirStr);
                 }
             }
         } else {

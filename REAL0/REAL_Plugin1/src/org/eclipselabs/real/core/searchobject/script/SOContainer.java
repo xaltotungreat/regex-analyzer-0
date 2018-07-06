@@ -16,10 +16,9 @@ import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
 import org.eclipselabs.real.core.dlog.DAccumulatorSearchResult;
 import org.eclipselabs.real.core.dlog.DBuilderSearch;
 import org.eclipselabs.real.core.exception.IncorrectPatternException;
-import org.eclipselabs.real.core.exception.LockTimeoutException;
 import org.eclipselabs.real.core.logfile.ILogFileAggregate;
-import org.eclipselabs.real.core.logfile.ILogFileAggregateRep;
-import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
+import org.eclipselabs.real.core.logfile.ILogFileAggregateRead;
+import org.eclipselabs.real.core.logfile.LogFileController;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
@@ -88,7 +87,7 @@ public class SOContainer {
             = (IKeyedComplexSearchObject<R,O,ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)searchObject;
 
         if (logText == null) {
-            if (!LogFileControllerImpl.INSTANCE.isLogFilesAvailable(searchObject.getRequiredLogTypes())) {
+            if (!LogFileController.INSTANCE.isLogFilesAvailable(searchObject.getRequiredLogTypes())) {
                 log.error("execute SO no log files available for this SO returning empty container");
                 resultContainer = new SRContainer(null, scriptResult);
                 return resultContainer;
@@ -98,43 +97,35 @@ public class SOContainer {
             scriptResult.getProgressMonitor().resetCompletedSOFiles();
             PerformSearchRequest req = new PerformSearchRequest(null, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(),
                     scriptResult.getCachedReplaceTable(), scriptResult.getRegexFlags());
-            ILogFileAggregateRep logAggr = LogFileControllerImpl.INSTANCE.getLogAggregateRep(paramSO.getLogFileType());
+            ILogFileAggregateRead logAggr = LogFileController.INSTANCE.getLogAggregate(paramSO.getLogFileType());
             // fill in the total number of files
             req.getProgressMonitor().setTotalSOFiles(logAggr.getCount());
             // create a distribution system for this search
             DBuilderSearch<R> dBuilder = new DBuilderSearch<>(logAggr, paramSO, req);
             int threadsNumber = PerformanceUtils.getIntProperty(ILogFileAggregate.PERF_CONST_SEARCH_THREADS, 2);
-            final IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> distribRoot = dBuilder.buildDistribSystem(threadsNumber);
+            final IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> distribRoot = dBuilder.build(threadsNumber);
 
-            CompletableFuture<? extends Map<String, R>> future = null;
-            try {
-                future = distribRoot.execute().handleAsync((DAccumulatorSearchResult<R> accumResult, Throwable t) -> {
-                    Map<String, R> oldMapResults = null;
-                    if ((accumResult != null) && (!accumResult.getResult().isEmpty())) {
-                        /* for now convert the value to the old Map format.
-                         * If this is successful the old format will be replaced
-                         */
-                        try {
-                            distribRoot.close();
-                        } catch (Exception e) {
-                            log.error("Exception shutting down distribution root " + distribRoot, e);
-                        }
-                        AtomicInteger tempCounter = new AtomicInteger(0);
-                        String initValue = "oldFormat";
-                        oldMapResults = accumResult.getResult().stream().filter(tr -> tr.getActualResult() != null).collect(Collectors.toMap(
-                                (IDistribTaskResultWrapper<R> forKey) -> initValue + tempCounter.incrementAndGet(),
-                                (IDistribTaskResultWrapper<R> forValue) -> forValue.getActualResult()));
-
+             CompletableFuture<? extends Map<String, R>> future = distribRoot.execute().handleAsync((DAccumulatorSearchResult<R> accumResult, Throwable t) -> {
+                Map<String, R> oldMapResults = null;
+                if ((accumResult != null) && (!accumResult.getResult().isEmpty())) {
+                    /* for now convert the value to the old Map format.
+                     * If this is successful the old format will be replaced
+                     */
+                    try {
+                        distribRoot.close();
+                    } catch (Exception e) {
+                        log.error("Exception shutting down distribution root " + distribRoot, e);
                     }
-                    return oldMapResults;
-                });
-            } catch (LockTimeoutException e1) {
-                log.error("", e1);
-                future = CompletableFuture.completedFuture(null);
-            }
+                    AtomicInteger tempCounter = new AtomicInteger(0);
+                    String initValue = "oldFormat";
+                    oldMapResults = accumResult.getResult().stream().filter(tr -> tr.getActualResult() != null).collect(Collectors.toMap(
+                            (IDistribTaskResultWrapper<R> forKey) -> initValue + tempCounter.incrementAndGet(),
+                            (IDistribTaskResultWrapper<R> forValue) -> forValue.getActualResult()));
 
-            /*final CompletableFuture<? extends Map<String, R>> future =
-                        LogFileControllerImpl.INSTANCE.getLogAggregate(paramSO.getLogFileType()).submitSearch(paramSO, req);*/
+                }
+                return oldMapResults;
+            });
+
             if (future == null) {
                 log.warn("execute search no log files null result");
                 resultContainer = new SRContainer(null, scriptResult);

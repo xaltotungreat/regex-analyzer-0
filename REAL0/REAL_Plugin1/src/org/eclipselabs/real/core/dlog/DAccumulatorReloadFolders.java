@@ -7,10 +7,10 @@ import java.util.List;
 import org.eclipselabs.real.core.distrib.GenericError;
 import org.eclipselabs.real.core.distrib.IDistribAccumulator;
 import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
-import org.eclipselabs.real.core.searchresult.ISearchResult;
+import org.eclipselabs.real.core.logfile.LogFileAggregateInfo;
 
 /**
- * This class accumulates the results from the distribution system that is searching in the log files.
+ * This class is the accumulator for a reload log files operation.
  *
  * Note:
  *
@@ -23,14 +23,18 @@ import org.eclipselabs.real.core.searchresult.ISearchResult;
  * @author Vadim Korkin
  *
  */
-public class DAccumulatorSearchResult<R extends ISearchResult<?>> implements IDistribAccumulator<R, List<IDistribTaskResultWrapper<R>>, GenericError> {
+public class DAccumulatorReloadFolders implements IDistribAccumulator<LogFileAggregateInfo, List<LogFileAggregateInfo>, GenericError> {
 
-    private List<IDistribTaskResultWrapper<R>> accumResults = new ArrayList<>();
-
+    private List<LogFileAggregateInfo> allInfos = new ArrayList<>();
+    private List<IDistribTaskResultWrapper<LogFileAggregateInfo>> taskResults = new ArrayList<>();
     private List<GenericError> accumErrors = new ArrayList<>();
+    private int totalTasks;
 
-    public DAccumulatorSearchResult() {
+    public DAccumulatorReloadFolders() {
         // empty constructor
+    }
+    public DAccumulatorReloadFolders(int tsk) {
+        totalTasks = tsk;
     }
 
     /**
@@ -38,8 +42,9 @@ public class DAccumulatorSearchResult<R extends ISearchResult<?>> implements IDi
      * @param newResult the result to add to the accumulator
      */
     @Override
-    public synchronized void addResult(IDistribTaskResultWrapper<R> newResult) {
-        accumResults.add(newResult);
+    public synchronized void addResult(IDistribTaskResultWrapper<LogFileAggregateInfo> newResult) {
+        taskResults.add(newResult);
+        allInfos.add(newResult.getActualResult());
     }
 
     /**
@@ -47,17 +52,17 @@ public class DAccumulatorSearchResult<R extends ISearchResult<?>> implements IDi
      * Remember this method returns an unmodifiable collection
      */
     @Override
-    public synchronized List<IDistribTaskResultWrapper<R>> getAllResults() {
-        return Collections.unmodifiableList(accumResults);
+    public synchronized List<IDistribTaskResultWrapper<LogFileAggregateInfo>> getAllResults() {
+        return Collections.unmodifiableList(taskResults);
     }
 
     /**
      * This method returns the accumulated result.
-     * For this accumulator type the returned type is an unmodifiable collection search task results
+     * For this accumulator type the returned type is an unmodifiable collection of LogFileAggregateInfo
      */
     @Override
-    public synchronized List<IDistribTaskResultWrapper<R>> getResult() {
-        return getAllResults();
+    public synchronized List<LogFileAggregateInfo> getResult() {
+        return Collections.unmodifiableList(allInfos);
     }
 
     /**
@@ -76,6 +81,12 @@ public class DAccumulatorSearchResult<R extends ISearchResult<?>> implements IDi
     @Override
     public synchronized List<GenericError> getErrors() {
         return Collections.unmodifiableList(accumErrors);
+    }
+    public int getTotalTasks() {
+        return totalTasks;
+    }
+    public void setTotalTasks(int totalTasks) {
+        this.totalTasks = totalTasks;
     }
 
 }

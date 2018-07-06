@@ -19,11 +19,10 @@ import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.logtype.LogFileType;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 
-public class LogFile8Impl implements ILogFile {
+class LogFile8Impl implements ILogFile {
 
     private static final Logger log = LogManager.getLogger(LogFile8Impl.class);
 
-    protected String logText;
     protected char[] logFileContents;
     protected File fileRef;
     protected LogFileState state;
@@ -126,9 +125,9 @@ public class LogFile8Impl implements ILogFile {
         return currReadResult;
     }
 
-    @Override
-    public String getFileText(boolean cleanCharArray) {
-        if ((logText == null) && (logFileContents != null)) {
+    private String getStringFromChars(boolean cleanCharArray) {
+        String logText = null;
+        if (logFileContents != null) {
             int textLength = logFileContents.length;
             /*
              * Some files have chars with the code \0 at the end.
@@ -148,6 +147,27 @@ public class LogFile8Impl implements ILogFile {
             }
         }
         return logText;
+    }
+
+    @Override
+    public String getFileText() {
+        String txt = null;
+        boolean cleanCharArray = logFileContents == null;
+        if (isRead()) {
+            txt = getStringFromChars(cleanCharArray);
+        } else {
+            LogFileInfo currRes = readFile();
+            if (currRes.getLastReadSuccessful()) {
+                txt = getStringFromChars(cleanCharArray);
+                /* the garbage collector is usually not fast enough to collect the discarded
+                 * String data, need to clean it manually to keep the heap size small
+                 */
+                System.gc();
+            } else {
+                log.error("Unable to read file returning null search result", currRes.getLastReadException());
+            }
+        }
+        return txt;
     }
 
     @Override
@@ -181,7 +201,6 @@ public class LogFile8Impl implements ILogFile {
     public synchronized void cleanFile() {
         if (LogFileState.FILE_READ == state) {
             logFileContents = null;
-            logText = null;
         }
         state = LogFileState.FILE_NOT_READ;
     }
@@ -199,7 +218,7 @@ public class LogFile8Impl implements ILogFile {
     }
 
     @Override
-    public ILogFileAggregate getAggregate() {
+    public ILogFileAggregateRead getAggregate() {
         return parentAggregate;
     }
 

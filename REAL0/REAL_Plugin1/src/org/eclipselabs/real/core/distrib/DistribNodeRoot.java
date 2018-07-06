@@ -16,7 +16,6 @@ import java.util.concurrent.TimeoutException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.exception.LockTimeoutException;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
@@ -32,6 +31,12 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
     private Runnable lockTask;
 
     private Runnable unlockTask;
+
+    private List<Runnable> afterLockRunSync;
+    private List<Runnable> afterLockRunAsync;
+
+    private List<Runnable> afterExecRunSync;
+    private List<Runnable> afterExecRunAsync;
 
     private TimeUnitWrapper executionTimeout;
 
@@ -125,7 +130,7 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
     }
 
     @Override
-    public CompletableFuture<A> execute() throws LockTimeoutException {
+    public CompletableFuture<A> execute() {
         OperationRecorder recorder = new OperationRecorder();
 
         CompletableFuture<Void> lockFT;
@@ -156,6 +161,23 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
             @Override
             public void run() {
                 if (recorder.isAllLocked()) {
+                    // run the auxiliary tasks after the locks have been locked
+                    if ((afterLockRunSync != null) && (!afterLockRunSync.isEmpty())) {
+                        for (Runnable rn : afterLockRunSync) {
+                            rn.run();
+                        }
+                    }
+                    CompletableFuture<Void> afterLockCF = CompletableFuture.completedFuture(null);
+                    if ((afterLockRunAsync != null) && (!afterLockRunAsync.isEmpty())) {
+                        for (Runnable rn : afterLockRunAsync) {
+                            afterLockCF = afterLockCF.thenRunAsync(rn, executorService);
+                        }
+                    }
+                    try {
+                        afterLockCF.get();
+                    } catch (InterruptedException | ExecutionException e1) {
+                        log.error("", e1);
+                    }
                     CompletableFuture<Void>[] subFuturesNodes = new CompletableFuture[nodeChildren.size()];
                     for (int i = 0; i < nodeChildren.size(); i++) {
                         subFuturesNodes[i] = nodeChildren.get(i).executeChildren();
@@ -184,6 +206,23 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
                                 ftr.cancel(true);
                             }
                         }
+                    }
+                    // run the auxiliary tasks after the locks have been locked
+                    if ((afterExecRunSync != null) && (!afterExecRunSync.isEmpty())) {
+                        for (Runnable rn : afterExecRunSync) {
+                            rn.run();
+                        }
+                    }
+                    CompletableFuture<Void> afterExecCF = CompletableFuture.completedFuture(null);
+                    if ((afterExecRunAsync != null) && (!afterExecRunAsync.isEmpty())) {
+                        for (Runnable rn : afterExecRunAsync) {
+                            afterExecCF = afterLockCF.thenRunAsync(rn, executorService);
+                        }
+                    }
+                    try {
+                        afterExecCF.get();
+                    } catch (InterruptedException | ExecutionException e1) {
+                        log.error("", e1);
                     }
                     double afterExecTime = System.currentTimeMillis();
                     recorder.putTime(OperationRecorder.AFTER_EXECUTION, afterExecTime);
@@ -230,6 +269,23 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
     }
 
     @Override
+    public void setAfterLockRun(List<Runnable> afterLockRunSync, List<Runnable> afterLockRunAsync) {
+        this.afterLockRunSync = afterLockRunSync;
+        this.afterLockRunAsync = afterLockRunAsync;
+    }
+
+    @Override
+    public void setAfterExecRun(List<Runnable> afterExecRunS, List<Runnable> afterExecRunA) {
+        this.afterExecRunSync = afterExecRunS;
+        this.afterExecRunAsync = afterExecRunA;
+    }
+
+    @Override
+    public A getAccumulator() {
+        return accumulator;
+    }
+
+    @Override
     public void close() throws Exception {
         executorService.shutdown();
         lockingES.shutdown();
@@ -237,4 +293,3 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
 
 
 }
-

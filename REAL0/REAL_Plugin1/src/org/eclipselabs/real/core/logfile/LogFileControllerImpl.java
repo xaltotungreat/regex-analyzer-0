@@ -19,14 +19,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.event.CoreEventBus;
 import org.eclipselabs.real.core.event.logfile.ControllerFolderListUpdated;
-import org.eclipselabs.real.core.logfile.task.AddLogFileAggregateTaskResult;
-import org.eclipselabs.real.core.logfile.task.LogFileAggregateTaskReloadFolders;
-import org.eclipselabs.real.core.logfile.task.LogFileTaskExecutor;
 import org.eclipselabs.real.core.logtype.LogFileType;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.core.util.CompletableFutureWatcher;
 import org.eclipselabs.real.core.util.ICompletableFutureWatcherCallback;
-import org.eclipselabs.real.core.util.NamedLock;
 import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
@@ -35,39 +31,18 @@ public enum LogFileControllerImpl {
 
     private static final Logger log = LogManager.getLogger(LogFileControllerImpl.class);
 
-    private final Long DEFAULT_MAX_ALL_LOG_SIZE = (long)50;
-    protected Long maxLogAggregateSize;
-
     protected volatile List<String> controllerLogFolders = Collections.synchronizedList(new ArrayList<String>());
-    protected volatile Map<LogFileTypeKey,ILogFileAggregateRep> logAggregateMap = new ConcurrentHashMap<>();
+    protected volatile Map<LogFileTypeKey,ILogFileAggregate> logAggregateMap = new ConcurrentHashMap<>();
     protected volatile ReentrantReadWriteLock logControllerLock = new ReentrantReadWriteLock();
     protected ExecutorService aggrSizeChangeExecutor = Executors.newSingleThreadExecutor(new NamedThreadFactory("AggregateSizeChange"));
-
-    protected ExecutorService logFileExecutor = Executors.newFixedThreadPool(10,
-            new NamedThreadFactory("LogFileTask"));
 
     protected Long controllerOperationTimeout = (long)60;
     protected TimeUnit controllerOperationTimeUnit = TimeUnit.SECONDS;
 
     private LogFileControllerImpl() {
-        int logFileTypes = LogFileTypes.values().length;
-        maxLogAggregateSize = DEFAULT_MAX_ALL_LOG_SIZE/logFileTypes;
     }
 
 
-
-    public CompletableFuture<List<LogFileAggregateInfo>> addFolderFutureList(final String logFilesDir, TimeUnitWrapper timeout) {
-        File newLogFilesDir = new File(logFilesDir);
-        if (newLogFilesDir.exists() && newLogFilesDir.isDirectory()) {
-            return reloadFoldersFutureList(Collections.singletonList(logFilesDir), timeout);
-        }
-        log.error("Not a folder or not exists " + logFilesDir + " returning null future");
-        return null;
-    }
-
-    public CompletableFuture<List<LogFileAggregateInfo>> addFolderFutureList(final String logFilesDir) {
-        return addFolderFutureList(logFilesDir, new TimeUnitWrapper(controllerOperationTimeout, controllerOperationTimeUnit));
-    }
 
     public CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> addFolderListFutures(final String logFilesDir, TimeUnitWrapper timeout) {
         File newLogFilesDir = new File(logFilesDir);
@@ -82,18 +57,6 @@ public enum LogFileControllerImpl {
         return addFolderListFutures(logFilesDir, new TimeUnitWrapper(controllerOperationTimeout, controllerOperationTimeUnit));
     }
 
-    public CompletableFuture<List<LogFileAggregateInfo>> reloadCurrentFoldersFutureList(TimeUnitWrapper timeout) {
-        if (!controllerLogFolders.isEmpty()) {
-            return reloadFoldersFutureList(controllerLogFolders, timeout);
-        }
-        log.error("No folder in the controller list");
-        return null;
-    }
-
-    public CompletableFuture<List<LogFileAggregateInfo>> reloadCurrentFoldersFutureList() {
-        return reloadCurrentFoldersFutureList(new TimeUnitWrapper(controllerOperationTimeout, controllerOperationTimeUnit));
-    }
-
     public CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> reloadCurrentFoldersListFutures(TimeUnitWrapper timeout) {
         if (!controllerLogFolders.isEmpty()) {
             return reloadFoldersListFutures(new ArrayList<>(controllerLogFolders), timeout);
@@ -104,81 +67,6 @@ public enum LogFileControllerImpl {
 
     public CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> reloadCurrentFoldersListFutures() {
         return reloadCurrentFoldersListFutures(new TimeUnitWrapper(controllerOperationTimeout, controllerOperationTimeUnit));
-    }
-
-    public CompletableFuture<List<LogFileAggregateInfo>> reloadFoldersFutureList(List<String> folders, TimeUnitWrapper timeout) {
-        if ((folders != null) && (!folders.isEmpty())) {
-            boolean lockObtained = false;
-            try {
-                if (logControllerLock.writeLock().tryLock()
-                        || logControllerLock.writeLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
-                    lockObtained = true;
-                    log.debug("reloadFoldersListFutures() write lock obtained");
-                    List<LogFileAggregateTaskReloadFolders<List<LogFileAggregateInfo>>> taskList = new ArrayList<>();
-                    Long cumulativeReadWaitTimeout = (long) 0;
-                    Long cumulativeReadTimeout = (long) 0;
-                    final Set<LogFileTypeKey> allTypes
-                        = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(true));
-                    for (LogFileTypeKey currType : allTypes) {
-                        ILogFileAggregateRep logAggr = getLogAggregateRep(currType);
-                        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ_WAIT, logAggr).getTimeout();
-                        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ, logAggr).getTimeout();
-                        cumulativeReadWaitTimeout += currReadWaitTimeout;
-                        cumulativeReadTimeout += currReadTimeout;
-                        AddLogFileAggregateTaskResult<LogFileAggregateInfo, List<LogFileAggregateInfo>> currAddResult = new AddLogFileAggregateTaskResult<LogFileAggregateInfo, List<LogFileAggregateInfo>>(logAggr) {
-
-                            @Override
-                            public List<LogFileAggregateInfo> addResult(LogFileAggregateInfo taskResult, List<LogFileAggregateInfo> mainResult) {
-                                if (taskResult != null) {
-                                    mainResult.add(taskResult);
-                                } else {
-                                    log.warn("Null result for aggregate " + getLogFileAggregate().getType());
-                                }
-                                return mainResult;
-                            }
-                        };
-                        LogFileAggregateTaskReloadFolders<List<LogFileAggregateInfo>> newTask
-                                = new LogFileAggregateTaskReloadFolders<>(folders, logAggr, currAddResult,
-                                        new TimeUnitWrapper(currReadWaitTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()),
-                                        new TimeUnitWrapper(currReadTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
-                        taskList.add(newTask);
-                        log.debug("LogFileAggregateTaskReloadFolders added task for " + logAggr.getType());
-                    }
-                    List<String> oldFolders = new ArrayList<>(controllerLogFolders);
-                    removeManyFolders(folders, timeout);
-                    controllerLogFolders.addAll(folders);
-                    List<String> newFolders = new ArrayList<>(controllerLogFolders);
-                    if ((!oldFolders.containsAll(newFolders)) || (!newFolders.containsAll(oldFolders))) {
-                        log.debug("Firing Controller Folder List Changed event");
-                        ControllerFolderListUpdated newFldListEvent = new ControllerFolderListUpdated(oldFolders, newFolders);
-                        CoreEventBus.INSTANCE.postSingleThreadAsync(newFldListEvent);
-                    }
-                    List<NamedLock> locks = new ArrayList<>();
-                    locks.add(new NamedLock(logControllerLock.writeLock(), "LogController write lock"));
-                    CompletableFuture<List<LogFileAggregateInfo>> contrFuture = new CompletableFuture<>();
-                    LogFileTaskExecutor<LogFileAggregateInfo, List<LogFileAggregateInfo>> theTaskExecutor
-                                = new LogFileTaskExecutor<>(
-                                        "LogAggregateAddFolder", logFileExecutor, taskList, contrFuture,
-                                        new ArrayList<LogFileAggregateInfo>(), locks,
-                                        new TimeUnitWrapper((long)5, TimeUnit.SECONDS),
-                                        new TimeUnitWrapper(cumulativeReadWaitTimeout + cumulativeReadTimeout,
-                                                LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
-                    theTaskExecutor.execute();
-                    return contrFuture;
-                }
-                log.error("reloadFoldersFutureList Timeout trying to get write lock");
-            } catch (InterruptedException e) {
-                log.error("Interrupted exception", e);
-            } finally {
-                if (lockObtained && logControllerLock.isWriteLockedByCurrentThread()) {
-                    logControllerLock.writeLock().unlock();
-                    log.debug("reloadFoldersFutureList() write lock unlocked");
-                }
-            }
-        } else {
-            log.error("reloadFoldersFutureList null folders list");
-        }
-        return null;
     }
 
     public CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> reloadFoldersListFutures(final List<String> folders, TimeUnitWrapper timeout) {
@@ -204,7 +92,7 @@ public enum LogFileControllerImpl {
                     Long cumulativeReadWaitTimeout = (long) 0;
                     Long cumulativeReadTimeout = (long) 0;
                     for (final LogFileTypeKey currType : allTypes) {
-                        ILogFileAggregateRep logAggr = getLogAggregateRep(currType);
+                        ILogFileAggregate logAggr = getLogAggregateRep(currType);
                         Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ_WAIT, logAggr).getTimeout();
                         Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ, logAggr).getTimeout();
                         cumulativeReadWaitTimeout += currReadWaitTimeout;
@@ -218,7 +106,7 @@ public enum LogFileControllerImpl {
                             log.debug("Completable Future Watcher Submitting tasks");
                             List<CompletableFuture<LogFileAggregateInfo>> fList = Collections.synchronizedList(new ArrayList<CompletableFuture<LogFileAggregateInfo>>());
                             for (final LogFileTypeKey currType : allTypes) {
-                                ILogFileAggregateRep logAggr = getLogAggregateRep(currType);
+                                ILogFileAggregate logAggr = getLogAggregateRep(currType);
                                 CompletableFuture<LogFileAggregateInfo> loadFuture = logAggr.addFolders(folders);
                                 fList.add(loadFuture);
                             }
@@ -290,6 +178,17 @@ public enum LogFileControllerImpl {
         return getLogAggregate(type, new TimeUnitWrapper(controllerOperationTimeout, controllerOperationTimeUnit));
     }
 
+    private ILogFileAggregate getLogAggregateRep(LogFileTypeKey type) {
+        ILogFileAggregate logAggr;
+        if (logAggregateMap.containsKey(type)) {
+            logAggr = logAggregateMap.get(type);
+        } else {
+            logAggr = new LogFileAggregateImpl(type, logControllerLock.readLock(), aggrSizeChangeExecutor);
+            logAggregateMap.put(type, logAggr);
+        }
+        return logAggr;
+    }
+
     public Boolean isLogFilesAvailable(Set<LogFileTypeKey> typesList) {
         Boolean available = true;
         if (typesList != null) {
@@ -304,24 +203,6 @@ public enum LogFileControllerImpl {
             }
         }
         return available;
-    }
-
-    public LogFileTypeKey getFirstNotAvailable(List<LogFileTypeKey> typesList) {
-        LogFileTypeKey firstNA = null;
-        for (LogFileTypeKey lftKey : typesList) {
-            if (lftKey != null) {
-                ILogFileAggregate currAggr = getLogAggregate(lftKey);
-                if ((currAggr == null) || (currAggr.isEmpty())) {
-                    firstNA = lftKey;
-                    break;
-                }
-            }
-        }
-        return firstNA;
-    }
-
-    public Long getMaxLogAggregateSize() {
-        return maxLogAggregateSize;
     }
 
     public void removeFolders(List<String> logFilesDir, TimeUnitWrapper timeout) {
@@ -375,8 +256,8 @@ public enum LogFileControllerImpl {
 
     protected void removeOneFolder(String logFilesDir, TimeUnitWrapper timeout) {
         if (controllerLogFolders.contains(logFilesDir)) {
-            Collection<ILogFileAggregateRep> allAggr = logAggregateMap.values();
-            for (ILogFileAggregateRep lfag : allAggr) {
+            Collection<ILogFileAggregate> allAggr = logAggregateMap.values();
+            for (ILogFileAggregate lfag : allAggr) {
                 lfag.removeFolder(logFilesDir);
             }
             controllerLogFolders.remove(logFilesDir);
@@ -399,7 +280,7 @@ public enum LogFileControllerImpl {
                 Set<LogFileTypeKey> allTypes
                     = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(true));
                 for (final LogFileTypeKey currType : allTypes) {
-                    ILogFileAggregateRep logAggr = getLogAggregateRep(currType);
+                    ILogFileAggregate logAggr = getLogAggregate(currType);
                     resultList.add(logAggr.getInfo());
                 }
                 return resultList;
@@ -417,21 +298,6 @@ public enum LogFileControllerImpl {
 
     public List<LogFileAggregateInfo> getInfos() {
         return getInfos(new TimeUnitWrapper(controllerOperationTimeout, controllerOperationTimeUnit));
-    }
-
-    public ILogFileAggregateRep getLogAggregateRep(LogFileTypeKey type) {
-        ILogFileAggregateRep logAggr;
-        if (logAggregateMap.containsKey(type)) {
-            logAggr = logAggregateMap.get(type);
-        } else {
-            logAggr = new LogFileAggregateImpl(type, logFileExecutor, logControllerLock.readLock());
-            logAggregateMap.put(type, logAggr);
-        }
-        return logAggr;
-    }
-
-    public ExecutorService getAggrSizeChangeExecutor() {
-        return aggrSizeChangeExecutor;
     }
 
 }

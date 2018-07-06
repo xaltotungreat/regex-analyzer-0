@@ -114,9 +114,10 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
                 soParams.putAll(parentParams);
             }
         }
-        List<IReplaceableParam<?>> thisSOParams = keyedSO.getCloneParamList().stream().filter((a) -> ReplaceableParamValueType.STRING.equals(a.getType())).collect(Collectors.toList());
-        /*List<IReplaceParam<?>> thisSOParams = keyedSO.getValues(
-                new PredicateEqualAnyObject<ReplaceParamKey>(), (new IReplaceParam.IRPTypePredicate(ReplaceParamValueType.STRING)));*/
+        List<IReplaceableParam<?>> thisSOParams = keyedSO.getCloneParamList()
+                .stream()
+                .filter(a -> ReplaceableParamValueType.STRING.equals(a.getType()))
+                .collect(Collectors.toList());
         List<IReplaceableParam<String>> tmpTable = new ArrayList<>();
         if ((thisSOParams != null) && (!thisSOParams.isEmpty())) {
             tmpTable.clear();

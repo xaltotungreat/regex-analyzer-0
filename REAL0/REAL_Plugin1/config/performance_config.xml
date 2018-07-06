@@ -5,7 +5,7 @@
 	<entry key="org.eclipselabs.real.gui.e4swt.conveyor.SimultaneousConveyorOperationsNumber">4</entry>
 	
 	<!-- The maximum size of the log aggregate in megabytes -->
-	<entry key="org.eclipselabs.real.core.logfile.AggregateSizeLimit">20</entry>
+	<entry key="org.eclipselabs.real.core.logfile.AggregateSizeLimit">0.1</entry>
 	
 	<!-- The number of the threads that actually perform search in log files. For example if the number if 2
 	and there are 4 files of the type Type1

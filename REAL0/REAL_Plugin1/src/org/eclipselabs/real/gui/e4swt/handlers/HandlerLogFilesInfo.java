@@ -16,16 +16,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipselabs.real.core.logfile.LogFileAggregateInfo;
-import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
+import org.eclipselabs.real.core.logfile.LogFileController;
 import org.eclipselabs.real.gui.e4swt.dialogs.LogFilesInfoDialog;
 
 public class HandlerLogFilesInfo {
     private static final Logger log = LogManager.getLogger(HandlerLogFilesInfo.class);
-    
+
     @Execute
-    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell parent, 
+    public void execute(@Named(IServiceConstants.ACTIVE_SHELL) final Shell parent,
             IEclipseContext ctxt, MApplication application) {
-        List<LogFileAggregateInfo> infoList = LogFileControllerImpl.INSTANCE.getInfos();
+        List<LogFileAggregateInfo> infoList = LogFileController.INSTANCE.getAggregateInfos();
         if (infoList != null) {
             LogFilesInfoDialog rfDialog = application.getContext().get(LogFilesInfoDialog.class);
             if (rfDialog == null) {

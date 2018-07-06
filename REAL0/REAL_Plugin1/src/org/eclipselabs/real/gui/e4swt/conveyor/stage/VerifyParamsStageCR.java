@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
+import org.eclipselabs.real.core.logfile.LogFileController;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
 import org.eclipselabs.real.gui.e4swt.conveyor.ConvProductContext;
@@ -33,11 +33,11 @@ public class VerifyParamsStageCR extends ConveyorStageBase {
             }
         } else {
             // verify the aggregate is available if this is a new search
-            if (LogFileControllerImpl.INSTANCE.getLogAggregate(currSO.getLogFileType()) == null) {
+            if (LogFileController.INSTANCE.getLogAggregate(currSO.getLogFileType()) == null) {
                 log.error("No log aggregate found " + currSO.getLogFileType().getLogTypeName());
                 proceed = false;
                 params.setAbortMessage("No log aggregate found " + currSO.getLogFileType().getLogTypeName());
-            } else if (LogFileControllerImpl.INSTANCE.getLogAggregate(currSO.getLogFileType()).isEmpty()) {
+            } else if (LogFileController.INSTANCE.getLogAggregate(currSO.getLogFileType()).isEmpty()) {
                 log.error("Log aggregate contains no files " + currSO.getLogFileType().getLogTypeName());
                 proceed = false;
                 params.setAbortMessage("Log aggregate contains no files " + currSO.getLogFileType().getLogTypeName());

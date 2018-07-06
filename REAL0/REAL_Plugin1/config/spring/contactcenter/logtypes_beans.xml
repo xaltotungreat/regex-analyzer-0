@@ -14,6 +14,7 @@
 				<value>CCMS-CCMS_AML(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeASM" parent="generalLogType">
 		<constructor-arg index="0" value="ASM"/>
@@ -24,6 +25,7 @@
 				<value>ASM_\d+_\d+.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCCMM_EmailManager" parent="generalLogType">
 		<constructor-arg index="0" value="CCMM_EmailManager"/>
@@ -35,6 +37,7 @@
 				<value>CCMM_Emailservice_\d\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCCMM_MCMClient" parent="generalLogType">
 		<constructor-arg index="0" value="CCMM_MCMClient"/>
@@ -45,6 +48,7 @@
 				<value>MCMClient_\d+_\d+.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCCMM_OAMClient" parent="generalLogType">
 		<constructor-arg index="0" value="CCMM_OAMClient"/>
@@ -55,6 +59,7 @@
 				<value>OAMClient_\d+_\d+.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCCMM_StarterService" parent="generalLogType">
 		<constructor-arg index="0" value="CCMM_StarterService"/>
@@ -65,6 +70,7 @@
 				<value>StarterService_\d+_\d+.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCCMM_CMF" parent="generalLogType">
 		<constructor-arg index="0" value="CCMM_CMF"/>
@@ -74,6 +80,7 @@
 				<value>CCMM-CCMM_CMF(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeEB" parent="generalLogType">
 		<constructor-arg index="0" value="EB"/>
@@ -83,6 +90,7 @@
 				<value>CCMS-CCMS_EB(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_SipSp" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_SipSp"/>
@@ -92,6 +100,7 @@
 				<value>CCMS-CCMS_SGM_SipSp.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_AmlSp" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_AmlSp"/>
@@ -101,6 +110,7 @@
 				<value>CCMS-CCMS_SGM_AmlSp.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_SipSpCpp" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_SipSpCpp"/>
@@ -110,6 +120,7 @@
 				<value>CCMS-CCMS_SGM_SipSpCpp\d-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_SipRvCpp" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_SipRvCpp"/>
@@ -118,6 +129,7 @@
 				<value>CCMS_SGM_SipRvCpp\d?\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_XMPP_Service" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_XMPP_Service"/>
@@ -127,6 +139,7 @@
 				<value>CCMS-CCMS_SGM_XMPP_Service.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_XMPPMessages" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_XMPPMessages"/>
@@ -136,6 +149,7 @@
 				<value>CCMS-CCMS_SGM_XMPPMessages.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCMF_OAM" parent="generalLogType">
 		<constructor-arg index="0" value="CMF_OAM"/>
@@ -149,6 +163,7 @@
 				<value>CCT-CMF_SP(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCMF_OAM32" parent="generalLogType">
 		<constructor-arg index="0" value="CMF_OAM32"/>
@@ -158,6 +173,7 @@
 				<value>CCMS-CMF_OAM32(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCMF_OI" parent="generalLogType">
 		<constructor-arg index="0" value="CMF_OI"/>
@@ -167,6 +183,7 @@
 				<value>CCT-CMF_OI(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_SipMessages" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_SipMessages"/>
@@ -177,6 +194,7 @@
 				<value>SipMsg_\d+_\d+\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeSGM_TapidMessages" parent="generalLogType">
 		<constructor-arg index="0" value="SGM_TapidMessages"/>
@@ -186,6 +204,7 @@
 				<value>CCMS-CCMS_SGM_TapidMessages.log-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCCT_SERVER" parent="generalLogType">
 		<constructor-arg index="0" value="CCT_SERVER"/>
@@ -196,6 +215,7 @@
 				<value>CCT_\d+_\d+\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeCC_CacheResiliency" parent="generalLogType">
 		<constructor-arg index="0" value="CC_CacheResiliency"/>
@@ -205,6 +225,7 @@
 				<value>Common-CC_CacheResiliency(_\d)?-\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d-\d\d\.zip</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 	<bean id="logTypeAgentDesktop" parent="generalLogType">
 		<constructor-arg index="0" value="AgentDesktop"/>
@@ -213,5 +234,6 @@
 				<value>CCMM_AgentDesktop(_\d)?\.log</value>
 			</set>
 		</constructor-arg>
+		<constructor-arg index="2" value="windows-1252"/>
 	</bean>
 </beans>

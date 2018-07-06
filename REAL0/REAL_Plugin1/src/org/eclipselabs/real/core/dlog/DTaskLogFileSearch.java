@@ -7,8 +7,7 @@ import org.eclipselabs.real.core.distrib.IDistribTask;
 import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
 import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.exception.IncorrectPatternExceptionRT;
-import org.eclipselabs.real.core.logfile.ILogFile;
-import org.eclipselabs.real.core.logfile.LogFileInfo;
+import org.eclipselabs.real.core.logfile.ILogFileRead;
 import org.eclipselabs.real.core.searchobject.ISearchObject;
 import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
@@ -18,9 +17,9 @@ public class DTaskLogFileSearch<R extends ISearchResult<?>> implements IDistribT
     private static final Logger log = LogManager.getLogger(DTaskLogFileSearch.class);
     protected ISearchObject<R,?> searchObject;
     protected PerformSearchRequest searchRequest;
-    protected ILogFile taskLogFile;
+    protected ILogFileRead taskLogFile;
 
-    public DTaskLogFileSearch(ILogFile logFile, ISearchObject<R,?> so, PerformSearchRequest request) {
+    public DTaskLogFileSearch(ILogFileRead logFile, ISearchObject<R,?> so, PerformSearchRequest request) {
         taskLogFile = logFile;
         searchObject = so;
         searchRequest = request;
@@ -37,21 +36,8 @@ public class DTaskLogFileSearch<R extends ISearchResult<?>> implements IDistribT
              * Throwing a RuntimeException will lead to it showing up in the handle method.
              */
             try {
-                if (taskLogFile.isRead()) {
-                    searchRequest.setText(taskLogFile.getFileText(false));
-                    result.setActualResult(searchObject.performSearch(searchRequest));
-                } else {
-                    LogFileInfo currRes = taskLogFile.readFile();
-                    if (currRes.getLastReadSuccessful()) {
-                        searchRequest.setText(taskLogFile.getFileText(true));
-                        result.setActualResult(searchObject.performSearch(searchRequest));
-                        searchRequest.setText(null);
-                        taskLogFile.cleanFile();
-                        System.gc();
-                    } else {
-                        log.error("Unable to read file returning null search result", currRes.getLastReadException());
-                    }
-                }
+                searchRequest.setText(taskLogFile.getFileText());
+                result.setActualResult(searchObject.performSearch(searchRequest));
             } catch (IncorrectPatternException e) {
                 log.error("Incorrect pattern exception for file " + taskLogFile.getFilePath(), e);
                 throw new IncorrectPatternExceptionRT(taskLogFile.getFilePath(), e);

@@ -27,66 +27,48 @@ public enum LogTimeoutPolicy implements ILogTimeoutPolicy {
         return DEFAULT_TIMEUNIT;
     }
 
-    public TimeUnitWrapper getOperationTimeout(LogOperationType opType, ILogFileAggregate aggregateObj, ILogFile fileObj) {
+    public TimeUnitWrapper getOperationTimeout(LogOperationType opType, ILogFileAggregateRead aggregateObj) {
         Long timeout = (long)0;
-        if (opType == LogOperationType.LOG_FILE_READ) {
-            if (fileObj.isRead()) {
-                timeout = (long)0;
-            } else {
-                timeout = readTimeout;
-            }
-        } else if (opType == LogOperationType.SEARCH) {
-            if (fileObj.isRead()) {
-                timeout = searchTimeout;
-            } else {
-                timeout = readTimeout + searchTimeout;
-            }
-        } else if (opType == LogOperationType.LOG_FILE_READ_WAIT) {
-            if (ILogFileAggregate.MultiThreadingState.ALLOW_MULTITHREADING_READ == aggregateObj.getReadFilesState()) {
-                timeout = (long)0;
-            } else {
-                timeout = 5*readTimeout;
-            }
-        } else if (opType == LogOperationType.SEARCH_WAIT) {
-            if (ILogFileAggregate.MultiThreadingState.ALLOW_MULTITHREADING_READ == aggregateObj.getReadFilesState()) {
-                timeout = 5*searchTimeout;
-            } else {
-                timeout = 5*(readTimeout + searchTimeout);
-            }
-        } else if (opType == LogOperationType.OPERATION_PENDING) {
-            timeout = (long)1;
-        }
-        return new TimeUnitWrapper(timeout, DEFAULT_TIMEUNIT);
-    }
-
-    public TimeUnitWrapper getOperationTimeout(LogOperationType opType, ILogFileAggregate aggregateObj) {
-        Long timeout = (long)0;
-        if (opType == LogOperationType.LOG_FILE_READ) {
-            if (MultiThreadingState.ALLOW_MULTITHREADING_READ.equals(aggregateObj.getReadFilesState())) {
-                timeout = readTimeout;
-            } else {
-                timeout = readTimeout;
-            }
-        } else if (opType == LogOperationType.SEARCH) {
+        switch(opType) {
+        case LOG_FILE_READ:
+            timeout = readTimeout;
+            break;
+        case SEARCH:
             if (MultiThreadingState.ALLOW_MULTITHREADING_READ.equals(aggregateObj.getReadFilesState())) {
                 timeout = searchTimeout;
             } else {
                 timeout = readTimeout + searchTimeout;
             }
-        } else if (opType == LogOperationType.LOG_FILE_READ_WAIT) {
+            break;
+        case LOG_FILE_READ_WAIT:
             if (ILogFileAggregate.MultiThreadingState.ALLOW_MULTITHREADING_READ == aggregateObj.getReadFilesState()) {
                 timeout = readTimeout;
             } else {
                 timeout = 5*readTimeout;
             }
-        } else if (opType == LogOperationType.SEARCH_WAIT) {
+            break;
+        case SEARCH_WAIT:
             if (ILogFileAggregate.MultiThreadingState.ALLOW_MULTITHREADING_READ == aggregateObj.getReadFilesState()) {
                 timeout = 5*searchTimeout;
             } else {
                 timeout = 5*(readTimeout + searchTimeout);
             }
-        } else if (opType == LogOperationType.OPERATION_PENDING) {
+            break;
+        case OPERATION_PENDING:
             timeout = (long)1;
+            break;
+        case CONTROLLER_REMOVE_FOLDERS_WAIT:
+            timeout = readTimeout;
+            break;
+        case CONTROLLER_READ_WAIT:
+            timeout = readTimeout;
+            break;
+        case CONTROLLER_RELOAD_FOLDERS:
+            timeout = readTimeout;
+            break;
+        case CONTROLLER_RELOAD_FOLDERS_WAIT:
+            timeout = readTimeout;
+            break;
         }
         return new TimeUnitWrapper(timeout, DEFAULT_TIMEUNIT);
     }

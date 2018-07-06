@@ -1,8 +1,8 @@
 package org.eclipselabs.real.core.distrib;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipselabs.real.core.exception.LockTimeoutException;
 import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 public interface IDistribRoot<R, A extends IDistribAccumulator<R,F,E>, F, E> extends
@@ -24,8 +24,14 @@ public interface IDistribRoot<R, A extends IDistribAccumulator<R,F,E>, F, E> ext
 
     void setExecutionTimeout(TimeUnitWrapper executionTimeout);
 
+    public void setAfterLockRun(List<Runnable> afterLockRunSync, List<Runnable> afterLockRunAsync);
+
+    public void setAfterExecRun(List<Runnable> afterExecRunSync, List<Runnable> afterExecRunAsync);
+
     int getTotalTasks();
 
-    CompletableFuture<A> execute() throws LockTimeoutException;
+    CompletableFuture<A> execute();
+
+    public A getAccumulator();
 
 }
