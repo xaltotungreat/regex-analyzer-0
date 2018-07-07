@@ -28,6 +28,11 @@ public class DBuilderReloadFolders {
     private List<Runnable> afterLock;
     private List<Runnable> afterExec;
 
+    public DBuilderReloadFolders(Set<String> flds, ILogAggregateRepository rep) {
+        folders = flds;
+        aggrRep = rep;
+    }
+
     public DBuilderReloadFolders(Set<String> flds, ILogAggregateRepository rep, List<Runnable> al, List<Runnable> ae) {
         folders = flds;
         aggrRep = rep;

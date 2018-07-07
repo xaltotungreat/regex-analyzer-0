@@ -105,11 +105,9 @@ public enum LogFileController {
      * @return a holder object containing the accumulator to watch the progress and the future
      */
     public ReloadFoldersResult reloadCurrentFolders() {
-        Runnable clearLA = () -> {
-            checkLogAggregates(true);
-            clearLogAggregates();
-        };
-        DBuilderReloadFolders builder = new DBuilderReloadFolders(controllerLogFolders, aggregateRepository, Collections.singletonList(clearLA), null);
+        checkLogAggregates(true);
+        clearLogAggregates();
+        DBuilderReloadFolders builder = new DBuilderReloadFolders(controllerLogFolders, aggregateRepository);
         IDistribRoot<LogFileAggregateInfo, DAccumulatorReloadFolders, List<LogFileAggregateInfo>, GenericError> root = builder.build(2);
         CompletableFuture<DAccumulatorReloadFolders> ft = root.execute();
         return new ReloadFoldersResult(root.getAccumulator(), ft);
@@ -119,14 +117,30 @@ public enum LogFileController {
      * This method verifies that all log aggregates exist prior to any folder operation
      */
     private void checkLogAggregates(boolean removeDisabled) {
-        Set<LogFileTypeKey> allEnabledTypes = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(true));
-        for (LogFileTypeKey currType : allEnabledTypes) {
-            getLogAggregateFull(currType, true);
-        }
-        if (removeDisabled) {
-            Set<LogFileTypeKey> allDisabledTypes = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(false));
-            for (LogFileTypeKey currType : allDisabledTypes) {
-                aggregateRepository.remove(currType);
+        boolean lockObtained = false;
+        TimeUnitWrapper timeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.CONTROLLER_RELOAD_FOLDERS_WAIT, null);
+        try {
+            if (aggregateRepository.getWriteLock().tryLock()
+                    || aggregateRepository.getWriteLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
+                lockObtained = true;
+                Set<LogFileTypeKey> allEnabledTypes = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(true));
+                for (LogFileTypeKey currType : allEnabledTypes) {
+                    getLogAggregateFull(currType, true);
+                }
+                if (removeDisabled) {
+                    Set<LogFileTypeKey> allDisabledTypes = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(false));
+                    for (LogFileTypeKey currType : allDisabledTypes) {
+                        aggregateRepository.remove(currType);
+                    }
+                }
+            }
+        } catch (InterruptedException e) {
+            log.error("Exception trying to remove folders", e);
+        } finally {
+            if (lockObtained) {
+                aggregateRepository.getWriteLock().unlock();
+            } else {
+                log.error("checkLogAggregates write lock was not obtained");
             }
         }
     }
@@ -206,6 +220,8 @@ public enum LogFileController {
         } finally {
             if (lockObtained) {
                 aggregateRepository.getReadLock().unlock();
+            } else {
+                log.error("removeFolders read lock was not obtained");
             }
         }
         return null;
@@ -230,6 +246,8 @@ public enum LogFileController {
         } finally {
             if (lockObtained) {
                 aggregateRepository.getWriteLock().unlock();
+            } else {
+                log.error("removeFolders write lock was not obtained");
             }
         }
     }

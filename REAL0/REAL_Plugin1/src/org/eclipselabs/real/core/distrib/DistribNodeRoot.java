@@ -9,9 +9,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.apache.logging.log4j.LogManager;
@@ -104,8 +101,7 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
      */
     public DistribNodeRoot(A acc, int threadNum, String threadName) {
         this(acc);
-        executorService = new ThreadPoolExecutor(threadNum, threadNum*2, 120, TimeUnit.SECONDS,
-                new SynchronousQueue<Runnable>(), new NamedThreadFactory(threadName));
+        executorService = Executors.newFixedThreadPool(threadNum, new NamedThreadFactory(threadName));
     }
 
     @Override
