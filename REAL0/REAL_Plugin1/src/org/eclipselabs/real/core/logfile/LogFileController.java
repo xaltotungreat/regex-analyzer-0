@@ -104,7 +104,7 @@ public enum LogFileController {
      * This methods adds the new folders to the current list of folders and refreshes ALL the folders
      * @return a holder object containing the accumulator to watch the progress and the future
      */
-    public ReloadFoldersResult reloadCurrentFolders() {
+    public synchronized ReloadFoldersResult reloadCurrentFolders() {
         checkLogAggregates(true);
         clearLogAggregates();
         DBuilderReloadFolders builder = new DBuilderReloadFolders(controllerLogFolders, aggregateRepository);
@@ -125,7 +125,7 @@ public enum LogFileController {
                 lockObtained = true;
                 Set<LogFileTypeKey> allEnabledTypes = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(true));
                 for (LogFileTypeKey currType : allEnabledTypes) {
-                    getLogAggregateFull(currType, true);
+                    getOrCreateLogAggregateFull(currType, true);
                 }
                 if (removeDisabled) {
                     Set<LogFileTypeKey> allDisabledTypes = LogFileTypes.INSTANCE.getAllTypeKeys(new LogFileType.LFTEnabledStatePredicate(false));
@@ -155,7 +155,7 @@ public enum LogFileController {
     public List<LockWrapper> getLocksForOperation(LogOperationType tp) {
         List<LockWrapper> locks = new ArrayList<>();
         switch (tp) {
-        case CONTROLLER_RELOAD_FOLDERS_WAIT:
+        case CONTROLLER_RELOAD_FOLDERS:
             locks.add(new LockWrapper(aggregateRepository.getWriteLock(), "Aggregate rep write lock"));
             break;
 
@@ -165,7 +165,7 @@ public enum LogFileController {
         return locks;
     }
 
-    private ILogFileAggregate getLogAggregateFull(LogFileTypeKey lftKey, boolean createIfNotFound) {
+    private ILogFileAggregate getOrCreateLogAggregateFull(LogFileTypeKey lftKey, boolean createIfNotFound) {
         ILogFileAggregate aggr = aggregateRepository.getFull(lftKey);
         if ((aggr == null) && createIfNotFound) {
             aggr = new LogFileAggregateImpl(lftKey, aggregateRepository.getReadLock(), aggrSizeChangeExecutor);

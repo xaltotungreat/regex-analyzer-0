@@ -25,19 +25,10 @@ public class DBuilderReloadFolders {
 
     private Set<String> folders;
     private ILogAggregateRepository aggrRep;
-    private List<Runnable> afterLock;
-    private List<Runnable> afterExec;
 
     public DBuilderReloadFolders(Set<String> flds, ILogAggregateRepository rep) {
         folders = flds;
         aggrRep = rep;
-    }
-
-    public DBuilderReloadFolders(Set<String> flds, ILogAggregateRepository rep, List<Runnable> al, List<Runnable> ae) {
-        folders = flds;
-        aggrRep = rep;
-        afterLock = al;
-        afterExec = ae;
     }
 
     public IDistribRoot<LogFileAggregateInfo, DAccumulatorReloadFolders, List<LogFileAggregateInfo>, GenericError> build(int threadsNum) {
@@ -45,13 +36,11 @@ public class DBuilderReloadFolders {
         IDistribRoot<LogFileAggregateInfo, DAccumulatorReloadFolders, List<LogFileAggregateInfo>, GenericError> root =
                 DistribFactoryMain.INSTANCE.getDefaultFactory().getRoot(accum, threadsNum, "reload-fld");
         // add configuration for the root
-        List<LockWrapper> lockForOperation = LogFileController.INSTANCE.getLocksForOperation(LogOperationType.CONTROLLER_RELOAD_FOLDERS_WAIT);
+        List<LockWrapper> locksForOperation = LogFileController.INSTANCE.getLocksForOperation(LogOperationType.CONTROLLER_RELOAD_FOLDERS);
 
         root.addLockingParams(
-                LockUtil.getLockRunnable(lockForOperation, LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.CONTROLLER_RELOAD_FOLDERS_WAIT, null)),
-                LockUtil.getUnlockRunnable(lockForOperation));
-        root.setAfterLockRun(afterLock, null);
-        root.setAfterExecRun(afterExec, null);
+                LockUtil.getLockRunnable(locksForOperation, LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.CONTROLLER_RELOAD_FOLDERS_WAIT, null)),
+                LockUtil.getUnlockRunnable(locksForOperation));
         root.setExecutionTimeout(LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.CONTROLLER_RELOAD_FOLDERS, null));
 
         IDistribNode<LogFileAggregateInfo, DAccumulatorReloadFolders, List<LogFileAggregateInfo>, GenericError> aggrNode = buildNode(root, accum);
