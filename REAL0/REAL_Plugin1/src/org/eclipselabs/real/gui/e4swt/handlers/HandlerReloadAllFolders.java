@@ -49,38 +49,6 @@ public class HandlerReloadAllFolders {
             errorBox.setMessage("No files have been reloaded!");
             errorBox.open();
         }
-        /*CompletableFuture<List<CompletableFuture<LogFileAggregateInfo>>> settableFutureList = LogFileControllerImpl.INSTANCE.reloadCurrentFoldersListFutures();
-        if (settableFutureList != null) {
-            settableFutureList.handle((final List<CompletableFuture<LogFileAggregateInfo>> arg0, Throwable t) -> {
-                if (arg0 != null) {
-                    log.debug("Received a list of futures size=" + arg0.size());
-                    uiSynch.asyncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            LogFilesInfoDialog rfDialog = application.getContext().get(LogFilesInfoDialog.class);
-                            if (rfDialog != null) {
-                                rfDialog.close();
-                            }
-                            rfDialog = ContextInjectionFactory.make(LogFilesInfoDialog.class, ctxt);
-                            rfDialog.setSingleScopeContext(application.getContext(), LogFilesInfoDialog.class, rfDialog);
-                            rfDialog.initFuturesList(arg0);
-                            rfDialog.open();
-                        }
-                    });
-                }
-                if (t != null) {
-                    log.error("Error receiving a list of futures", arg0);
-                }
-                return null;
-            });
-
-        } else {
-            log.error("Null settable future returned");
-            MessageBox errorBox = new MessageBox(parent, SWT.CLOSE | SWT.BORDER | SWT.OK | SWT.ICON_ERROR);
-            errorBox.setMessage("No files have been reloaded!");
-            errorBox.open();
-        }*/
     }
 
     @CanExecute

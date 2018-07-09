@@ -39,9 +39,9 @@ public class HandlerLogFilesInfo {
                 }
             }
         } else {
-            log.error("Null list of futures returned");
+            log.error("Null list of infos returned");
             MessageBox errorBox = new MessageBox(parent, SWT.CLOSE | SWT.BORDER | SWT.OK | SWT.ICON_ERROR);
-            errorBox.setMessage("No files have been added!");
+            errorBox.setMessage("Internal error");
             errorBox.open();
         }
     }

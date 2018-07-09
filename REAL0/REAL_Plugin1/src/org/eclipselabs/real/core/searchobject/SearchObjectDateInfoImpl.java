@@ -48,6 +48,7 @@ public class SearchObjectDateInfoImpl implements ISearchObjectDateInfo {
         }
     }
 
+    @Override
     public LocalDateTime parseDate(String logRecordStr, Map<String,String> replaceTable, Integer regexFlags) throws IncorrectPatternException {
         LocalDateTime cald = null;
         String dateStr = getDateString(logRecordStr, replaceTable, regexFlags);
@@ -105,6 +106,12 @@ public class SearchObjectDateInfoImpl implements ISearchObjectDateInfo {
         // the default value as some log records may have no year at all
         int year = ISearchObjectConstants.DEFAULT_NOT_FOUND_YEAR;
         try {
+            /*
+             * It is not entirely clear which of the following fields should be used when extracting the year
+             * from this TemporalAccessor object: ChronoField.YEAR_OF_ERA or ChronoField.YEAR
+             * Currently in Java 8 YEAR_OF_ERA works. Previously on java 7 it seemed to be YEAR
+             * but I'm not entirely sure.
+             */
             year = partialValue.get(ChronoField.YEAR_OF_ERA);
         } catch (DateTimeException e) {
             // these errors may be common do not print them

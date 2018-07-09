@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -43,7 +42,6 @@ public class LogFilesInfoDialog extends SingleDialog {
 
     private static final Logger log = LogManager.getLogger(LogFilesInfoDialog.class);
 
-    protected List<CompletableFuture<LogFileAggregateInfo>> aggrFuturesList = Collections.synchronizedList(new ArrayList<CompletableFuture<LogFileAggregateInfo>>());
     protected List<LogFileAggregateInfo> aggrInfoList;
     protected DAccumulatorReloadFolders accumulator;
     protected CompletableFuture<DAccumulatorReloadFolders> accumFuture;
@@ -64,11 +62,6 @@ public class LogFilesInfoDialog extends SingleDialog {
     public LogFilesInfoDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell parent) {
         super(parent, SWT.BORDER | SWT.CLOSE | SWT.RESIZE);
         setText("Read files");
-    }
-
-    public void initFuturesList(List<CompletableFuture<LogFileAggregateInfo>> dialogResults) {
-        aggrFuturesList.clear();
-        aggrFuturesList.addAll(dialogResults);
     }
 
     public void initInfoList(List<LogFileAggregateInfo> dialogResults) {
@@ -201,7 +194,7 @@ public class LogFilesInfoDialog extends SingleDialog {
             Runnable updateUIThread = new Runnable() {
                 @Override
                 public void run() {
-                    log.debug("Starting update LogFiles thread futures size=" + aggrFuturesList.size());
+
                     final List<LogFileAggregateInfo> infoList = new ArrayList<>();
                     Runnable guiUpdateRunnable = new Runnable() {
 
@@ -268,6 +261,7 @@ public class LogFilesInfoDialog extends SingleDialog {
                         }
                         infoList.clear();
                         infoList.addAll(accumulator.getResult());
+                        log.debug("Starting update LogFiles results=" + infoList.size());
                         uiSynch.syncExec(guiUpdateRunnable);
                     } while (!accumFuture.isDone());
                     /*
@@ -285,150 +279,7 @@ public class LogFilesInfoDialog extends SingleDialog {
                 }
             };
             Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().execute(updateUIThread);
-        } else  if ((aggrFuturesList != null) && (!aggrFuturesList.isEmpty())) {
-            btnOK.setEnabled(false);
-            progressBar = new ProgressBar(shell, SWT.NONE);
-            FormData fd_progressBar = new FormData();
-            fd_progressBar.right = new FormAttachment(49, -5);
-            fd_progressBar.left = new FormAttachment(0, 5);
-            fd_progressBar.bottom = new FormAttachment(100, -5);
-            fd_progressBar.top = new FormAttachment(100, -30);
-            progressBar.setLayoutData(fd_progressBar);
-            progressBar.setMaximum(aggrFuturesList.size());
-            int guiUpdate = PerformanceUtils.getIntProperty(IEclipse4Constants.PERF_CONST_GUI_UPDATE_INTERVAL,
-                    IEclipse4Constants.PERF_CONST_GUI_UPDATE_INTERVAL_DEFAULT);
-            Runnable updateUIThread = new Runnable() {
-
-                @Override
-                public void run() {
-                    log.debug("Starting update LogFiles thread futures size=" + aggrFuturesList.size());
-                    List<LogFileAggregateInfo> infoList = new ArrayList<>();
-                    boolean runFlag = true;
-                    int futuresNotComplete = 0;
-                    int futuresComplete = 0;
-                    int futuresCanceled = 0;
-                    int prevFuturesNotComplete = 0;
-                    int prevFuturesComplete = 0;
-                    int prevFuturesCanceled = 0;
-                    while (runFlag) {
-                        try {
-                            Thread.sleep(guiUpdate);
-                        } catch (InterruptedException e1) {
-                            log.error("Sleep interrupted", e1);
-                        }
-                        // cleanup before processing
-                        infoList.clear();
-                        prevFuturesNotComplete = futuresNotComplete;
-                        prevFuturesComplete = futuresComplete;
-                        prevFuturesCanceled = futuresCanceled;
-                        futuresNotComplete = 0;
-                        futuresComplete = 0;
-                        futuresCanceled = 0;
-                        try {
-                            for (CompletableFuture<LogFileAggregateInfo> infoFuture : aggrFuturesList) {
-                                if (infoFuture.isCancelled()) {
-                                    futuresComplete++;
-                                    futuresCanceled++;
-                                } else if (infoFuture.isDone()) {
-                                    infoList.add(infoFuture.get());
-                                    futuresComplete++;
-                                } else {
-                                    futuresNotComplete++;
-                                }
-                            }
-                            log.debug("Update LogFiles thread completed=" + futuresComplete + " not completed " + futuresNotComplete);
-                            Collections.sort(infoList, LogFileAggregateInfo.getSortByTypeComparator());
-                        } catch (InterruptedException e) {
-                            log.error("Generating LogFilesInfo exception", e);
-                        } catch (ExecutionException e) {
-                            log.error("Generating LogFilesInfo exception", e);
-                        }
-                        if ((futuresComplete == prevFuturesComplete)
-                                && (futuresNotComplete == prevFuturesNotComplete)
-                                && (futuresCanceled == prevFuturesCanceled)) {
-                            continue;
-                        }
-                        final int futuresCompleteFinal = futuresComplete;
-                        final int futuresCalceledFinal = futuresCanceled;
-                        uiSynch.syncExec(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                for (LogFileAggregateInfo currAggrResult : infoList) {
-                                    int treeItemIndex = 0;
-                                    currAggrResult.sortFileResults();
-                                    if (tableResults.getItemCount() > treeItemIndex) {
-                                        TableItem itemAtIndex = tableResults.getItem(treeItemIndex);
-                                        boolean equalFound = false;
-                                        String itemAtIndexLogType = (String)itemAtIndex.getData(DATA_KEY_LOG_TYPE);
-                                        while(itemAtIndexLogType.compareTo(currAggrResult.getLogAggregateType().getLogTypeName()) <= 0) {
-                                            if (itemAtIndexLogType.equals(currAggrResult.getLogAggregateType().getLogTypeName())) {
-                                                equalFound = true;
-                                            }
-                                            treeItemIndex++;
-                                            if (tableResults.getItemCount() <= treeItemIndex) {
-                                                break;
-                                            }
-                                            itemAtIndex = tableResults.getItem(treeItemIndex);
-                                            itemAtIndexLogType = (itemAtIndex != null)?(String)itemAtIndex.getData(DATA_KEY_LOG_TYPE):"null";
-
-                                        }
-                                        if (equalFound) {
-                                            continue;
-                                        }
-                                    }
-
-                                    if (currAggrResult.getLogFileInfos() != null) {
-                                        for (LogFileInfo currFileResult : currAggrResult.getLogFileInfos()) {
-                                            String fileName = currFileResult.getFileFullName().substring(
-                                                    currFileResult.getFileFullName().lastIndexOf(System.getProperty("file.separator")) + 1);
-                                            TableItem ti = new TableItem(tableResults, SWT.NONE, treeItemIndex);
-                                            if ((currFileResult.getLastReadSuccessful() == null) || (currFileResult.getLastReadSuccessful())) {
-                                                ti.setText(new String[]{currAggrResult.getLogAggregateType().getLogTypeName(), fileName,
-                                                        String.valueOf(currFileResult.getInMemory()),
-                                                        String.format("%.2f", currFileResult.getFileSize()),
-                                                        currFileResult.getFileFullName()});
-                                            } else {
-                                                ti.setText(new String[]{currAggrResult.getLogAggregateType().getLogTypeName(), fileName,
-                                                        String.valueOf(currFileResult.getInMemory()),
-                                                        currFileResult.getLastReadException().getMessage(),
-                                                        currFileResult.getFileFullName()});
-                                            }
-                                            ti.setData(DATA_KEY_LOG_TYPE, currAggrResult.getLogAggregateType().getLogTypeName());
-                                            ti.setData(DATA_KEY_FILE_NAME, fileName);
-                                            treeItemIndex++;
-                                        }
-                                    }
-                                }
-                                progressBar.setSelection(futuresCompleteFinal);
-                                setState("Tasks: " + infoList.size() + " Completed: " + futuresCompleteFinal + " Cancelled: " + futuresCalceledFinal);
-                                tableResults.getParent().layout();
-                            }
-                        });
-                        if (futuresNotComplete == 0) {
-                            runFlag = false;
-                        }
-                    }
-                    uiSynch.asyncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            btnOK.setEnabled(true);
-                            progressBar.dispose();
-                        }
-                    });
-                }
-            };
-            Eclipse4GUIBridge.INSTANCE.getGuiCachedTPExecutor().execute(updateUIThread);
         }
-    }
-
-    public List<CompletableFuture<LogFileAggregateInfo>> getAggrFuturesList() {
-        return aggrFuturesList;
-    }
-
-    public void setAggrFuturesList(List<CompletableFuture<LogFileAggregateInfo>> aggrFutures) {
-        aggrFuturesList = aggrFutures;
     }
 
     public List<LogFileAggregateInfo> getAggrInfoList() {

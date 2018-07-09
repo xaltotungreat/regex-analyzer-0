@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<logTypeActivation>
+    <states>
+        <entry>
+            <key>Master</key>
+            <value>true</value>
+        </entry>
+        <entry>
+            <key>RegionServer</key>
+            <value>true</value>
+        </entry>
+        <entry>
+            <key>Zookeeper</key>
+            <value>true</value>
+        </entry>
+    </states>
+</logTypeActivation>

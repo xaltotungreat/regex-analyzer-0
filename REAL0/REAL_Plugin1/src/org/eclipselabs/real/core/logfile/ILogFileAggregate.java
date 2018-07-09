@@ -1,11 +1,9 @@
 package org.eclipselabs.real.core.logfile;
 
 import java.io.File;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 
 import org.eclipselabs.real.core.util.IKeyedObjectRepositoryWrite;
-import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 /**
  * The basic interface for the log aggregate.
@@ -24,10 +22,8 @@ public interface ILogFileAggregate extends ILogFileAggregateRead, IKeyedObjectRe
     public void setReadFilesState(MultiThreadingState newState);
     public Double getAggregateSizeLimit();
 
-    public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs);
-    public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs, TimeUnitWrapper submitTimeout);
-
     public void removeFolder(String filesDir);
+    public void removeFolders(Set<String> filesDirs);
 
     /**
      * This method creates a new log file object and adds it to this aggregate
@@ -37,10 +33,5 @@ public interface ILogFileAggregate extends ILogFileAggregateRead, IKeyedObjectRe
     public ILogFile createLogFile(File fl);
 
     public void cleanAllFiles();
-
-    /*public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String,R>> submitSearch(
-            ISearchObject<R,O> so, PerformSearchRequest searchRequest, TimeUnitWrapper submitTimeout);
-    public <R extends ISearchResult<O>, O extends ISearchResultObject> CompletableFuture<? extends Map<String,R>> submitSearch(
-            ISearchObject<R,O> so, PerformSearchRequest searchRequest);*/
 
 }

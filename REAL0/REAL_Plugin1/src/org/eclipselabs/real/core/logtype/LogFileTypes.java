@@ -24,26 +24,6 @@ public enum LogFileTypes {
     private static final Logger log = LogManager.getLogger(LogFileTypes.class);
 
     LogFileTypeRepository logFileTypeRep = new LogFileTypeRepository();
-    //private String xmlFileName;
-
-    /*public void initXml(InputStream aIS, InputStream activationIS) {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db;
-        final Document doc;
-        try {
-            db = dbf.newDocumentBuilder();
-            doc = db.parse(aIS);
-            parseDomStructure(doc.getDocumentElement());
-            if (activationIS != null) {
-                loadActiveStates(activationIS);
-            } else {
-                log.info("startup No active configuration found - loading default (all active)");
-            }
-        } catch (IOException | SAXException | ParserConfigurationException e) {
-            log.error("Parsing log types Exception", e);
-        }
-    }*/
-
     public void initFromApplicationContext(ApplicationContext context, InputStream activationIS) {
         Map<String,LogFileType> allLogTypes = context.getBeansOfType(LogFileType.class);
         allLogTypes.entrySet().stream().map(ent -> (LogFileType)ent.getValue())
@@ -54,48 +34,6 @@ public enum LogFileTypes {
             log.info("startup No active configuration found - loading default (all active)");
         }
     }
-
-    /*public void initXml(String aXmlFileName) {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db;
-        final Document doc;
-        //xmlFileName = aXmlFileName;
-        try {
-            db = dbf.newDocumentBuilder();
-            doc = db.parse(aXmlFileName);
-            parseDomStructure(doc.getDocumentElement());
-        } catch (IOException | SAXException | ParserConfigurationException e) {
-            log.error("Parsing log types Exception", e);
-        }
-    }
-
-    protected void parseDomStructure(Node elem) {
-        if (XmlConfigNodeType.LOG_TYPES.equalsNode(elem)) {
-            NodeList types = ((Element)elem).getElementsByTagName(XmlConfigNodeType.LOG_TYPE.getNodeName());
-            for (int i = 0; i < types.getLength(); i++) {
-                Element currLogType = (Element)types.item(i);
-                addLogTypeFromXml(currLogType);
-            }
-        }
-    }
-
-    protected void addLogTypeFromXml(Element xmlLogType) {
-        String logTypeName = xmlLogType.getAttribute(IConfigXmlConstants.ATTRIBUTE_NAME_NAME);
-        log.info("Adding log type name=" + logTypeName);
-        LogFileTypeKey newKey = new LogFileTypeKey(logTypeName);
-        LogFileType newType = new LogFileType(logTypeName, new LogFileTypeState(true, false));
-        // active if this is the first start or set active in the active config
-        NodeList patternsList = xmlLogType.getElementsByTagName(XmlConfigNodeType.FILENAME_PATTERNS.getNodeName());
-        for (int i = 0; i < patternsList.getLength(); i++) {
-            Element patternsNode = (Element)patternsList.item(i);
-            NodeList patternList = patternsNode.getElementsByTagName(XmlConfigNodeType.FILENAME_PATTERN.getNodeName());
-            for (int j = 0; j < patternList.getLength(); j++) {
-                newType.addPattern(patternList.item(j).getTextContent());
-                log.info("Adding log type name=" + logTypeName + " pattern=" + patternList.item(j).getTextContent());
-            }
-        }
-        logFileTypeRep.add(newKey, newType);
-    }*/
 
     protected void loadActiveStates(InputStream activationIS) {
         // load the active states

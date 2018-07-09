@@ -35,6 +35,7 @@ import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.UISynchronize;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
@@ -48,6 +49,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipselabs.real.core.config.spring.IConfigurationSpringConsts;
 import org.eclipselabs.real.core.event.CoreEventBus;
 import org.eclipselabs.real.core.event.logfile.LogFileTypeStateChangedEvent;
 import org.eclipselabs.real.core.logfile.LogFileTypeKey;
@@ -511,11 +513,11 @@ public class GUISearchObjectTree implements IEclipse4Constants {
     }*/
 
     @PreDestroy
-    public void dispose() {
+    public void dispose(MApplication app) {
         for (Map.Entry<String, Image> imageEntry : cleanImageMap.entrySet()) {
             imageEntry.getValue().dispose();
         }
-        log.info("dispose Writing log types activation");
+
         // writing active log types before exit
         // do not use schema as the feature is new
         JAXBContext mrshContext;
@@ -523,9 +525,13 @@ public class GUISearchObjectTree implements IEclipse4Constants {
         URL url = plugin.getEntry ("/");
 
         File activeLogTypeConfig = null;
+        String productName = System.getProperty(IConfigurationSpringConsts.CONFIG_SYSPROP_PRODUCT);
+        String activationPath = (new IConfigurationSpringConsts() {
+        }).getActivationPath(productName);
+        log.info("dispose Writing log types activation path=" + activationPath);
         try {
             URL resolvedURL = FileLocator.resolve(url);
-            activeLogTypeConfig = new File (resolvedURL.getFile() + File.separator + "config" + File.separator + "active_config.xml");
+            activeLogTypeConfig = new File (resolvedURL.getFile() + activationPath);
             //Schema wsSchema = PersistUtil.getSchema(IEclipse4Constants.PATH_WORKSPACE_PERSIST_SCHEMA);
             mrshContext = JAXBContext.newInstance(LogTypeActivation.class);
             Marshaller mrsh = mrshContext.createMarshaller();

@@ -3,10 +3,8 @@ package org.eclipselabs.real.core.logfile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -14,18 +12,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipselabs.real.core.event.CoreEventBus;
 import org.eclipselabs.real.core.event.logfile.LogFileTypeStateChangedEvent;
-import org.eclipselabs.real.core.logfile.task.AddLogFileAggregateTaskResult;
-import org.eclipselabs.real.core.logfile.task.LogFileAggregateTaskReloadFolders;
 import org.eclipselabs.real.core.logtype.LogFileType;
 import org.eclipselabs.real.core.logtype.LogFileTypeState;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.core.util.KeyedObjectRepositoryImpl;
 import org.eclipselabs.real.core.util.LockUtil;
 import org.eclipselabs.real.core.util.LockWrapper;
-import org.eclipselabs.real.core.util.NamedThreadFactory;
 import org.eclipselabs.real.core.util.PerformanceUtils;
 import org.eclipselabs.real.core.util.RepositorySizeChangedEvent;
-import org.eclipselabs.real.core.util.TimeUnitWrapper;
 
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.Subscribe;
@@ -39,7 +33,7 @@ import com.google.common.eventbus.Subscribe;
  * @author Vadim Korkin
  *
  */
-public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILogFileRead, ILogFile> implements ILogFileAggregate {
+class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILogFileRead, ILogFile> implements ILogFileAggregate {
     private static final Logger log = LogManager.getLogger(LogFileAggregateImpl.class);
 
     protected MultiThreadingState readFilesState = MultiThreadingState.ALLOW_MULTITHREADING_READ;
@@ -50,7 +44,6 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
     protected LogFileTypeKey lfTypeKey;
     // this is the default file size limit
     protected Double aggregateSizeLimit = (double)51;
-    protected ExecutorService logFileAggregateExecutor;
 
     protected ReentrantLock readFileLock = new ReentrantLock();
     protected Lock contrReadLock;
@@ -70,47 +63,8 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
         repositoryEventBus = new AsyncEventBus(sizeChangeExec);
         repositoryEventBus.register(this);
         lfTypeKey = aType;
-        // creating the executor for search/read requests
-        NamedThreadFactory newFactory = null;
-        if ((lfTypeKey != null) && (lfTypeKey.getLogTypeName() != null)) {
-            newFactory = new NamedThreadFactory("Aggr-" + lfTypeKey.getLogTypeName());
-        } else {
-            newFactory = new NamedThreadFactory("No Log Type");
-        }
-        // loaded from the performance config, 2 threads by default
-        int threadsNumber = PerformanceUtils.getIntProperty(PERF_CONST_SEARCH_THREADS, 2);
-        logFileAggregateExecutor = Executors.newFixedThreadPool(threadsNumber, newFactory);
         contrReadLock = contrRLock;
         aggregateSizeLimit = PerformanceUtils.getDoubleProperty(PERF_CONST_AGGREGATE_SIZE_LIMIT, aggregateSizeLimit);
-    }
-
-    @Override
-    public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs, TimeUnitWrapper submitTimeout) {
-        Long currReadWaitTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ_WAIT, this).getTimeout();
-        Long currReadTimeout = LogTimeoutPolicy.INSTANCE.getOperationTimeout(LogOperationType.LOG_FILE_READ, this).getTimeout();
-        AddLogFileAggregateTaskResult<LogFileAggregateInfo, LogFileAggregateInfo> currAddResult = new AddLogFileAggregateTaskResult<LogFileAggregateInfo, LogFileAggregateInfo>(this) {
-
-            @Override
-            public LogFileAggregateInfo addResult(LogFileAggregateInfo taskResult, LogFileAggregateInfo mainResult) {
-                if (taskResult != null) {
-                    mainResult = new LogFileAggregateInfo(taskResult);
-                } else {
-                    log.warn("Null result for aggregate " + getLogFileAggregate().getType());
-                }
-                return mainResult;
-            }
-        };
-        LogFileAggregateTaskReloadFolders<LogFileAggregateInfo> newTask = new LogFileAggregateTaskReloadFolders<>(
-                filesDirs, this, currAddResult,
-                new TimeUnitWrapper(currReadWaitTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()),
-                new TimeUnitWrapper(currReadTimeout, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
-        log.debug("LogFileAggregateTaskReloadFolders added task for " + this.getType());
-        return CompletableFuture.supplyAsync(newTask, logFileAggregateExecutor);
-    }
-
-    @Override
-    public CompletableFuture<LogFileAggregateInfo> addFolders(List<String> filesDirs) {
-        return addFolders(filesDirs, new TimeUnitWrapper((long)5, LogTimeoutPolicy.INSTANCE.getDefaultTimeUnit()));
     }
 
     @Override
@@ -118,9 +72,23 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
         log.info("Removing folder type=" + getType().getLogTypeName() + " dir=" + filesDir);
         List<ILogFileRead> allLF = getAllValues();
         for (ILogFileRead currLF : allLF) {
-            log.debug("Curr logFile path=" + currLF.getFilePath());
             if (currLF.getFilePath().startsWith(filesDir)) {
+                log.debug("Removing logFile path=" + currLF.getFilePath());
                 remove(currLF.getFilePath());
+            }
+        }
+    }
+
+    @Override
+    public void removeFolders(Set<String> filesDirs) {
+        List<ILogFileRead> allLF = getAllValues();
+        for (String currFolder : filesDirs) {
+            log.info("Removing folder type=" + getType().getLogTypeName() + " dir=" + currFolder);
+            for (ILogFileRead currLF : allLF) {
+                if (currLF.getFilePath().startsWith(currFolder)) {
+                    log.debug("Removing logFile path=" + currLF.getFilePath());
+                    remove(currLF.getFilePath());
+                }
             }
         }
     }
@@ -210,6 +178,9 @@ public class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILog
         case SEARCH:
             lks.add(LockUtil.getWrapper(contrReadLock, "Controller read lock"));
             lks.add(LockUtil.getWrapper(getReadLock(), "Aggregate read lock"));
+            break;
+        default:
+            // no locks for other operation types
             break;
         }
         return lks;

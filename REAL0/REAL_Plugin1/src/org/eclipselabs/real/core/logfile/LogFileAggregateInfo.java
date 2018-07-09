@@ -51,9 +51,9 @@ public class LogFileAggregateInfo {
                 int returnVal = 0;
                 if ((o1 != null) && (o2 != null)) {
                     returnVal = o1.getFileFullName().compareTo(o2.getFileFullName());
-                } else if ((o1 != null) && (o2 == null)) {
+                } else if (o1 != null) {
                     returnVal = 1;
-                } else if ((o1 == null) && (o2 != null)) {
+                } else if (o2 != null) {
                     returnVal = -1;
                 } else {
                     returnVal = 0;
@@ -70,9 +70,9 @@ public class LogFileAggregateInfo {
             public int compare(LogFileAggregateInfo o1, LogFileAggregateInfo o2) {
                 if ((o1 != null) && (o2 != null)) {
                     return o1.getLogAggregateType().compareTo(o2.getLogAggregateType());
-                } else if ((o1 != null) && (o2 == null)) {
+                } else if (o1 != null) {
                     return 1;
-                } else if ((o1 == null) && (o2 != null)) {
+                } else if (o2 != null) {
                     return -1;
                 } else {
                     return 0;

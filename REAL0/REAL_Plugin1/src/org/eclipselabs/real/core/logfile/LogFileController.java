@@ -34,14 +34,34 @@ public enum LogFileController {
     private LogAggregateRepositoryImpl aggregateRepository = new LogAggregateRepositoryImpl();
 
     public static class ReloadFoldersResult {
+        private IDistribRoot<?,?,?,?> mainRoot;
         private DAccumulatorReloadFolders accumulator;
         private CompletableFuture<DAccumulatorReloadFolders> future;
 
         public ReloadFoldersResult() {}
 
-        public ReloadFoldersResult(DAccumulatorReloadFolders accum, CompletableFuture<DAccumulatorReloadFolders> ft) {
+        public ReloadFoldersResult(IDistribRoot<?,?,?,?> rt, DAccumulatorReloadFolders accum, CompletableFuture<DAccumulatorReloadFolders> ft) {
+            mainRoot = rt;
             accumulator = accum;
             future = ft;
+            /*
+             * The root must be correctly closed after the future is complete
+             */
+            Thread closeRootThread = new Thread(() -> {
+                    while(!future.isDone()) {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            log.error("", e);
+                        }
+                    }
+                    try {
+                        mainRoot.close();
+                    } catch (Exception e) {
+                        log.error("", e);
+                    }
+            }, "distrib-close");
+            closeRootThread.start();
         }
 
         public DAccumulatorReloadFolders getAccumulator() {
@@ -86,17 +106,28 @@ public enum LogFileController {
      * @return a holder object containing the accumulator to watch the progress and the future
      */
     public ReloadFoldersResult addFolder(String fld) {
-        return addFolders(Collections.singleton(fld));
+        if ((fld != null) && (!fld.isEmpty())) {
+            return addFolders(Collections.singleton(fld));
+        } else {
+            return null;
+        }
     }
 
     /**
      * This methods adds the new folders to the current list of folders and refreshes ALL the folders
-     * @param fld
-     * @param fld - the new folder to add to the controller
+     * @param flds
+     * @param flds - the new folder to add to the controller
      * @return a holder object containing the accumulator to watch the progress and the future
      */
-    public ReloadFoldersResult addFolders(Set<String> fld) {
-        controllerLogFolders.addAll(fld);
+    public ReloadFoldersResult addFolders(Set<String> flds) {
+        List<String> oldFolders = new ArrayList<>(controllerLogFolders);
+        controllerLogFolders.addAll(flds);
+        List<String> newFolders = new ArrayList<>(controllerLogFolders);
+        if ((!oldFolders.containsAll(newFolders)) || (!newFolders.containsAll(oldFolders))) {
+            log.debug("Firing Controller Folder List Changed event");
+            ControllerFolderListUpdated newFldListEvent = new ControllerFolderListUpdated(oldFolders, newFolders);
+            CoreEventBus.INSTANCE.postSingleThreadAsync(newFldListEvent);
+        }
         return reloadCurrentFolders();
     }
 
@@ -110,7 +141,7 @@ public enum LogFileController {
         DBuilderReloadFolders builder = new DBuilderReloadFolders(controllerLogFolders, aggregateRepository);
         IDistribRoot<LogFileAggregateInfo, DAccumulatorReloadFolders, List<LogFileAggregateInfo>, GenericError> root = builder.build(2);
         CompletableFuture<DAccumulatorReloadFolders> ft = root.execute();
-        return new ReloadFoldersResult(root.getAccumulator(), ft);
+        return new ReloadFoldersResult(root, root.getAccumulator(), ft);
     }
 
     /**

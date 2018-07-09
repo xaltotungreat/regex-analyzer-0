@@ -18,6 +18,9 @@ import com.google.common.eventbus.EventBus;
 public enum CoreEventBus {
     INSTANCE;
 
+    /*
+     * The order of events is important for this event bus consequently I use a single-threaded executor
+     */
     private ExecutorService stExecutor = Executors.newSingleThreadExecutor(new NamedThreadFactory("ST_CoreEventBus"));
     private AsyncEventBus asyncSingleThreadEventBus = new AsyncEventBus(stExecutor);
     private EventBus syncEventBus = new EventBus();
