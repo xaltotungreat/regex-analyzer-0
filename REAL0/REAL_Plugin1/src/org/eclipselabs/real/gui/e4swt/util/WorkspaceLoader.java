@@ -84,7 +84,7 @@ public class WorkspaceLoader implements Runnable {
 
     public static class PartInfoWrapper {
         private ConvSearchRequest mainRequest;
-        private List<ConvSearchRequest> childRequests = new ArrayList<ConvSearchRequest>();
+        private List<ConvSearchRequest> childRequests = new ArrayList<>();
         public PartInfoWrapper(ConvSearchRequest mainReq) {
             mainRequest = mainReq;
         }
@@ -307,8 +307,12 @@ public class WorkspaceLoader implements Runnable {
                     wsLoadProgressDialog.increaseProgress(1);
                 }
             });
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (ExecutionException e) {
             log.error("loadSearchObject",e);
+        } catch (InterruptedException e) {
+            log.error("loadSearchObject", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -383,7 +387,9 @@ public class WorkspaceLoader implements Runnable {
             try {
                 oneTimeLt.await();
             } catch (InterruptedException e) {
-                log.error("HandlerLoadWorkspace Global OOI latch interrupted",e);
+                log.error("HandlerLoadWorkspace Global OOI latch interrupted", e);
+                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                Thread.currentThread().interrupt();
             }
         }
     }

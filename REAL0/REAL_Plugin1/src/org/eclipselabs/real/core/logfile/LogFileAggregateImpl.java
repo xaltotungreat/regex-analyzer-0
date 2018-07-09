@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,7 +44,6 @@ class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILogFileRea
     // this is the default file size limit
     protected Double aggregateSizeLimit = (double)51;
 
-    protected ReentrantLock readFileLock = new ReentrantLock();
     protected Lock contrReadLock;
 
     /**
@@ -110,11 +108,6 @@ class LogFileAggregateImpl extends KeyedObjectRepositoryImpl<String, ILogFileRea
     @Override
     public String toString() {
         return "LogFileAggregateImpl [lfTypeKey=" + lfTypeKey + ", \n\t LogFiles=" + getAllValues() + "]";
-    }
-
-    @Override
-    public synchronized ReentrantLock getReadFileLock() {
-        return readFileLock;
     }
 
     @Override

@@ -133,7 +133,7 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
         if (lockTask != null) {
             lockFT = CompletableFuture.runAsync(() -> {
                         double beginTime = System.currentTimeMillis();
-                        log.debug("Start time " + beginTime);
+                        log.debug("execute Start time " + beginTime);
                         recorder.putTime(OperationRecorder.BEGIN, beginTime);
                     }, lockingES)
                 .thenRunAsync(lockTask, lockingES)
@@ -143,10 +143,10 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
                     if (t != null) {
                         recorder.setAllLocked(false);
                         recorder.setExecException(t);
-                        log.debug("Time locks not acquired " + (afterLockTime - recorder.getTime(OperationRecorder.BEGIN))/1000);
+                        log.debug("execute Time locks not acquired " + (afterLockTime - recorder.getTime(OperationRecorder.BEGIN))/1000);
                     } else {
                         recorder.setAllLocked(true);
-                        log.debug("Time acquiring locks " + (afterLockTime - recorder.getTime(OperationRecorder.BEGIN))/1000);
+                        log.debug("execute Time acquiring locks " + (afterLockTime - recorder.getTime(OperationRecorder.BEGIN))/1000);
                     }
                 }, lockingES);
         } else {
@@ -171,7 +171,11 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
                     }
                     try {
                         afterLockCF.get();
-                    } catch (InterruptedException | ExecutionException e1) {
+                    } catch (InterruptedException e) {
+                        log.error("", e);
+                        // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                        Thread.currentThread().interrupt();
+                    } catch(ExecutionException e1) {
                         log.error("", e1);
                     }
                     CompletableFuture<Void>[] subFuturesNodes = new CompletableFuture[nodeChildren.size()];
@@ -181,18 +185,21 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
                     CompletableFuture<Void> ftNodes = CompletableFuture.allOf(subFuturesNodes);
                     double afterSubmitTime = System.currentTimeMillis();
                     recorder.putTime(OperationRecorder.AFTER_TASKS_SUBMITTED, afterSubmitTime);
-                    log.debug("Time submitting tasks " + (afterSubmitTime - recorder.getTime(OperationRecorder.AFTER_LOCK))/1000);
+                    log.debug("execute Time submitting tasks " + (afterSubmitTime - recorder.getTime(OperationRecorder.AFTER_LOCK))/1000);
                     try {
                         if (executionTimeout != null) {
                             ftNodes.get(executionTimeout.getTimeout(), executionTimeout.getTimeUnit());
                         } else {
                             ftNodes.get();
                         }
-                    } catch (InterruptedException | ExecutionException e) {
-                        log.error("Nodes future not executed", e);
-                        recorder.setExecException(e);
+                    } catch (InterruptedException e) {
+                        log.error("", e);
+                        // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                        Thread.currentThread().interrupt();
+                    } catch(ExecutionException e1) {
+                        log.error("", e1);
                     } catch (TimeoutException e) {
-                        log.error("Execution not completed in time " + executionTimeout.getTimeout(), e);
+                        log.error("execute Execution not completed in time " + executionTimeout.getTimeout(), e);
                         /*
                          * Cancel all the futures that have not completed before the timeout
                          */
@@ -217,14 +224,18 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
                     }
                     try {
                         afterExecCF.get();
-                    } catch (InterruptedException | ExecutionException e1) {
+                    } catch (InterruptedException e) {
+                        log.error("", e);
+                        // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                        Thread.currentThread().interrupt();
+                    } catch(ExecutionException e1) {
                         log.error("", e1);
                     }
                     double afterExecTime = System.currentTimeMillis();
                     recorder.putTime(OperationRecorder.AFTER_EXECUTION, afterExecTime);
-                    log.debug("Time executing " + (afterExecTime - afterSubmitTime)/1000);
+                    log.debug("execute Time executing " + (afterExecTime - afterSubmitTime)/1000);
                 } else {
-                    log.error("Not finished execution", recorder.getExecException());
+                    log.error("execute Not finished execution", recorder.getExecException());
                 }
             }
         }, lockingES);

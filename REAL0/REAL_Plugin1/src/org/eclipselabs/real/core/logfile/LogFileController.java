@@ -53,6 +53,8 @@ public enum LogFileController {
                             Thread.sleep(2000);
                         } catch (InterruptedException e) {
                             log.error("", e);
+                            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                            Thread.currentThread().interrupt();
                         }
                     }
                     try {
@@ -166,7 +168,9 @@ public enum LogFileController {
                 }
             }
         } catch (InterruptedException e) {
-            log.error("Exception trying to remove folders", e);
+            log.error("", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         } finally {
             if (lockObtained) {
                 aggregateRepository.getWriteLock().unlock();
@@ -247,7 +251,9 @@ public enum LogFileController {
             }
             log.error("getInfos Timeout trying to get read lock");
         } catch (InterruptedException e) {
-            log.error("Interrupted exception", e);
+            log.error("", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         } finally {
             if (lockObtained) {
                 aggregateRepository.getReadLock().unlock();
@@ -255,7 +261,7 @@ public enum LogFileController {
                 log.error("removeFolders read lock was not obtained");
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public List<LogFileAggregateInfo> getAggregateInfos() {
@@ -273,7 +279,9 @@ public enum LogFileController {
                 }
             }
         } catch (InterruptedException e) {
-            log.error("Exception trying to remove folders", e);
+            log.error("", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         } finally {
             if (lockObtained) {
                 aggregateRepository.getWriteLock().unlock();
@@ -308,6 +316,8 @@ public enum LogFileController {
                 }
             } catch (InterruptedException e) {
                 log.error("Interrupted exception", e);
+                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                Thread.currentThread().interrupt();
             } finally {
                 if (lockObtained) {
                     aggregateRepository.getWriteLock().unlock();

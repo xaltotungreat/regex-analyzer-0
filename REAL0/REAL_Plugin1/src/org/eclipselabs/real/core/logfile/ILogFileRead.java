@@ -1,7 +1,5 @@
 package org.eclipselabs.real.core.logfile;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 public interface ILogFileRead {
 
     public String getFileText();
@@ -9,7 +7,6 @@ public interface ILogFileRead {
     public Long getFileSize();
     public Boolean isRead();
 
-    public ReentrantLock getReadLock();
     /**
      *
      * @return the state of the file (currently NOT_READ, READING, READ)

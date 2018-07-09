@@ -62,8 +62,10 @@ public class GUIUpdater implements Runnable {
     public void run() {
         try {
             Thread.sleep(sleepInterval);
-        } catch (InterruptedException e1) {
-            log.error("UI update error", e1);
+        } catch (InterruptedException e) {
+            log.error("UI update error", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         }
         final GUISearchResult partSRObj = (GUISearchResult) prodContext.getSearchPart().getObject();
         while ((!prodContext.isComplete()) && (prodContext.isProceed())
@@ -81,6 +83,8 @@ public class GUIUpdater implements Runnable {
                 Thread.sleep(sleepInterval);
             } catch (InterruptedException e) {
                 log.error("UI update error", e);
+                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                Thread.currentThread().interrupt();
             }
         }
         if ((!SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState()))

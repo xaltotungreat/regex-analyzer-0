@@ -10,7 +10,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -48,7 +47,7 @@ class LogFile8Impl implements ILogFile {
     }
 
     @Override
-    public LogFileInfo readFile() {
+    public synchronized LogFileInfo readFile() {
         log.debug("Opening file " + fileRef.getAbsolutePath());
         LogFileInfo currReadResult = new LogFileInfo();
         currReadResult.setFileFullName(getFilePath());
@@ -150,7 +149,7 @@ class LogFile8Impl implements ILogFile {
     }
 
     @Override
-    public String getFileText() {
+    public synchronized String getFileText() {
         String txt = null;
         boolean cleanCharArray = logFileContents == null;
         if (isRead()) {
@@ -203,13 +202,6 @@ class LogFile8Impl implements ILogFile {
             logFileContents = null;
         }
         state = LogFileState.FILE_NOT_READ;
-    }
-
-    @Override
-    public ReentrantLock getReadLock() {
-        synchronized(parentAggregate) {
-            return parentAggregate.getReadFileLock();
-        }
     }
 
     @Override

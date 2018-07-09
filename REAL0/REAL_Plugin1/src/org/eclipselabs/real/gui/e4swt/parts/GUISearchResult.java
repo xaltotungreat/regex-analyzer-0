@@ -625,7 +625,9 @@ public class GUISearchResult {
                             try {
                                 globOOILatch.await();
                             } catch (InterruptedException e) {
-                                log.error("setGlobalObjects latch interrupted",e);
+                                log.error("setGlobalObjects latch interrupted", e);
+                                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                                Thread.currentThread().interrupt();
                             }
                         }
                     }

@@ -128,6 +128,8 @@ public class OOIHelper {
                     log.debug("Adding " + addInfo.getDisplayString() + " all threads completed continue after latch");
                 } catch (InterruptedException e) {
                     log.error("Interrupted countdown latch", e);
+                    // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                    Thread.currentThread().interrupt();
                 }
                 globalObjMap.put(addInfo.getTextPattern().pattern(), addInfo);
                 // check the pending map
@@ -252,6 +254,8 @@ public class OOIHelper {
                         log.debug("Adding " + currOOI.getDisplayString() + " all threads completed continue after latch");
                     } catch (InterruptedException e) {
                         log.error("Interrupted countdown latch", e);
+                        // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                        Thread.currentThread().interrupt();
                     }
                 }
                 for (GlobalOOIInfo addInfo : addInfoList) {
@@ -360,6 +364,8 @@ public class OOIHelper {
                     log.debug("Removing " + removeInfo.getDisplayString() + " all threads completed continue after latch");
                 } catch (InterruptedException e) {
                     log.error("Interrupted countdown latch", e);
+                    // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                    Thread.currentThread().interrupt();
                 }
 
                 globalObjMap.remove(removeInfo.getTextPattern().pattern());
@@ -466,6 +472,8 @@ public class OOIHelper {
                         log.debug("Removing " + currOOI.getDisplayString() + " all threads completed continue after latch");
                     } catch (InterruptedException e) {
                         log.error("Interrupted countdown latch", e);
+                        // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                        Thread.currentThread().interrupt();
                     }
                 }
                 for (GlobalOOIInfo removeInfo : removeInfoList) {

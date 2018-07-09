@@ -44,7 +44,9 @@ public class LockUtil {
                 }
             }
         } catch (InterruptedException e) {
-            log.error("Wait for lock interrupted", e);
+            log.error("", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         } finally {
             if (!allLocked) {
                 log.error("Unable to lock all - unlocking those already locked");

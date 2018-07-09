@@ -148,7 +148,11 @@ public class SOContainer {
                         log.warn("execute search in log files no results returned");
                         resultContainer = new SRContainer(null, scriptResult);
                     }
-                } catch (InterruptedException | ExecutionException e) {
+                } catch (InterruptedException e) {
+                    log.error("", e);
+                    // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                    Thread.currentThread().interrupt();
+                } catch(ExecutionException e) {
                     log.error("execute ",e);
                 }
             }

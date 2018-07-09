@@ -256,8 +256,10 @@ public class LogFilesInfoDialog extends SingleDialog {
                     do {
                         try {
                             Thread.sleep(guiUpdate);
-                        } catch (InterruptedException e1) {
-                            log.error("Sleep interrupted", e1);
+                        } catch (InterruptedException e) {
+                            log.error("Sleep interrupted", e);
+                            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                            Thread.currentThread().interrupt();
                         }
                         infoList.clear();
                         infoList.addAll(accumulator.getResult());

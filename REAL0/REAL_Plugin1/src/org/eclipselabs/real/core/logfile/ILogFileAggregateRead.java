@@ -1,7 +1,6 @@
 package org.eclipselabs.real.core.logfile;
 
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipselabs.real.core.logfile.ILogFileAggregate.MultiThreadingState;
 import org.eclipselabs.real.core.util.IKeyedObjectRepositoryRead;
@@ -13,7 +12,6 @@ public interface ILogFileAggregateRead extends IKeyedObjectRepositoryRead<String
     // performance property keys
     String PERF_CONST_SEARCH_THREADS = "org.eclipselabs.real.core.logfile.SearchThreadsNumberPerAggregate";
 
-    public ReentrantLock getReadFileLock();
     public MultiThreadingState getReadFilesState();
 
     public LogFileAggregateInfo getInfo();
