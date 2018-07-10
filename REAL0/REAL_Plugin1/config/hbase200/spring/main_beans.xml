@@ -8,7 +8,7 @@
     <import resource="common_beans.xml"/>
     <import resource="replaceableparams_beans.xml"/>
     <import resource="gui_beans.xml"/>
-    <import resource="master_beans.xml"/>
-    <import resource="regionserver_beans.xml"/>
-    <import resource="zookeeper_beans.xml"/>
+    <import resource="Master_beans.xml"/>
+    <import resource="RegionServer_beans.xml"/>
+    <import resource="Zookeeper_beans.xml"/>
 </beans>

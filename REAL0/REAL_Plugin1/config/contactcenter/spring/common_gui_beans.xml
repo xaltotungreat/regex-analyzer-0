@@ -1,0 +1,246 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+	<!-- Common GUI beans START -->
+	
+	<bean id="guiPropertyDefault" abstract="true" class="org.eclipselabs.real.gui.core.GUIProperty"></bean>
+    <bean id="sortRequestKeyDefault" abstract="true" class="org.eclipselabs.real.gui.core.sort.SortRequestKey">
+    	<constructor-arg index="1">
+    		<null/>
+    	</constructor-arg>
+    </bean>
+    <bean id="simpleRegexNoName" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" abstract="true">
+		<constructor-arg index="0" value="No Name" />
+		<constructor-arg index="1" value="this value must be replaced" />
+	</bean>
+	<bean id="tagrefDefault" abstract="true" class="org.eclipselabs.real.core.util.TagRef">
+	</bean>
+	<bean id="tagrefDefaultMatch" parent="tagrefDefault" abstract="true">
+		<constructor-arg index="0" value="MATCH"></constructor-arg>
+	</bean>
+	<bean id="tagrefDefaultNotMatch" parent="tagrefDefault" abstract="true">
+		<constructor-arg index="0" value="NOT_MATCH"></constructor-arg>
+	</bean>
+	<bean id="templateDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySOTemplateImpl">
+		<constructor-arg index="1" value="true"/>
+	</bean>
+	<bean id="templateComplexRegexDefault" parent="templateDefault" abstract="true">
+		<property name="guiProperties">
+			<map>
+				<entry key="COMPLEX_REGEX">
+					<map>
+						<entry key="Tree" value="icons/16x16/CR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="SEARCH_SCRIPT">
+					<map>
+						<entry key="Tree" value="icons/16x16/SCR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="DefaultIconSet">
+					<map>
+						<entry key="Tree" value="icons/16x16/CR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="templateIntervalDefault" parent="templateDefault" abstract="true">
+		<property name="guiProperties">
+			<map>
+				<entry key="COMPLEX_REGEX">
+					<map>
+						<entry key="Tree" value="icons/16x16/I1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="SEARCH_SCRIPT">
+					<map>
+						<entry key="Tree" value="icons/16x16/SCR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="DefaultIconSet">
+					<map>
+						<entry key="Tree" value="icons/16x16/CR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="selectorDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySOSelector">
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexNoName">
+					<constructor-arg index="1" value=".*" />
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="selectorDefaultAny" parent="selectorDefault" abstract="true">
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexNoName">
+					<constructor-arg index="1" value=".*" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<list>
+				<bean parent="simpleRegexNoName">
+					<constructor-arg index="1" value=".*" />
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="selectorDefaultUserObject" parent="selectorDefaultAny" abstract="true">
+		<constructor-arg index="3">
+			<list>
+				<bean parent="tagrefDefaultMatch">
+					<constructor-arg index="1">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="Role" />
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="2">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="User Object" />
+						</bean>
+					</constructor-arg>
+				</bean>
+			</list>
+		</constructor-arg>
+		<property name="sortRequestKeys">
+			<list>
+				<bean parent="sortRequestKeyDefault">
+					<constructor-arg index="0" value="DATE_TIME"/>
+				</bean>
+				<bean parent="sortRequestKeyDefault">
+					<constructor-arg index="0" value="REGEX"/>
+				</bean>
+			</list>
+		</property>
+		<property name="viewNamePatterns">
+			<list>
+				<value>.*</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="selectorDefaultInterval" parent="selectorDefaultUserObject" abstract="true">
+		<constructor-arg index="3">
+			<list>
+				<bean parent="tagrefDefaultMatch">
+					<constructor-arg index="1">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="Role" />
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="2">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="User Object" />
+						</bean>
+					</constructor-arg>
+				</bean>
+				<bean parent="tagrefDefaultMatch">
+					<constructor-arg index="1">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="Interval" />
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="2">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value=".*" />
+						</bean>
+					</constructor-arg>
+				</bean>
+			</list>
+		</constructor-arg>
+		<property name="guiProperties">
+			<map>
+				<entry key="COMPLEX_REGEX">
+					<map>
+						<entry key="Tree" value="icons/16x16/I1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="SEARCH_SCRIPT">
+					<map>
+						<entry key="Tree" value="icons/16x16/SCR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="DefaultIconSet">
+					<map>
+						<entry key="Tree" value="icons/16x16/CR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="selectorDefaultDefault" parent="selectorDefaultUserObject" abstract="true">
+		<constructor-arg index="3">
+			<list>
+				<bean parent="tagrefDefaultMatch">
+					<constructor-arg index="1">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="Role" />
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="2">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="User Object" />
+						</bean>
+					</constructor-arg>
+				</bean>
+				<bean parent="tagrefDefaultNotMatch">
+					<constructor-arg index="1">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value="Interval" />
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="2">
+						<bean parent="simpleRegexNoName">
+							<constructor-arg index="1" value=".*" />
+						</bean>
+					</constructor-arg>
+				</bean>
+			</list>
+		</constructor-arg>
+		<property name="guiProperties">
+			<map>
+				<entry key="COMPLEX_REGEX">
+					<map>
+						<entry key="Tree" value="icons/16x16/CR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="SEARCH_SCRIPT">
+					<map>
+						<entry key="Tree" value="icons/16x16/SCR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+				<entry key="DefaultIconSet">
+					<map>
+						<entry key="Tree" value="icons/16x16/CR1.png" />
+						<entry key="Part" value="icons/24x24/mail-find.png" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<!-- The tree default beans START -->
+	<bean id="searchObjectTreeNodeDefault" abstract="true" class="org.eclipselabs.real.core.util.ExtendedMutableTreeNode" />
+	<bean id="folderDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySOFolderImpl"/>
+	<bean id="rootDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySORoot"/>
+	<!-- The tree default beans END -->
+	
+	<!-- Common GUI beans END -->
+</beans>

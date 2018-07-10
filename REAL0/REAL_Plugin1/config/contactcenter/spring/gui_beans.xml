@@ -2,250 +2,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <!-- The GUI configuration beans -->
-    <!-- Common beans START -->
-    <bean id="guiPropertyDefault" abstract="true" class="org.eclipselabs.real.gui.core.GUIProperty"></bean>
-    <bean id="sortRequestKeyDefault" abstract="true" class="org.eclipselabs.real.gui.core.sort.SortRequestKey">
-    	<constructor-arg index="1">
-    		<null/>
-    	</constructor-arg>
-    </bean>
-    <bean id="simpleRegexNoName" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" abstract="true">
-		<constructor-arg index="0" value="No Name" />
-		<constructor-arg index="1" value="this value must be replaced" />
-	</bean>
-	<bean id="tagrefDefault" abstract="true" class="org.eclipselabs.real.core.util.TagRef">
-	</bean>
-	<bean id="tagrefDefaultMatch" parent="tagrefDefault" abstract="true">
-		<constructor-arg index="0" value="MATCH"></constructor-arg>
-	</bean>
-	<bean id="tagrefDefaultNotMatch" parent="tagrefDefault" abstract="true">
-		<constructor-arg index="0" value="NOT_MATCH"></constructor-arg>
-	</bean>
-	<bean id="templateDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySOTemplateImpl">
-		<constructor-arg index="1" value="true"/>
-	</bean>
-	<bean id="templateComplexRegexDefault" parent="templateDefault" abstract="true">
-		<property name="guiProperties">
-			<map>
-				<entry key="COMPLEX_REGEX">
-					<map>
-						<entry key="Tree" value="icons/16x16/CR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="SEARCH_SCRIPT">
-					<map>
-						<entry key="Tree" value="icons/16x16/SCR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="DefaultIconSet">
-					<map>
-						<entry key="Tree" value="icons/16x16/CR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-			</map>
-		</property>
-	</bean>
-	<bean id="templateIntervalDefault" parent="templateDefault" abstract="true">
-		<property name="guiProperties">
-			<map>
-				<entry key="COMPLEX_REGEX">
-					<map>
-						<entry key="Tree" value="icons/16x16/I1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="SEARCH_SCRIPT">
-					<map>
-						<entry key="Tree" value="icons/16x16/SCR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="DefaultIconSet">
-					<map>
-						<entry key="Tree" value="icons/16x16/CR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-			</map>
-		</property>
-	</bean>
-	<bean id="selectorDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySOSelector">
-		<constructor-arg index="1">
-			<list>
-				<bean parent="simpleRegexNoName">
-					<constructor-arg index="1" value=".*" />
-				</bean>
-			</list>
-		</constructor-arg>
-	</bean>
-	<bean id="selectorDefaultAny" parent="selectorDefault" abstract="true">
-		<constructor-arg index="1">
-			<list>
-				<bean parent="simpleRegexNoName">
-					<constructor-arg index="1" value=".*" />
-				</bean>
-			</list>
-		</constructor-arg>
-		<constructor-arg index="2">
-			<list>
-				<bean parent="simpleRegexNoName">
-					<constructor-arg index="1" value=".*" />
-				</bean>
-			</list>
-		</constructor-arg>
-	</bean>
-	<bean id="selectorDefaultUserObject" parent="selectorDefaultAny" abstract="true">
-		<constructor-arg index="3">
-			<list>
-				<bean parent="tagrefDefaultMatch">
-					<constructor-arg index="1">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="Role" />
-						</bean>
-					</constructor-arg>
-					<constructor-arg index="2">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="User Object" />
-						</bean>
-					</constructor-arg>
-				</bean>
-			</list>
-		</constructor-arg>
-		<property name="sortRequestKeys">
-			<list>
-				<bean parent="sortRequestKeyDefault">
-					<constructor-arg index="0" value="DATE_TIME"/>
-				</bean>
-				<bean parent="sortRequestKeyDefault">
-					<constructor-arg index="0" value="REGEX"/>
-				</bean>
-			</list>
-		</property>
-		<property name="viewNamePatterns">
-			<list>
-				<value>.*</value>
-			</list>
-		</property>
-	</bean>
-	<bean id="selectorDefaultInterval" parent="selectorDefaultUserObject" abstract="true">
-		<constructor-arg index="3">
-			<list>
-				<bean parent="tagrefDefaultMatch">
-					<constructor-arg index="1">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="Role" />
-						</bean>
-					</constructor-arg>
-					<constructor-arg index="2">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="User Object" />
-						</bean>
-					</constructor-arg>
-				</bean>
-				<bean parent="tagrefDefaultMatch">
-					<constructor-arg index="1">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="Interval" />
-						</bean>
-					</constructor-arg>
-					<constructor-arg index="2">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value=".*" />
-						</bean>
-					</constructor-arg>
-				</bean>
-			</list>
-		</constructor-arg>
-		<property name="guiProperties">
-			<map>
-				<entry key="COMPLEX_REGEX">
-					<map>
-						<entry key="Tree" value="icons/16x16/I1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="SEARCH_SCRIPT">
-					<map>
-						<entry key="Tree" value="icons/16x16/SCR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="DefaultIconSet">
-					<map>
-						<entry key="Tree" value="icons/16x16/CR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-			</map>
-		</property>
-	</bean>
-	<bean id="selectorDefaultDefault" parent="selectorDefaultUserObject" abstract="true">
-		<constructor-arg index="3">
-			<list>
-				<bean parent="tagrefDefaultMatch">
-					<constructor-arg index="1">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="Role" />
-						</bean>
-					</constructor-arg>
-					<constructor-arg index="2">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="User Object" />
-						</bean>
-					</constructor-arg>
-				</bean>
-				<bean parent="tagrefDefaultNotMatch">
-					<constructor-arg index="1">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value="Interval" />
-						</bean>
-					</constructor-arg>
-					<constructor-arg index="2">
-						<bean parent="simpleRegexNoName">
-							<constructor-arg index="1" value=".*" />
-						</bean>
-					</constructor-arg>
-				</bean>
-			</list>
-		</constructor-arg>
-		<property name="guiProperties">
-			<map>
-				<entry key="COMPLEX_REGEX">
-					<map>
-						<entry key="Tree" value="icons/16x16/CR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="SEARCH_SCRIPT">
-					<map>
-						<entry key="Tree" value="icons/16x16/SCR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-				<entry key="DefaultIconSet">
-					<map>
-						<entry key="Tree" value="icons/16x16/CR1.png" />
-						<entry key="Part" value="icons/24x24/mail-find.png" />
-					</map>
-				</entry>
-			</map>
-		</property>
-	</bean>
-	
-	
-	<!-- Common beans END -->
-	
+
+    <!-- Import common GUI beans -->
+	<import resource="common_gui_beans.xml" />
+    <!-- The GUI configuration beans -->	
 	<!-- GUI beans START -->
 	<bean id="templateGlobal" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="global"/>
+		<constructor-arg index="0" value="global" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultUserObject">
-					<constructor-arg index="0" value="global Default"/>
+					<constructor-arg index="0" value="global Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -256,10 +23,10 @@
 					<property name="sortRequestKeys">
 						<list>
 							<bean parent="sortRequestKeyDefault">
-								<constructor-arg index="0" value="DATE_TIME"/>
+								<constructor-arg index="0" value="DATE_TIME" />
 							</bean>
 							<bean parent="sortRequestKeyDefault">
-								<constructor-arg index="0" value="REGEX"/>
+								<constructor-arg index="0" value="REGEX" />
 							</bean>
 						</list>
 					</property>
@@ -273,11 +40,11 @@
 		</property>
 	</bean>
 	<bean id="templateCCMM_EmailManager" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CCMM_EmailManager"/>
+		<constructor-arg index="0" value="CCMM_EmailManager" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CCMM_EmailManager Intervals"/>
+					<constructor-arg index="0" value="CCMM_EmailManager Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -287,7 +54,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CCMM_EmailManager Default"/>
+					<constructor-arg index="0" value="CCMM_EmailManager Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -300,11 +67,11 @@
 		</property>
 	</bean>
 	<bean id="templateCCMM_MCMClient" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CCMM_MCMClient"/>
+		<constructor-arg index="0" value="CCMM_MCMClient" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CCMM_MCMClient Intervals"/>
+					<constructor-arg index="0" value="CCMM_MCMClient Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -314,7 +81,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CCMM_MCMClient Default"/>
+					<constructor-arg index="0" value="CCMM_MCMClient Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -327,11 +94,11 @@
 		</property>
 	</bean>
 	<bean id="templateCCMM_StarterService" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CCMM_StarterService"/>
+		<constructor-arg index="0" value="CCMM_StarterService" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CCMM_StarterService Intervals"/>
+					<constructor-arg index="0" value="CCMM_StarterService Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -341,7 +108,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CCMM_StarterService Default"/>
+					<constructor-arg index="0" value="CCMM_StarterService Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -354,11 +121,11 @@
 		</property>
 	</bean>
 	<bean id="templateCCMM_OAMClient" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CCMM_OAMClient"/>
+		<constructor-arg index="0" value="CCMM_OAMClient" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CCMM_OAMClient Intervals"/>
+					<constructor-arg index="0" value="CCMM_OAMClient Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -368,7 +135,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CCMM_OAMClient Default"/>
+					<constructor-arg index="0" value="CCMM_OAMClient Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -381,11 +148,11 @@
 		</property>
 	</bean>
 	<bean id="templateCCMM_CMF" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CCMM_CMF"/>
+		<constructor-arg index="0" value="CCMM_CMF" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CCMM_CMF Intervals"/>
+					<constructor-arg index="0" value="CCMM_CMF Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -395,7 +162,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CCMM_OAMClient Default"/>
+					<constructor-arg index="0" value="CCMM_OAMClient Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -408,11 +175,11 @@
 		</property>
 	</bean>
 	<bean id="templateAgentDesktop" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="AgentDesktop"/>
+		<constructor-arg index="0" value="AgentDesktop" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="AgentDesktop Intervals"/>
+					<constructor-arg index="0" value="AgentDesktop Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -422,7 +189,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="AgentDesktop Default"/>
+					<constructor-arg index="0" value="AgentDesktop Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -435,11 +202,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_SipSp" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_SipSp"/>
+		<constructor-arg index="0" value="SGM_SipSp" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_SipSp Intervals"/>
+					<constructor-arg index="0" value="SGM_SipSp Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -449,7 +216,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_SipSp Default"/>
+					<constructor-arg index="0" value="SGM_SipSp Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -462,11 +229,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_AmlSp" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_AmlSp"/>
+		<constructor-arg index="0" value="SGM_AmlSp" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_AmlSp Intervals"/>
+					<constructor-arg index="0" value="SGM_AmlSp Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -476,7 +243,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_AmlSp Default"/>
+					<constructor-arg index="0" value="SGM_AmlSp Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -489,11 +256,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_SipMessages" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_SipMessages"/>
+		<constructor-arg index="0" value="SGM_SipMessages" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_SipMessages Intervals"/>
+					<constructor-arg index="0" value="SGM_SipMessages Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -503,7 +270,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_SipMessages Default"/>
+					<constructor-arg index="0" value="SGM_SipMessages Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -516,11 +283,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_TapidMessages" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_TapidMessages"/>
+		<constructor-arg index="0" value="SGM_TapidMessages" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_TapidMessages Intervals"/>
+					<constructor-arg index="0" value="SGM_TapidMessages Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -530,7 +297,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_TapidMessages Default"/>
+					<constructor-arg index="0" value="SGM_TapidMessages Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -543,11 +310,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_XMPP_Service" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_XMPP_Service"/>
+		<constructor-arg index="0" value="SGM_XMPP_Service" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_XMPP_Service Intervals"/>
+					<constructor-arg index="0" value="SGM_XMPP_Service Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -557,7 +324,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_XMPP_Service Default"/>
+					<constructor-arg index="0" value="SGM_XMPP_Service Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -570,11 +337,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_XMPPMessages" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_XMPPMessages"/>
+		<constructor-arg index="0" value="SGM_XMPPMessages" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_XMPPMessages Intervals"/>
+					<constructor-arg index="0" value="SGM_XMPPMessages Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -584,7 +351,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_XMPPMessages Default"/>
+					<constructor-arg index="0" value="SGM_XMPPMessages Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -597,11 +364,11 @@
 		</property>
 	</bean>
 	<bean id="templateCMF_OAM_SP" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CMF_OAM_SP"/>
+		<constructor-arg index="0" value="CMF_OAM_SP" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CMF_OAM_SP Intervals"/>
+					<constructor-arg index="0" value="CMF_OAM_SP Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -611,7 +378,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CMF_OAM_SP Default"/>
+					<constructor-arg index="0" value="CMF_OAM_SP Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -624,11 +391,11 @@
 		</property>
 	</bean>
 	<bean id="templateCMF_OAM32" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CMF_OAM32"/>
+		<constructor-arg index="0" value="CMF_OAM32" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CMF_OAM32 Intervals"/>
+					<constructor-arg index="0" value="CMF_OAM32 Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -638,7 +405,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CMF_OAM32 Default"/>
+					<constructor-arg index="0" value="CMF_OAM32 Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -651,11 +418,11 @@
 		</property>
 	</bean>
 	<bean id="templateASM" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="ASM"/>
+		<constructor-arg index="0" value="ASM" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="ASM Intervals"/>
+					<constructor-arg index="0" value="ASM Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -665,7 +432,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="ASM Default"/>
+					<constructor-arg index="0" value="ASM Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -678,11 +445,11 @@
 		</property>
 	</bean>
 	<bean id="templateCCT_SERVER" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CCT_SERVER"/>
+		<constructor-arg index="0" value="CCT_SERVER" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CCT_SERVER Intervals"/>
+					<constructor-arg index="0" value="CCT_SERVER Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -692,7 +459,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CCT_SERVER Default"/>
+					<constructor-arg index="0" value="CCT_SERVER Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -705,11 +472,11 @@
 		</property>
 	</bean>
 	<bean id="templateAML" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="AML"/>
+		<constructor-arg index="0" value="AML" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="AML Intervals"/>
+					<constructor-arg index="0" value="AML Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -719,7 +486,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="AML Default"/>
+					<constructor-arg index="0" value="AML Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -732,11 +499,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_SipSpCpp" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_SipSpCpp"/>
+		<constructor-arg index="0" value="SGM_SipSpCpp" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_SipSpCpp Intervals"/>
+					<constructor-arg index="0" value="SGM_SipSpCpp Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -746,7 +513,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_SipSpCpp Default"/>
+					<constructor-arg index="0" value="SGM_SipSpCpp Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -759,11 +526,11 @@
 		</property>
 	</bean>
 	<bean id="templateEB" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="EB"/>
+		<constructor-arg index="0" value="EB" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="EB Intervals"/>
+					<constructor-arg index="0" value="EB Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -773,7 +540,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="EB Default"/>
+					<constructor-arg index="0" value="EB Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -786,11 +553,11 @@
 		</property>
 	</bean>
 	<bean id="templateSGM_SipRvCpp" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="SGM_SipRvCpp"/>
+		<constructor-arg index="0" value="SGM_SipRvCpp" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="SGM_SipRvCpp Intervals"/>
+					<constructor-arg index="0" value="SGM_SipRvCpp Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -800,7 +567,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="SGM_SipRvCpp Default"/>
+					<constructor-arg index="0" value="SGM_SipRvCpp Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -813,11 +580,11 @@
 		</property>
 	</bean>
 	<bean id="templateCMF_OI" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CMF_OI"/>
+		<constructor-arg index="0" value="CMF_OI" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CMF_OI Intervals"/>
+					<constructor-arg index="0" value="CMF_OI Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -827,7 +594,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CMF_OI Default"/>
+					<constructor-arg index="0" value="CMF_OI Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -840,11 +607,11 @@
 		</property>
 	</bean>
 	<bean id="templateCC_CacheResiliency" parent="templateComplexRegexDefault" scope="prototype">
-		<constructor-arg index="0" value="CC_CacheResiliency"/>
+		<constructor-arg index="0" value="CC_CacheResiliency" />
 		<property name="selectorList">
 			<list>
 				<bean parent="selectorDefaultInterval">
-					<constructor-arg index="0" value="CC_CacheResiliency Intervals"/>
+					<constructor-arg index="0" value="CC_CacheResiliency Intervals" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -854,7 +621,7 @@
 					</constructor-arg>
 				</bean>
 				<bean parent="selectorDefaultDefault">
-					<constructor-arg index="0" value="CC_CacheResiliency Default"/>
+					<constructor-arg index="0" value="CC_CacheResiliency Default" />
 					<constructor-arg index="2">
 						<list>
 							<bean parent="simpleRegexNoName">
@@ -868,29 +635,27 @@
 	</bean>
 	
 	<!-- The tree beans START -->
-	<bean id="searchObjectTreeNodeDefault" abstract="true" class="org.eclipselabs.real.core.util.ExtendedMutableTreeNode" />
-	<bean id="folderDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySOFolderImpl"/>
-	<bean id="rootDefault" abstract="true" class="org.eclipselabs.real.gui.core.sotree.DisplaySORoot"/>
-	
 	<bean id="searchObjectTree" parent="searchObjectTreeNodeDefault">
 		<constructor-arg index="0">
 			<bean parent="rootDefault">
-				<constructor-arg index="0" value="Search Object Tree"/>
-				<constructor-arg index="1" value="true"/>
+				<constructor-arg index="0" value="Search Object Tree" />
+				<constructor-arg index="1" value="true" />
 			</bean>
 		</constructor-arg>
 		<constructor-arg index="1">
 			<list>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateGlobal"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateGlobal" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<!-- This is an example of folders -->
-				<bean parent="searchObjectTreeNodeDefault">
+				<!-- <bean parent="searchObjectTreeNodeDefault">
 					<constructor-arg index="0">
 						<bean parent="folderDefault">
-							<constructor-arg index="0" value="test folder"/>
-							<constructor-arg index="1" value="true"/>
+							<constructor-arg index="0" value="test folder" />
+							<constructor-arg index="1" value="true" />
 						</bean>
 					</constructor-arg>
 					<constructor-arg index="1">
@@ -898,101 +663,143 @@
 							<bean parent="searchObjectTreeNodeDefault">
 								<constructor-arg index="0">
 									<bean parent="folderDefault">
-										<constructor-arg index="0" value="test folder 2"/>
-										<constructor-arg index="1" value="true"/>
+										<constructor-arg index="0" value="test folder 2" />
+										<constructor-arg index="1" value="true" />
 									</bean>
 								</constructor-arg>
 								<constructor-arg index="1">
 									<list>
 										<bean parent="searchObjectTreeNodeDefault">
-											<constructor-arg index="0" ref="templateCCMM_EmailManager"/>
-											<constructor-arg index="1"><list/></constructor-arg>
+											<constructor-arg index="0" ref="templateCCMM_EmailManager" />
+											<constructor-arg index="1">
+												<list />
+											</constructor-arg>
 										</bean>
 									</list>
 								</constructor-arg>
 							</bean>
 						</list>
 					</constructor-arg>
+				</bean> -->
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_MCMClient" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_MCMClient"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCCMM_StarterService" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_StarterService"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCCMM_OAMClient" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_OAMClient"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCCMM_CMF" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_CMF"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateAgentDesktop" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateAgentDesktop"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateSGM_SipSp" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_SipSp"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateSGM_AmlSp" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_AmlSp"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateSGM_SipMessages" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_SipMessages"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateSGM_TapidMessages" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_TapidMessages"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateSGM_XMPP_Service" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_XMPP_Service"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCMF_OAM_SP" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCMF_OAM_SP"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCMF_OAM32" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCMF_OAM32"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateASM" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateASM"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCCT_SERVER" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCT_SERVER"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateAML" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateAML"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateSGM_SipSpCpp" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_SipSpCpp"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateEB" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateEB"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateSGM_SipRvCpp" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_SipRvCpp"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCMF_OI" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCMF_OI"/>
-					<constructor-arg index="1"><list/></constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCC_CacheResiliency"/>
-					<constructor-arg index="1"><list/></constructor-arg>
+					<constructor-arg index="0" ref="templateCC_CacheResiliency" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
 				</bean>
 			</list>
 		</constructor-arg>
@@ -1000,19 +807,15 @@
 	<!-- The tree beans END -->
 	<!-- GUI beans END -->
 	
-	<!-- This object contains all beans in the correct order -->
+	<!-- This object contains all GUI properties -->
 	<bean id="allGUIProperties" class="org.eclipselabs.real.core.config.spring.GUIPropertiesStore">
 		<constructor-arg index="0">
 			<list>
 				<bean parent="guiPropertyDefault">
-					<constructor-arg index="0" value="TextReadOnly"/>
-					<constructor-arg index="1" value="true"/>
+					<constructor-arg index="0" value="TextReadOnly" />
+					<constructor-arg index="1" value="true" />
 				</bean>
 			</list>
 		</constructor-arg>
 	</bean>
 </beans>
-
-
-
-
