@@ -210,14 +210,8 @@
 		<constructor-arg index="0" value="!L:Files Timespan ASM"/>
 		<property name="mainRegexList">
 			<list>
-				<bean parent="simpleRegexNoName" >
-					<constructor-arg index="0" value="FirstRegex"/>
-					<constructor-arg index="1" value="\AASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*" />
-				</bean>
-				<bean parent="simpleRegexNoName" >
-					<constructor-arg index="0" value="LastRegex"/>
-					<constructor-arg index="1" value="ASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*\Z" />
-				</bean>
+				<ref bean="regexFirstRecordASM"/>
+				<ref bean="regexLastRecordASM"/>
 			</list>
 		</property>
 		<property name="viewMap">

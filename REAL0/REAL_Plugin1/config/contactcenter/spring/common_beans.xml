@@ -90,7 +90,7 @@
 		<constructor-arg index="0" value="STRING"/>
 		<constructor-arg index="1">
 			<bean parent="replaceableParamKeyDefault">
-				<constructor-arg index="0" value="VALUE"></constructor-arg>
+				<constructor-arg index="0" value="VALUE"/>
 			</bean>
 		</constructor-arg>
 		<constructor-arg index="2" value="Value to find"/>

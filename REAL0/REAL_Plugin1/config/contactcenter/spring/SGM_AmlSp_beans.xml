@@ -4,17 +4,17 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<!-- CMF_OAM32 BEANS START -->
+	<!-- SGM_AmlSp BEANS START -->
 
-	<!-- Commonly used CMF_OAM32 beans START -->
+	<!-- Commonly used SGM_AmlSp beans START -->
 	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
 	<!-- the group bean -->
-	<bean id="groupCMF_OAM32" parent="groupDefault" scope="prototype">
-		<constructor-arg index="0" value="Global.CMF_OAM32"/>
+	<bean id="groupSGM_AmlSp" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global.SGM_AmlSp"/>
 	</bean>
-	<!-- The parent of all CMF_OAM32 complex regexes -->
-	<bean id="searchObjectParentCMF_OAM32" parent="searchObjectParent" abstract="true">
-		<property name="searchObjectGroup" ref="groupCMF_OAM32"/>
+	<!-- The parent of all SGM_AmlSp complex regexes -->
+	<bean id="searchObjectParentSGM_AmlSp" parent="searchObjectParent" abstract="true">
+		<property name="searchObjectGroup" ref="groupSGM_AmlSp"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />
@@ -22,74 +22,74 @@
 		</property>
 		<property name="requiredLogTypes">
 			<set>
-				<value>CMF_OAM32</value>
+				<value>SGM_AmlSp</value>
 			</set>
 		</property>
 		<property name="sortRequestList">
 			<list>
 				<ref bean="sortRequestDateTime"/>
-				<ref bean="sortRequestRegexCMF_OAM32"/>
+				<ref bean="sortRequestRegexSGM_AmlSp"/>
 			</list>
 		</property>
 		<property name="dateInfos">
 			<list>
-				<ref bean="dateInfoCMF_OAM32"/>
+				<ref bean="dateInfoSGM_AmlSp"/>
 			</list>
 		</property>
 	</bean>
 	
 	<!-- the regex sort request bean -->
-	<bean id="sortRequestRegexCMF_OAM32" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+	<bean id="sortRequestRegexSGM_AmlSp" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
 		<constructor-arg index="0" value="MERGE_RESULTS" />
 		<constructor-arg index="1">
 			<list>
 				<bean parent="simpleRegexFirst" >
-					<constructor-arg index="1" value="CMF_OAM32_TIME_REGEX" />
+					<constructor-arg index="1" value="SGM_AMLSP_TIME_REGEX" />
 				</bean>
 			</list>
 		</constructor-arg>
 		<constructor-arg index="2" value="Regex_Time" />
 	</bean>
 	<!-- the date info bean -->
-	<bean id="dateInfoCMF_OAM32" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
-		<constructor-arg index="0" value="CMF_OAM32_TIME_FORMAT" />
+	<bean id="dateInfoSGM_AmlSp" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="SGM_AMLSP_TIME_FORMAT" />
 		<constructor-arg index="1">
 			<bean parent="simpleRegexFirst" >
-				<constructor-arg index="1" value="CMF_OAM32_TIME_REGEX" />
+				<constructor-arg index="1" value="SGM_AMLSP_TIME_REGEX" />
 			</bean>
 		</constructor-arg>
 	</bean>
-	<bean id="regexFirstRecordCMF_OAM32" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+	<bean id="regexFirstRecordSGM_AmlSp" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
 		<constructor-arg index="0" value="FirstRecord" />
-		<constructor-arg index="1" value="\ACMF_OAM32_TIME_REGEX((?!(CMF_OAM32_TIME_REGEX)).*\r?\n)*" />
+		<constructor-arg index="1" value="\ASGM_AMLSP_TIME_REGEX((?!(SGM_AMLSP_TIME_REGEX)).*\r?\n)*" />
 	</bean>
-	<bean id="regexLastRecordCMF_OAM32" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+	<bean id="regexLastRecordSGM_AmlSp" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
 		<constructor-arg index="0" value="LastRecord" />
-		<constructor-arg index="1" value="CMF_OAM32_TIME_REGEX((?!(CMF_OAM32_TIME_REGEX)).*\r?\n)*\Z" />
+		<constructor-arg index="1" value="SGM_AMLSP_TIME_REGEX((?!(SGM_AMLSP_TIME_REGEX)).*\r?\n)*\Z" />
 	</bean>
-	<bean id="guessIntervalCMF_OAM32" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+	<bean id="guessIntervalSGM_AmlSp" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
 		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
 		<property name="firstRecord">
-			<ref bean="regexFirstRecordCMF_OAM32"></ref>
+			<ref bean="regexFirstRecordSGM_AmlSp"></ref>
 		</property>
 		<property name="lastRecord">
-			<ref bean="regexLastRecordCMF_OAM32"></ref>
+			<ref bean="regexLastRecordSGM_AmlSp"></ref>
 		</property>
 	</bean>
-	<bean id="searchObjectViewTimeCMF_OAM32" parent="searchObjectViewParent" scope="prototype">
+	<bean id="searchObjectViewTimeSGM_AmlSp" parent="searchObjectViewParent" scope="prototype">
 		<constructor-arg index="0" value="Time"/>
 		<property name="viewObjects">
 			<list>
 				<bean parent="simpleRegexFirst">
-					<constructor-arg index="1" value="CMF_OAM32_TIME_REGEX" />
+					<constructor-arg index="1" value="SGM_AMLSP_TIME_REGEX" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<!-- Commonly used CMF_OAM32 beans END -->
-	<!-- Normal CMF_OAM32 beans START -->
-	<bean id="!I:LogInterval CMF_OAM32 All" parent="searchObjectParentCMF_OAM32">
-		<constructor-arg index="0" value="!I:LogInterval CMF_OAM32 All"/>
+	<!-- Commonly used SGM_AmlSp beans END -->
+	<!-- Normal SGM_AmlSp beans START -->
+	<bean id="!I:LogInterval SGM_AmlSp All" parent="searchObjectParentSGM_AmlSp">
+		<constructor-arg index="0" value="!I:LogInterval SGM_AmlSp All"/>
 		<property name="searchObjectDescription" value="Finds all records" />
 		<property name="searchObjectTags">
 			<map merge="true">
@@ -99,13 +99,13 @@
 		<property name="mainRegexList">
 			<list>
 				<bean parent="simpleRegexNoName" >
-					<constructor-arg index="1" value="CMF_OAM32_TIME_REGEX((?!(CMF_OAM32_TIME_REGEX)).*\r?\n)*" />
+					<constructor-arg index="1" value="SGM_AMLSP_TIME_REGEX((?!(SGM_AMLSP_TIME_REGEX)).*\r?\n)*" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="!I:LogInterval CMF_OAM32" parent="!I:LogInterval CMF_OAM32 All">
-		<constructor-arg index="0" value="!I:LogInterval CMF_OAM32"/>
+	<bean id="!I:LogInterval SGM_AmlSp" parent="!I:LogInterval SGM_AmlSp All">
+		<constructor-arg index="0" value="!I:LogInterval SGM_AmlSp"/>
 		<property name="replaceableParams">
 			<list>
 				<ref bean="paramDateLowBound"/>
@@ -117,15 +117,15 @@
 				<bean parent="acceptInterval">
 					<property name="guessList">
 						<list>
-							<ref bean="guessIntervalCMF_OAM32"/>
+							<ref bean="guessIntervalSGM_AmlSp"/>
 						</list>
 					</property>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="Internal ANY RECORD Containing value CMF_OAM32"  parent="searchObjectParentCMF_OAM32">
-		<constructor-arg index="0" value="Internal ANY RECORD Containing value CMF_OAM32"/>
+	<bean id="Internal ANY RECORD Containing value SGM_AmlSp"  parent="searchObjectParentSGM_AmlSp">
+		<constructor-arg index="0" value="Internal ANY RECORD Containing value SGM_AmlSp"/>
 		<property name="searchObjectTags">
 			<map merge="true">
 				<entry key="Role" value="internal" />
@@ -140,20 +140,20 @@
 		<property name="mainRegexList">
 			<list>
 				<bean parent="simpleRegexCaseInsensitive" >
-					<constructor-arg index="1" value="CMF_OAM32_TIME_REGEX((?!((.*?VALUE)|(CMF_OAM32_TIME_REGEX))).*\r?\n)*(?!(CMF_OAM32_TIME_REGEX)).*?VALUE((?!(CMF_OAM32_TIME_REGEX)).*\r?\n)*" />
+					<constructor-arg index="1" value="SGM_AMLSP_TIME_REGEX((?!((.*?VALUE)|(SGM_AMLSP_TIME_REGEX))).*\r?\n)*(?!(SGM_AMLSP_TIME_REGEX)).*?VALUE((?!(SGM_AMLSP_TIME_REGEX)).*\r?\n)*" />
 				</bean>
 			</list>
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM32"/>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_AmlSp"/>
 				<entry key="Thread">
 					<bean parent="searchObjectViewParent">
 						<constructor-arg index="0" value="Thread"/>
 						<property name="viewObjects">
 							<list>
 								<bean parent="simpleRegexFirst">
-									<constructor-arg index="1" value="(?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]\s{1,10}))" />
+									<constructor-arg index="1" value="(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]\s{1,10}))" />
 								</bean>
 							</list>
 						</property>
@@ -165,7 +165,7 @@
 						<property name="viewObjects">
 							<list>
 								<bean parent="simpleRegexFirst">
-									<constructor-arg index="1" value="(?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}))\w+(?=(\s{1,10}))" />
+									<constructor-arg index="1" value="(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}))\w+(?=(\s{1,10}))" />
 								</bean>
 							</list>
 						</property>
@@ -177,7 +177,7 @@
 						<property name="viewObjects">
 							<list>
 								<bean parent="simpleRegexFirst">
-									<constructor-arg index="1" value="((?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w$\.]{1,80}\.))[\w$]+(?=(\s{1,10}-)))|((?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}))\w+(?=(\s{1,10}-)))" />
+									<constructor-arg index="1" value="((?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w$\.]{1,80}\.))[\w$]+(?=(\s{1,10}-)))|((?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}))\w+(?=(\s{1,10}-)))" />
 								</bean>
 							</list>
 						</property>
@@ -189,7 +189,7 @@
 						<property name="viewObjects">
 							<list>
 								<bean parent="simpleRegexFirst">
-									<constructor-arg index="1" value="(?&lt;=(CMF_OAM32_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w\.$]{1,90}\s{1,10}-\s{1,10}))\S.*" />
+									<constructor-arg index="1" value="(?&lt;=(SGM_AMLSP_TIME_REGEX\s{1,10}\[\S.{0,40}\]\s{1,10}\w{1,7}\s{1,10}[\w\.$]{1,90}\s{1,10}-\s{1,10}))\S.*" />
 								</bean>
 							</list>
 						</property>
@@ -207,8 +207,8 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="CMF_OAM32 Value Within Interval"  parent="Internal ANY RECORD Containing value CMF_OAM32">
-		<constructor-arg index="0" value="CMF_OAM32 Value Within Interval"/>
+	<bean id="SGM_AmlSp Value Within Interval"  parent="Internal ANY RECORD Containing value SGM_AmlSp">
+		<constructor-arg index="0" value="SGM_AmlSp Value Within Interval"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />
@@ -225,37 +225,37 @@
 				<bean parent="acceptInterval">
 					<property name="guessList">
 						<list>
-							<ref bean="guessIntervalCMF_OAM32"/>
+							<ref bean="guessIntervalSGM_AmlSp"/>
 						</list>
 					</property>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="CMF_OAM32 ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value CMF_OAM32">
-		<constructor-arg index="0" value="CMF_OAM32 ANY RECORD Containing value"/>
+	<bean id="SGM_AmlSp ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value SGM_AmlSp">
+		<constructor-arg index="0" value="SGM_AmlSp ANY RECORD Containing value"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />
 			</map>
 		</property>
 	</bean>
-	<bean id="!L:Files Timespan CMF_OAM32"  parent="searchObjectParentCMF_OAM32">
-		<constructor-arg index="0" value="!L:Files Timespan CMF_OAM32"/>
+	<bean id="!L:Files Timespan SGM_AmlSp"  parent="searchObjectParentSGM_AmlSp">
+		<constructor-arg index="0" value="!L:Files Timespan SGM_AmlSp"/>
 		<property name="mainRegexList">
 			<list>
-				<ref bean="regexFirstRecordCMF_OAM32"/>
-				<ref bean="regexLastRecordCMF_OAM32"/>
+				<ref bean="regexFirstRecordSGM_AmlSp"/>
+				<ref bean="regexLastRecordSGM_AmlSp"/>
 			</list>
 		</property>
 		<property name="viewMap">
 			<map>
-				<entry key="Time" value-ref="searchObjectViewTimeCMF_OAM32"/>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_AmlSp"/>
 			</map>
 		</property>
 	</bean>
-	<bean id="CMF_OAM32 Errors Exceptions"  parent="Internal ANY RECORD Containing value CMF_OAM32">
-		<constructor-arg index="0" value="CMF_OAM32 Errors Exceptions"/>
+	<bean id="SGM_AmlSp Errors Exceptions"  parent="Internal ANY RECORD Containing value SGM_AmlSp">
+		<constructor-arg index="0" value="SGM_AmlSp Errors Exceptions"/>
 		<property name="searchObjectTags">
 			<map>
 				<entry key="Role" value="User Object" />
@@ -337,5 +337,77 @@
 			</list>
 		</property>
 	</bean>
-	<!-- Normal CMF_OAM32 beans END -->
+	<bean id="MID:SgmAgentTN"  parent="searchObjectParentSGM_AmlSp">
+		<constructor-arg index="0" value="MID:SgmAgentTN"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexCaseInsensitive" >
+					<constructor-arg index="1" value="SGM_AMLSP_TIME_REGEX.*?AmlSgmAgentTN - AmlSgmAgentTN\(\) Creating AgentTN;.*\r?\n" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_AmlSp"/>
+				<entry key="TN">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="TN"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(TN:)).*?(?=(, Scr:))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Scr">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Scr"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(Scr:)).*?(?=(, PosID))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="PosID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="PosID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(PosID:)).*?(?=(, TN))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="TN_Number">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="TN_Number"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(TN#:)).*?(?=($))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>TN</value>
+				<value>Scr</value>
+				<value>PosID</value>
+				<value>TN_Number</value>
+			</list>
+		</property>
+	</bean>
+	<!-- Normal SGM_AmlSp beans END -->
 </beans>

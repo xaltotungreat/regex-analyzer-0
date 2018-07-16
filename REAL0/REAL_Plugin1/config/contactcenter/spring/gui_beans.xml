@@ -682,36 +682,6 @@
 					</constructor-arg>
 				</bean> -->
 				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_MCMClient" />
-					<constructor-arg index="1">
-						<list />
-					</constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_StarterService" />
-					<constructor-arg index="1">
-						<list />
-					</constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_OAMClient" />
-					<constructor-arg index="1">
-						<list />
-					</constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateCCMM_CMF" />
-					<constructor-arg index="1">
-						<list />
-					</constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateAgentDesktop" />
-					<constructor-arg index="1">
-						<list />
-					</constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
 					<constructor-arg index="0" ref="templateSGM_SipSp" />
 					<constructor-arg index="1">
 						<list />
@@ -725,18 +695,6 @@
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
 					<constructor-arg index="0" ref="templateSGM_SipMessages" />
-					<constructor-arg index="1">
-						<list />
-					</constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_TapidMessages" />
-					<constructor-arg index="1">
-						<list />
-					</constructor-arg>
-				</bean>
-				<bean parent="searchObjectTreeNodeDefault">
-					<constructor-arg index="0" ref="templateSGM_XMPP_Service" />
 					<constructor-arg index="1">
 						<list />
 					</constructor-arg>
@@ -761,6 +719,18 @@
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
 					<constructor-arg index="0" ref="templateCCT_SERVER" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_TapidMessages" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateSGM_XMPP_Service" />
 					<constructor-arg index="1">
 						<list />
 					</constructor-arg>
@@ -797,6 +767,36 @@
 				</bean>
 				<bean parent="searchObjectTreeNodeDefault">
 					<constructor-arg index="0" ref="templateCC_CacheResiliency" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_MCMClient" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_StarterService" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_OAMClient" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateCCMM_CMF" />
+					<constructor-arg index="1">
+						<list />
+					</constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateAgentDesktop" />
 					<constructor-arg index="1">
 						<list />
 					</constructor-arg>

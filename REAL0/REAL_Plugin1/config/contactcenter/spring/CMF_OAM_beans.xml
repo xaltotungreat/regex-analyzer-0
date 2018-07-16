@@ -244,14 +244,8 @@
 		<constructor-arg index="0" value="!L:Files Timespan CMF_OAM"/>
 		<property name="mainRegexList">
 			<list>
-				<bean parent="simpleRegexNoName" >
-					<constructor-arg index="0" value="FirstRegex"/>
-					<constructor-arg index="1" value="\ACMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*" />
-				</bean>
-				<bean parent="simpleRegexNoName" >
-					<constructor-arg index="0" value="LastRegex"/>
-					<constructor-arg index="1" value="CMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*\Z" />
-				</bean>
+				<ref bean="regexFirstRecordCMF_OAM"/>
+				<ref bean="regexLastRecordCMF_OAM"/>
 			</list>
 		</property>
 		<property name="viewMap">
@@ -690,7 +684,7 @@
 									<constructor-arg index="1" value="(((?&lt;=(\t state\[))).*?(?=((\])|(\r?\n)))|((?&lt;=(\t CurrentState\s{1,15}= )).*?(?=(\r?\n))))" />
 								</bean>
 								<bean class="java.lang.String">
-									<constructor-arg index="0" value="-"/>
+									<constructor-arg index="0" value="-&gt;"/>
 								</bean>
 								<bean parent="simpleRegexNoName">
 									<constructor-arg index="1" value="(((?&lt;=( NewState\[))).*?(?=(\]))|((?&lt;=(\t NewState\s{1,15}= )).*?(?=(\r?\n))))" />

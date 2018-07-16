@@ -11,4 +11,6 @@
     <import resource="ASM_beans.xml"/>
     <import resource="CMF_OAM_beans.xml"/>
     <import resource="CMF_OAM32_beans.xml"/>
+    <import resource="SGM_SipSp_beans.xml"/>
+    <import resource="SGM_AmlSp_beans.xml"/>
 </beans>
