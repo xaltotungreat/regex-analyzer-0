@@ -1,5 +1,5 @@
 # regex-analyzer-0
-This project aims to create an IDE for logs analysis. It is based on the Eclipse framework. It is in fact an Eclipse RCP and can be exported as a product. The idea is to write down the regular expressions in some form with parameters and use them to automate search operations in logs. The project uses Spring to load the configuiration. The configuration consists of the regular expressions configuration, the GUI configuration, the log types configuration and some less important stuff. You can read more about this work in my blog posts http://java-xlt.blogspot.com/. Look for label "Log Analysis". 
+This project aims to create an IDE for logs analysis. It is based on the Eclipse framework. It is in fact an Eclipse RCP and can be exported as a product. The idea is to write down the regular expressions in some form with parameters and use them to automate search operations in logs. The project uses Spring to load the configuiration. The configuration consists of the regular expressions configuration, the GUI configuration, the log types configuration and some less important stuff. You can read more about this work in my blog posts http://java-xlt.blogspot.com/. The posts are titled "IDE approach to log analysis".
 Some examples are available in the config folder. 
 Steps to create a new configuration:
 1. Check out the examples
