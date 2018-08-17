@@ -16,14 +16,14 @@ public class RegexComplexSortRequest<Q> extends RegexSortRequest implements IReg
 
     //private static final Logger log = LogManager.getLogger(RegexComplexSortRequest.class);
     protected Q viewName;
-    
+
     public RegexComplexSortRequest() {
     }
-    
+
     public RegexComplexSortRequest(String aName) {
         super(aName);
     }
-    
+
     public RegexComplexSortRequest(SortingApplicability appl, List<IRealRegex> sortList, String aName) {
         super(appl, sortList, aName);
     }
@@ -48,19 +48,19 @@ public class RegexComplexSortRequest<Q> extends RegexSortRequest implements IReg
     //@Override
     public <R extends IComplexSearchResult<O,W,X,Q>,
                         O extends IComplexSearchResultObject<W,X,Q>,
-                        V extends ISearchObject<W,X>,W extends ISearchResult<X>, X extends ISearchResultObject> 
+                        V extends ISearchObject<W,X>,W extends ISearchResult<X>, X extends ISearchResultObject>
             Comparator<O> getComparator(R searchRes) {
         Comparator<O> resComp = null;
         if ((searchRes != null) && (searchRes.getSRObjects() != null) && (!searchRes.getSRObjects().isEmpty())) {
             if (viewName != null) {
-                resComp = new SROViewComparator<O,W,X,Q>(sortRegexList, searchRes.getCachedReplaceTable(), viewName, regexFlags);
+                resComp = new SROViewComparator<>(sortRegexList, searchRes.getCachedReplaceTable(), viewName, regexFlags);
             } else {
-                resComp = new SROTextComparator<O>(sortRegexList, searchRes.getCachedReplaceTable(), regexFlags);
+                resComp = new SROTextComparator<>(sortRegexList, searchRes.getCachedReplaceTable(), regexFlags);
             }
         }
         return resComp;
     }
-    
+
     @Override
     public Q getViewName() {
         return viewName;
@@ -73,7 +73,7 @@ public class RegexComplexSortRequest<Q> extends RegexSortRequest implements IReg
 
     @Override
     public String toString() {
-        return "RegexComplexSortRequest [name=" + name + ", type=" + type + ", sortApplicability=" + sortApplicability 
+        return "RegexComplexSortRequest [name=" + name + ", type=" + type + ", sortApplicability=" + sortApplicability
                 + ", sortRegexList=" + sortRegexList + ", regexFlags=" + regexFlags + ", viewName=" + viewName + "]";
     }
 

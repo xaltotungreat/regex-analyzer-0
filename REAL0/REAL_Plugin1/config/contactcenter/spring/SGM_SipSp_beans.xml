@@ -22,7 +22,7 @@
 		</property>
 		<property name="requiredLogTypes">
 			<set>
-				<value>CMF_OAM32</value>
+				<value>SGM_SipSp</value>
 			</set>
 		</property>
 		<property name="sortRequestList">

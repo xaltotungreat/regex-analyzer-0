@@ -8,9 +8,11 @@
     <import resource="common_beans.xml"/>
     <import resource="replaceableparams_beans.xml"/>
     <import resource="gui_beans.xml"/>
+    <import resource="Global_beans.xml"/>
     <import resource="ASM_beans.xml"/>
     <import resource="CMF_OAM_beans.xml"/>
     <import resource="CMF_OAM32_beans.xml"/>
     <import resource="SGM_SipSp_beans.xml"/>
     <import resource="SGM_AmlSp_beans.xml"/>
+    <import resource="SGM_SipMessages_beans.xml"/>
 </beans>

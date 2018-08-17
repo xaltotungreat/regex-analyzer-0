@@ -9,6 +9,7 @@ import org.eclipselabs.real.core.config.IConfigReader;
 import org.eclipselabs.real.core.logtype.LogFileTypes;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
+import org.eclipselabs.real.core.searchobject.ISOSearchScript;
 import org.eclipselabs.real.core.searchobject.SearchObjectController;
 import org.eclipselabs.real.core.searchobject.SearchObjectKey;
 import org.eclipselabs.real.core.searchobject.param.IReplaceableParam;
@@ -37,13 +38,20 @@ public class SpringConfigReader implements IConfigReader<ApplicationContext, Int
         SearchObjectController.INSTANCE.getReplaceableParamRepository().addAll(allGlobalparams);
 
         // init the search objects
-        Map<String, ISOComplexRegex> allSOBeans = configRI.getBeansOfType(ISOComplexRegex.class);
-        Map<SearchObjectKey, IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> allSo = allSOBeans.entrySet().stream().collect(
+        Map<String, ISOComplexRegex> allSOCRBeans = configRI.getBeansOfType(ISOComplexRegex.class);
+        Map<SearchObjectKey, IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> allSoCR = allSOCRBeans.entrySet().stream().collect(
                 Collectors.toMap(
                         entr -> new SearchObjectKey(entr.getValue().getSearchObjectName(),
                                 entr.getValue().getSearchObjectGroup(), entr.getValue().getSearchObjectTags()),
                         Map.Entry::getValue));
-        SearchObjectController.INSTANCE.getSearchObjectRepository().addAll(allSo);
+        SearchObjectController.INSTANCE.getSearchObjectRepository().addAll(allSoCR);
+        Map<String, ISOSearchScript> allSOSSBeans = configRI.getBeansOfType(ISOSearchScript.class);
+        Map<SearchObjectKey, IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>> allSoSS = allSOSSBeans.entrySet().stream().collect(
+                Collectors.toMap(
+                        entr -> new SearchObjectKey(entr.getValue().getSearchObjectName(),
+                                entr.getValue().getSearchObjectGroup(), entr.getValue().getSearchObjectTags()),
+                        Map.Entry::getValue));
+        SearchObjectController.INSTANCE.getSearchObjectRepository().addAll(allSoSS);
 
         // init the GUI configuration
         ExtendedMutableTreeNode soGUITree = (ExtendedMutableTreeNode) configRI.getBean("searchObjectTree");

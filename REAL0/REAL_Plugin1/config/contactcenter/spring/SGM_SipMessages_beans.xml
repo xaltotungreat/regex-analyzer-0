@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- SGM_SipMessages BEANS START -->
+
+	<!-- Commonly used SGM_SipMessages beans START -->
+	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<!-- the group bean -->
+	<bean id="groupSGM_SipMessages" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global.SGM_SipMessages"/>
+	</bean>
+	<!-- The parent of all SGM_SipMessages complex regexes -->
+	<bean id="searchObjectParentSGM_SipMessages" parent="searchObjectParent" abstract="true">
+		<property name="searchObjectGroup" ref="groupSGM_SipMessages"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="requiredLogTypes">
+			<set>
+				<value>SGM_SipMessages</value>
+			</set>
+		</property>
+		<property name="sortRequestList">
+			<list>
+				<ref bean="sortRequestDateTime"/>
+				<ref bean="sortRequestRegexSGM_SipMessages"/>
+			</list>
+		</property>
+		<property name="dateInfos">
+			<list>
+				<ref bean="dateInfoSGM_SipMessages"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- the regex sort request bean -->
+	<bean id="sortRequestRegexSGM_SipMessages" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="SGM_SIPMESSAGES_TIME_REGEX" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<!-- the date info bean -->
+	<bean id="dateInfoSGM_SipMessages" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="SGM_SIPMESSAGES_TIME_FORMAT" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="SGM_SIPMESSAGES_TIME_REGEX" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="regexFirstRecordSGM_SipMessages" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="FirstRecord" />
+		<constructor-arg index="1" value="\ASGM_SIPMESSAGES_TIME_REGEX((?!(SGM_SIPMESSAGES_TIME_REGEX)).*\r?\n)*" />
+	</bean>
+	<bean id="regexLastRecordSGM_SipMessages" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="LastRecord" />
+		<constructor-arg index="1" value="SGM_SIPMESSAGES_TIME_REGEX((?!(SGM_SIPMESSAGES_TIME_REGEX)).*\r?\n)*\Z" />
+	</bean>
+	<bean id="guessIntervalSGM_SipMessages" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
+		<property name="firstRecord">
+			<ref bean="regexFirstRecordSGM_SipMessages"></ref>
+		</property>
+		<property name="lastRecord">
+			<ref bean="regexLastRecordSGM_SipMessages"></ref>
+		</property>
+	</bean>
+	<bean id="searchObjectViewTimeSGM_SipMessages" parent="searchObjectViewParent" scope="prototype">
+		<constructor-arg index="0" value="Time"/>
+		<property name="viewObjects">
+			<list>
+				<bean parent="simpleRegexFirst">
+					<constructor-arg index="1" value="SGM_SIPMESSAGES_TIME_REGEX" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Commonly used SGM_SipMessages beans END -->
+	<!-- Normal SGM_SipMessages beans START -->
+	<bean id="!I:LogInterval SGM_SipMessages All" parent="searchObjectParentSGM_SipMessages">
+		<constructor-arg index="0" value="!I:LogInterval SGM_SipMessages All"/>
+		<property name="searchObjectDescription" value="Finds all records" />
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Interval" value="TRUE" />
+			</map>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPMESSAGES_TIME_REGEX((?!(SGM_SIPMESSAGES_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="!I:LogInterval SGM_SipMessages" parent="!I:LogInterval SGM_SipMessages All">
+		<constructor-arg index="0" value="!I:LogInterval SGM_SipMessages"/>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalSGM_SipMessages"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="Internal ANY RECORD Containing value SGM_SipMessages"  parent="searchObjectParentSGM_SipMessages">
+		<constructor-arg index="0" value="Internal ANY RECORD Containing value SGM_SipMessages"/>
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Role" value="internal" />
+				<entry key="Function" value="any record" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramStringValue"/>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexCaseInsensitive" >
+					<constructor-arg index="1" value="SGM_SIPMESSAGES_TIME_REGEX((?!((.*?VALUE)|(SGM_SIPMESSAGES_TIME_REGEX))).*\r?\n)*(?!(SGM_SIPMESSAGES_TIME_REGEX)).*?VALUE((?!(SGM_SIPMESSAGES_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipMessages"/>
+				<entry key="Direction">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Direction"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((&lt;--)|(--&gt;))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Request/Response">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Request/Response"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(Start-Line: )).*?(?=(\r?\n))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="From">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="From"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(From: &lt;)).*?(?=(&gt;))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="To">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="To"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(To: &lt;)).*?(?=(&gt;))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Call ID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Call ID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(Call-ID: )).*?(?=(\r?\n))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="FirstLineMsg">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="FirstLineMsg"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(SGM_SIPMESSAGES_TIME_REGEX)).*?(?=(\r?\n))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>Direction</value>
+				<value>Request/Response</value>
+				<value>From</value>
+				<value>To</value>
+				<value>Call ID</value>
+				<value>FirstLineMsg</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="SGM_SipMessages Value Within Interval"  parent="Internal ANY RECORD Containing value SGM_SipMessages">
+		<constructor-arg index="0" value="SGM_SipMessages Value Within Interval"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list merge="true">
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalSGM_SipMessages"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="SGM_SipMessages ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value SGM_SipMessages">
+		<constructor-arg index="0" value="SGM_SipMessages ANY RECORD Containing value"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+	</bean>
+	<bean id="!L:Files Timespan SGM_SipMessages"  parent="searchObjectParentSGM_SipMessages">
+		<constructor-arg index="0" value="!L:Files Timespan SGM_SipMessages"/>
+		<property name="mainRegexList">
+			<list>
+				<ref bean="regexFirstRecordSGM_SipMessages"/>
+				<ref bean="regexLastRecordSGM_SipMessages"/>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipMessages"/>
+			</map>
+		</property>
+	</bean>
+	<!-- Normal SGM_SipMessages beans END -->
+</beans>

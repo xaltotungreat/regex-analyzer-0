@@ -161,7 +161,10 @@ public class SOSearchScript extends KeyedComplexSearchObjectImpl<ISRSearchScript
 
     @Override
     public void setMainRegexList(List<ISOComplexRegex> mrList) {
-        mainRegexList = mrList;
+        synchronized(mainRegexList) {
+            mainRegexList.clear();
+            mainRegexList.addAll(mrList);
+        }
     }
 
     @Override

@@ -21,6 +21,9 @@
 	<bean id="searchObjectParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexImpl" abstract="true">
 		<constructor-arg index="0" value="No name SO"/>
 	</bean>
+	<bean id="searchObjectScriptParent" class="org.eclipselabs.real.core.searchobject.SOSearchScript" abstract="true">
+		<constructor-arg index="0" value="No name SS"/>
+	</bean>
 	<bean id="searchObjectViewParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexViewImpl" abstract="true">
 		<constructor-arg index="0" value="No name view"/>
 	</bean>

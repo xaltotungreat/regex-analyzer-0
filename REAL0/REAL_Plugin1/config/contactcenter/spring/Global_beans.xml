@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Commonly used Global beans START -->
+	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<!-- the group bean -->
+	<bean id="groupGlobal" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global"/>
+	</bean>
+	<!-- The parent of all ASM complex regexes -->
+	<bean id="searchObjectScriptParentGlobal" parent="searchObjectScriptParent" abstract="true">
+		<property name="searchObjectGroup" ref="groupGlobal"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="sortRequestList">
+			<list>
+				<ref bean="sortRequestDateTime"/>
+			</list>
+		</property>
+	</bean>
+	<!-- Commonly used Global beans END -->
+	
+	<!-- Search Scripts START -->
+	<bean id="Errors_Exceptions CMF+SGM" parent="searchObjectScriptParentGlobal">
+		<constructor-arg index="0" value="Errors_Exceptions CMF+SGM"/>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="4" value="((Error)|(Exception))"/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_1"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_2"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_3"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+			</list>
+		</property>
+		<property name="requiredLogTypes">
+			<set>
+				<value>SGM_SipSp</value>
+				<value>SGM_AmlSp</value>
+				<value>CMF_OAM</value>
+				<value>CMF_OAM32</value>
+			</set>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="SGM_SipSp Errors Exceptions">
+					<constructor-arg index="0" value="SGM_SipSp_Err"/>
+					<property name="replaceableParams">
+						<list/>
+					</property>
+					<property name="viewMap">
+						<map merge="true">
+							<entry key="LOG_TYPE">
+								<bean parent="searchObjectViewParent">
+									<constructor-arg index="0" value="LOG_TYPE"/>
+									<property name="viewObjects">
+										<list>
+											<bean class="java.lang.String">
+												<constructor-arg index="0" value="LOG_TYPE"/>
+											</bean>
+										</list>
+									</property>
+								</bean>
+								
+							</entry>
+						</map>
+					</property>
+				</bean>
+				<bean parent="SGM_AmlSp Errors Exceptions">
+					<constructor-arg index="0" value="SGM_AmlSp_Err"/>
+					<property name="replaceableParams">
+						<list/>
+					</property>
+					<property name="viewMap">
+						<map merge="true">
+							<entry key="LOG_TYPE">
+								<bean parent="searchObjectViewParent">
+									<constructor-arg index="0" value="LOG_TYPE"/>
+									<property name="viewObjects">
+										<list>
+											<bean class="java.lang.String">
+												<constructor-arg index="0" value="LOG_TYPE"/>
+											</bean>
+										</list>
+									</property>
+								</bean>
+								
+							</entry>
+						</map>
+					</property>
+				</bean>
+				<bean parent="CMF_OAM Errors Exceptions">
+					<constructor-arg index="0" value="CMF_OAM_Err"/>
+					<property name="replaceableParams">
+						<list/>
+					</property>
+					<property name="viewMap">
+						<map merge="true">
+							<entry key="LOG_TYPE">
+								<bean parent="searchObjectViewParent">
+									<constructor-arg index="0" value="LOG_TYPE"/>
+									<property name="viewObjects">
+										<list>
+											<bean class="java.lang.String">
+												<constructor-arg index="0" value="LOG_TYPE"/>
+											</bean>
+										</list>
+									</property>
+								</bean>
+								
+							</entry>
+						</map>
+					</property>
+				</bean>
+				<bean parent="CMF_OAM32 Errors Exceptions">
+					<constructor-arg index="0" value="CMF_OAM32_Err"/>
+					<property name="replaceableParams">
+						<list/>
+					</property>
+					<property name="viewMap">
+						<map merge="true">
+							<entry key="LOG_TYPE">
+								<bean parent="searchObjectViewParent">
+									<constructor-arg index="0" value="LOG_TYPE"/>
+									<property name="viewObjects">
+										<list>
+											<bean class="java.lang.String">
+												<constructor-arg index="0" value="LOG_TYPE"/>
+											</bean>
+										</list>
+									</property>
+								</bean>
+								
+							</entry>
+						</map>
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="scriptText">
+			<value>
+				import org.eclipselabs.real.core.searchobject.script.SOContainer;
+				import org.eclipselabs.real.core.searchobject.script.SRContainer;
+				
+				scriptResult.putToReplaceTable("LOG_TYPE","SGM_SipSp");
+				SOContainer currSO = scriptResult.getByName("SGM_SipSp_Err");
+				SRContainer currSR = null;
+				if (!currSO.isNull()) {
+					currSR = currSO.execute();
+					if (!currSR.isEmpty()) {
+						currSR.pushResultObjects();
+					}
+				}
+				
+				scriptResult.putToReplaceTable("LOG_TYPE","SGM_AmlSp");
+				currSO = scriptResult.getByName("SGM_AmlSp_Err");
+				if (!currSO.isNull()) {
+					currSR = currSO.execute();
+					if (!currSR.isEmpty()) {
+						currSR.pushResultObjects();
+					}
+				}
+				
+				scriptResult.putToReplaceTable("LOG_TYPE","CMF_OAM");
+				currSO = scriptResult.getByName("CMF_OAM_Err");
+				if (!currSO.isNull()) {
+					currSR = currSO.execute();
+					if (!currSR.isEmpty()) {
+						currSR.pushResultObjects();
+					}
+				}
+				
+				scriptResult.putToReplaceTable("LOG_TYPE","CMF_OAM32");
+				currSO = scriptResult.getByName("CMF_OAM32_Err");
+				if (!currSO.isNull()) {
+					currSR = currSO.execute();
+					if (!currSR.isEmpty()) {
+						currSR.pushResultObjects();
+					}
+				}
+			</value>
+		</property>
+	</bean>
+	<!-- Search Scripts END -->
+</beans>
