@@ -52,13 +52,7 @@ public enum LogFileTypes {
 
     public Map<String, Boolean> getEnableMap() {
         List<LogFileType> allTypes = getAllTypes();
-        /*Map<String, Boolean> returnMap = new TreeMap<String, Boolean>();
-        List<LogFileType> allTypes = getAllTypes();
-        for (LogFileType currType : allTypes) {
-            returnMap.put(currType.getLogTypeName(), currType.isEnabled());
-        }
-        allTypes.forEach((a) -> returnMap.put(a.getLogTypeName(), a.isEnabled()));*/
-        return new TreeMap<String, Boolean>(allTypes.stream().collect(Collectors.toMap(LogFileType::getLogTypeName, LogFileType::isEnabled)));
+        return new TreeMap<>(allTypes.stream().collect(Collectors.toMap(LogFileType::getLogTypeName, LogFileType::isEnabled)));
     }
 
     public List<LogFileType> getAllTypes() {

@@ -2,7 +2,6 @@ package org.eclipselabs.real.core.logfile;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,12 +28,7 @@ class LogFile8Impl implements ILogFile {
     protected Boolean fileZip = false;
 
     public LogFile8Impl(ILogFileAggregate aggr, String fp) {
-        fileRef = new File(fp);
-        if (fp.endsWith(".zip")) {
-            fileZip = true;
-        }
-        parentAggregate = aggr;
-        state = LogFileState.FILE_NOT_READ;
+        this(aggr, new File(fp));
     }
 
     public LogFile8Impl(ILogFileAggregate aggr, File lf) {
@@ -70,12 +64,9 @@ class LogFile8Impl implements ILogFile {
                 currReadResult.setInMemory(true);
                 currReadResult.setFileSize(((double)logFileContents.length)/(1024*1024));
                 state = LogFileState.FILE_READ;
-            } catch (FileNotFoundException e1) {
+            } catch (IOException e1) {
                 log.error("readFile ", e1);
                 currReadResult.setLastReadException(e1);
-            } catch (IOException e) {
-                log.error("readFile ", e);
-                currReadResult.setLastReadException(e);
             }
         } else {
             try (ZipFile thisZF = new ZipFile(fileRef)){
@@ -130,7 +121,7 @@ class LogFile8Impl implements ILogFile {
             int textLength = logFileContents.length;
             /*
              * Some files have chars with the code \0 at the end.
-             * Yes the code is 0 char = 0; These symbols need to be removed
+             * Yes the code is 0 char == 0; These symbols need to be removed
              * for most regexes to work properly.
              */
             if (logFileContents[textLength - 1] == 0) {
@@ -142,8 +133,11 @@ class LogFile8Impl implements ILogFile {
             logText = new String(logFileContents, 0, textLength);
             if (cleanCharArray) {
                 logFileContents = null;
+                state = LogFileState.FILE_NOT_READ;
                 System.gc();
             }
+        } else {
+            log.error("File not read cannot create a String " + fileRef);
         }
         return logText;
     }
