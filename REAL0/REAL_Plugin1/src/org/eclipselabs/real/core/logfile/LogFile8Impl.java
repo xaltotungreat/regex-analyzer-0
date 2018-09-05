@@ -59,7 +59,7 @@ class LogFile8Impl implements ILogFile {
                 do {
                     totalCharsRead += currCharsRead;
                     currCharsRead = isr.read(logFileContents, totalCharsRead, logFileContents.length - totalCharsRead);
-                } while (currCharsRead > 0);
+                } while (fis.available() > 0);
                 currReadResult.setLastReadSuccessful(true);
                 currReadResult.setInMemory(true);
                 currReadResult.setFileSize(((double)logFileContents.length)/(1024*1024));
@@ -87,7 +87,7 @@ class LogFile8Impl implements ILogFile {
                             do {
                                 totalCharsRead += currCharsRead;
                                 currCharsRead = isr.read(currBytes, totalCharsRead, currBytes.length - totalCharsRead);
-                            } while (currCharsRead > 0);
+                            } while (currIS.available() > 0);
                             log.debug("ZIP entry size read " + currBytes.length);
                             allFiles.add(currBytes);
                         }
