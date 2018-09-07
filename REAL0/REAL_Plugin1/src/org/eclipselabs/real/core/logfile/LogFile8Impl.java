@@ -53,13 +53,15 @@ class LogFile8Impl implements ILogFile {
         if (!fileZip) {
             try (FileInputStream fis = new FileInputStream(fileRef);
                     InputStreamReader isr = new InputStreamReader(new FileInputStream(fileRef), readCharset)) {
-                logFileContents = new char[fis.available()];
+                char[] logFileContentsTemp = new char[fis.available()];
                 int currCharsRead = 0;
                 int totalCharsRead = 0;
-                do {
+                while (isr.ready() && (totalCharsRead < logFileContentsTemp.length)) {
+                    currCharsRead = isr.read(logFileContentsTemp, totalCharsRead, logFileContentsTemp.length - totalCharsRead);
                     totalCharsRead += currCharsRead;
-                    currCharsRead = isr.read(logFileContents, totalCharsRead, logFileContents.length - totalCharsRead);
-                } while (fis.available() > 0);
+                }
+                logFileContents = new char[totalCharsRead];
+                System.arraycopy(logFileContentsTemp, 0, logFileContents, 0, totalCharsRead);
                 currReadResult.setLastReadSuccessful(true);
                 currReadResult.setInMemory(true);
                 currReadResult.setFileSize(((double)logFileContents.length)/(1024*1024));
@@ -80,16 +82,24 @@ class LogFile8Impl implements ILogFile {
                     if (!currZipEntry.isDirectory()) {
                         try(InputStream currIS = thisZF.getInputStream(currZipEntry);
                                 InputStreamReader isr = new InputStreamReader(currIS, readCharset)) {
-                            char[] currBytes = new char[currIS.available()];
-                            allFilesSize += currIS.available();
+                            char[] currCharsTemp = new char[currIS.available()];
                             int currCharsRead = 0;
                             int totalCharsRead = 0;
-                            do {
+                            /*
+                             * Use isr.ready() here just in case. In open streams it is guaranteed to not block
+                             * the next read is the stream reader is ready. In this file stream it cannot block (usually)
+                             * but leave it here just in case.
+                             *
+                             */
+                            while (isr.ready() && (totalCharsRead < currCharsTemp.length)) {
+                                currCharsRead = isr.read(currCharsTemp, totalCharsRead, currCharsTemp.length - totalCharsRead);
                                 totalCharsRead += currCharsRead;
-                                currCharsRead = isr.read(currBytes, totalCharsRead, currBytes.length - totalCharsRead);
-                            } while (currIS.available() > 0);
-                            log.debug("ZIP entry size read " + currBytes.length);
-                            allFiles.add(currBytes);
+                            }
+                            allFilesSize += totalCharsRead;
+                            char[] currChars = new char[totalCharsRead];
+                            System.arraycopy(currCharsTemp, 0, currChars, 0, totalCharsRead);
+                            log.debug("ZIP entry size read " + currCharsTemp.length);
+                            allFiles.add(currChars);
                         }
                     }
                 }
