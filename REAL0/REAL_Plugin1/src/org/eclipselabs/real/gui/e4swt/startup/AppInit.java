@@ -32,10 +32,7 @@ public class AppInit {
     }
 
     private void initSpringConfig(Bundle plugBundle) {
-        /*
-         * This is an example of loading a config from a Spring xml config instead of
-         * using my own parsing. A LOOOOT of time may be saved. Need to rework the parsing mechanism.
-         */
+
         String configName = System.getProperty(IConfigurationSpringConsts.CONFIG_SYSPROP_PRODUCT);
         if ((configName == null) || (configName.isEmpty())) {
             log.error("The value for the product config not found " + IConfigurationSpringConsts.CONFIG_SYSPROP_PRODUCT);
