@@ -1,7 +1,7 @@
 package org.eclipselabs.real.gui.e4swt.conveyor.stage;
 
 public enum StageID {
-
+    // basic stages
     ROOT,
     CREATE_SEARCH_INFO,
     PARAMS_DIALOG,
@@ -14,7 +14,7 @@ public enum StageID {
     SUBMIT_SEARCH_CURRENT,
     START_UPDATE_GUI,
     PROCESS_RESULT,
-
+    // extended stages
     INSTALL_OOI,
     INSTALL_BOOKMARKS,
     SET_POSITIONS;

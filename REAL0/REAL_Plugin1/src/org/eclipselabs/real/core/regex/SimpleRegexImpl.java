@@ -2,6 +2,9 @@ package org.eclipselabs.real.core.regex;
 
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 
 class SimpleRegexImpl extends RealRegexImpl implements ISimpleRegex {
     //private static final Logger log = LogManager.getLogger(SimpleRegexImpl.class);
@@ -39,24 +42,29 @@ class SimpleRegexImpl extends RealRegexImpl implements ISimpleRegex {
     }
 
     @Override
-    public IMatcherWrapper getMatcherWrapper(String logText, Map<String, String> replaceTable, Integer externalFlags) {
+    public IMatcherWrapper getMatcherWrapper(String logText, Map<String, String> replaceTable, Integer externalFlags) throws IncorrectPatternException {
         Pattern currPattern;
         IMatcherWrapper returnWrapper = null;
-        if (regexFlags != null) {
-            currPattern = Pattern.compile(getPatternString(replaceTable), regexFlags);
-        } else if (externalFlags != null) {
-            currPattern = Pattern.compile(getPatternString(replaceTable), externalFlags);
-        } else {
-            currPattern = Pattern.compile(getPatternString(replaceTable));
-        }
-        RealRegexParamInteger instNum = (RealRegexParamInteger)getParameter(PARAM_NAME_INSTANCE);
-        RealRegexParamInteger lastInstNum = (RealRegexParamInteger)getParameter(PARAM_NAME_LAST_INSTANCE);
-        if (instNum != null) {
-            returnWrapper = new FindStrategyOnePatternInstance(currPattern, logText, instNum.getValue());
-        } else if (lastInstNum != null) {
-            returnWrapper = new FindStrategyOnePatternLastInstance(currPattern, logText, lastInstNum.getValue());
-        } else {
-            returnWrapper = new FindStrategyOnePattern(currPattern, logText);
+        String patternStr = getPatternString(replaceTable);
+        try {
+            if (regexFlags != null) {
+                currPattern = Pattern.compile(patternStr, regexFlags);
+            } else if (externalFlags != null) {
+                currPattern = Pattern.compile(patternStr, externalFlags);
+            } else {
+                currPattern = Pattern.compile(patternStr);
+            }
+            RealRegexParamInteger instNum = (RealRegexParamInteger)getParameter(PARAM_NAME_INSTANCE);
+            RealRegexParamInteger lastInstNum = (RealRegexParamInteger)getParameter(PARAM_NAME_LAST_INSTANCE);
+            if (instNum != null) {
+                returnWrapper = new FindStrategyOnePatternInstance(currPattern, logText, instNum.getValue());
+            } else if (lastInstNum != null) {
+                returnWrapper = new FindStrategyOnePatternLastInstance(currPattern, logText, lastInstNum.getValue());
+            } else {
+                returnWrapper = new FindStrategyOnePattern(currPattern, logText);
+            }
+        } catch (PatternSyntaxException pse) {
+            throw new IncorrectPatternException("Incorrect pattern " + patternStr, pse);
         }
         return returnWrapper;
     }

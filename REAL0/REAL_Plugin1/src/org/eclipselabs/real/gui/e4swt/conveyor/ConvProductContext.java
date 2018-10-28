@@ -19,33 +19,33 @@ import org.eclipselabs.real.gui.e4swt.parts.GUISearchResult;
 
 public class ConvProductContext {
 
-    protected ExecutorService asyncExecutorService;
+    protected volatile ExecutorService asyncExecutorService;
 
-    protected String searchID;
+    protected volatile String searchID;
 
-    protected SearchInfo searchInfo;
+    protected volatile SearchInfo searchInfo;
 
-    protected Map<ReplaceableParamKey, IReplaceableParam<?>> currentParamMap;
+    protected volatile Map<ReplaceableParamKey, IReplaceableParam<?>> currentParamMap;
 
     protected volatile boolean proceed = true;
 
     protected volatile boolean complete = false;
 
-    protected String abortMessage;
+    protected volatile String abortMessage;
 
-    protected MPart searchPart;
+    protected volatile MPart searchPart;
 
-    protected GUISearchResult guiObjectRef;
+    protected volatile GUISearchResult guiObjectRef;
 
     protected volatile PerformSearchRequest searchRequest;
 
-    protected Map<String,IKeyedComplexSearchResult<? extends IComplexSearchResultObject<
+    protected volatile Map<String,IKeyedComplexSearchResult<? extends IComplexSearchResultObject<
                     ? extends ISearchResult<? extends ISearchResultObject>,? extends ISearchResultObject,String>,
                 ? extends ISearchResult<? extends ISearchResultObject>,
                 ? extends ISearchResultObject,
             String>> result;
 
-    protected Map<String, Object> customParams = new ConcurrentHashMap<String, Object>();
+    protected volatile Map<String, Object> customParams = new ConcurrentHashMap<>();
 
     public ConvProductContext(String productName) {
         String finalProductName = (productName == null)?"":productName;
@@ -62,7 +62,7 @@ public class ConvProductContext {
      * that is the conveyor has been executed and is being returned
      * as a result of the operation
      */
-    public void cleanup() {
+    public synchronized void cleanup() {
         // orderly shutdown as no tasks should be working
         asyncExecutorService.shutdown();
     }
@@ -75,27 +75,27 @@ public class ConvProductContext {
         this.asyncExecutorService = asyncExecutorService;
     }
 
-    public String getSearchID() {
+    public synchronized String getSearchID() {
         return searchID;
     }
 
-    public void setSearchID(String searchID) {
+    public synchronized void setSearchID(String searchID) {
         this.searchID = searchID;
     }
 
-    public SearchInfo getSearchInfo() {
+    public synchronized SearchInfo getSearchInfo() {
         return searchInfo;
     }
 
-    public void setSearchInfo(SearchInfo searchInfo) {
+    public synchronized void setSearchInfo(SearchInfo searchInfo) {
         this.searchInfo = searchInfo;
     }
 
-    public Map<ReplaceableParamKey, IReplaceableParam<?>> getCurrentParamMap() {
+    public synchronized Map<ReplaceableParamKey, IReplaceableParam<?>> getCurrentParamMap() {
         return currentParamMap;
     }
 
-    public void setCurrentParamMap(Map<ReplaceableParamKey, IReplaceableParam<?>> currentParamMap) {
+    public synchronized void setCurrentParamMap(Map<ReplaceableParamKey, IReplaceableParam<?>> currentParamMap) {
         this.currentParamMap = currentParamMap;
     }
 
@@ -115,19 +115,19 @@ public class ConvProductContext {
         this.complete = complete;
     }
 
-    public String getAbortMessage() {
+    public synchronized String getAbortMessage() {
         return abortMessage;
     }
 
-    public void setAbortMessage(String abortMessage) {
+    public synchronized void setAbortMessage(String abortMessage) {
         this.abortMessage = abortMessage;
     }
 
-    public MPart getSearchPart() {
+    public synchronized MPart getSearchPart() {
         return searchPart;
     }
 
-    public void setSearchPart(MPart searchPart) {
+    public synchronized void setSearchPart(MPart searchPart) {
         this.searchPart = searchPart;
     }
 
@@ -147,7 +147,7 @@ public class ConvProductContext {
         this.searchRequest = searchRequest;
     }
 
-    public Map<String, IKeyedComplexSearchResult<? extends
+    public synchronized Map<String, IKeyedComplexSearchResult<? extends
             IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
                     ? extends ISearchResultObject, String>,
                 ? extends ISearchResult<? extends ISearchResultObject>,
@@ -156,7 +156,7 @@ public class ConvProductContext {
         return result;
     }
 
-    public void setResult(Map<String, IKeyedComplexSearchResult<? extends
+    public synchronized void setResult(Map<String, IKeyedComplexSearchResult<? extends
                     IComplexSearchResultObject<? extends ISearchResult<? extends ISearchResultObject>,
                             ? extends ISearchResultObject, String>,
                     ? extends ISearchResult<? extends ISearchResultObject>,
@@ -164,11 +164,11 @@ public class ConvProductContext {
         this.result = result;
     }
 
-    public Object getParam(String key) {
+    public synchronized Object getParam(String key) {
         return customParams.get(key);
     }
 
-    public void setParam(String key, Object obj) {
+    public synchronized void setParam(String key, Object obj) {
         customParams.put(key, obj);
     }
 

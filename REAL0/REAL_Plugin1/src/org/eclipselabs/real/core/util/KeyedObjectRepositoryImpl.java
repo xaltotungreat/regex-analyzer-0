@@ -22,20 +22,20 @@ import com.google.common.eventbus.AsyncEventBus;
  * It allows for storing values with keys. There two main differences from
  * a simple ConcurrentHashMap:
  * 1. This class allows to select values for which the keys satisfy a filter. Currently the class uses
- * a RealPredicate<K> object for the filter. It will be replaced with
- * Predicate<K> after the product has moved to Java 8.
+ * Predicate<K> to specify the filter.
  * 2. This class allows its subclasses to initialize a EventBus to receive events from the repository
  * It is important to remember though that if the order of the events is important (as it is usually
- * with the size) the EventBus should be either a sync EventBus or with a single-threaded executor.
+ * with the event that are fired after the size of the repository changes) the EventBus should be either
+ * a sync EventBus or with a single-threaded executor.
  *
  * @author Vadim Korkin
  *
  * @param <K> the type of the key in the repository
  * @param <V> the type of the values in the repository
  */
-public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K, V> {
+public class KeyedObjectRepositoryImpl<K, R, W extends R> implements IKeyedObjectRepository<K,R, W> {
     private static final Logger log = LogManager.getLogger(KeyedObjectRepositoryImpl.class);
-    protected Map<K,V> objMap = new ConcurrentHashMap<K,V>();
+    protected Map<K,W> objMap = new ConcurrentHashMap<>();
 
     protected Long getTimeout = DEFAULT_READ_TIMEOUT;
     protected TimeUnit getTimeUnit = DEFAULT_READ_TIME_UNIT;
@@ -71,7 +71,7 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public void add(K objKey, V obj, TimeUnitWrapper timeout) {
+    public void add(K objKey, W obj, TimeUnitWrapper timeout) {
         boolean lockObtained = false;
         try {
             if (repositoryLock.writeLock().tryLock() || repositoryLock.writeLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
@@ -95,13 +95,13 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public void add(K objKey, V obj) {
+    public void add(K objKey, W obj) {
         add(objKey, obj, new TimeUnitWrapper(5*getTimeout, getTimeUnit));
     }
 
 
     @Override
-    public void addAll(Map<K, V> valMap, TimeUnitWrapper timeout) {
+    public void addAll(Map<K, W> valMap, TimeUnitWrapper timeout) {
         boolean lockObtained = false;
         try {
             if (valMap != null) {
@@ -129,14 +129,14 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public void addAll(Map<K, V> valMap) {
+    public void addAll(Map<K, W> valMap) {
         addAll(valMap, new TimeUnitWrapper(5*getTimeout, getTimeUnit));
     }
 
 
     @Override
-    public V get(K objKey, TimeUnitWrapper timeout) {
-        V result = null;
+    public R get(K objKey, TimeUnitWrapper timeout) {
+        R result = null;
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
@@ -157,13 +157,40 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public V get(K soKey) {
+    public R get(K soKey) {
         return get(soKey, new TimeUnitWrapper(putTimeout, putTimeUnit));
     }
 
     @Override
-    public List<V> getAllValues(TimeUnitWrapper timeout) {
-        List<V> result = new ArrayList<V>();
+    public W getFull(K objKey, TimeUnitWrapper timeout) {
+        W result = null;
+        boolean lockObtained = false;
+        try {
+            if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
+                lockObtained = true;
+                log.debug("KeyedObjectRepositoryImpl Get object key=" + objKey);
+                result = objMap.get(objKey);
+            } else {
+                log.info("KeyedObjectRepositoryImpl Timeout expired trying to get " + objKey);
+            }
+        } catch (InterruptedException e) {
+            log.error("get Error", e);
+        } finally {
+            if (lockObtained) {
+                repositoryLock.readLock().unlock();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public W getFull(K soKey) {
+        return getFull(soKey, new TimeUnitWrapper(putTimeout, putTimeUnit));
+    }
+
+    @Override
+    public List<R> getAllValues(TimeUnitWrapper timeout) {
+        List<R> result = new ArrayList<>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
@@ -183,14 +210,40 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public List<V> getAllValues() {
+    public List<R> getAllValues() {
         return getAllValues(new TimeUnitWrapper(putTimeout, putTimeUnit));
     }
 
     @Override
-    public List<V> getValues(Predicate<K> keyFilter, TimeUnitWrapper timeout) {
+    public List<W> getAllValuesFull(TimeUnitWrapper timeout) {
+        List<W> result = new ArrayList<>();
+        boolean lockObtained = false;
+        try {
+            if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
+                lockObtained = true;
+                result.addAll(objMap.values());
+            } else {
+                log.info("getAllValues Timeout expired trying to get ALL Keyed Objects");
+            }
+        } catch (InterruptedException e) {
+            log.error("getAll Error", e);
+        } finally {
+            if (lockObtained) {
+                repositoryLock.readLock().unlock();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<W> getAllValuesFull() {
+        return getAllValuesFull(new TimeUnitWrapper(putTimeout, putTimeUnit));
+    }
+
+    @Override
+    public List<R> getValues(Predicate<K> keyFilter, TimeUnitWrapper timeout) {
         // return an empty list in the case of error
-        List<V> result = new ArrayList<V>();
+        List<R> result = new ArrayList<>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
@@ -213,14 +266,14 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public List<V> getValues(Predicate<K> keyFilter) {
+    public List<R> getValues(Predicate<K> keyFilter) {
         return getValues(keyFilter, new TimeUnitWrapper(putTimeout, putTimeUnit));
     }
 
     @Override
-    public List<V> getValues(Predicate<K> keyFilter, Predicate<V> valueFilter, TimeUnitWrapper timeout) {
+    public List<R> getValues(Predicate<K> keyFilter, Predicate<R> valueFilter, TimeUnitWrapper timeout) {
         // return an empty list in the case of error
-        List<V> result = new ArrayList<V>();
+        List<R> result = new ArrayList<>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
@@ -243,14 +296,14 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public List<V> getValues(Predicate<K> keyFilter, Predicate<V> valueFilter) {
+    public List<R> getValues(Predicate<K> keyFilter, Predicate<R> valueFilter) {
         return getValues(keyFilter, valueFilter, new TimeUnitWrapper(putTimeout, putTimeUnit));
     }
 
     @Override
-    public V getFirstValue(Predicate<K> keyFilter, TimeUnitWrapper timeout) {
-        V result = null;
-        List<V> allMatchingValues = getValues(keyFilter, timeout);
+    public R getFirstValue(Predicate<K> keyFilter, TimeUnitWrapper timeout) {
+        R result = null;
+        List<R> allMatchingValues = getValues(keyFilter, timeout);
         if ((allMatchingValues != null) && (!allMatchingValues.isEmpty())) {
             result = allMatchingValues.get(0);
         }
@@ -258,7 +311,7 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public V getFirstValue(Predicate<K> keyFilter) {
+    public R getFirstValue(Predicate<K> keyFilter) {
         return getFirstValue(keyFilter, new TimeUnitWrapper(putTimeout, putTimeUnit));
     }
 
@@ -377,7 +430,7 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
 
     @Override
     public Set<K> getAllKeys(TimeUnitWrapper timeout) {
-        Set<K> result = new HashSet<K>();
+        Set<K> result = new HashSet<>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
@@ -402,9 +455,9 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public Set<K> getKeys(final Predicate<V> valueFilter, TimeUnitWrapper timeout) {
+    public Set<K> getKeys(final Predicate<R> valueFilter, TimeUnitWrapper timeout) {
         // return an empty set in the case of error
-        Set<K> result = new HashSet<K>();
+        Set<K> result = new HashSet<>();
         boolean lockObtained = false;
         try {
             if (repositoryLock.readLock().tryLock() || repositoryLock.readLock().tryLock(timeout.getTimeout(), timeout.getTimeUnit())) {
@@ -413,7 +466,7 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
                 result = objMap.entrySet().stream()
                     .filter(e -> valueFilter.test(e.getValue()))
                     .map(e -> e.getKey())
-                    .collect(Collectors.toCollection(() -> new HashSet<K>()));
+                    .collect(Collectors.toCollection(() -> new HashSet<>()));
             } else {
                 log.info("getKeys Timeout expired trying to get ALL Keyed Objects");
             }
@@ -428,7 +481,7 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
     }
 
     @Override
-    public Set<K> getKeys(Predicate<V> valueFilter) {
+    public Set<K> getKeys(Predicate<R> valueFilter) {
         return getKeys(valueFilter, new TimeUnitWrapper(5*getTimeout,getTimeUnit));
     }
 
@@ -450,7 +503,7 @@ public class KeyedObjectRepositoryImpl<K, V> implements IKeyedObjectRepository<K
         this.repositoryEventBus = repositoryEventBus;
     }
 
-    protected void setMap(Map<K, V> newMapRef) {
+    protected void setMap(Map<K, W> newMapRef) {
         objMap = newMapRef;
     }
 

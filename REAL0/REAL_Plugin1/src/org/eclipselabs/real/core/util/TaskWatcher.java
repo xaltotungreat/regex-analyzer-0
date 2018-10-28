@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.LogFileSearchException;
 
 /**
  * This utility class is used to submit and execute tasks in a sequential manner.
@@ -36,6 +37,8 @@ public class TaskWatcher {
     private volatile Thread lockingThread;
     protected AtomicInteger tasksSubmitted = new AtomicInteger();
     protected AtomicInteger tasksFinished = new AtomicInteger();
+    protected AtomicInteger tasksInError = new AtomicInteger();
+    protected List<LogFileSearchException> excList = new ArrayList<>();
     protected volatile TaskWatcherState currentState;
     protected List<LockWrapper> theLocks;
     protected ITaskWatcherCallback theCallback;
@@ -44,7 +47,7 @@ public class TaskWatcher {
 
     public static final String TASK_WATCHER_THREAD_NAME = "TaskWatcher";
 
-    public static enum TaskWatcherState {
+    public enum TaskWatcherState {
         INIT,
         SUBMITTING,
         SUBMISSION_COMPLETE,
@@ -61,7 +64,7 @@ public class TaskWatcher {
         currentState = TaskWatcherState.INIT;
         theCallback = completionCallback;
         proceedIfNotLocked = proceed;
-        theLocks = new ArrayList<LockWrapper>();
+        theLocks = new ArrayList<>();
         if (locksList != null) {
             for (NamedLock currLock : locksList) {
                 theLocks.add(new LockWrapper(currLock.getLock(), currLock.getLockName()));
@@ -131,8 +134,6 @@ public class TaskWatcher {
                     }
                 }
                 parentWatcher.setCurrentState(TaskWatcherState.FINISHED);
-            } catch (InterruptedException e) {
-                log.error(name + " TaskWatcher", e);
             } catch (Exception e) {
                 log.error(name + " TaskWatcher", e);
             } finally {
@@ -154,22 +155,26 @@ public class TaskWatcher {
         tlt.start();
     }
 
-    public int getSubmitted() {
+    public synchronized int getSubmitted() {
         return tasksSubmitted.get();
     }
 
-    public int incrementAndGetSubmitted() {
+    public synchronized int incrementAndGetSubmitted() {
         tasksSubmitted.incrementAndGet();
         log.debug(name + " Tasks submitted " + tasksSubmitted.get());
         return tasksSubmitted.get();
 
     }
 
-    public int getFinished() {
+    public synchronized int getFinished() {
         return tasksFinished.get();
     }
 
-    public int incrementAndGetFinished() {
+    public synchronized int getInError() {
+        return tasksInError.get();
+    }
+
+    public synchronized int incrementAndGetFinished() {
         tasksFinished.incrementAndGet();
         lastFinishedTaskTime = System.currentTimeMillis();
         log.debug(name + " Tasks finished " + tasksFinished.get());
@@ -182,21 +187,36 @@ public class TaskWatcher {
         return tasksFinished.get();
     }
 
+    public synchronized int incrementAndGetInError(LogFileSearchException excObj) {
+        tasksInError.incrementAndGet();
+        tasksFinished.incrementAndGet();
+        excList.add(excObj);
+        lastFinishedTaskTime = System.currentTimeMillis();
+        log.debug(name + " Tasks finished " + tasksFinished.get());
+        synchronized (lockingThread) {
+            if ((currentState == TaskWatcherState.SUBMISSION_COMPLETE) && (tasksFinished.get() == tasksSubmitted.get())) {
+                log.debug(name + " ############ Notify came! submitted=" + tasksSubmitted.get() + " finished=" + tasksFinished.get());
+                lockingThread.notify();
+            }
+        }
+        return tasksInError.get();
+    }
+
     public synchronized void timedUnlockObtain() {
         synchronized(lockingThread) {
             lockingThread.notify();
         }
     }
 
-    public ReentrantLock getLock() {
+    public synchronized ReentrantLock getLock() {
         return theLock;
     }
 
-    public TaskWatcherState getCurrentState() {
+    public synchronized TaskWatcherState getCurrentState() {
         return currentState;
     }
 
-    public void setCurrentState(TaskWatcherState currentState) {
+    public synchronized void setCurrentState(TaskWatcherState currentState) {
         this.currentState = currentState;
     }
 }

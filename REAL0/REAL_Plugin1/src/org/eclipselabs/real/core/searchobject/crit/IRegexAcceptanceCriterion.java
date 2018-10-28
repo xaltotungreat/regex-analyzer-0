@@ -19,10 +19,10 @@ public interface IRegexAcceptanceCriterion extends IAcceptanceCriterion {
      * Returns the list of acceptance regexes
      * @return the list of acceptance regexes
      */
-    public List<IRealRegex> getAcceptanceRegex();
+    public List<IRealRegex> getAcceptanceRegexList();
     /**
      * Sets the list of acceptance regexes
      * @param acceptanceRegex the new list of acceptance regexes
      */
-    public void setAcceptanceRegex(List<IRealRegex> acceptanceRegex);
+    public void setAcceptanceRegexList(List<IRealRegex> acceptanceRegex);
 }

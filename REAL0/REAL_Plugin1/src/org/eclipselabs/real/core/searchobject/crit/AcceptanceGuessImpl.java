@@ -3,7 +3,7 @@ package org.eclipselabs.real.core.searchobject.crit;
 public abstract class AcceptanceGuessImpl implements IAcceptanceGuess {
 
     protected String name;
-    protected IAcceptanceCriterion criterion;
+    protected IAcceptanceCriterion acceptanceCriterion;
     
     public AcceptanceGuessImpl() {
     }
@@ -24,12 +24,12 @@ public abstract class AcceptanceGuessImpl implements IAcceptanceGuess {
 
     @Override
     public IAcceptanceCriterion getAcceptanceCriterion() {
-        return criterion;
+        return acceptanceCriterion;
     }
 
     @Override
     public void setAcceptanceCriterion(IAcceptanceCriterion critRef) {
-        criterion = critRef;
+        acceptanceCriterion = critRef;
     }
     
     public IAcceptanceGuess clone() throws CloneNotSupportedException {

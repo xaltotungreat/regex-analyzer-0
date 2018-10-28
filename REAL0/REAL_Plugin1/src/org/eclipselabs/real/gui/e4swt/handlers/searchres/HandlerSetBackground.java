@@ -75,7 +75,9 @@ public class HandlerSetBackground {
                             try {
                                 Thread.sleep(guiUpdate);
                             } catch (InterruptedException e) {
-                                log.error("execute Sleep interrupted",e);
+                                log.error("execute Sleep interrupted", e);
+                                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                                Thread.currentThread().interrupt();
                             }
                             uiSynch.syncExec(new Runnable() {
 
@@ -99,8 +101,12 @@ public class HandlerSetBackground {
                                     selectedDialog.setMessage("Selected " + fpm.getFuture().get() + " objects with R="
                                             + selColor.getRed() + " G=" + selColor.getGreen() + " B=" + selColor.getBlue());
                                     selectedDialog.open();
-                                } catch (InterruptedException | ExecutionException e) {
+                                } catch (ExecutionException e) {
                                     log.error("execute ",e);
+                                } catch (InterruptedException e) {
+                                    log.error("execute", e);
+                                    // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                                    Thread.currentThread().interrupt();
                                 }
                             }
                         });

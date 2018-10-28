@@ -2,8 +2,7 @@ package org.eclipselabs.real.core.searchresult;
 
 import java.util.List;
 
-import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
-import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISearchProgressMonitor;
 import org.eclipselabs.real.core.searchobject.script.SOContainer;
 import org.eclipselabs.real.core.searchobject.script.SRContainer;
@@ -55,34 +54,20 @@ public interface ISRSearchScript extends IKeyedComplexSearchResult<
      * This is mostly internal method its use in scripts is discouraged.
      * @return the list of internal search objects
      */
-    public List<IKeyedComplexSearchObject<
-            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>
-        getMainRegexList();
+    public List<ISOComplexRegex> getMainRegexList();
     /**
      * Sets the list of internal search objects. The internal search objects must be keyed search objects.
      * This is mostly internal method its use in scripts is discouraged.
      * @param mrList the new list of internal search objects
      */
-    public void setMainRegexList(List<IKeyedComplexSearchObject<
-            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>,
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> mrList);
+    public void setMainRegexList(List<ISOComplexRegex> mrList);
     /**
      * Returns an internal keyed search object by name. This is mostly internal method its use in scripts is discouraged.
      * The group for the internal search objects doesn't make sense and its use is implementation-specific.
      * @param complRegName the name of the internal search object
      * @return the keyed SO for this name or null if no SO for this name was found.
      */
-    public IKeyedComplexSearchObject<
-            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                ISRComplexRegexView, ISROComplexRegexView, String>,
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>
-        getInternalSOByName(String complRegName);
+    public ISOComplexRegex getInternalSOByName(String complRegName);
 
     /**
      * Returns the {@link SOContainer} object for the SO by the name.

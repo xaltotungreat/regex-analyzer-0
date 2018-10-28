@@ -19,9 +19,9 @@ public interface IDisplaySOSelector extends IDisplaySOTemplateAbstract {
     public String getTextViewName();
     public void setTextViewName(String textViewName);
     
-    public List<String> getViewPatterns();
-    public void setViewPatterns(List<String> shortViewNames);
-    public void addViewPattern(String aViewName);
+    public List<String> getViewNamePatterns();
+    public void setViewNamePatterns(List<String> shortViewNames);
+    public void addViewNamePattern(String aViewName);
     
     public List<SortRequestKey> getSortRequestKeys();
     public void setSortRequestKeys(List<SortRequestKey> reqList);

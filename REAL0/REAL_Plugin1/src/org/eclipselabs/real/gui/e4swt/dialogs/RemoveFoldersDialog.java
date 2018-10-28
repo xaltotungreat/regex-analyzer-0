@@ -1,7 +1,9 @@
 package org.eclipselabs.real.gui.e4swt.dialogs;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,9 +31,9 @@ public class RemoveFoldersDialog extends SingleDialog {
     private Table table;
 
     //protected Shell shell;
-    protected DialogResult<List<String>> result = new DialogResult<List<String>>(SWT.CANCEL, new ArrayList<String>());
+    protected DialogResult<List<String>> result = new DialogResult<>(SWT.CANCEL, new ArrayList<String>());
 
-    protected List<String> allFoldersList = new ArrayList<String>();
+    protected Set<String> allFoldersList = new HashSet<>();
 
     @Inject
     public RemoveFoldersDialog(@Named(IServiceConstants.ACTIVE_SHELL) Shell parent) {
@@ -57,7 +59,7 @@ public class RemoveFoldersDialog extends SingleDialog {
     }
 
 
-    public void setAllFoldersList(List<String> foldersList) {
+    public void setAllFoldersList(Set<String> foldersList) {
         this.allFoldersList = foldersList;
     }
 

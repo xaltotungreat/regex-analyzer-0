@@ -40,8 +40,10 @@ public class ConveyorProductImpl implements IConveyorProduct {
         // don't do anything until a permit is available
         try {
             ConveyorMain.INSTANCE.getConvSemaphore().acquire();
-        } catch (InterruptedException e1) {
-            log.error("executeRequest unable to acquire a permit",e1);
+        } catch (InterruptedException e) {
+            log.error("executeRequest unable to acquire a permit", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         }
         // register to receive events about a closed part/tab
         CoreEventBus.INSTANCE.register(this);
@@ -57,13 +59,15 @@ public class ConveyorProductImpl implements IConveyorProduct {
                 context.cleanup();
                 ConveyorMain.INSTANCE.getConvSemaphore().release();
             });
-        endFuture = stagesFuture.thenApply((a) -> context);
+        endFuture = stagesFuture.thenApply(a -> context);
         // clients may want to wait indefinitely
         if (req.getMaxWaitToComplete() == null) {
             try {
                 return endFuture.get();
             } catch (InterruptedException e) {
-                log.error("executeRequest",e);
+                log.error("executeRequest", e);
+                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                Thread.currentThread().interrupt();
             } catch (ExecutionException e) {
                 if (canceled && (e.getCause() instanceof CancellationException)) {
                     // do not log if the exception should be here
@@ -75,7 +79,9 @@ public class ConveyorProductImpl implements IConveyorProduct {
             try {
                 return endFuture.get(req.getMaxWaitToComplete().getTimeout(), req.getMaxWaitToComplete().getTimeUnit());
             } catch (InterruptedException e) {
-                log.error("executeRequest",e);
+                log.error("executeRequest", e);
+                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                Thread.currentThread().interrupt();
             } catch (ExecutionException e) {
                 if (canceled && (e.getCause() instanceof CancellationException)) {
                     // do not log if the exception should be here

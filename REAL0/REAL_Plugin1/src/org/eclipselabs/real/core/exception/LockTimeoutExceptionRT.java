@@ -1,0 +1,29 @@
+package org.eclipselabs.real.core.exception;
+
+public class LockTimeoutExceptionRT extends RuntimeException {
+
+    public LockTimeoutExceptionRT() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public LockTimeoutExceptionRT(String message) {
+        super(message);
+        // TODO Auto-generated constructor stub
+    }
+
+    public LockTimeoutExceptionRT(Throwable cause) {
+        super(cause);
+        // TODO Auto-generated constructor stub
+    }
+
+    public LockTimeoutExceptionRT(String message, Throwable cause) {
+        super(message, cause);
+        // TODO Auto-generated constructor stub
+    }
+
+    public LockTimeoutExceptionRT(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        // TODO Auto-generated constructor stub
+    }
+
+}

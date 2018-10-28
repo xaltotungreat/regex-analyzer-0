@@ -137,7 +137,7 @@ public class GUISearchResult {
     private CTabFolder tabFolder;
 
     // contexts
-    Map<String,IEclipseContext> contextMap = new ConcurrentHashMap<String, IEclipseContext>();
+    Map<String,IEclipseContext> contextMap = new ConcurrentHashMap<>();
     protected volatile IEclipseContext activeContext;
 
     // Object properties
@@ -149,7 +149,7 @@ public class GUISearchResult {
     protected int gcMaxCount = 100;
 
     // OOI cache
-    protected Map<String,OOIInfo> styleOOICache = new ConcurrentHashMap<String, OOIInfo>();
+    protected Map<String,OOIInfo> styleOOICache = new ConcurrentHashMap<>();
 
     // Named Bookmarks
     protected List<NamedBookmark> localBookmarks = Collections.synchronizedList(new ArrayList<NamedBookmark>());
@@ -440,7 +440,7 @@ public class GUISearchResult {
 
     protected void fillInTableItems(IEclipseContext workContext, TableColumn sortColumn, Boolean performSort) {
         StyledTable table = workContext.get(StyledTable.class);
-        List<IDRViewItem> rows = new ArrayList<IDRViewItem>((List<IDRViewItem>)workContext.get(CONTEXT_KEY_TABLE_ROWS));
+        List<IDRViewItem> rows = new ArrayList<>((List<IDRViewItem>)workContext.get(CONTEXT_KEY_TABLE_ROWS));
         if (performSort) {
             log.debug("Sorting by column " + sortColumn.getText());
             TableColumn currSortColumn = (TableColumn)workContext.get(CONTEXT_KEY_SORT_COLUMN);
@@ -625,7 +625,9 @@ public class GUISearchResult {
                             try {
                                 globOOILatch.await();
                             } catch (InterruptedException e) {
-                                log.error("setGlobalObjects latch interrupted",e);
+                                log.error("setGlobalObjects latch interrupted", e);
+                                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                                Thread.currentThread().interrupt();
                             }
                         }
                     }
@@ -671,6 +673,17 @@ public class GUISearchResult {
                 progBar = workCtxt.get(ProgressBar.class);
                 progBar.setSelection(currentProgress);
             }
+        }
+    }
+
+    public void setErrorStatus(String searchID, String newStatus) {
+        if (contextMap.containsKey(searchID)) {
+            IEclipseContext workCtxt = contextMap.get(searchID);
+            Label statusLabel = workCtxt.get(Label.class);
+            if (statusLabel != null) {
+                statusLabel.setText(newStatus);
+            }
+            this.stopProgress(searchID);
         }
     }
 
@@ -848,8 +861,8 @@ public class GUISearchResult {
                     final Matcher mt = matcherList.get(0);
                     int srNumber = 0;
                     int totalSelectedStrings = 0;
-                    List<StyleRange> srInProgress = new ArrayList<StyleRange>();
-                    final List<StyleRange> srToSet = new ArrayList<StyleRange>();
+                    List<StyleRange> srInProgress = new ArrayList<>();
+                    final List<StyleRange> srToSet = new ArrayList<>();
                     //int gcCount = 0;
                     while (mt.find()) {
                         final int currPos = mt.end();
@@ -1109,9 +1122,9 @@ public class GUISearchResult {
 
     public void removeColorAtCursor() {
         int cursorIndex = styledText.getCaretOffset();
-        List<StyleRange> allStyleRanges = new ArrayList<StyleRange>(Arrays.asList(styledText.getStyleRanges()));
-        List<StyleRange> removeStyleRange = new ArrayList<StyleRange>();
-        List<Color> currColors = new ArrayList<Color>();
+        List<StyleRange> allStyleRanges = new ArrayList<>(Arrays.asList(styledText.getStyleRanges()));
+        List<StyleRange> removeStyleRange = new ArrayList<>();
+        List<Color> currColors = new ArrayList<>();
         List<String> selItemsList = new ArrayList<>();
         for (StyleRange sr : allStyleRanges) {
             if ((cursorIndex >= sr.start) && (cursorIndex <= (sr.start + sr.length))) {
@@ -1163,8 +1176,8 @@ public class GUISearchResult {
                     @Override
                     public void run() {
                         try {
-                            List<StyleRange> allStyleRanges = new ArrayList<StyleRange>(Arrays.asList(styledText.getStyleRanges()));
-                            List<StyleRange> removeStyleRange = new ArrayList<StyleRange>();
+                            List<StyleRange> allStyleRanges = new ArrayList<>(Arrays.asList(styledText.getStyleRanges()));
+                            List<StyleRange> removeStyleRange = new ArrayList<>();
                             for (StyleRange sr : allStyleRanges) {
                                 Matcher mt = removePt.matcher(styledText.getText().substring(sr.start, sr.start + sr.length));
                                 if (mt.matches()) {
@@ -1271,7 +1284,7 @@ public class GUISearchResult {
     */
     public void setSelectionWithStyles(Integer start, Integer end) {
         if ((start >= 0) && (start < styledText.getText().length())
-                && (end >= 0) && (end < styledText.getText().length())) {
+                && (end >= 0) && (end <= styledText.getText().length())) {
             // a trick to scroll the selection into view first select the text
             // to scroll in into view then put the selection at the beginning
             styledText.setSelection(start, end);

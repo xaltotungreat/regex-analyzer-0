@@ -15,7 +15,7 @@ public class DisplaySOImpl extends DisplaySOTreeItemImpl implements IDisplaySO {
     
     protected IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> theSearchObject;
     protected String textViewName;
-    protected List<String> shortViewPatterns = new ArrayList<String>();
+    protected List<String> viewNamePatterns = new ArrayList<String>();
     protected List<SortRequestKey> sortRequestKeys = new ArrayList<>();
     
     protected String displayName;
@@ -53,7 +53,7 @@ public class DisplaySOImpl extends DisplaySOTreeItemImpl implements IDisplaySO {
 
     @Override
     public List<String> getViewNamePatterns() {
-        return shortViewPatterns;
+        return viewNamePatterns;
     }
 
     public void setTextViewName(String textViewName) {
@@ -61,12 +61,12 @@ public class DisplaySOImpl extends DisplaySOTreeItemImpl implements IDisplaySO {
     }
 
     public void setViewNamePatterns(List<String> aShortViewPatterns) {
-        this.shortViewPatterns = aShortViewPatterns;
+        this.viewNamePatterns = aShortViewPatterns;
     }
 
     @Override
     public void addViewNamePattern(String aViewPattern) {
-        shortViewPatterns.add(aViewPattern);
+        viewNamePatterns.add(aViewPattern);
     }
     @Override
     public SearchObjectType getSearchObjectType() {

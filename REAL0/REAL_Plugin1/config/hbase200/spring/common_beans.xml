@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <!-- SPRING INTERNAL BEANS START -->
+	
+	<!-- This bean registers and processes (among others) @PostConstruct and @PreDestroy -->
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+	
+	<!-- SPRING INTERNAL BEANS END -->
+
+
+	<!-- COMMONLY USED BEANS START -->
+	<!-- This file must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<bean id="groupDefault" abstract="true" class="org.eclipselabs.real.core.searchobject.SearchObjectGroupStrImpl" >
+		<constructor-arg index="1" value="."/>
+	</bean>
+	<bean id="searchObjectParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexImpl" abstract="true">
+		<constructor-arg index="0" value="No name SO"/>
+	</bean>
+	<bean id="searchObjectViewParent" class="org.eclipselabs.real.core.searchobject.SOComplexRegexViewImpl" abstract="true">
+		<constructor-arg index="0" value="No name view"/>
+	</bean>
+	
+	<bean id="rrparamInstance0" class="org.eclipselabs.real.core.regex.RealRegexParamInteger" scope="prototype">
+		<constructor-arg index="0" value="instance" />
+		<constructor-arg index="1" value="0" />
+	</bean>
+	<bean id="dateInfoDefault" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" abstract="true"/>
+	<bean id="simpleRegexNoName" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" abstract="true">
+		<constructor-arg index="0" value="No Name" />
+		<constructor-arg index="1" value="this value must be replaced" />
+	</bean>
+	<bean id="simpleRegexCaseInsensitive" parent="simpleRegexNoName" abstract="true">
+		<property name="regexFlags" value="#{T(java.util.regex.Pattern).CASE_INSENSITIVE + T(java.util.regex.Pattern).UNICODE_CASE}"></property>
+	</bean>
+
+	<bean id="simpleRegexFirst" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="Default" />
+		<constructor-arg index="1" value="this value must be replaced" />
+		<property name="parameters">
+			<list>
+				<ref bean="rrparamInstance0" />
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="sortRequestDateTime" class="org.eclipselabs.real.core.searchresult.sort.DateTimeSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1" value="Date_Time" />
+	</bean>
+	
+	<bean id="replaceableParamDefault" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamImpl" abstract="true"/>
+	<bean id="replaceableParamKeyDefault" abstract="true" class="org.eclipselabs.real.core.searchobject.param.ReplaceableParamKey"/>
+	
+	<bean id="paramDateLowBound" parent="replaceableParamDefault" scope="prototype">
+		<constructor-arg index="0" value="DATE"/>
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyDefault">
+				<constructor-arg index="0" value="LOW_BOUND"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="2" value="Low Bound"/>
+		<constructor-arg index="3">
+			<set>
+				<value>LOW_BOUND</value>
+			</set>
+		</constructor-arg>
+		<constructor-arg index="4" value="#{T(java.time.LocalDateTime).now().withNano(0).withHour(0).withMinute(0).withSecond(0)}"/>
+	</bean>
+	<bean id="paramDateHighBound" parent="replaceableParamDefault" scope="prototype">
+		<constructor-arg index="0" value="DATE"/>
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyDefault">
+				<constructor-arg index="0" value="HIGH_BOUND"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="2" value="High Bound"/>
+		<constructor-arg index="3">
+			<set>
+				<value>HIGH_BOUND</value>
+			</set>
+		</constructor-arg>
+		<constructor-arg index="4" value="#{T(java.time.LocalDateTime).now().withNano(0).withHour(23).withMinute(59).withSecond(59)}"/>
+	</bean>
+	<bean id="paramStringValue" parent="replaceableParamDefault" scope="prototype">
+		<constructor-arg index="0" value="STRING"/>
+		<constructor-arg index="1">
+			<bean parent="replaceableParamKeyDefault">
+				<constructor-arg index="0" value="VALUE"></constructor-arg>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="2" value="Value to find"/>
+		<constructor-arg index="3">
+			<set>
+				<value>VALUE</value>
+			</set>
+		</constructor-arg>
+		<constructor-arg index="4" value="?"/>
+	</bean>
+	<bean id="acceptInterval" init-method="updateCriterionReferences" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalCriterion" abstract="true">
+		<constructor-arg index="0" value="INTERVAL"/>
+		<constructor-arg index="1" value="MainInterval"/>
+		<property name="lowBoundKey" value="LOW_BOUND"/>
+		<property name="highBoundKey" value="HIGH_BOUND"/>
+	</bean>
+	<bean id="acceptRegex" init-method="updateCriterionReferences" class="org.eclipselabs.real.core.searchobject.crit.RegexAcceptanceCriterion" abstract="true"/>
+	
+	<bean id="groupGlobal" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global"/>
+	</bean>
+	
+	<!-- the regex sort request bean -->
+	<bean id="sortRequestRegex" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<!-- the date info beans -->
+	
+	<bean id="dateInfoGeneral1" parent="dateInfoDefault" scope="prototype">
+		<constructor-arg index="0" value="GENERAL_TIME_FORMAT1" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="GENERAL_TIME_REGEX1" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="dateInfoGeneral2" parent="dateInfoDefault" scope="prototype">
+		<constructor-arg index="0" value="GENERAL_TIME_FORMAT2" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="GENERAL_TIME_REGEX2" />
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<list>
+				<value>en</value>
+				<value>ru</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="regexFirstRecord" parent="simpleRegexNoName" scope="prototype">
+		<constructor-arg index="0" value="FirstRecord" />
+		<constructor-arg index="1" value="\A((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*\r?\n)*" />
+	</bean>
+	<bean id="regexLastRecord" parent="simpleRegexNoName" scope="prototype">
+		<constructor-arg index="0" value="LastRecord" />
+		<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))((?!((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))).*\r?\n)*\Z" />
+	</bean>
+	<bean id="guessInterval" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
+		<property name="firstRecord">
+			<ref bean="regexFirstRecord"></ref>
+		</property>
+		<property name="lastRecord">
+			<ref bean="regexLastRecord"></ref>
+		</property>
+	</bean>
+	<bean id="searchObjectViewTime" parent="searchObjectViewParent" scope="prototype">
+		<constructor-arg index="0" value="Time"/>
+		<property name="viewObjects">
+			<list>
+				<bean parent="simpleRegexFirst">
+					<constructor-arg index="1" value="((GENERAL_TIME_REGEX1)|(GENERAL_TIME_REGEX2))" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- COMMONLY USED BEANS END -->
+</beans>

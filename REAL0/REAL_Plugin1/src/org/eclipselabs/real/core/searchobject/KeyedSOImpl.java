@@ -23,9 +23,9 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     protected IKeyedSearchObject<?, ?> keyedSO;
 
     protected ISearchObjectGroup<String> soGroup;
-    protected Map<String,String> soTags = new ConcurrentHashMap<String, String>();
+    protected Map<String,String> soTags = new ConcurrentHashMap<>();
     protected Set<LogFileTypeKey> requiredLogFileTypes;
-    protected ISearchObjectDateInfo dateInfo;
+    protected List<ISearchObjectDateInfo> dateInfos;
     protected IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject> parent;
 
     public KeyedSOImpl(IKeyedSearchObject<?, ?> aKeyedSO) {
@@ -42,7 +42,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     public Map<String, String> getOneLevelReplaceTable(List<IReplaceableParam<String>> replaceParamList, Map<String, String> customReplaceTable) {
-        Map<String, String> finalReplaceTable = new HashMap<String, String>();
+        Map<String, String> finalReplaceTable = new HashMap<>();
         if (replaceParamList != null) {
             for (IReplaceableParam<String> rParam : replaceParamList) {
                 if (((rParam.getReplaceNames() == null) || (rParam.getReplaceNames().isEmpty()))) {
@@ -75,7 +75,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
         for (int i = 0; i < soGroup.getElementCount(); i++) {
             tmpParamList.clear();
             ISearchObjectGroup<String> currPath = soGroup.getSubGroup(i);
-            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
+            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceableParamRepository().getValues(
                     new ReplaceableParamKey.RPKGroupStartsWithPredicate(currPath), (new IReplaceableParam.IRPTypePredicate(ReplaceableParamValueType.STRING)));
             for (IReplaceableParam<?> rp : rpListGroup) {
                 tmpParamList.add((IReplaceableParam<String>)rp);
@@ -114,9 +114,10 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
                 soParams.putAll(parentParams);
             }
         }
-        List<IReplaceableParam<?>> thisSOParams = keyedSO.getCloneParamList().stream().filter((a) -> ReplaceableParamValueType.STRING.equals(a.getType())).collect(Collectors.toList());
-        /*List<IReplaceParam<?>> thisSOParams = keyedSO.getValues(
-                new PredicateEqualAnyObject<ReplaceParamKey>(), (new IReplaceParam.IRPTypePredicate(ReplaceParamValueType.STRING)));*/
+        List<IReplaceableParam<?>> thisSOParams = keyedSO.getCloneParamList()
+                .stream()
+                .filter(a -> ReplaceableParamValueType.STRING.equals(a.getType()))
+                .collect(Collectors.toList());
         List<IReplaceableParam<String>> tmpTable = new ArrayList<>();
         if ((thisSOParams != null) && (!thisSOParams.isEmpty())) {
             tmpTable.clear();
@@ -194,7 +195,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
         // first get group params the lower group params replace the higher group params
         for (int i = 0; i < soGroup.getElementCount(); i++) {
             ISearchObjectGroup<String> currPath = soGroup.getSubGroup(i);
-            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceParamRepository().getValues(
+            List<IReplaceableParam<?>> rpListGroup = SearchObjectController.INSTANCE.getReplaceableParamRepository().getValues(
                     new ReplaceableParamKey.RPKGroupStartsWithPredicate(currPath));
             if (!rpListGroup.isEmpty()) {
                 for (IReplaceableParam<?> rp : rpListGroup) {
@@ -245,7 +246,7 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
 
     @Override
     public Map<String, String> getSearchObjectTags() {
-        return new HashMap<String, String>(soTags);
+        return new HashMap<>(soTags);
     }
 
     @Override
@@ -264,13 +265,13 @@ public class KeyedSOImpl implements IKeyedSO, Cloneable {
     }
 
     @Override
-    public ISearchObjectDateInfo getDateInfo() {
-        return dateInfo;
+    public List<ISearchObjectDateInfo> getDateInfos() {
+        return dateInfos;
     }
 
     @Override
-    public void setDateInfo(ISearchObjectDateInfo newDateInfo) {
-        dateInfo = newDateInfo;
+    public void setDateInfos(List<ISearchObjectDateInfo> newDateInfo) {
+        dateInfos = newDateInfo;
     }
 
     @Override

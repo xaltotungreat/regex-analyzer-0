@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchobject.crit.AcceptanceCriterionStage;
@@ -53,7 +54,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
     }
 
     @Override
-    public ISRComplexRegex performSearch(PerformSearchRequest request) {
+    public ISRComplexRegex performSearch(PerformSearchRequest request) throws IncorrectPatternException {
         log.info("performSearch " + this);
         log.info("performSearch request " + request);
         if ((request == null) || (request.getProgressMonitor() == null)) {
@@ -74,9 +75,13 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
         if (request.getCustomRegexFlags() != null) {
             result.setRegexFlags(request.getCustomRegexFlags());
         }
-        if (getDateInfo() != null) {
+        if (getDateInfos() != null) {
             try {
-                result.setDateInfo(getDateInfo().clone());
+                List<ISearchObjectDateInfo> newInfos = new ArrayList<>();
+                for (ISearchObjectDateInfo di : getDateInfos()) {
+                    newInfos.add(di.clone());
+                }
+                result.setDateInfos(newInfos);
             } catch (CloneNotSupportedException e) {
                 log.error("performSearch",e);
             }
@@ -120,17 +125,17 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
             String lastFound = null;
             int gcCount = 0;
             // according to Java documentation for the synchronized list it is
-            // "imperative that the user manually synchronize on the returned list
-            // when iterating over it". But in this case the synchronization has been removed to make
-            // searches faster
-            //synchronized(mainRegexList) {
+            // "imperative that the user manually synchronize on the returned list when iterating over it"
+            // like this "synchronized(mainRegexList) {". But in this case the synchronization has been removed to make
+            // searches faster because the regexes are not modified in the loop and the list itself is not modified
+            // The speedup is noticeable because each file is processed in its own thread
             for (IRealRegex currRegex : mainRegexList) {
                 try {
                     IMatcherWrapper mtw = currRegex.getMatcherWrapper(request.getText(), cachedReplaceTable, finalRegexFlags);
                     while (mtw.find()) {
                         FindTextResult foundStr = mtw.getResult();
                         ISROComplexRegex newSR = new SROComplexRegexImpl(foundStr.getStrResult(),
-                                foundStr.getStartPos(), foundStr.getEndPos(), SearchObjectUtil.parseDate(getDateInfo(),
+                                foundStr.getStartPos(), foundStr.getEndPos(), SearchObjectUtil.parseDate(getDateInfos(),
                                         foundStr.getStrResult(), cachedReplaceTable, finalRegexFlags));
                         if (newSR.getDate() != null) {
                             result.getFoundYears().add(newSR.getDate().getYear());
@@ -146,15 +151,24 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                         }
                         lastFound = foundStr.getStrResult();
                         // manual GC is necessary to keep the heap size minimal
-                        // during search the garbage collector is not fast enough therefore
+                        // during a search the garbage collector is not fast enough therefore
                         // the heap may grow too large
                         if (gcCount > gcMaxCount) {
                             System.gc();
                             gcCount = 0;
+                            /*
+                             * Also check if the thread is not interrupted. If interrupted this means
+                             * maybe the timeout for this operation has expired and the future has been canceled.
+                             * Anyway if the thread is interrupted exit immediately.
+                             */
+                            if (Thread.currentThread().isInterrupted()) {
+                                log.error("Thread interrupted for the search " + this.getSearchObjectName());
+                                return null;
+                            }
                         }
                         gcCount++;
                     }
-                } catch (Throwable e) {
+                } catch (Exception e) {
                     log.error("Caught exception last statement found " + lastFound
                             + " regex searched " + currRegex.getPatternString(cachedReplaceTable), e);
                     throw e;
@@ -218,7 +232,7 @@ public class SOComplexRegexImpl extends KeyedComplexSearchObjectImpl<ISRComplexR
                 sb.append("\n").append(currParam);
             }
         }
-        sb.append("\nDate info ").append(getDateInfo());
+        sb.append("\nDate info ").append(getDateInfos());
         sb.append("\nMain regexes:");
         for (IRealRegex currReg : mainRegexList) {
             sb.append("\n\t").append(currReg);

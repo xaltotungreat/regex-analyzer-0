@@ -1,5 +1,6 @@
 package org.eclipselabs.real.core.searchobject;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -142,7 +143,7 @@ public interface IKeyedSO {
      * and how to parse the String into actual data
      * @return the date info for this keyed SO
      */
-    public ISearchObjectDateInfo getDateInfo();
+    public List<ISearchObjectDateInfo> getDateInfos();
     /**
      * Sets the date info for this keyed SO
      * A date info is the object that is used to get the date and time information
@@ -150,5 +151,5 @@ public interface IKeyedSO {
      * and how to parse the String into actual data
      * @param newDateInfo the date info for this keyed SO
      */
-    public void setDateInfo(ISearchObjectDateInfo newDateInfo);
+    public void setDateInfos(List<ISearchObjectDateInfo> newDateInfo);
 }

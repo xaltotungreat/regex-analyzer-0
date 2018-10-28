@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- ASM BEANS START -->
+
+	<!-- Commonly used ASM beans START -->
+	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<!-- the group bean -->
+	<bean id="groupASM" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global.ASM"/>
+	</bean>
+	<!-- The parent of all ASM complex regexes -->
+	<bean id="searchObjectParentASM" parent="searchObjectParent" abstract="true">
+		<property name="searchObjectGroup" ref="groupASM"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="requiredLogTypes">
+			<set>
+				<value>ASM</value>
+			</set>
+		</property>
+		<property name="sortRequestList">
+			<list>
+				<ref bean="sortRequestDateTime"/>
+				<ref bean="sortRequestRegexASM"/>
+			</list>
+		</property>
+		<property name="dateInfos">
+			<list>
+				<ref bean="dateInfoASM"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- the regex sort request bean -->
+	<bean id="sortRequestRegexASM" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="ASM_TIME_REGEX" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<!-- the date info bean -->
+	<bean id="dateInfoASM" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="ASM_TIME_FORMAT" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="ASM_TIME_REGEX" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="regexFirstRecordASM" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="FirstRecord" />
+		<constructor-arg index="1" value="\AASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*" />
+	</bean>
+	<bean id="regexLastRecordASM" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="LastRecord" />
+		<constructor-arg index="1" value="ASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*\Z" />
+	</bean>
+	<bean id="guessIntervalASM" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
+		<property name="firstRecord">
+			<ref bean="regexFirstRecordASM"></ref>
+		</property>
+		<property name="lastRecord">
+			<ref bean="regexLastRecordASM"></ref>
+		</property>
+	</bean>
+	<bean id="searchObjectViewTimeASM" parent="searchObjectViewParent" scope="prototype">
+		<constructor-arg index="0" value="Time"/>
+		<property name="viewObjects">
+			<list>
+				<bean parent="simpleRegexFirst">
+					<constructor-arg index="1" value="ASM_TIME_REGEX" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Commonly used ASM beans END -->
+	<!-- Normal ASM beans START -->
+	<bean id="!I:LogInterval ASM All" parent="searchObjectParentASM">
+		<constructor-arg index="0" value="!I:LogInterval ASM All"/>
+		<property name="searchObjectDescription" value="Finds all records" />
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Interval" value="TRUE" />
+			</map>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="ASM_TIME_REGEX((?!(ASM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="!I:LogInterval ASM" parent="!I:LogInterval ASM All">
+		<constructor-arg index="0" value="!I:LogInterval ASM"/>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalASM"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="Internal ANY RECORD Containing value ASM"  parent="searchObjectParentASM">
+		<constructor-arg index="0" value="Internal ANY RECORD Containing value ASM"/>
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Role" value="internal" />
+				<entry key="Function" value="any record" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramStringValue"/>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexCaseInsensitive" >
+					<constructor-arg index="1" value="ASM_TIME_REGEX((?!((.*?VALUE)|(ASM_TIME_REGEX))).*\r?\n)*(?!(ASM_TIME_REGEX)).*?VALUE((?!(ASM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeASM"/>
+				<entry key="FirstLine">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Time"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(ASM_TIME_REGEX)).*?(?=(\r?\n))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>FirstLine</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="ASM Value Within Interval"  parent="Internal ANY RECORD Containing value ASM">
+		<constructor-arg index="0" value="ASM Value Within Interval"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list merge="true">
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalASM"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="ASM ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value ASM">
+		<constructor-arg index="0" value="ASM ANY RECORD Containing value"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="!L:Files Timespan ASM"  parent="searchObjectParentASM">
+		<constructor-arg index="0" value="!L:Files Timespan ASM"/>
+		<property name="mainRegexList">
+			<list>
+				<ref bean="regexFirstRecordASM"/>
+				<ref bean="regexLastRecordASM"/>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeASM"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="TSMAPI"  parent="searchObjectParentASM">
+		<constructor-arg index="0" value="TSMAPI"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="0" value="FirstRegex"/>
+					<constructor-arg index="1" value="ASM_TIME_REGEX.*TSMAPI::((?!(ASM_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeASM"/>
+				<entry key="Dev ID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Dev ID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(dev id: )).*?(?=(, call ID:))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Call ID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Call ID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(call ID: )).*?(?=(, mod call id))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Reason">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Reason"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(reason: )).*?(?=(, MSM:))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>Dev ID</value>
+				<value>Call ID</value>
+				<value>Reason</value>
+			</list>
+		</property>
+	</bean>
+	<!-- Normal ASM beans end -->
+	<!-- ASM BEANS END -->
+</beans>

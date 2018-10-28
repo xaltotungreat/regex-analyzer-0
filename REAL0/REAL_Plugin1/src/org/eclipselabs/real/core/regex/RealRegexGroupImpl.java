@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 
 public class RealRegexGroupImpl extends RealRegexImpl implements IRealRegexGroup {
 
@@ -14,14 +15,14 @@ public class RealRegexGroupImpl extends RealRegexImpl implements IRealRegexGroup
     protected volatile List<IRealRegex> regexList = Collections.synchronizedList(new ArrayList<IRealRegex>());
     protected volatile IRealRegex selectedRegex;
     protected volatile Integer selectedPos;
-    
+
     public RealRegexGroupImpl(String aName) {
         super(aName);
         type = RealRegexType.REAL_REGEX_GROUP;
     }
 
     @Override
-    public synchronized IMatcherWrapper getMatcherWrapper(String logText, Map<String, String> replaceTable, Integer externalFlags) {
+    public synchronized IMatcherWrapper getMatcherWrapper(String logText, Map<String, String> replaceTable, Integer externalFlags) throws IncorrectPatternException {
         IMatcherWrapper result = null;
         if (selectedRegex != null) {
             result = selectedRegex.getMatcherWrapper(logText, replaceTable, externalFlags);

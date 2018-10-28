@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.util.ITypedObject;
 
 /**
@@ -31,11 +32,12 @@ public interface IRealRegex extends Cloneable, ITypedObject<RealRegexType> {
     public void removeParameter(String aName, RealRegexParamType aType);
     public IRealRegexParam<?> getParameter(String aName);
     public Collection<IRealRegexParam<?>> getParameters();
+    public void setParameters(Collection<IRealRegexParam<?>> params);
 
     public Integer getRegexFlags();
     public void setRegexFlags(Integer flags);
 
-    public IMatcherWrapper getMatcherWrapper(String logText, Map<String, String> replaceTable, Integer externalFlags);
+    public IMatcherWrapper getMatcherWrapper(String logText, Map<String, String> replaceTable, Integer externalFlags) throws IncorrectPatternException;
     public String getPatternString(Map<String, String> replaceTable);
 
     public IRealRegex clone() throws CloneNotSupportedException;

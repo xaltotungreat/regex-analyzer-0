@@ -14,7 +14,7 @@ public enum SearchObjectController implements ISearchObjectController {
     }
 
     @Override
-    public IReplaceableParamRepository getReplaceParamRepository() {
+    public IReplaceableParamRepository getReplaceableParamRepository() {
         return rpRep;
     }
     

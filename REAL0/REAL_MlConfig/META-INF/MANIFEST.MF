@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: REAL_MlConfig
+Bundle-SymbolicName: REAL_MlConfig
+Bundle-Version: 0.7.0.qualifier
+Automatic-Module-Name: REAL_MlConfig
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

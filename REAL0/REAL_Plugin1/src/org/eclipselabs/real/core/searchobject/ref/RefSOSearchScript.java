@@ -6,17 +6,15 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.ISOSearchScript;
 import org.eclipselabs.real.core.searchobject.ISearchObjectGroup;
 import org.eclipselabs.real.core.searchobject.ISearchObjectRepository;
 import org.eclipselabs.real.core.searchobject.SearchObjectType;
-import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
 import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
-import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
@@ -24,18 +22,10 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
 
     private static final Logger log = LogManager.getLogger(RefSOSearchScript.class);
     protected RefParamString refScriptText;
-    protected List<RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-        IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>> refKeyedComplexSOList = new ArrayList<RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>>();
-    
+    protected List<RefSOComplexRegex> refKeyedComplexSOList = new ArrayList<>();
+
     protected IRefKeyedSOContainer refContainer = new RefKeyedSOContainerImpl();
-    
+
     public RefSOSearchScript(SearchObjectType soType, String aName) {
         super(soType, aName);
     }
@@ -43,7 +33,7 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
     public RefSOSearchScript(RefType aType, SearchObjectType soType, String aName) {
         super(aType, soType, aName);
     }
-    
+
     public RefSOSearchScript(SearchObjectType soType, String aName, ISearchObjectGroup<String> aGroup, Map<String, String> aTags) {
         super(soType, aName, aGroup, aTags);
     }
@@ -57,18 +47,8 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
             }
         }
         if (matches && (refKeyedComplexSOList != null) && (!refKeyedComplexSOList.isEmpty())) {
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> 
-                objRegexList = obj.getMainRegexList();
-            for (RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<
-                            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> refKeyedComplexSO : refKeyedComplexSOList) {
+            List<ISOComplexRegex> objRegexList = obj.getMainRegexList();
+            for (RefSOComplexRegex refKeyedComplexSO : refKeyedComplexSOList) {
                 if (matches && (RefType.MATCH.equals(refKeyedComplexSO.getType()))) {
                     if (objRegexList == null) {
                         /* there is at least one MATCH parameter but the regex list is null
@@ -78,11 +58,7 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                         log.warn("matchByParameters objRegexListis null the ref is not matched (no more matching attempted)\n" + refKeyedComplexSO);
                         break;
                     }
-                    for (IKeyedComplexSearchObject<
-                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currObjSO : objRegexList) {
+                    for (ISOComplexRegex currObjSO : objRegexList) {
                         if (refKeyedComplexSO.defaultMatch(currObjSO)) {
                             matches = refKeyedComplexSO.matchByParameters(currObjSO);
                         }
@@ -115,22 +91,13 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                 count++;
             }
         }
-        
+
         if ((refKeyedComplexSOList != null) && (!refKeyedComplexSOList.isEmpty())) {
             /* get a reference to the main list
              * no null check is necessary because this list must always be not null
              */
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> 
-                objRegexList = obj.getMainRegexList();
-            for (RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> refKeyedComplexSO : refKeyedComplexSOList) {
+            List<ISOComplexRegex> objRegexList = obj.getMainRegexList();
+            for (RefSOComplexRegex refKeyedComplexSO : refKeyedComplexSOList) {
                 if (RefType.ADD.equals(refKeyedComplexSO.getType())) {
                     if (objRegexList == null) {
                         /* there is at least one ADD parameter but the regex list is null
@@ -147,26 +114,16 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                         if ((refKeyedComplexSO.getPosition() >= 0) && (refKeyedComplexSO.getPosition() <= objRegexList.size())) {
                             objRegexList.add(refKeyedComplexSO.getPosition(), refKeyedComplexSO.getValue());
                         } else {
-                            log.warn("addParameters incorrect position " + refKeyedComplexSO.getPosition() 
+                            log.warn("addParameters incorrect position " + refKeyedComplexSO.getPosition()
                                     + " size " + objRegexList.size() + " for ref (adding to the end)\n" + refKeyedComplexSO);
                             objRegexList.add(refKeyedComplexSO.getValue());
                         }
                         count++;
                     } else {
                         boolean matched = false;
-                        //RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> matchPredicate = currRefKeyedComplexSO.getSearchObjectMatchPredicate();
-                        /*RealPredicate<? super IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> matchPredicate = refKeyedComplexSO.getDefaultMatchPredicate();*/
-                        for (IKeyedComplexSearchObject<
-                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currObjSO : objRegexList) {
-                            //if (matchPredicate.test(currObjSO)) {
+                        for (ISOComplexRegex currObjSO : objRegexList) {
                             if (refKeyedComplexSO.defaultMatch(currObjSO)) {
-                                log.warn("The REF has the type ADD but matches another object(not adding to the list) \nRef\n" + refKeyedComplexSO 
+                                log.warn("The REF has the type ADD but matches another object(not adding to the list) \nRef\n" + refKeyedComplexSO
                                         + "\nMatching object\n" + currObjSO);
                                 matched = true;
                                 break;
@@ -194,22 +151,13 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                 count++;
             }
         }
-        
+
         if ((refKeyedComplexSOList != null) && (!refKeyedComplexSOList.isEmpty())) {
             /* get a reference to the main list
              * no null check is necessary because this list must always be not null
              */
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> 
-                objRegexList = obj.getMainRegexList();
-            for (RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> refKeyedComplexSO : refKeyedComplexSOList) {
+            List<ISOComplexRegex> objRegexList = obj.getMainRegexList();
+            for (RefSOComplexRegex refKeyedComplexSO : refKeyedComplexSOList) {
                 if (RefType.REPLACE_ADD.equals(refKeyedComplexSO.getType())) {
                     if (objRegexList == null) {
                         /* there is at least one REPLACE_ADD parameter but the regex list is null
@@ -227,24 +175,15 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                         if ((refKeyedComplexSO.getPosition() >= 0) && (refKeyedComplexSO.getPosition() < objRegexList.size())) {
                             objRegexList.set(refKeyedComplexSO.getPosition(), refKeyedComplexSO.getValue());
                         } else {
-                            log.warn("replaceAddParameters incorrect position " + refKeyedComplexSO.getPosition() 
+                            log.warn("replaceAddParameters incorrect position " + refKeyedComplexSO.getPosition()
                                     + " size " + objRegexList.size() + " for ref (adding to the end)\n" + refKeyedComplexSO);
                             objRegexList.add(refKeyedComplexSO.getValue());
                         }
                         count++;
                     } else {
                         int setPos = -1;
-                        //RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> matchPredicate = currRefKeyedComplexSO.getSearchObjectMatchPredicate();
-                        /*RealPredicate<? super IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> matchPredicate = refKeyedComplexSO.getDefaultMatchPredicate();*/
                         for (int i = 0; i < objRegexList.size(); i++) {
-                            IKeyedComplexSearchObject<
-                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currObjSO = objRegexList.get(i);
+                            ISOComplexRegex currObjSO = objRegexList.get(i);
                             //if (matchPredicate.test(currObjSO)) {
                             if (refKeyedComplexSO.defaultMatch(currObjSO)) {
                                 setPos = i;
@@ -274,22 +213,13 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                 count++;
             }
         }
-        
+
         if ((refKeyedComplexSOList != null) && (!refKeyedComplexSOList.isEmpty())) {
             /* get a reference to the main list
              * no null check is necessary because this list must always be not null
              */
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> 
-                objRegexList = obj.getMainRegexList();
-            for (RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> refKeyedComplexSO : refKeyedComplexSOList) {
+            List<ISOComplexRegex> objRegexList = obj.getMainRegexList();
+            for (RefSOComplexRegex refKeyedComplexSO : refKeyedComplexSOList) {
                 if (RefType.REPLACE.equals(refKeyedComplexSO.getType())) {
                     if (objRegexList == null) {
                         /* there is at least one REPLACE parameter but the regex list is null
@@ -307,23 +237,14 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                             objRegexList.set(refKeyedComplexSO.getPosition(), refKeyedComplexSO.getValue());
                             count++;
                         } else {
-                            log.warn("replaceParameters incorrect position " + refKeyedComplexSO.getPosition() 
+                            log.warn("replaceParameters incorrect position " + refKeyedComplexSO.getPosition()
                                     + " size " + objRegexList.size() + " for ref (no action)\n" + refKeyedComplexSO);
                         }
                     } else {
                         int setPos = -1;
-                        //RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> matchPredicate = currRefKeyedComplexSO.getSearchObjectMatchPredicate();
-                        /*RealPredicate<? super IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> matchPredicate = refKeyedComplexSO.getDefaultMatchPredicate();*/
                         // loop through the so in the object list
                         for (int i = 0; i < objRegexList.size(); i++) {
-                            IKeyedComplexSearchObject<
-                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currObjSO = objRegexList.get(i);
+                            ISOComplexRegex currObjSO = objRegexList.get(i);
                             //if (matchPredicate.test(currObjSO)) {
                             if (refKeyedComplexSO.defaultMatch(currObjSO)) {
                                 setPos = i;
@@ -357,17 +278,8 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
             /* get a reference to the main list
              * no null check is necessary because this list must always be not null
              */
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> 
-                objRegexList = obj.getMainRegexList();
-            for (RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> refKeyedComplexSO : refKeyedComplexSOList) {
+            List<ISOComplexRegex> objRegexList = obj.getMainRegexList();
+            for (RefSOComplexRegex refKeyedComplexSO : refKeyedComplexSOList) {
                 /* do not perform a non null check for the Value
                  * because it may be not necessary for remove the default match predicate
                  * should handle this
@@ -385,23 +297,14 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
                             objRegexList.remove(refKeyedComplexSO.getPosition().intValue());
                             count++;
                         } else {
-                            log.warn("removeParameters incorrect position " + refKeyedComplexSO.getPosition() 
+                            log.warn("removeParameters incorrect position " + refKeyedComplexSO.getPosition()
                                     + " size " + objRegexList.size() + " for ref (no action)\n" + refKeyedComplexSO);
                         }
                     } else {
                         int remPos = -1;
-                        //RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> matchPredicate = refKeyedComplexSO.getSearchObjectMatchPredicate();
-                        /*RealPredicate<? super IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> matchPredicate = refKeyedComplexSO.getDefaultMatchPredicate();*/
                         // loop through the so in the object list
                         for (int i = 0; i < objRegexList.size(); i++) {
-                            IKeyedComplexSearchObject<
-                                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currObjSO = objRegexList.get(i);
+                            ISOComplexRegex currObjSO = objRegexList.get(i);
                             //if (matchPredicate.test(currObjSO)) {
                             if (refKeyedComplexSO.defaultMatch(currObjSO)) {
                                 remPos = i;
@@ -421,157 +324,6 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
         return count;
     }
 
-    @Override
-    public Integer cpAdd(ISOSearchScript obj) {
-        Integer count = super.cpAdd(obj);
-        if ((refKeyedComplexSOList != null) && (!refKeyedComplexSOList.isEmpty())) {
-            /* get a reference to the main list
-             * no null check is necessary because this list must always be not null
-             */
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> 
-                objRegexList = obj.getMainRegexList();
-            // the resolved object
-            IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>
-                newAddObj = null;
-            for (RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> refKeyedComplexSO : refKeyedComplexSOList) {
-                if (RefType.CP_ADD.equals(refKeyedComplexSO.getType())) {
-                    if (objRegexList == null) {
-                        /* there is at least one CP_ADD parameter but the regex list is null
-                         * assign matches = false and leave the loop
-                         */
-                        log.warn("cpAdd objRegexListis null the ref cannot be added (CP_ADD) (no params added)\n" + refKeyedComplexSO);
-                        break;
-                    }
-                    newAddObj = null;
-                    //RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> matchPredicate = currRefKeyedComplexSO.getSearchObjectMatchPredicate();
-                    /*RealPredicate<? super IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> matchPredicate = refKeyedComplexSO.getDefaultMatchPredicate();*/
-                    // loop through the so in the object list
-                    for (IKeyedComplexSearchObject<
-                            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currObjSO : objRegexList) {
-                        //if (matchPredicate.test(currObjSO)) {
-                        if (refKeyedComplexSO.defaultMatch(currObjSO)) {
-                            newAddObj = refKeyedComplexSO.resolve(currObjSO);
-                            break;
-                        }
-                    }
-                    if (newAddObj == null) {
-                        obj.addRef(refKeyedComplexSO);
-                        log.info("cpAdd ref not found for cpAdd (adding ref) " + refKeyedComplexSO);
-                    } else {
-                        if (refKeyedComplexSO.getPosition() != null) {
-                            if ((refKeyedComplexSO.getPosition() >= 0) && (refKeyedComplexSO.getPosition() <= objRegexList.size())) {
-                                objRegexList.add(refKeyedComplexSO.getPosition(), newAddObj);
-                            } else {
-                                log.warn("cpAdd incorrect position " + refKeyedComplexSO.getPosition() 
-                                        + " size " + objRegexList.size() + " for ref (adding to the end)\n" + refKeyedComplexSO);
-                                objRegexList.add(newAddObj);
-                            }
-                        } else {
-                            objRegexList.add(newAddObj);
-                        }
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
-    }
-
-    @Override
-    public Integer cpReplace(ISOSearchScript obj) {
-        Integer count = super.cpReplace(obj);
-        if ((refKeyedComplexSOList != null) && (!refKeyedComplexSOList.isEmpty())) {
-            /* get a reference to the main list
-             * no null check is necessary because this list must always be not null
-             */
-            List<IKeyedComplexSearchObject<
-                    ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                        ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                    ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> 
-                objRegexList = obj.getMainRegexList();
-            // the resolved object 
-            IKeyedComplexSearchObject<
-                ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>
-            newReplObj = null;
-            for (RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-                    IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> refKeyedComplexSO : refKeyedComplexSOList) {
-                if (RefType.CP_REPLACE.equals(refKeyedComplexSO.getType())) {
-                    if (objRegexList == null) {
-                        /* there is at least one CP_REPLACE parameter but the regex list is null
-                         * assign matches = false and leave the loop
-                         */
-                        log.warn("cpAdd objRegexListis null the ref cannot be relaced (CP_REPLACE) (no params replaced)\n" + refKeyedComplexSO);
-                        break;
-                    }
-                    newReplObj = null;
-                    int setPos = -1;
-                    //RealPredicate<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> matchPredicate = currRefKeyedComplexSO.getSearchObjectMatchPredicate();
-                    /*RealPredicate<? super IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                            ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                        ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> matchPredicate = refKeyedComplexSO.getDefaultMatchPredicate();*/
-                    for (int i = 0; i < objRegexList.size(); i++) {
-                        IKeyedComplexSearchObject<
-                            ? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                                    ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> currObjSO = objRegexList.get(i);
-                        //if (matchPredicate.test(currObjSO)) {
-                        if (refKeyedComplexSO.defaultMatch(currObjSO)) {
-                            newReplObj = refKeyedComplexSO.resolve(currObjSO);
-                            setPos = i;
-                        }
-                    }
-                    if (newReplObj == null) {
-                        obj.addRef(refKeyedComplexSO);
-                        log.info("cpReplace ref not found for cpAdd (adding ref) " + refKeyedComplexSO);
-                    } else {
-                        if (refKeyedComplexSO.getPosition() != null) {
-                            if ((refKeyedComplexSO.getPosition() >= 0) && (refKeyedComplexSO.getPosition() < objRegexList.size())) {
-                                objRegexList.set(refKeyedComplexSO.getPosition(), newReplObj);
-                            } else {
-                                log.warn("cpReplace incorrect position " + refKeyedComplexSO.getPosition() 
-                                        + " size " + objRegexList.size() + " for ref (no action)\n" + refKeyedComplexSO);
-                            }
-                        } else if (setPos > 0) {
-                            objRegexList.set(setPos, newReplObj);
-                        } else {
-                            log.error("cpReplace Unknown error setPos " + setPos + " size " + objRegexList.size() 
-                                    + " Ref\n" + refKeyedComplexSO);
-                        }
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
-    }
-
     public RefParamString getRefScriptText() {
         return refScriptText;
     }
@@ -579,30 +331,18 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
     public void setRefScriptText(RefParamString refScriptText) {
         this.refScriptText = refScriptText;
     }
-    
-    public void addMainRegex(RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-            IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>> newRegex) {
+
+    public void addMainRegex(RefSOComplexRegex newRegex) {
         if (refKeyedComplexSOList != null) {
             refKeyedComplexSOList.add(newRegex);
         }
     }
 
-    public List<RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-            IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>> getMainRegexList() {
+    public List<RefSOComplexRegex> getMainRegexList() {
         return refKeyedComplexSOList;
     }
 
-    public void setMainRegexList(List<RefKeyedComplexSO<ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String, 
-            IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-                    ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>, 
-                ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>>> mainRegexList) {
+    public void setMainRegexList(List<RefSOComplexRegex> mainRegexList) {
         this.refKeyedComplexSOList = mainRegexList;
     }
 
@@ -638,11 +378,11 @@ public class RefSOSearchScript extends RefKeyedComplexSO<ISOComplexRegexView, IS
 
     @Override
     public String toString() {
-        return "RefSOSearchScript [name=" + name + ", group=" + group + ", tags=" + tags + ", refType=" + refType 
-                + ", refName=" + refName + ", refGroup=" + refGroup + ", refTags=" + refTags 
-                + ", refReplaceParams=" + refReplaceParams + ", refSortRequests=" + refSortRequests 
-                + ", refAcceptanceCriteria=" + refAcceptanceCriteria + ", refRegexFlags=" + refRegexFlags 
-                + ", refDateInfo=" + refDateInfo + ", refViewList=" + refViewList + ", refScriptText=" + refScriptText 
+        return "RefSOSearchScript [name=" + name + ", group=" + group + ", tags=" + tags + ", refType=" + refType
+                + ", refName=" + refName + ", refGroup=" + refGroup + ", refTags=" + refTags
+                + ", refReplaceParams=" + refReplaceParams + ", refSortRequests=" + refSortRequests
+                + ", refAcceptanceCriteria=" + refAcceptanceCriteria + ", refRegexFlags=" + refRegexFlags
+                + ", refDateInfo=" + refDateInfo + ", refViewList=" + refViewList + ", refScriptText=" + refScriptText
                 + ", refKeyedComplexSOList=" + refKeyedComplexSOList + ", refContainer=" + refContainer + "]";
     }
 

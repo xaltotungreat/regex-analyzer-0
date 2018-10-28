@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchobject.IKeyedSearchObject;
@@ -18,12 +19,12 @@ import org.eclipselabs.real.gui.core.sort.SortRequestKey;
 public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements IDisplaySOSelector {
 
     private static final Logger log = LogManager.getLogger(DisplaySOSelector.class);
-    protected List<IRealRegex> nameRegexes = new ArrayList<IRealRegex>();
-    protected List<IRealRegex> groupRegexes = new ArrayList<IRealRegex>();
-    protected List<TagRef> tagsRegexes = new ArrayList<TagRef>();
+    protected List<IRealRegex> nameRegexes = new ArrayList<>();
+    protected List<IRealRegex> groupRegexes = new ArrayList<>();
+    protected List<TagRef> tagsRegexes = new ArrayList<>();
 
     protected String textViewName;
-    protected List<String> shortViewPatterns = new ArrayList<String>();
+    protected List<String> viewNamePatterns = new ArrayList<>();
     protected List<SortRequestKey> sortRequestKeys;
 
 
@@ -44,20 +45,36 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
         boolean soMatches = true;
         if (soMatches && (nameRegexes != null)) {
             for (IRealRegex nameReg : nameRegexes) {
-                IMatcherWrapper mtWr = nameReg.getMatcherWrapper(searchObject.getSearchObjectName(), null, null);
-                if (!mtWr.matches()) {
+                IMatcherWrapper mtWr;
+                try {
+                    mtWr = nameReg.getMatcherWrapper(searchObject.getSearchObjectName(), null, null);
+                    if (!mtWr.matches()) {
+                        soMatches = false;
+                        break;
+                    }
+                } catch (IncorrectPatternException e) {
+                    log.error("Incorrect pattern for " + nameReg + ". An incorrect pattern canont match anything - the result is false", e);
                     soMatches = false;
                     break;
                 }
+
             }
         }
         if (soMatches && (groupRegexes != null)) {
             for (IRealRegex groupReg : groupRegexes) {
-                IMatcherWrapper mtWr = groupReg.getMatcherWrapper(searchObject.getSearchObjectGroup().getString(), null, null);
-                if (!mtWr.matches()) {
+                IMatcherWrapper mtWr;
+                try {
+                    mtWr = groupReg.getMatcherWrapper(searchObject.getSearchObjectGroup().getString(), null, null);
+                    if (!mtWr.matches()) {
+                        soMatches = false;
+                        break;
+                    }
+                } catch (IncorrectPatternException e) {
+                    log.error("Incorrect pattern for " + groupReg + ". An incorrect pattern canont match anything - the result is false", e);
                     soMatches = false;
                     break;
                 }
+
             }
         }
         if (soMatches && (tagsRegexes != null)) {
@@ -69,16 +86,22 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
                 }
                 for (Map.Entry<String, String> currTag : searchObject.getSearchObjectTags().entrySet()) {
                     //log.debug("Matching tags soName=" + searchObject.getSearchObjectName() + " tag=" + tagReg + " tagName=" + currTagname);
-                    IMatcherWrapper mtWrName = tagReg.getNameRegex().getMatcherWrapper(currTag.getKey(), null, null);
-                    if (mtWrName.matches()) {
-                        //log.debug("Matching tags soName=" + searchObject.getSearchObjectName() + " tag=" + tagReg + " tagName=" + currTagname + " MATCHES");
-                        IMatcherWrapper mtWrvalue = tagReg.getValueRegex().getMatcherWrapper(currTag.getValue(), null, null);
-                        if (mtWrvalue.matches()) {
-                            tagMatches = true;
-                            break;
-                        } else {
-                            tagMatches = false;
+                    try {
+                        IMatcherWrapper mtWrName = tagReg.getNameRegex().getMatcherWrapper(currTag.getKey(), null, null);
+                        if (mtWrName.matches()) {
+                            //log.debug("Matching tags soName=" + searchObject.getSearchObjectName() + " tag=" + tagReg + " tagName=" + currTagname + " MATCHES");
+                            IMatcherWrapper mtWrvalue = tagReg.getValueRegex().getMatcherWrapper(currTag.getValue(), null, null);
+                            if (mtWrvalue.matches()) {
+                                tagMatches = true;
+                                break;
+                            } else {
+                                tagMatches = false;
+                            }
                         }
+                    } catch (IncorrectPatternException ipe) {
+                        log.error("Incorrect pattern for tagref " + tagReg + ". An incorrect pattern canont match anything - the result is false", ipe);
+                        soMatches = false;
+                        break;
                     }
                 }
                 switch(tagReg.getType()) {
@@ -106,12 +129,12 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
 
     @Override
     public List<IDisplaySO> getSearchTreeItems(List<IKeyedSearchObject<? extends IKeyedSearchResult<?>, ? extends ISearchResultObject>> soList) {
-        List<IDisplaySO> resultList = new ArrayList<IDisplaySO>();
+        List<IDisplaySO> resultList = new ArrayList<>();
         for (IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject> searchObj : soList) {
             if (matchesSearchObject(searchObj)) {
                 IDisplaySO displaySearchObj = new DisplaySOImpl(searchObj.getSearchObjectName(), searchObj, false);
                 displaySearchObj.setTextViewName(getTextViewName());
-                displaySearchObj.setViewNamePatterns(new ArrayList<String>(getViewPatterns()));
+                displaySearchObj.setViewNamePatterns(new ArrayList<>(getViewNamePatterns()));
                 List<SortRequestKey> copyList = null;
                 if ((getSortRequestKeys() != null) && (!getSortRequestKeys().isEmpty())) {
                     copyList = new ArrayList<>();
@@ -188,8 +211,8 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
     }
 
     @Override
-    public List<String> getViewPatterns() {
-        return shortViewPatterns;
+    public List<String> getViewNamePatterns() {
+        return viewNamePatterns;
     }
 
     @Override
@@ -198,13 +221,13 @@ public class DisplaySOSelector extends DisplaySOTemplateAbstractImpl implements 
     }
 
     @Override
-    public void setViewPatterns(List<String> shortViewNames) {
-        this.shortViewPatterns = shortViewNames;
+    public void setViewNamePatterns(List<String> shortViewNames) {
+        this.viewNamePatterns = shortViewNames;
     }
 
     @Override
-    public void addViewPattern(String aViewName) {
-        shortViewPatterns.add(aViewName);
+    public void addViewNamePattern(String aViewName) {
+        viewNamePatterns.add(aViewName);
     }
 
     @Override

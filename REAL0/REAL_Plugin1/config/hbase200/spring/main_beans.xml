@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- This file should contain only imports. Other xml files should contain bean definitions -->
+    <import resource="logtypes_beans.xml"/>
+    <import resource="common_beans.xml"/>
+    <import resource="replaceableparams_beans.xml"/>
+    <import resource="gui_beans.xml"/>
+    <import resource="Master_beans.xml"/>
+    <import resource="RegionServer_beans.xml"/>
+    <import resource="Zookeeper_beans.xml"/>
+</beans>

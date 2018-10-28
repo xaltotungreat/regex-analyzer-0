@@ -60,11 +60,11 @@ public class ComplexRegexStageBuilder implements IStageTreeBuilder {
         IConveyorStage processRes;
         if (req.isSearchInCurrent()) {
             Predicate<IConveyorStage> complPred = (RequestInformationLevel.EXTENDED.equals(req.getInfoLevel()))?null
-                    :((stage) -> true);
+                    :(stage -> true);
             processRes = new ProcessResultCurrentStage(complPred);
         } else {
             Predicate<IConveyorStage> complPred = (RequestInformationLevel.EXTENDED.equals(req.getInfoLevel()))?null
-                    :((stage) -> true);
+                    :(stage -> true);
             processRes = new ProcessResultStage(req.isInstallGOSilently(), complPred);
         }
         IConveyorStage executionPoint = root.addChild(new CreateSearchInfoStage()).addChild(new ParamsDialogStage()).
@@ -82,7 +82,7 @@ public class ComplexRegexStageBuilder implements IStageTreeBuilder {
 
         if (RequestInformationLevel.EXTENDED.equals(req.getInfoLevel())) {
             afterResultPoint.addChild(new InstallOOIStage()).addChild(new InstallBookmarksStage()).
-                addChild(new SetPositionsStage((stage) -> true));
+                addChild(new SetPositionsStage(stage -> true));
         }
         return root;
     }

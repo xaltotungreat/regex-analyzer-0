@@ -20,10 +20,6 @@ public class LogFileTypeKey implements Comparable<LogFileTypeKey>, Cloneable {
         return logTypeName;
     }
 
-    public void setLogTypeName(String logTypeName) {
-        this.logTypeName = logTypeName;
-    }
-
     @Override
     public LogFileTypeKey clone() throws CloneNotSupportedException {
         return (LogFileTypeKey)super.clone();

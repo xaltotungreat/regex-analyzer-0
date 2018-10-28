@@ -42,7 +42,7 @@ public enum ConveyorMain {
     // this semaphore limits the number of concurrently running requests
     private Semaphore convSemaphore;
     // builder list
-    private List<StageBuilderSelection> orderedBuilderList = new ArrayList<StageBuilderSelection>();
+    private List<StageBuilderSelection> orderedBuilderList = new ArrayList<>();
 
     public static class StageBuilderSelection {
 
@@ -79,9 +79,9 @@ public enum ConveyorMain {
 
         // default stage builders
         orderedBuilderList.add(new StageBuilderSelection(new ComplexRegexStageBuilder(),
-                (req) -> SearchObjectType.COMPLEX_REGEX.equals(req.getDso().getSearchObject().getType())));
+                req -> SearchObjectType.COMPLEX_REGEX.equals(req.getDso().getSearchObject().getType())));
         orderedBuilderList.add(new StageBuilderSelection(new SearchScriptStageBuilder(),
-                (req) -> SearchObjectType.SEARCH_SCRIPT.equals(req.getDso().getSearchObject().getType())));
+                req -> SearchObjectType.SEARCH_SCRIPT.equals(req.getDso().getSearchObject().getType())));
 
         orderedBuilderList.sort((a, b) -> -a.getBuilder().getDetailLevel().compareTo(b.getBuilder().getDetailLevel()));
     }
@@ -159,8 +159,8 @@ public enum ConveyorMain {
         Optional<IStageTreeBuilder> result = Optional.empty();
         if (req != null) {
             result = orderedBuilderList.stream().
-                    filter((bldSel) -> bldSel.getDsoPredicate().test(req)).
-                    map((builderSel1) -> builderSel1.getBuilder()).
+                    filter(bldSel -> bldSel.getDsoPredicate().test(req)).
+                    map(builderSel1 -> builderSel1.getBuilder()).
                     findFirst();
         }
         return result;

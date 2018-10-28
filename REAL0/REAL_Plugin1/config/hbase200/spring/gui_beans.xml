@@ -1,0 +1,197 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Import common GUI beans -->
+	<import resource="common_gui_beans.xml"/>
+	<!-- GUI beans START -->
+	<bean id="templateGlobal" parent="templateComplexRegexDefault" scope="prototype">
+		<constructor-arg index="0" value="global"/>
+		<property name="selectorList">
+			<list>
+				<bean parent="selectorDefaultUserObject">
+					<constructor-arg index="0" value="global Default"/>
+					<constructor-arg index="2">
+						<list>
+							<bean parent="simpleRegexNoName">
+								<constructor-arg index="1" value="\AGlobal\Z" />
+							</bean>
+						</list>
+					</constructor-arg>
+					<property name="sortRequestKeys">
+						<list>
+							<bean parent="sortRequestKeyDefault">
+								<constructor-arg index="0" value="DATE_TIME"/>
+							</bean>
+							<bean parent="sortRequestKeyDefault">
+								<constructor-arg index="0" value="REGEX"/>
+							</bean>
+						</list>
+					</property>
+					<property name="viewNamePatterns">
+						<list>
+							<value>.*</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="templateMaster" parent="templateComplexRegexDefault" scope="prototype">
+		<constructor-arg index="0" value="Master"/>
+		<property name="selectorList">
+			<list>
+				<bean parent="selectorDefaultInterval">
+					<constructor-arg index="0" value="Master Intervals"/>
+					<constructor-arg index="2">
+						<list>
+							<bean parent="simpleRegexNoName">
+								<constructor-arg index="1" value="\AGlobal.Master(\..*)?" />
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean>
+				<bean parent="selectorDefaultDefault">
+					<constructor-arg index="0" value="Master Default"/>
+					<constructor-arg index="2">
+						<list>
+							<bean parent="simpleRegexNoName">
+								<constructor-arg index="1" value="\AGlobal.Master(\..*)?" />
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="templateRegionServer" parent="templateComplexRegexDefault" scope="prototype">
+		<constructor-arg index="0" value="RegionServer"/>
+		<property name="selectorList">
+			<list>
+				<bean parent="selectorDefaultInterval">
+					<constructor-arg index="0" value="RegionServer Intervals"/>
+					<constructor-arg index="2">
+						<list>
+							<bean parent="simpleRegexNoName">
+								<constructor-arg index="1" value="\AGlobal.RegionServer(\..*)?" />
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean>
+				<bean parent="selectorDefaultDefault">
+					<constructor-arg index="0" value="RegionServer Default"/>
+					<constructor-arg index="2">
+						<list>
+							<bean parent="simpleRegexNoName">
+								<constructor-arg index="1" value="\AGlobal.RegionServer(\..*)?" />
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="templateZookeeper" parent="templateComplexRegexDefault" scope="prototype">
+		<constructor-arg index="0" value="Zookeeper"/>
+		<property name="selectorList">
+			<list>
+				<bean parent="selectorDefaultInterval">
+					<constructor-arg index="0" value="Zookeeper Intervals"/>
+					<constructor-arg index="2">
+						<list>
+							<bean parent="simpleRegexNoName">
+								<constructor-arg index="1" value="\AGlobal.Zookeeper(\..*)?" />
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean>
+				<bean parent="selectorDefaultDefault">
+					<constructor-arg index="0" value="Zookeeper Default"/>
+					<constructor-arg index="2">
+						<list>
+							<bean parent="simpleRegexNoName">
+								<constructor-arg index="1" value="\AGlobal.Zookeeper(\..*)?" />
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="searchObjectTree" parent="searchObjectTreeNodeDefault">
+		<constructor-arg index="0">
+			<bean parent="rootDefault">
+				<constructor-arg index="0" value="Search Object Tree"/>
+				<constructor-arg index="1" value="true"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<list>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateGlobal"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<!-- This is an example of folders -->
+				<!-- <bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0">
+						<bean parent="folderDefault">
+							<constructor-arg index="0" value="test folder"/>
+							<constructor-arg index="1" value="true"/>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="1">
+						<list>
+							<bean parent="searchObjectTreeNodeDefault">
+								<constructor-arg index="0">
+									<bean parent="folderDefault">
+										<constructor-arg index="0" value="test folder 2"/>
+										<constructor-arg index="1" value="true"/>
+									</bean>
+								</constructor-arg>
+								<constructor-arg index="1">
+									<list>
+										<bean parent="searchObjectTreeNodeDefault">
+											<constructor-arg index="0" ref="templateMaster"/>
+											<constructor-arg index="1"><list/></constructor-arg>
+										</bean>
+									</list>
+								</constructor-arg>
+							</bean>
+						</list>
+					</constructor-arg>
+				</bean> -->
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateMaster"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateRegionServer"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+				<bean parent="searchObjectTreeNodeDefault">
+					<constructor-arg index="0" ref="templateZookeeper"/>
+					<constructor-arg index="1"><list/></constructor-arg>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+	<!-- The tree beans END -->
+	<!-- GUI beans END -->
+	
+	<!-- This object contains all GUI properties -->
+	<bean id="allGUIProperties" class="org.eclipselabs.real.core.config.spring.GUIPropertiesStore">
+		<constructor-arg index="0">
+			<list>
+				<bean parent="guiPropertyDefault">
+					<constructor-arg index="0" value="TextReadOnly"/>
+					<constructor-arg index="1" value="true"/>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+</beans>
+
+
+
+

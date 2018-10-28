@@ -1,14 +1,26 @@
 package org.eclipselabs.real.core.searchobject.script;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipselabs.real.core.logfile.LogFileControllerImpl;
+import org.eclipselabs.real.core.distrib.GenericError;
+import org.eclipselabs.real.core.distrib.IDistribRoot;
+import org.eclipselabs.real.core.distrib.IDistribTaskResultWrapper;
+import org.eclipselabs.real.core.dlog.DAccumulatorSearchResult;
+import org.eclipselabs.real.core.dlog.DBuilderSearch;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
+import org.eclipselabs.real.core.logfile.ILogFileAggregate;
+import org.eclipselabs.real.core.logfile.ILogFileAggregateRead;
+import org.eclipselabs.real.core.logfile.LogFileController;
 import org.eclipselabs.real.core.searchobject.IKeyedComplexSearchObject;
+import org.eclipselabs.real.core.searchobject.ISOComplexRegex;
 import org.eclipselabs.real.core.searchobject.ISOComplexRegexView;
 import org.eclipselabs.real.core.searchobject.PerformSearchRequest;
 import org.eclipselabs.real.core.searchresult.IKeyedComplexSearchResult;
@@ -18,6 +30,7 @@ import org.eclipselabs.real.core.searchresult.SearchResultUtil;
 import org.eclipselabs.real.core.searchresult.resultobject.IComplexSearchResultObject;
 import org.eclipselabs.real.core.searchresult.resultobject.ISROComplexRegexView;
 import org.eclipselabs.real.core.searchresult.sort.IInternalSortRequest;
+import org.eclipselabs.real.core.util.PerformanceUtils;
 
 /**
  * This is the container for a search object. This container is necessary for 2 reasons:
@@ -38,18 +51,12 @@ public class SOContainer {
     protected volatile ISRSearchScript scriptResult;
     protected volatile String logText;
 
-    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISRComplexRegexView, ISROComplexRegexView, String>,
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> containerSO, ISRSearchScript scrRes) {
+    public SOContainer(ISOComplexRegex containerSO, ISRSearchScript scrRes) {
         searchObject = containerSO;
         scriptResult = scrRes;
     }
 
-    public SOContainer(IKeyedComplexSearchObject<? extends IKeyedComplexSearchResult<? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISRComplexRegexView, ISROComplexRegexView, String>,
-            ? extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>,
-            ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String> containerSO, ISRSearchScript scrRes, String text) {
+    public SOContainer(ISOComplexRegex containerSO, ISRSearchScript scrRes, String text) {
         this(containerSO, scrRes);
         logText = text;
     }
@@ -68,7 +75,7 @@ public class SOContainer {
      * @return the {@link SRContainer} object that contains the result of the search.
      */
     public <R extends IKeyedComplexSearchResult<O, ISRComplexRegexView, ISROComplexRegexView, String>,
-                O extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>> SRContainer execute() {
+                O extends IComplexSearchResultObject<ISRComplexRegexView, ISROComplexRegexView, String>> SRContainer execute() throws IncorrectPatternException {
         SRContainer resultContainer = null;
         if (searchObject == null) {
             log.error("execute SO is null returning empty container");
@@ -80,7 +87,7 @@ public class SOContainer {
             = (IKeyedComplexSearchObject<R,O,ISOComplexRegexView, ISRComplexRegexView, ISROComplexRegexView, String>)searchObject;
 
         if (logText == null) {
-            if (!LogFileControllerImpl.INSTANCE.isLogFilesAvailable(searchObject.getRequiredLogTypes())) {
+            if (!LogFileController.INSTANCE.isLogFilesAvailable(searchObject.getRequiredLogTypes())) {
                 log.error("execute SO no log files available for this SO returning empty container");
                 resultContainer = new SRContainer(null, scriptResult);
                 return resultContainer;
@@ -90,10 +97,37 @@ public class SOContainer {
             scriptResult.getProgressMonitor().resetCompletedSOFiles();
             PerformSearchRequest req = new PerformSearchRequest(null, scriptResult.getProgressMonitor(), scriptResult.getCachedReplaceParams(),
                     scriptResult.getCachedReplaceTable(), scriptResult.getRegexFlags());
-            final CompletableFuture<? extends Map<String, R>> future =
-                        LogFileControllerImpl.INSTANCE.getLogAggregate(searchObject.getLogFileType()).submitSearch(paramSO, req);
+            ILogFileAggregateRead logAggr = LogFileController.INSTANCE.getLogAggregate(paramSO.getLogFileType());
+            // fill in the total number of files
+            req.getProgressMonitor().setTotalSOFiles(logAggr.getCount());
+            // create a distribution system for this search
+            DBuilderSearch<R> dBuilder = new DBuilderSearch<>(logAggr, paramSO, req);
+            int threadsNumber = PerformanceUtils.getIntProperty(ILogFileAggregate.PERF_CONST_SEARCH_THREADS, 2);
+            final IDistribRoot<R, DAccumulatorSearchResult<R>, List<IDistribTaskResultWrapper<R>>, GenericError> distribRoot = dBuilder.build(threadsNumber);
+
+             CompletableFuture<? extends Map<String, R>> future = distribRoot.execute().handleAsync((DAccumulatorSearchResult<R> accumResult, Throwable t) -> {
+                Map<String, R> oldMapResults = null;
+                if ((accumResult != null) && (!accumResult.getResult().isEmpty())) {
+                    /* for now convert the value to the old Map format.
+                     * If this is successful the old format will be replaced
+                     */
+                    try {
+                        distribRoot.close();
+                    } catch (Exception e) {
+                        log.error("Exception shutting down distribution root " + distribRoot, e);
+                    }
+                    AtomicInteger tempCounter = new AtomicInteger(0);
+                    String initValue = "oldFormat";
+                    oldMapResults = accumResult.getResult().stream().filter(tr -> tr.getActualResult() != null).collect(Collectors.toMap(
+                            (IDistribTaskResultWrapper<R> forKey) -> initValue + tempCounter.incrementAndGet(),
+                            (IDistribTaskResultWrapper<R> forValue) -> forValue.getActualResult()));
+
+                }
+                return oldMapResults;
+            });
+
             if (future == null) {
-                log.warn("execute search nu log files null result");
+                log.warn("execute search no log files null result");
                 resultContainer = new SRContainer(null, scriptResult);
             } else {
                 try {
@@ -114,12 +148,16 @@ public class SOContainer {
                         log.warn("execute search in log files no results returned");
                         resultContainer = new SRContainer(null, scriptResult);
                     }
-                } catch (InterruptedException | ExecutionException e) {
+                } catch (InterruptedException e) {
+                    log.error("", e);
+                    // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                    Thread.currentThread().interrupt();
+                } catch(ExecutionException e) {
                     log.error("execute ",e);
                 }
             }
         } else {
-            // if logText is not null it is a search in current
+            // if logText is not null it is a search in the current text
             // it means only one file for every search.
             // total SO Files are set to 1 in the search task no need to reset
             // before a new search reset the completed SO Files

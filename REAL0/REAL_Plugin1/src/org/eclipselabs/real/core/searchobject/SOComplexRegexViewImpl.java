@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.regex.IMatcherWrapper;
 import org.eclipselabs.real.core.regex.IRealRegex;
 import org.eclipselabs.real.core.searchresult.ISRComplexRegexView;
@@ -16,19 +17,19 @@ import org.eclipselabs.real.core.util.FindTextResult;
 
 public class SOComplexRegexViewImpl extends SearchObjectImpl<ISRComplexRegexView, ISROComplexRegexView> implements ISOComplexRegexView {
     private static final Logger log = LogManager.getLogger(SOComplexRegexViewImpl.class);
-    protected List<Object> viewObjects = new ArrayList<Object>();
-    
+    protected List<Object> viewObjects = new ArrayList<>();
+
     public SOComplexRegexViewImpl(String aName) {
         super(SearchObjectType.COMPLEX_REGEX_VIEW, aName);
     }
-    
+
     @Override
     public void add(Object viewObject) {
         viewObjects.add(viewObject);
     }
 
     @Override
-    public ISRComplexRegexView performSearch(PerformSearchRequest request) {
+    public ISRComplexRegexView performSearch(PerformSearchRequest request) throws IncorrectPatternException {
         // do not calculate the replace table the parent SO will pass it in the request getCustomReplaceTable()
         Integer finalRegexFlags = regexFlags;
         if (request.getCustomRegexFlags() != null) {
@@ -57,8 +58,8 @@ public class SOComplexRegexViewImpl extends SearchObjectImpl<ISRComplexRegexView
                                 endPos = foundStr.getEndPos();
                             }
                         }
-                    } catch (Throwable e) {
-                        log.error("Caught exception last statement found " + lastFound 
+                    } catch (IncorrectPatternException e) {
+                        log.error("Caught exception last statement found " + lastFound
                                 + " regex searched " + ((IRealRegex)viewObj).getPatternString(request.getDynamicReplaceParams()), e);
                         throw e;
                     }
@@ -67,7 +68,7 @@ public class SOComplexRegexViewImpl extends SearchObjectImpl<ISRComplexRegexView
         } else {
             log.warn("performSearch viewObjects is null");
         }
-        List<ISROComplexRegexView> sroList = new ArrayList<ISROComplexRegexView>();
+        List<ISROComplexRegexView> sroList = new ArrayList<>();
         sroList.add(new SROComplexRegexViewImpl(sbRes.toString(), startPos, endPos));
         return new SRComplexRegexViewImpl(getSearchObjectName(), request.getDynamicReplaceParams(), sroList);
     }
@@ -79,7 +80,7 @@ public class SOComplexRegexViewImpl extends SearchObjectImpl<ISRComplexRegexView
                 tmpRegex = tmpRegex.replace(currEntry.getKey(), currEntry.getValue());
             }
         }
-        return tmpRegex; 
+        return tmpRegex;
     }
 
     @Override
@@ -96,7 +97,7 @@ public class SOComplexRegexViewImpl extends SearchObjectImpl<ISRComplexRegexView
     public ISearchObject<ISRComplexRegexView, ISROComplexRegexView> clone() throws CloneNotSupportedException {
         SOComplexRegexViewImpl cloneObj = (SOComplexRegexViewImpl)super.clone();
         if (viewObjects != null) {
-            List<Object> newViewObjects = new ArrayList<Object>();
+            List<Object> newViewObjects = new ArrayList<>();
             for (Object viewObj : viewObjects) {
                 if (viewObj instanceof String) {
                     newViewObjects.add(viewObj);

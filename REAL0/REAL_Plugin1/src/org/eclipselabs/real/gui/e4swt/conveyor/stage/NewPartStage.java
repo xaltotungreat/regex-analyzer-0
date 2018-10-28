@@ -66,8 +66,6 @@ public class NewPartStage extends ConveyorStageBase {
             public void run() {
                 req.getSearchTabsStack().getChildren().add(newSR);
                 req.getPartService().showPart(newSR, PartState.ACTIVATE);
-                /*((GUISearchResult)newSR.getObject()).beginNewViewResult(params.getSearchID(),
-                        req.getDso().getSearchObject().getSearchObjectName(), tabTooltip.toString());*/
             }
         });
         return CompletableFuture.completedFuture(null);

@@ -70,8 +70,8 @@ public interface ISearchResult<O extends ISearchResultObject> extends Cloneable 
     public Integer getRegexFlags();
     public void setRegexFlags(Integer newFlags);
 
-    public ISearchObjectDateInfo getDateInfo();
-    public void setDateInfo(ISearchObjectDateInfo dateInfo);
+    public List<ISearchObjectDateInfo> getDateInfos();
+    public void setDateInfos(List<ISearchObjectDateInfo> dateInfo);
 
     public List<String> getTextList();
     public String getTextConcat();
@@ -80,9 +80,9 @@ public interface ISearchResult<O extends ISearchResultObject> extends Cloneable 
 
     public <M extends ISearchResult<X>, X extends O> void merge(List<M> mergeList);
     public <M extends ISearchResult<X>, X extends O> void merge(List<M> mergeList, IInternalSortRequest mergeComp);
-    //public <M extends ISearchResult<X>, X extends O> void merge(M mergeObj);
+
     public <M extends ISearchResult<O>> void merge(M mergeObj);
-    //public <M extends ISearchResult<X>, X extends O> void merge(M mergeObj, IInternalSortRequest mergeComp);
+
     public <M extends ISearchResult<O>> void merge(M mergeObj, IInternalSortRequest mergeComp);
     public void mergeSRO(List<? extends O> sroList, IInternalSortRequest mergeReq);
 

@@ -5,16 +5,17 @@ public abstract class RealRegexParamImpl<T> implements IRealRegexParam<T> {
     protected RealRegexParamType type;
     protected String name;
     protected T value;
-    
+
     RealRegexParamImpl(RealRegexParamType aType) {
         type = aType;
     }
-    
+
     RealRegexParamImpl(RealRegexParamType aType, String aName, T aValue) {
+        this(aType);
         name = aName;
         value = aValue;
     }
-    
+
     protected void init(String aName, T aValue) {
         name = aName;
         value = aValue;
@@ -84,6 +85,6 @@ public abstract class RealRegexParamImpl<T> implements IRealRegexParam<T> {
         return "RealRegexParamImpl [type=" + type + ", name=" + name + ", value=" + value + "]";
     }
 
-    
+
 
 }

@@ -25,7 +25,10 @@ public class GUIUpdater implements Runnable {
     private IStatusFormatter statusFormatter;
 
     public interface IStatusFormatter {
-        public void updateStatus(GUISearchResult partSRObj, ISearchProgressMonitor searchMonitor, String searchID);
+        void updateStatus(GUISearchResult partSRObj, ISearchProgressMonitor searchMonitor, String searchID);
+        default void setErrorStatus(GUISearchResult partSRObj, String searchID, String errorMsg) {
+            partSRObj.setErrorStatus(searchID, errorMsg);
+        }
     }
 
     public static class StatusFormatter implements IStatusFormatter {
@@ -35,6 +38,11 @@ public class GUIUpdater implements Runnable {
             partSRObj.setSearchStatus(searchID, "Searched files " + searchMonitor.getCompletedSOFiles()
                     + "/" + searchMonitor.getTotalSOFiles() + " Found objects " + searchMonitor.getObjectsFound(),
                     searchMonitor.getCompletedSOFiles(), searchMonitor.getTotalSOFiles());
+        }
+
+        @Override
+        public void setErrorStatus(GUISearchResult partSRObj, String searchID, String errorMsg) {
+            partSRObj.setErrorStatus(searchID, errorMsg);
         }
     }
 
@@ -54,11 +62,12 @@ public class GUIUpdater implements Runnable {
     public void run() {
         try {
             Thread.sleep(sleepInterval);
-        } catch (InterruptedException e1) {
-            log.error("UI update error", e1);
+        } catch (InterruptedException e) {
+            log.error("UI update error", e);
+            // Restore interrupted state in accordance with the Sonar rule squid:S2142
+            Thread.currentThread().interrupt();
         }
         final GUISearchResult partSRObj = (GUISearchResult) prodContext.getSearchPart().getObject();
-        //statusFormatter.setSearchMonitor(prodContext.getSearchRequest().getProgressMonitor());
         while ((!prodContext.isComplete()) && (prodContext.isProceed())
                     && (!SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState()))
                     && (partSRObj.isSearchTabAvailable(prodContext.getSearchID()))) {
@@ -74,19 +83,32 @@ public class GUIUpdater implements Runnable {
                 Thread.sleep(sleepInterval);
             } catch (InterruptedException e) {
                 log.error("UI update error", e);
+                // Restore interrupted state in accordance with the Sonar rule squid:S2142
+                Thread.currentThread().interrupt();
             }
         }
         if ((!SearchResultActiveState.DISPOSED.equals(partSRObj.getMainSearchState()))
                 && (partSRObj.isSearchTabAvailable(prodContext.getSearchID()))) {
-            uiSynch.syncExec(new Runnable() {
+            if (prodContext.getAbortMessage() == null) {
+                uiSynch.syncExec(new Runnable() {
 
-                @Override
-                public void run() {
-                    statusFormatter.updateStatus(partSRObj, prodContext.getSearchRequest().getProgressMonitor(),
-                            prodContext.getSearchID());
-                    partSRObj.stopProgress(prodContext.getSearchID());
-                }
-            });
+                    @Override
+                    public void run() {
+                        statusFormatter.updateStatus(partSRObj, prodContext.getSearchRequest().getProgressMonitor(),
+                                prodContext.getSearchID());
+                        partSRObj.stopProgress(prodContext.getSearchID());
+                    }
+                });
+            } else {
+                uiSynch.syncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        statusFormatter.setErrorStatus(partSRObj, prodContext.getSearchID(),
+                                prodContext.getAbortMessage());
+                    }
+                });
+            }
         }
         future.complete(null);
 

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
@@ -16,11 +17,11 @@ public abstract class AcceptanceCriterionImpl implements IAcceptanceCriterion {
     protected Set<AcceptanceCriterionStage> stages = new HashSet<>();
     protected Boolean accumulating = false;
     protected List<IAcceptanceGuess> guessList = Collections.synchronizedList(new ArrayList<IAcceptanceGuess>());
-    
+
     public AcceptanceCriterionImpl(AcceptanceCriterionType aType, AcceptanceCriterionStage...st) {
         this(aType, null, st);
     }
-    
+
     public AcceptanceCriterionImpl(AcceptanceCriterionType aType, String newName, AcceptanceCriterionStage...st) {
         type = aType;
         if (st != null) {
@@ -30,7 +31,7 @@ public abstract class AcceptanceCriterionImpl implements IAcceptanceCriterion {
     }
 
     @Override
-    public List<AcceptanceGuessResult> getGuessResults(String logText, ISearchResult<? extends ISearchResultObject> sr) {
+    public List<AcceptanceGuessResult> getGuessResults(String logText, ISearchResult<? extends ISearchResultObject> sr) throws IncorrectPatternException {
         List<AcceptanceGuessResult> results = null;
         if (guessList != null) {
             init(sr);
@@ -97,7 +98,7 @@ public abstract class AcceptanceCriterionImpl implements IAcceptanceCriterion {
             newGuess.setAcceptanceCriterion(this);
         }
     }
-    
+
     @Override
     public void addGuesses(List<IAcceptanceGuess> newGuesses) {
         if ((guessList != null) && (newGuesses != null)) {
@@ -106,6 +107,11 @@ public abstract class AcceptanceCriterionImpl implements IAcceptanceCriterion {
                 guessList.add(ag);
             }
         }
+    }
+
+    @Override
+    public void updateCriterionReferences() {
+        guessList.stream().forEach(g -> g.setAcceptanceCriterion(this));
     }
 
     @Override

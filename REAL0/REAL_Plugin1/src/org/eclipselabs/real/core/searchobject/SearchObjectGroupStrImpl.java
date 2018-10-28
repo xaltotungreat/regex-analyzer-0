@@ -14,12 +14,12 @@ public class SearchObjectGroupStrImpl implements ISearchObjectGroup<String> {
     public SearchObjectGroupStrImpl() {
     }
 
-    public SearchObjectGroupStrImpl(String rootElem) {
-        parseAndSet(rootElem);
+    public SearchObjectGroupStrImpl(String groupAsString) {
+        parseAndSet(groupAsString);
     }
 
-    public SearchObjectGroupStrImpl(String rootElem, String delim) {
-        parseAndSet(rootElem, delim);
+    public SearchObjectGroupStrImpl(String groupsAsString, String delim) {
+        parseAndSet(groupsAsString, delim);
     }
 
     @Override
@@ -156,7 +156,11 @@ public class SearchObjectGroupStrImpl implements ISearchObjectGroup<String> {
         return this;
     }
 
-    protected void setPathElements(List<String> newElemList) {
+    public List<String> getPathElements() {
+        return pathElements;
+    }
+
+    public void setPathElements(List<String> newElemList) {
         pathElements = newElemList;
     }
 

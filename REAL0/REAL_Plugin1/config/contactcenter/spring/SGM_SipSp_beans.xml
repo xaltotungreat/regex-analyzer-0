@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- SGM_SipSp BEANS START -->
+
+	<!-- Commonly used SGM_SipSp beans START -->
+	<!-- This section must not contain any actually instantiated singleton beans, only abstract beans or prototypes. -->
+	<!-- the group bean -->
+	<bean id="groupSGM_SipSp" parent="groupDefault" scope="prototype">
+		<constructor-arg index="0" value="Global.SGM_SipSp"/>
+	</bean>
+	<!-- The parent of all SGM_SipSp complex regexes -->
+	<bean id="searchObjectParentSGM_SipSp" parent="searchObjectParent" abstract="true">
+		<property name="searchObjectGroup" ref="groupSGM_SipSp"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="requiredLogTypes">
+			<set>
+				<value>SGM_SipSp</value>
+			</set>
+		</property>
+		<property name="sortRequestList">
+			<list>
+				<ref bean="sortRequestDateTime"/>
+				<ref bean="sortRequestRegexSGM_SipSp"/>
+			</list>
+		</property>
+		<property name="dateInfos">
+			<list>
+				<ref bean="dateInfoSGM_SipSp"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- the regex sort request bean -->
+	<bean id="sortRequestRegexSGM_SipSp" class="org.eclipselabs.real.core.searchresult.sort.RegexSortRequest" scope="prototype">
+		<constructor-arg index="0" value="MERGE_RESULTS" />
+		<constructor-arg index="1">
+			<list>
+				<bean parent="simpleRegexFirst" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX" />
+				</bean>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" value="Regex_Time" />
+	</bean>
+	<!-- the date info bean -->
+	<bean id="dateInfoSGM_SipSp" class="org.eclipselabs.real.core.searchobject.SearchObjectDateInfoImpl" scope="prototype">
+		<constructor-arg index="0" value="SGM_SIPSP_TIME_FORMAT" />
+		<constructor-arg index="1">
+			<bean parent="simpleRegexFirst" >
+				<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	<bean id="regexFirstRecordSGM_SipSp" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="FirstRecord" />
+		<constructor-arg index="1" value="\ASGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+	</bean>
+	<bean id="regexLastRecordSGM_SipSp" class="org.eclipselabs.real.core.regex.SimpleRegexImpl" scope="prototype">
+		<constructor-arg index="0" value="LastRecord" />
+		<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*\Z" />
+	</bean>
+	<bean id="guessIntervalSGM_SipSp" class="org.eclipselabs.real.core.searchobject.crit.DTIntervalGuessImpl" scope="prototype">
+		<constructor-arg index="0" value="IntervalGuess"></constructor-arg>
+		<property name="firstRecord">
+			<ref bean="regexFirstRecordSGM_SipSp"></ref>
+		</property>
+		<property name="lastRecord">
+			<ref bean="regexLastRecordSGM_SipSp"></ref>
+		</property>
+	</bean>
+	<bean id="searchObjectViewTimeSGM_SipSp" parent="searchObjectViewParent" scope="prototype">
+		<constructor-arg index="0" value="Time"/>
+		<property name="viewObjects">
+			<list>
+				<bean parent="simpleRegexFirst">
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Commonly used SGM_SipSp beans END -->
+	<!-- Normal SGM_SipSp beans START -->
+	<bean id="!I:LogInterval SGM_SipSp All" parent="searchObjectParentCMF_OAM32">
+		<constructor-arg index="0" value="!I:LogInterval SGM_SipSp All"/>
+		<property name="searchObjectDescription" value="Finds all records" />
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Interval" value="TRUE" />
+			</map>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="!I:LogInterval SGM_SipSp" parent="!I:LogInterval SGM_SipSp All">
+		<constructor-arg index="0" value="!I:LogInterval SGM_SipSp"/>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalSGM_SipSp"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="Internal ANY RECORD Containing value SGM_SipSp"  parent="searchObjectParentSGM_SipSp">
+		<constructor-arg index="0" value="Internal ANY RECORD Containing value SGM_SipSp"/>
+		<property name="searchObjectTags">
+			<map merge="true">
+				<entry key="Role" value="internal" />
+				<entry key="Function" value="any record" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<ref bean="paramStringValue"/>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexCaseInsensitive" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX((?!((.*?VALUE)|(SGM_SIPSP_TIME_REGEX))).*\r?\n)*(?!(SGM_SIPSP_TIME_REGEX)).*?VALUE((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipSp"/>
+				<entry key="Thread">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Thread"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[))\S.*?(?=(\]))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="LogLevel">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="LogLevel"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}))[^\s]+(?=(\s{1,10}))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Class">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Class"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,30}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{0,40}\.))[\w$]+(?=(\s{1,10}-)))|((?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,30}\]\s{1,10}\S{1,7}\s{1,10}))[\w$]+(?=(\s{1,10}-)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="FirstLineMsg">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="FirstLineMsg"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(?&lt;=(SGM_SIPSP_TIME_REGEX\s{1,10}\[\S.{1,40}\]\s{1,10}\S{1,7}\s{1,10}[\w$\.]{1,40}\s{1,10}-\s{1,10}))\S.*" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>Thread</value>
+				<value>LogLevel</value>
+				<value>Class</value>
+				<value>FirstLineMsg</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="SGM_SipSp Value Within Interval"  parent="Internal ANY RECORD Containing value CMF_OAM32">
+		<constructor-arg index="0" value="SGM_SipSp Value Within Interval"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list merge="true">
+				<ref bean="paramDateLowBound"/>
+				<ref bean="paramDateHighBound"/>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptInterval">
+					<property name="guessList">
+						<list>
+							<ref bean="guessIntervalSGM_SipSp"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="SGM_SipSp ANY RECORD Containing value"  parent="Internal ANY RECORD Containing value SGM_SipSp">
+		<constructor-arg index="0" value="SGM_SipSp ANY RECORD Containing value"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+	</bean>
+	<bean id="!L:Files Timespan SGM_SipSp"  parent="searchObjectParentSGM_SipSp">
+		<constructor-arg index="0" value="!L:Files Timespan CMF_OAM32"/>
+		<property name="mainRegexList">
+			<list>
+				<ref bean="regexFirstRecordSGM_SipSp"/>
+				<ref bean="regexLastRecordSGM_SipSp"/>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipSp"/>
+			</map>
+		</property>
+	</bean>
+	<bean id="SGM_SipSp start important"  parent="searchObjectParentSGM_SipSp">
+		<constructor-arg index="0" value="SGM_SipSp start important"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SipGatewayManager - main\(\) System architecture((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SGMPropertyManager - logPropert(y|(ies))\(\).*?SERVER_DOMAIN((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SGMPropertyManager - logPropert(y|(ies))\(\).*?SERVER_IP((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SGMPropertyManager - logPropert(y|(ies))\(\).*?OUTBOUND_PROXY_IP((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SGMPropertyManager - logPropert(y|(ies))\(\).*?CtiProxyIP((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SipResolverImpl - addTransport\(.*?\)\(\) TCP((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipSp"/>
+				<entry key="Type">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Type"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="(logPropert(y|(ies)))|(addTransport)" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Name">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Name"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(logPropert(y|(ies))\(\)\s?)).*?(?=(=)))|((?&lt;=(addTransport\()).*?(?=(\))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Value">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Value"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(=)).*?(?=(\r?\n)))|((?&lt;=(--&gt; )).*?(?=(\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="SGM_SipSp start properties"  parent="searchObjectParentSGM_SipSp">
+		<constructor-arg index="0" value="SGM_SipSp start properties"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SipGatewayManager - main\(\) System architecture((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*SGMPropertyManager - logPropert(y|(ies))\(\)((?!(SGM_SIPSP_TIME_REGEX)).*\r?\n)*" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipSp"/>
+				<entry key="Name">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Name"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(logPropert(y|(ies))\(\)\s?)).*?(?=(=)))|((?&lt;=(addTransport\()).*?(?=(\))))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Value">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Value"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(=)).*?(?=(\r?\n)))|((?&lt;=(--&gt; )).*?(?=(\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	<bean id="SGM_SipSp Errors Exceptions"  parent="Internal ANY RECORD Containing value SGM_SipSp">
+		<constructor-arg index="0" value="SGM_SipSp Errors Exceptions"/>
+		<property name="searchObjectTags">
+			<map>
+				<entry key="Role" value="User Object" />
+			</map>
+		</property>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="4" value="((Error)|(Exception))"/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_1"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_2"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="NOT_CONTAINS_3"></constructor-arg>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="4" value=""/>
+				</bean>
+			</list>
+		</property>
+		<property name="acceptanceList">
+			<list>
+				<bean parent="acceptRegex">
+					<constructor-arg index="0" value="NOT_FIND"/>
+					<constructor-arg index="1" value="Not an error"/>
+					<property name="acceptanceRegexList">
+						<list>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="((SipTransactionManager - removeTransaction\(\) Cannot find)|(SipCallLeg - setTransactionState\(\) cannot find transaction.*state= STATE_TERMINATED))" />
+							</bean>
+							<bean parent="simpleRegexCaseInsensitive" >
+								<constructor-arg index="1" value="InvalidStateException.*Capabilities for.*false.*((Connection State)|(Terminal Connection State))" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+				<bean parent="acceptRegex">
+					<constructor-arg index="0" value="NOT_FIND_NULLABLE"/>
+					<constructor-arg index="1" value="Not Contains"/>
+					<property name="acceptanceRegexList">
+						<list>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_1" />
+							</bean>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_2" />
+							</bean>
+							<bean parent="simpleRegexNoName" >
+								<constructor-arg index="1" value="NOT_CONTAINS_3" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="BbuaConnection"  parent="searchObjectParentSGM_SipSp">
+		<constructor-arg index="0" value="BbuaConnection"/>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="BBUA_CONNECTION_ID"/>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="2" value="Value to find"/>
+				</bean>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*?((BbuaConnection - &lt;init\d&gt;.*BBUA_CONNECTION_ID.*\r?\n)|(BbuaConnection - &lt;&lt;constructor&gt;&gt;\s+\[BbuaConn:BBUA_CONNECTION_ID.*\r?\n)|(BbuaConnection - setState\(\)(?!(\s*Done\(\))).*BBUA_CONNECTION_ID.*\r?\n))" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipSp"/>
+				<entry key="BBUA Connection ID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="BBUA Connection ID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(BbuaConn:)).*?(?=( \[BbuaAddr)))|((?&lt;=([Bb][Bb].{2,12}(?&lt;!(sip)):)).*?(?=((, )|(\[))|(\]\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="BBUA Address">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="BBUA Address"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(BbuaAddr=sip:)).*?(?=(\])))|((?&lt;=(, )).*?(?=(\])))|((?&lt;=([Bb][Bb]Addr=sip:)).*?(?=(\])))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Change">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Change"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(STATE_)).*?(?=( RC=)))|((?&lt;=(\w\] )).*?(?=(( [Rr][Cc]=.*)?\] to )))" />
+								</bean>
+								<bean class="java.lang.String">
+									<constructor-arg index="0" value="-&gt;"/>
+								</bean>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(to STATE_)).*?(?=( with)))|((?&lt;=( to )).*?(?=( w/)))|(init)" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Reason Code">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Reason Code"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(((with)? ((ReasonCode)|(RC))) )).*?(?=((\(\))|(\r?\n))))|((?&lt;=(w/ [Rr][Cc]=)).*?(?=(\r?\n)))|((?&lt;=([Rr][Cc]=)).*?(?=(\]\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ConnType">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ConnType"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(\[))B[bB].*?(?=(:)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>BBUA Connection ID</value>
+				<value>BBUA Address</value>
+				<value>Change</value>
+				<value>Reason Code</value>
+				<value>ConnType</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="Bbua_AllCSTA"  parent="searchObjectParentSGM_SipSp">
+		<constructor-arg index="0" value="Bbua_AllCSTA"/>
+		<property name="replaceableParams">
+			<list>
+				<bean parent="paramStringValue">
+					<constructor-arg index="1">
+						<bean parent="replaceableParamKeyDefault">
+							<constructor-arg index="0" value="BBUA_CONNECTION_ID"/>
+						</bean>
+					</constructor-arg>
+					<constructor-arg index="2" value="Value to find"/>
+				</bean>
+			</list>
+		</property>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="0" value="Bbua connections"/>
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*?((BbuaConnection - &lt;init\d&gt;.*BBUA_CONNECTION_ID.*\r?\n)|(BbuaConnection - &lt;&lt;constructor&gt;&gt;\s+\[BbuaConn:BBUA_CONNECTION_ID.*\r?\n)|(BbuaConnection - setState\(\)(?!(\s*Done\(\))).*BBUA_CONNECTION_ID.*\r?\n))" />
+				</bean>
+				<bean parent="simpleRegexNoName" >
+					<constructor-arg index="0" value="CSTA connections"/>
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*?((CstaConnection - &lt;init&gt;\(\))|(CstaConnection - setState\(\))).*\r?\n" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipSp"/>
+				<entry key="BBUA Connection ID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="BBUA Connection ID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(BbuaConn:)).*?(?=( \[BbuaAddr)))|((?&lt;=([Bb][Bb].{2,12}(?&lt;!(sip)):)).*?(?=((, )|(\[))|(\]\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="BBUA Address">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="BBUA Address"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(BbuaAddr=sip:)).*?(?=(\])))|((?&lt;=(, )).*?(?=(\])))|((?&lt;=([Bb][Bb]Addr=sip:)).*?(?=(\])))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Change">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Change"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(STATE_)).*?(?=( RC=)))|((?&lt;=(\w\] )).*?(?=(( [Rr][Cc]=.*)?\] to )))" />
+								</bean>
+								<bean class="java.lang.String">
+									<constructor-arg index="0" value="-&gt;"/>
+								</bean>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="((?&lt;=(to STATE_)).*?(?=( with)))|((?&lt;=( to )).*?(?=( w/)))|(init)" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="Reason Code">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="Reason Code"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(((with)? ((ReasonCode)|(RC))) )).*?(?=((\(\))|(\r?\n))))|((?&lt;=(w/ [Rr][Cc]=)).*?(?=(\r?\n)))|((?&lt;=([Rr][Cc]=)).*?(?=(\]\r?\n)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="ConnType">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="ConnType"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexFirst">
+									<constructor-arg index="1" value="((?&lt;=(\[))B[bB].*?(?=(:)))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>BBUA Connection ID</value>
+				<value>BBUA Address</value>
+				<value>Change</value>
+				<value>Reason Code</value>
+				<value>ConnType</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="BbuaContact Create All"  parent="searchObjectParentSGM_SipSp">
+		<constructor-arg index="0" value="BbuaContact Create All"/>
+		<property name="mainRegexList">
+			<list>
+				<bean parent="simpleRegexCaseInsensitive" >
+					<constructor-arg index="1" value="SGM_SIPSP_TIME_REGEX.*?BbuaContact - (BbuaContact\(\) )?&lt;init&gt;(?!(.*[Dd]one)).*\r?\n" />
+				</bean>
+			</list>
+		</property>
+		<property name="viewMap">
+			<map>
+				<entry key="Time" value-ref="searchObjectViewTimeSGM_SipSp"/>
+				<entry key="BBUA Contact ID">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="BBUA Contact ID"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(\[)).*?(?=((-S)|(\s+\])))" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+				<entry key="State">
+					<bean parent="searchObjectViewParent">
+						<constructor-arg index="0" value="BBUA Address"/>
+						<property name="viewObjects">
+							<list>
+								<bean parent="simpleRegexNoName">
+									<constructor-arg index="1" value="(?&lt;=(&lt;))init(?=(&gt;))(&gt; [Dd]one)?" />
+								</bean>
+							</list>
+						</property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="viewOrder">
+			<list>
+				<value>Time</value>
+				<value>BBUA Contact ID</value>
+				<value>State</value>
+			</list>
+		</property>
+	</bean>
+	<!-- Normal SGM_SipSp beans END -->
+</beans>

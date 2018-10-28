@@ -4,7 +4,8 @@ import org.eclipselabs.real.core.searchresult.IKeyedSearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 import org.eclipselabs.real.core.util.IKeyedObjectRepository;
 
-public interface ISearchObjectRepository extends IKeyedObjectRepository<SearchObjectKey, 
+public interface ISearchObjectRepository extends IKeyedObjectRepository<SearchObjectKey,
+            IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>,
             IKeyedSearchObject<? extends IKeyedSearchResult<?>,? extends ISearchResultObject>>{
 
 }

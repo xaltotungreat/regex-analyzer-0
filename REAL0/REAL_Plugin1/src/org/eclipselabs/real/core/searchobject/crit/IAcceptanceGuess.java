@@ -1,5 +1,6 @@
 package org.eclipselabs.real.core.searchobject.crit;
 
+import org.eclipselabs.real.core.exception.IncorrectPatternException;
 import org.eclipselabs.real.core.searchresult.ISearchResult;
 import org.eclipselabs.real.core.searchresult.resultobject.ISearchResultObject;
 
@@ -48,7 +49,7 @@ public interface IAcceptanceGuess extends Cloneable {
      * @return the guess result which contains the results
      */
     public AcceptanceGuessResult getGuessResult(String logText,
-            ISearchResult<? extends ISearchResultObject> sr);
+            ISearchResult<? extends ISearchResultObject> sr) throws IncorrectPatternException;
 
     /**
      * Clones this acceptance guess

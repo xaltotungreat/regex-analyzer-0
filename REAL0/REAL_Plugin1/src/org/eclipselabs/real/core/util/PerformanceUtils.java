@@ -20,4 +20,17 @@ public class PerformanceUtils {
         }
         return result;
     }
+
+    public static double getDoubleProperty(String propertyKey, double defaultValue) {
+        double result = defaultValue;
+        if (System.getProperty(propertyKey) != null) {
+            try {
+                result = Double.parseDouble(System.getProperty(propertyKey));
+            } catch (NumberFormatException nfe) {
+                log.error("getIntProperty incorrect int value " + System.getProperty(propertyKey)
+                        + " use default " + defaultValue);
+            }
+        }
+        return result;
+    }
 }

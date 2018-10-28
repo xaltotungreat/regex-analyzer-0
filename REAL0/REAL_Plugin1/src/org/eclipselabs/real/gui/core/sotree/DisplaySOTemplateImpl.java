@@ -87,7 +87,7 @@ public class DisplaySOTemplateImpl extends DisplaySOTemplateAbstractImpl impleme
                     IDisplaySOSelector currSelector = (IDisplaySOSelector)currTemplate;
                     res = new DisplaySOImpl(searchObj.getSearchObjectName(), searchObj, false);
                     res.setTextViewName(currSelector.getTextViewName());
-                    res.setViewNamePatterns(new ArrayList<String>(currSelector.getViewPatterns()));
+                    res.setViewNamePatterns(new ArrayList<String>(currSelector.getViewNamePatterns()));
                     res.setDisplayName(searchObj.getSearchObjectName());
                     break;
                 }
