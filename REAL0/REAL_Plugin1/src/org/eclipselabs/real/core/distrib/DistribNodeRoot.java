@@ -188,8 +188,10 @@ class DistribNodeRoot<R,A extends IDistribAccumulator<R,F,E>,F,E> implements IDi
                     log.debug("execute Time submitting tasks " + (afterSubmitTime - recorder.getTime(OperationRecorder.AFTER_LOCK))/1000);
                     try {
                         if (executionTimeout != null) {
+                            log.debug("Execute timeout " + executionTimeout);
                             ftNodes.get(executionTimeout.getTimeout(), executionTimeout.getTimeUnit());
                         } else {
+                            log.debug("Execution no timeout");
                             ftNodes.get();
                         }
                     } catch (InterruptedException e) {

@@ -43,6 +43,7 @@ public class DTaskLogFileSearch<R extends ISearchResult<?>> implements IDistribT
                 throw new IncorrectPatternExceptionRT(taskLogFile.getFilePath(), e);
             }
             searchRequest.getProgressMonitor().incrementCompletedSOFiles();
+            searchRequest.setText(null);
         } else {
             log.debug("LogFileSearchTask canceled LogFile " + taskLogFile);
             result.putNVP("canceled", true);
