@@ -907,7 +907,7 @@
 							<regexLine>\ACMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*</regexLine>
 						</regex>
 						<regex name="LastRegex">
-							<regexLine>CMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*\Z</regexLine>
+							<regexLine>CMF_OAM_TIME_REGEX((?!(CMF_OAM_TIME_REGEX)).*\r?\n)*\s*\Z</regexLine>
 						</regex>
 					</regexes>
 					<sortRequests>
