@@ -9,7 +9,7 @@
    <launcherArgs>
       <programArgs>-clearPersistedState
       </programArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=10 -Dlog4j.configurationFile=config/log4j2.xml -Dvisualvm.display.name=REAL -Dreal.config.product=hbase200
+      <vmArgs>-Dosgi.requiredJavaVersion=10 -Dlog4j.configurationFile=config/log4j2.xml -Dvisualvm.display.name=REAL -Dreal.config.product=hbase200 -XX:MaxHeapFreeRatio=40 -XX:GCTimeRatio=2
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
@@ -27,7 +27,8 @@
    </launcher>
 
    <vm>
-      <linux include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</linux>
+      <linux include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10</linux>
+      <macos include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10</macos>
       <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-10</windows>
    </vm>
 
