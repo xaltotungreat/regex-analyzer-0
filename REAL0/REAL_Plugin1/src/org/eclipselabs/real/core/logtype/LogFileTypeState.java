@@ -57,4 +57,9 @@ public class LogFileTypeState {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "LogFileTypeState [enabled=" + enabled + ", available=" + available + "]";
+    }
 }
